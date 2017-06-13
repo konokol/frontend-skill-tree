@@ -1,12 +1,12 @@
 #### Activity异常情况下的生命周期
 
-&#8195;&#8195;onStop()之前调用onSaveInstate()保存数据，在onCreate之后调用onRestoreInstanceState(Bundle)恢复数据，委托Window以及上层的View保存数据</br>
+&#8195;&#8195;onStop()之前调用onSaveInstante()保存数据，在onCreate之后调用onRestoreInstanceState(Bundle)恢复数据，委托Window以及上层的View保存数据</br>
 **内存不足Activity被杀死**</br>
 **配置变化导致Activity重建**</br>
 配置```android:configChanges=""```可以让配置改变的时候不重启Activity
 
 #### 隐式Intent匹配
-**action: **只要指定就必须至少有一个，有一个匹配成功即匹配成功</br>
+
 **category: **可以没有，一旦指定，必须完全匹配</br>
 **data: **和action的匹配规则一样
 
