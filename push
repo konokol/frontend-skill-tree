@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo 'push to GitHub'
+echo 'push to GitHub...'
 git push github
-echo 'push to Gitlab'
+echo 'push to Gitlab...'
 git push gitlab
