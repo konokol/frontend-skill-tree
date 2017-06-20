@@ -16,4 +16,8 @@ post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，
 
 
 - MessageQueue</br>
-消息队列，通过Looper.myQueue()可以获得
+消息队列，通过Looper.myQueue()可以获得。
+
+**线程间通信原理**
+
+综上，每一个线程都是形成Handler-Looper-Message-MessageQueue的形式，可以说是Handler是和某个线程对应的，通过哪个线程的Handler发送消息，最终消息处理也就在哪一个线程中。
