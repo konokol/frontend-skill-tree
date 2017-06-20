@@ -21,3 +21,5 @@ post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，
 **线程间通信原理**
 
 综上，每一个线程都是形成Handler-Looper-Message-MessageQueue的形式，可以说是Handler是和某个线程对应的，通过哪个线程的Handler发送消息，最终消息处理也就在哪一个线程中。
+
+[Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系](http://blog.csdn.net/lmj623565791/article/details/38377229)
