@@ -4,9 +4,9 @@
 import subprocess
 
 def main():
-    println('push to GitHub')
+    print('push to GitHub')
     subprocess.check_output(['git', 'push', 'github'])
-    println('push to Gitlab')
+    print('\npush to Gitlab')
     subprocess.check_output(['git', 'push', 'gitlab'])
 
 if __name__ == '__main__':
