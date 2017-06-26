@@ -16,7 +16,7 @@ post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，
 
 
 - MessageQueue</br>
-消息队列，通过Looper.myQueue()可以获得。
+消息队列，实际上是一个单向链表，Message作为节点，通过Looper.myQueue()可以获得。
 
 **线程间通信原理**
 
