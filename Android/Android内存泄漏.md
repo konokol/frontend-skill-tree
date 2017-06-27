@@ -51,3 +51,8 @@ Android内存泄漏是指某些对象实际已经没有了使用价值，但是�
   **LeakCanary的原理：**
 
   WeakReference加ReferenceQueue，调用watch方法时，会构造一个弱引用，并指定一个ReferenceQueue，当弱引用指向的对象被回收时，将其加入ReferenceQueue，因此如果期望一个对象被回收，那么在预期的时间内，在ReferenceQueue中应该可以找到它，没找到，则表示有内存泄漏。
+
+  *参考:*
+
+  [Android性能优化-内存泄露的检查与处理](https://mp.weixin.qq.com/s?__biz=MzI0MjE3OTYwMg==&mid=2649547284&idx=1&sn=78b6b1e07680ae9898ff65c5ca24f8db&scene=21#wechat_redirect)</br>
+  [LeakCanary 内存泄露监测原理研究](http://www.jianshu.com/p/5ee6b471970e)
