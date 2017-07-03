@@ -30,3 +30,23 @@ Bitmap缓存存储Bitmap对象，这些Bitmap对象可以立刻用来显示或�
 #### 3. 磁盘缓存
 和未解码的内存缓存相似，磁盘缓存存储的是未解码的原始压缩格式的图片，在使用之前同样需要经过解码等处理。
 和磁盘缓存不一样，APP在后台时，内容是不会被清空的。即使关机也不会。用户可以随时用系统的设置菜单中进行清空缓存操作。
+
+### setUri()过程源码解析
+
+- setUri最终都是ImageRequest，DraweeController设置Bitmap；
+- 设置Controller的时候，将Controller设置给DraweeHolder，从DraweeHolder中取Drawable设置给ImageView，同时开始Controller的onAttach()方法，开始异步加载图片；
+- DraweeHolder中持有Hierarchy和Controller的实例，Controller的onAttach方法中submitRequest()，开始获取图片；
+- 获取到图片之后，通过Hierarchy，用回调的方式调用invalidateDrawable的方式绘制ImageView.
+
+### Glide，Picasso和Fresco比较
+
+#### Glide与Picasso的区别
+ Glide.with(context).load(url).into(imageview);
+1. 优于Fresco，默认使用RGB_565，比ARGB_8888更省内存；
+2. Glide缓存ImageView大小的图，Picasso缓存全尺寸的；
+3. Glide支持Gif图加载
+4. 自带二级缓存；
+
+*参考*</br>
+[Fresco](https://www.fresco-cn.org/docs/intro-image-pipeline.html)</br>
+[Android图片加载框架比较----Glide,Picasso,Fresco](http://blog.csdn.net/hong_geek/article/details/49849339)
