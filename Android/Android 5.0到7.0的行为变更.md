@@ -54,3 +54,13 @@
 5. 随时随地低电耗模式...
 6. Android 中的 ICU4J API
 7. WebView，Chrome 和 WebView 配合使用，多进程，Javascript 在页面加载之前运行
+
+## Android 8.0(O)
+
+[具透 | Android O 突然就来了，首个开发者预览版都有哪些新东西？](https://zhuanlan.zhihu.com/p/25938526)
+
+1. 更激进的后台管理策略
+2. 支持更高阶的蓝牙音频解码协议
+3. 多渠道通知分类, 通知延后功能, 状态标记（应用角标）
+4. XML 字体支持
+5. 导航栏自定义功能
