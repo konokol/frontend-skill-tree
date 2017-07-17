@@ -24,6 +24,19 @@
 
 - 调用publishProgress()方法时，会通过handler发送MESSAGE_POST_PROGRESS消息，更新进度；mWorker中doInBackground方法的返回值通过handler分发到主线程中
 
+
+## Callable、Future和FutureTask
+
+在Java多线程中，继承Thread和实现Runnable接口都可以实现多线程，但是没办法获取返回的结果，Future可以实现获取结果。
+
+- Callable，接口，有一个call方法；
+- Future<V>，接口，有cancel，isCanceled，isDone，get等方法；
+- FutureTask<V>，实现了FutureTaskRunnable接口，FutureTaskRunnable接口继承了Future和Runnable接口。
+
+Future，Callable一般和ExecutorService一起使用，ExecutorService.submit(...)方法会返回Future对象。
+
 [深入理解AsyncTask原理](http://www.cnblogs.com/absfree/p/5357678.html)
 </br>
 [Android源码分析—带你认识不一样的AsyncTask](http://blog.csdn.net/singwhatiwanna/article/details/17596225)
+</br>
+[Java并发编程：Callable、Future和FutureTask](http://www.cnblogs.com/dolphin0520/p/3949310.html)
