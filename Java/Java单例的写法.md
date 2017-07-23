@@ -61,3 +61,5 @@ class enum Singleton {
   INSTANCE;
 }
 ```
+
+[那些年，我们一起写过的“单例模式”](https://zhuanlan.zhihu.com/p/25733866)
