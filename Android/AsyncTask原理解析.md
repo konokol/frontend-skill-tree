@@ -14,7 +14,7 @@
 
 - AsyncTask的构造方法中初始化了一个WorkerRunnable<Params, Result>和FutureTask<Task>对象，分别是mWorker和mFuture。
 
- 其中，mWorker实现了Callable接口，用来执行doInBackground()方法中的代码，通过Process.setThreadPriority()设置为后台执行，Worker作为FutureTask的范型参数，实际上是FutureTask对Worker进行了一次包装；
+  其中，mWorker实现了Callable接口，用来执行doInBackground()方法中的代码，通过Process.setThreadPriority()设置为后台执行，Worker作为FutureTask的范型参数，实际上是FutureTask对Worker进行了一次包装；
 
 - 执行execute()方法时，会调用executeOnExecutor()方法并传入sDefaultExecutor；sDefaultExecutor是一个SerialExecutor，是AsyncTask内部的一个串行的线程池；
 
