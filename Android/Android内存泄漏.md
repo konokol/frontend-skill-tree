@@ -28,7 +28,7 @@ Android内存泄漏是指某些对象实际已经没有了使用价值，但是�
 
   WebView加载网页会开启异步线程，页面结束之后，线程没有结束，造成内存泄漏。
 
-  ***解决办法：*** 1. 手动调用WebView的onStop()和onDestory()方法，在页面结束的时候，移除WebView所有的子View; 2. 使用多进程，将加载网页的Activity放在单独的进程中。
+  ***解决办法：*** 1. 手动调用WebView的onStop()和onDestroy()方法，在页面结束的时候，移除WebView所有的子View; 2. 使用多进程，将加载网页的Activity放在单独的进程中。
 
 5. **资源对象未关闭**
 
