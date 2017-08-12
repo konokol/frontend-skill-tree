@@ -31,7 +31,7 @@
 
 - Callable，接口，有一个call方法；
 - Future<V>，接口，有cancel，isCanceled，isDone，get等方法；
-- FutureTask<V>，实现了FutureTaskRunnable接口，FutureTaskRunnable接口继承了Future和Runnable接口。
+- FutureTask<V>，实现了RunnableFuture接口，RunnableFuture接口继承了Future和Runnable接口。
 
 Future，Callable一般和ExecutorService一起使用，ExecutorService.submit(...)方法会返回Future对象。
 
