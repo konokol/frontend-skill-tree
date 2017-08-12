@@ -16,6 +16,6 @@ Thread中保存ThreadLocal值，key使用的是弱引用，如果ThreadLocal被�
 
 ThreadLocal的get(), set(), remove()方法都会清空key为null的值，但是如果分配了ThreadLocal是静态的，或者ThreadLocal分配了值，又没调用get()等方法，就会造成泄漏。
 
-
-[深入理解ThreadLocal](http://blog.csdn.net/fishle123/article/details/48087753)
+*参考：*</br>
+[深入理解ThreadLocal](http://blog.csdn.net/fishle123/article/details/48087753)</br>
 [深入分析 ThreadLocal 内存泄漏问题](http://blog.xiaohansong.com/2016/08/06/ThreadLocal-memory-leak/)
