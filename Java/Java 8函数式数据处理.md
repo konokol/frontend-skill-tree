@@ -65,17 +65,65 @@ Java 8中的集合支持一个新的stream方法，它会返回一个流，当�
 |流水线			|很多的流操作本身会返回一个流，这样多个操作就可以链接起来，形成一个流水线。|
 |内部迭代		|和使用迭代器进行显示迭代的集合不同，流的迭代操作是在背后进行的。|
 
+## 1.3 常见的流操作
 
+### 1.3.1 collect(toList)
 
+collect(toList)方法由Stream里的值生成一个列表。of方法可以生成一个流对象。
 
+```Java
+List<String> list = Stream.of("a", "b", "c").collect(Collectors.toList());
+```
 
+### 1.3.2 map
 
+map操作可以将一个流中的一种值转换成另一种类型的值，生成一个新的流。比如，将一个集合中的字符串全部转换成大写。
 
+```Java
+List<String> upperCaseList = 
+	Stream.of("talk", "is", "cheap", ",", "show", "me", "the", "code")
+		.map(string -> string.toUpperCase())
+		.collect(toList());
+```
 
+ ![Java 8 map](../image/java8-map.PNG)
 
+map操作传入的Lambda表达式必须和Function接口的签名一致。
 
+### 1.3.3 filter
 
+filter用来遍历数据并选出符合特定条件的元素。比如筛选出一个字符串集合中仅含数字的字符串。
 
+```Java
+List<String> digtalList = Stream.of("a1c", "123", "1q2qw", "0.5")
+	.filter(string -> string.isDigtalOnly())
+	.collect(toList());
+```
+
+![](../image/java8-filter.PNG)
+
+同样，filter操作传入的Lambda表达式必须和Predict接口的签名一致。
+
+### 1.3.4 min和max
+
+求最小值和求最大值。比如求菜品集合中价格最低和最高的菜。
+
+```Java
+List<Dish> dishes = ...
+Dish max = dishes.stream()
+	.max(Comparator.comparing(dish -> dish.getPrice))
+	.get();
+	
+Dish min = dishes.stream()
+	.mix(Comparator.comparing(dish -> dish.getPrice))
+	.get();
+```
+
+### 1.3.5 reduce
+
+reduce操作可以从一组值中生成一个值，实际上max和min也是reduce操作，因为太常用，所以被纳入了标准库中。
+
+（未完待续...）
 
 
 
