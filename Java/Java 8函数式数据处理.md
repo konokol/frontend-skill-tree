@@ -118,6 +118,20 @@ List<String> digtalList = Stream.of("a1c", "123", "1q2qw", "0.5")
 
 同样，filter操作传入的Lambda表达式必须和Predict接口的签名一致。
 
+### 1.3.4 distinct
+
+disdint方法会返回一个元素各异的流，简单来说，就是滤重（根据元素的hashCode和equals方法）。
+
+```Java
+List<Integer> list = Stream.of(1, 1, 2, 2, 3, 3, 3, 4)
+	.distinct()
+	.collect(toList());
+```
+
+### 1.3.5 limit
+limit(n)会返回一个不超过给定长度的流。如果流是有序的，则最多会返回前n个元素。
+### 1。3.6 skip
+skip(n)，会返回扔掉前n个元素的流，如果流中元素不超过n，则会返回一个空的流。
 ### 1.3.4 min和max
 
 求最小值和求最大值。比如求菜品集合中价格最低和最高的菜。
