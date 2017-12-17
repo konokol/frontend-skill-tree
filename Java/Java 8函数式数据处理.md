@@ -104,7 +104,11 @@ List<String> upperCaseList =
 
 map操作传入的Lambda表达式必须和Function接口的签名一致。
 
-### 1.3.3 filter
+### 1.3.3 flatMap
+
+
+
+### 1.3.4filter
 
 filter用来遍历数据并选出符合特定条件的元素。比如筛选出一个字符串集合中仅含数字的字符串。
 
@@ -118,7 +122,7 @@ List<String> digtalList = Stream.of("a1c", "123", "1q2qw", "0.5")
 
 同样，filter操作传入的Lambda表达式必须和Predict接口的签名一致。
 
-### 1.3.4 distinct
+### 1.3.5 distinct
 
 disdint方法会返回一个元素各异的流，简单来说，就是滤重（根据元素的hashCode和equals方法）。
 
@@ -128,11 +132,25 @@ List<Integer> list = Stream.of(1, 1, 2, 2, 3, 3, 3, 4)
 	.collect(toList());
 ```
 
-### 1.3.5 limit
+### 1.3.6 limit
 limit(n)会返回一个不超过给定长度的流。如果流是有序的，则最多会返回前n个元素。
-### 1。3.6 skip
+
+```Java
+List<Integer> list = Stream.of(1, 2, 3, 4, 5, 6, 7)
+	.limit(3)
+	.collect(toList());
+```
+
+### 1.3.7 skip
 skip(n)，会返回扔掉前n个元素的流，如果流中元素不超过n，则会返回一个空的流。
-### 1.3.4 min和max
+
+```Java
+List<Integer> list = Stream.of(1, 2, 3, 4, 5, 6, 7)
+	.skip(3)
+	.collect(toList());
+```
+
+### 1.3.8 min和max
 
 求最小值和求最大值。比如求菜品集合中价格最低和最高的菜。
 
@@ -147,7 +165,7 @@ Dish min = dishes.stream()
 	.get();
 ```
 
-### 1.3.5 reduce
+### 1.3.9 reduce
 
 reduce操作可以从一组值中生成一个值，实际上max和min也是reduce操作，因为太常用，所以被纳入了标准库中。举例，求和：
 
