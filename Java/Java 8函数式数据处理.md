@@ -91,45 +91,88 @@ List<String> list = Stream.of("a", "b", "c").collect(Collectors.toList());
 
 ### 1.3.2 map
 
-map操作可以将一个流中的一种值转换成另一种类型的值，生成一个新的流。比如，将一个集合中的字符串全部转换成大写。
+map操作可以将一个流中的一种值转换成另一种类型的值，生成一个新的流(一对一映射)。比如，将一个集合中的字符串全部转换成大写。
 
 ```Java
-List<String> upperCaseList = 
-	Stream.of("talk", "is", "cheap", ",", "show", "me", "the", "code")
-		.map(string -> string.toUpperCase())
-		.collect(toList());
+List<String> upperCaseList = Stream.of("talk", "is", "cheap", ",", "show", "me", "the", "code")
+                .map(string -> string.toUpperCase())
+                .collect(Collectors.toList());
+
+/*
+	output:
+	[TALK,IS,CHEAP,,,SHOW,ME,THE,CODE]
+*/
 ```
 
  ![Java 8 map](../image/java8-map.PNG)
 
 map操作传入的Lambda表达式必须和Function接口的签名一致。
 
+```Java
+public interface Function<T, R> {
+    R apply(T t);
+}
+```
+
 ### 1.3.3 flatMap
+flatMap方法使一个流中的每个值都换成另外一个流，然后把所有的流都连接起来成为一个流（笛卡尔乘积）。
 
+```Java
+//找出两个数组中共同的元素，形成一个集合
 
+Integer[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+Integer[] array2 = {2, 3, 5, 7, 11};
+List<Integer[]> list = Stream
+                .of(array1)
+                .flatMap(a1 -> Stream.of(array2).filter(a1::equals).map(a2 -> new Integer[]{a1, a2}))
+                .collect(Collectors.toList());
+  
+/*
+	output:
+	[<2, 2>, <3, 3>, <5, 5>, <7, 7>]
+*/
+```
 
-### 1.3.4filter
+flatMap操作接收的Lambda表达式必须与Function接口的签名一致，传入的范型为Function<? super T, ? extends Stream<? extends R>>.
+
+### 1.3.4 filter
 
 filter用来遍历数据并选出符合特定条件的元素。比如筛选出一个字符串集合中仅含数字的字符串。
 
 ```Java
-List<String> digtalList = Stream.of("a1c", "123", "1q2qw", "0.5")
-	.filter(string -> string.isDigtalOnly())
-	.collect(toList());
+List<String> digitList = Stream.of("a1c", "123", "1q2qw", "0.5")
+                .filter(string -> TextUtils.isDigitsOnly(string))
+                .collect(Collectors.toList());
+                
+/*
+	output:
+	[123]
+*/
 ```
 
 ![](../image/java8-filter.PNG)
 
-同样，filter操作传入的Lambda表达式必须和Predict接口的签名一致。
+同样，filter操作传入的Lambda表达式必须和Predicate接口的签名一致。
+
+```Java
+public interface Predicate<T> {
+    boolean test(T t);
+}
+```
 
 ### 1.3.5 distinct
 
 disdint方法会返回一个元素各异的流，简单来说，就是滤重（根据元素的hashCode和equals方法）。
 
 ```Java
-List<Integer> list = Stream.of(1, 1, 2, 2, 3, 3, 3, 4)
-	.distinct()
-	.collect(toList());
+List<Integer> distinctList = Stream.of(1, 1, 2, 2, 3, 3, 3, 4)
+                .distinct()
+                .collect(Collectors.toList());
+	
+/*
+	output:
+	[1,2,3,4]
+*/	
 ```
 
 ### 1.3.6 limit
@@ -137,8 +180,13 @@ limit(n)会返回一个不超过给定长度的流。如果流是有序的，则
 
 ```Java
 List<Integer> list = Stream.of(1, 2, 3, 4, 5, 6, 7)
-	.limit(3)
-	.collect(toList());
+                .limit(3)
+                .collect(Collectors.toList());
+	
+/*
+	output:
+	[1,2,3]
+*/
 ```
 
 ### 1.3.7 skip
@@ -146,8 +194,13 @@ skip(n)，会返回扔掉前n个元素的流，如果流中元素不超过n，�
 
 ```Java
 List<Integer> list = Stream.of(1, 2, 3, 4, 5, 6, 7)
-	.skip(3)
-	.collect(toList());
+                .skip(3)
+                .collect(Collectors.toList());
+	
+/*	
+	output:
+	[4,5,6,7]
+*/
 ```
 
 ### 1.3.8 min和max
@@ -176,6 +229,114 @@ int sum = Stream.of(1, 2, 3, 4)
 
 ![reduce](../image/java8-reduce.PNG)
 
+reduce对应的操作有3个重载的方法：
+
+```Java
+//无初始值的
+Optional<T> reduce(BinaryOperator<T> accumulator);
+
+//等价于
+boolean foundAny = false;
+T result = null;
+for (T element : this stream) {
+	if (!foundAny) {
+	   foundAny = true;
+    	result = element;
+    } else {
+    	result = accumulator.apply(result, element);
+    }
+}
+return foundAny ? Optional.of(result) : Optional.empty();
+```
+
+```Java
+//带初始值的
+T reduce(T identity, BinaryOperator<T> accumulator);
+
+//等价于
+T result = identity;
+for (T element : this stream)
+    result = accumulator.apply(result, element)
+return result;
+```
+
+```Java
+//参数带两个BiFuction的
+<U> U reduce(U identity,
+				BiFunction<U, ? super T, U> accumulator,
+             BinaryOperator<U> combiner);
+             
+//等价于
+U result = identity;
+for (T element : this stream)
+    result = accumulator.apply(result, element)
+return result;
+```
+
+### 1.3.10 anyMatch、allMatch和noneMatch
+
+anyMatch判断流中是否至少有一个元素能匹配给定的条件，返回一个boolean值。
+
+```Java
+ boolean hasNullElements = Stream.of("Java", "Python", "C#", null, "Ruby", "Go", "Object C")
+                .anyMatch(Objects::isNull);
+```
+
+allMatch检查流中流中所有元素是否匹配给定的条件，返回boolean值。
+
+noneMatch检查流中所以元素是否都不匹配给定的条件，返回boolean值。
+
+### 1.3.11 findAny与findFirst
+
+findAny找到流中任意一个元素(通常是第一个)，返回一个Optional对象，如果流是空的，返回一个值为空的Optional对象，如果找到的元素刚好是空值，则抛出一个NullPointerException。
+
+```Java
+public final class Optional<T> {
+	T t;
+	//...
+}
+```
+例：
+
+```Java
+Optional<Integer> optional = Stream.of(1, 2, 3, 4, 5, 6, 7)
+                .findAny();
+                
+//执行多次optional.get()始终是1
+```
+如果使用的是并行的流，那么findAny方法返回的值则是不确定的，比如下面的例子：
+
+```Java
+List<Integer> array = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+Printer.println(array.parallelStream().findAny().get());
+Printer.println(array.parallelStream().findAny().get());
+Printer.println(array.parallelStream().findAny().get());
+Printer.println(array.parallelStream().findAny().get());
+
+/* 执行多次返回值分别是：
+第1次：
+5
+5
+5
+5
+
+Process finished with exit code 0
+
+第2次：
+4
+7
+2
+6
+
+Process finished with exit code 0
+*/
+```
+findAny操作一般和filter结合起来用，用于筛选。
+
+如果想始终找到第一个元素，则应该用findFirst操作，即使是并行的流，页始终能返回第一个元素。
+
+*短路求值：对于有些操作，不必处理整个流就能得到结果，就像用 || 连接起来的布尔表达式求值一样，只要提前找到一个为true的值就直接返回。流的操作中，anyMatch、findAny、findFirst都是短路操作，limit也是。*
+
 ## 1.4 流与集合
 
 ### 1.4.1 流与集合概念的差异
@@ -186,11 +347,11 @@ int sum = Stream.of(1, 2, 3, 4)
 
 所以简单来讲，集合与流之间的差异就在于何时进行计算。集合是内存中的一种数据结构，它包含了数据源的所有值，集合的每个元素都需要先计算出来然后再加入到集合中。而流的元素则是按需计算，仅仅在用户需要的时候才会提取值，这是一种生产者—消费者的关系，只有消费者要求的时候才会去计算值。
 
-### 1.4.2 流只能遍历一个
+### 1.4.2 流只能遍历一次
 
 和迭代器类似，流只能遍历一次，遍历完成之后，这个流就已经被消费掉了。如果想再次遍历，需从数据源重新获取一个流（如果数据源是可重复的比如集合，这会很容易，但如果像I/O这种的话，就会很麻烦）。
 
-重复消费一个流会跑出IllegalArgumentException，表示流已经被操作，或者关闭。
+重复消费一个流会抛出IllegalArgumentException，表示流已经被操作，或者关闭。
 
 ```
 List<String> firms = Arrays.asList("Google", "AT&T", "Amazon", "Facebook", "Oracle", "MicroSoft");
