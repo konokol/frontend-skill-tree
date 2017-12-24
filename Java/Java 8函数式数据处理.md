@@ -363,16 +363,103 @@ stream.forEach(System.out::println);
 ## 1.5 流的构建
 
 ### 1.5.1 数值流
+ 
+在有些流的操作中，流中的元素如果是数值，会不可避免的产生装箱和拆箱的操作，比如，对菜品的价格求和：
+
+```
+List<Dish> dishes ...
+int sumPrice = dishes.stream()
+		.map(Dish::getPrice)
+		.reduce(0, Integer::sum);
+``` 
+这段代码中，map操作会生成一个Stream<T>的流，因此，就需要将int类型装箱成Integer。在Java 8的Stream API中，为了避免这种拆装箱，提供了原始类型流特化，专门支持处理数值流。
+
+#### 1.5.1.1 原始类型流特化
+
+Java 8中引入的原始类型流特化流有3个：IntStream、LongStream和DoubleStream，分别将流的元素特化为对应的基础类型。相应的这些流中也多了一些常用的数值操作，比如sum, average, max, min等。
+
+将流转化成特定的数值流常用的操作是map，对应的，map操作也有几个特定的方法，mapToInt、mapToLong、mapToDouble。比如上面对菜品价格求和的操作，就可以用IntStream来做：
+
+```Java
+List<Dish> dishes ...
+int sumPrice = dishes.stream()
+		.mapToInt(Dish::getPrice)
+		.sum;
+```
+
+有时候，也会有将数值流转回对象流的需求，这时候只需要将基础元素进行装箱操作就可以，使用的操作是boxed。
+
+```Java
+IntStream intSream = dishes.stream()
+		.mapToInt(Dish::getPrice);
+Stream<Integer> stream = intStream.boxed();
+```
+
+上面讲findAny和findFirst操作的时候，提到了Optional对象，类似的，Optional类也对数值的基础类型进行了特化，有IntOptitonal、LongOptional和DoubleOptional三个类。
+
+#### 1.5.1.2 数值范围
+
+Java 8引入了两个可以用于InStream和LongStream的静态方法，range和rangeClose。区别是range不包含结束值，rangeClosed包含结束值。
+
+```Java
+IntStream intStream = IntStream.range(1, 10);
+        int[] array = intStream.toArray();
+        Printer.print(array);
+/*
+	output:
+	[1,2,3,4,5,6,7,8,9]
+*/
+```
+
+```Java
+IntStream intStream = IntStream.rangeClosed(1, 10);
+        int[] array = intStream.toArray();
+        Printer.print(array);
+/*
+	output:
+	[1,2,3,4,5,6,7,8,9,10]
+```
 
 ### 1.5.2 构建流的几种方式
 
 #### 1.5.2.1 由值创建流
 
+使用Stream.of(T t ...)方法可以创建出一个流，Stream.empty()可以创建一个没有元素的流：
+
+```Java
+Stream<String> stringStream = Stream.of("Apple", "MicroSoft", "Google", "Facebook", "Amazon");
+Stream<String> emptyStream = Stream.empty();
+```
+
 #### 1.5.2.2 由数组创建流
 
-#### 1.5.2.3 由文件生成流
+Arrays.stream可以从数组创建一个流，参数是一个数组。
 
-#### 1.5.2.4 由函数生成流：创建无限流
+```Java
+String[] stringArray = {"Apple", "MicroSoft", "Google", "Facebook", "Amazon"};
+int[] intArray = {0, 1, 1, 2, 3, 5, 8, 13, 21};
+        
+Stream<String> stringStream = Arrays.stream(stringArray);
+IntStream intStream = Arrays.stream(intArray);
+Stream<Integer> integerStream = Arrays.stream(intArray).boxed();
+```
+
+#### 1.5.2.3 由集合生成流
+
+Java的Collection接口中，引入了stream()和parallelStream()两个默认方法，可以生成流。
+
+```Java
+String[] stringArray = {"Apple", "MicroSoft", "Google", "Facebook", "Amazon"};
+List<String> list = Arrays.asList(stringArray);
+Stream<String> stream = list.stream();
+Stream<String> parallelStream = list.parallelStream();
+```
+
+#### 1.5.2.4 由文件生成流
+
+
+
+#### 1.5.2.5 由函数生成流：创建无限流
 
 （未完待续...）
 
