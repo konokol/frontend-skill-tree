@@ -457,18 +457,89 @@ Stream<String> parallelStream = list.parallelStream();
 
 #### 1.5.2.4 由文件生成流
 
+Java 8的NIO API中，很多操作都可以返回一个流。比如，Files.lines就会根据文件内容返回一个流。
 
+```Java
+try {
+            Stream<String> lines = Files.lines(Paths.get(".gitignore"), Charset.forName("utf-8"))
+                    .flatMap(line -> Arrays.stream(line.split(" ")));
+            lines.forEach(word -> Printer.println(word));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+```
 
 #### 1.5.2.5 由函数生成流：创建无限流
 
-（未完待续...）
+Stream API中提供了2个静态方法来从方法中生成流：Stream.iterate和Stream.generate，这2个方法都可以用来创建无限流，只要不结束，可以一直算下去。
+
+**iterate**
+
+iterate方法有两个重载的方法：
+
+```Java
+//有结束条件的
+public static<T> Stream<T> iterate(T seed, Predicate<? super T> hasNext, UnaryOperator<T> next)
+```
+和
+
+```Java
+//没有限制，可以真正生成无限流
+public static<T> Stream<T> iterate(final T seed, final UnaryOperator<T> f)
+```
+
+例如，生成一个斐波那契数列：
+
+```Java
+Stream.iterate(new int[]{0, 1},  t -> new int[] {t[1], t[0] + t[1]})
+                .map(t -> t[0])
+                .limit(20)
+                .forEach(Printer::println);
+```
 
 
+**generate**
 
+和iterate方法类似，generate也生成一个无限流。
 
+```Java
+public static<T> Stream<T> generate(Supplier<? extends T> s)
+```
 
+generate方法的参数是一个Supplier，它可以是无状态的，也可以是有状态的。
 
+无状态的Supplier，不会记录上一个状态，比如生成随机数，
 
+```Java
+Stream.generate(Math::random)
+                .limit(20)
+                .forEach(Printer::println);
+```
+有状态的Supplier还可以是有状态的，它会记录前一个Supplier的状态（可以是值，属性等），比如还是生成一个斐波那契数列，在构建每一个元素时，都改变了supplier的属性：
+
+```Java
+IntSupplier supplier = new IntSupplier() {
+            private int pre = 0;
+            private int cur = 1;
+
+            @Override
+            public int getAsInt() {
+                int oldPre = pre;
+                int oldCur = cur;
+                this.pre = cur;
+                this.cur = oldPre + oldCur;
+                return oldPre;
+            }
+        };
+        IntStream.generate(supplier)
+                .limit(20)
+                .forEach(Printer::println);
+```
+
+----
+Author: Ivan J. Lee
+Date  : 2017-12-27 23:56
 
 
 
