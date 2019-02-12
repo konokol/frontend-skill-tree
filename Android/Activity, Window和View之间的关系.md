@@ -1,4 +1,4 @@
-# 理解Activity，View,Window三者关系
+# 理解Activity，View，Window三者关系
 
 这个问题真的很不好回答。所以这里先来个算是比较恰当的比喻来形容下它们的关系吧。Activity像一个工匠（控制单元），Window像窗户（承载模型），View像窗花（显示视图）LayoutInflater像剪刀，Xml配置像窗花图纸。
 
