@@ -1,10 +1,3 @@
-<style>
-img {
-    margin-left: auto; 
-    margin-right:auto; 
-    display:block;
-}
-</style>
 
    * [Android学习笔记](#android学习笔记)
       * [Activity相关](#activity相关)
@@ -69,7 +62,7 @@ Android常用知识点汇总，不提供详细原理，只提供大致的思路�
 
 ### Fragment的生命周期
 
-<img src="https://ws1.sinaimg.cn/large/afdaace3gy1g03svynbq3j208t0nj0ui.jpg"/>
+<img style="margin-left:auto; margin-right:auto; display:block; float:middle;" src="https://ws1.sinaimg.cn/large/afdaace3gy1g03svynbq3j208t0nj0ui.jpg"/>
 
 ## Activoty与Fragment的通信方式
 
