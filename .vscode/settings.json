@@ -1,9 +1,0 @@
-{
-    "python.pythonPath": "/usr/local/bin/python3",
-    "typescript.locale": "en",
-    "code-runner.defaultLanguage": "python3",
-    "code-runner.clearPreviousOutput": true,
-    "code-runner.executorMap": {
-        "python": "python3"
-    }
-}
