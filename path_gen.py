@@ -11,13 +11,15 @@ def write(path = '.'):
         for f in os.listdir(path):
             write(path + '/' + f)
     else:
-        s = os.path.splitext(path)
-        if s[-1] == '.md':
+        suffix = os.path.splitext(path)[-1]
+        basename = os.path.splitext(os.path.basename(path))[0]
+        if suffix == '.md':
             with open(out, 'a') as out_file:
-                str = '- [' + s[-2] + '](' + quote(path) +')\n'
+                str = '- [' + basename + '](' + quote(path) +')\n'
                 out_file.write(str)
     
 
 if __name__ == "__main__":
-    os.remove(out)
+    with open(out, 'w') as file:
+        file.write('')
     write('.')
