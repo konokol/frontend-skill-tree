@@ -2,18 +2,21 @@
 # -*- coding:utf-8 -*-
 
 import re
+import os
 
 out = 'README1.md'
+ignored = 'aaa'
 
 def _get_ignore_content(path):
     ignore_file = open(path)
     return [line.strip('\n') for line in ignore_file.readlines() if not line.startswith('#') and line.strip('\n')]
 
-def _gen_content():
+def _gen_content(file):
     print('generating README...')
-    li = _get_ignore_content('.content_ignore')
-    print(li)
-    pass
+    print(ignored)
+
+
 
 if __name__ == '__main__':
-    _gen_content()
+    ignored = _get_ignore_content('.content_ignore')
+    _gen_content('.')
