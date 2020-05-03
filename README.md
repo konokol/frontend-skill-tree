@@ -1,16 +1,21 @@
-<style>
-img {
-    margin-left: auto; 
-    margin-right:auto; 
-    display:block;
-}
-</style>
+# 大前端学习路线图
 
-# Android学习笔记
+当我们在讨论大前端的时候，我们在说什么？这里从一个Android
+开发的角度记录了一路来的学习历程，把技能树一步一步点开，不积硅步，无以至千里，不积小流，无以成江海，希望随着记录，能有进步。
 
-Android常用知识点汇总，不提供详细原理，只提供大致的思路，更详细的内容可以参考每一个知识点后链接的文章，所有文章的版权属于原作者所有，此处只提炼要点。
 
-## Android基础
+## 目录
+
+ * [Android基础](#Android基础)
+ * [Java基础](#Java基础)
+ * [Kotlin基础](#)
+ * [CS基础](#)
+ * [数据结构与算法](#)
+ * [跨平台](#)
+ * [其他](#)
+ * [学习资料](#)
+
+## <img src="./asserts/ic-android.png" width="6%" font="20"/> Android基础
 
 ### 四大组件
 
@@ -80,7 +85,9 @@ Android常用知识点汇总，不提供详细原理，只提供大致的思路�
 - [如何保证进程不被杀死](./docs/Android/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E8%BF%9B%E7%A8%8B%E4%B8%8D%E8%A2%AB%E6%9D%80%E6%AD%BB.md)
 - [Android知识点汇总](./docs/Android/Android%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB.md)
 
-## Java基础
+## <img src="./asserts/ic-java.png" width="30px"/> Java基础
+
+
 
 ### 基础
 
