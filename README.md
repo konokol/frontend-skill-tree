@@ -15,7 +15,8 @@
  * [其他](#)
  * [学习资料](#)
 
-## <img src="./asserts/ic-android.png" width="6%" font="20"/> Android基础
+## Android基础
+<img src="./asserts/ic-android.png" width="6%" font="20"/> 
 
 ### 四大组件
 
@@ -85,8 +86,8 @@
 - [如何保证进程不被杀死](./docs/Android/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E8%BF%9B%E7%A8%8B%E4%B8%8D%E8%A2%AB%E6%9D%80%E6%AD%BB.md)
 - [Android知识点汇总](./docs/Android/Android%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB.md)
 
-## <img src="./asserts/ic-java.png" width="30px"/> Java基础
-
+## Java基础
+<img src="./asserts/ic-java.png" width="30px"/> 
 
 
 ### 基础
