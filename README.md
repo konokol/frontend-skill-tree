@@ -8,12 +8,12 @@
 
  * [Android基础](#Android基础)
  * [Java基础](#Java基础)
- * [Kotlin基础](#)
- * [CS基础](#)
- * [数据结构与算法](#)
- * [跨平台](#)
- * [其他](#)
- * [学习资料](#)
+ * [Kotlin基础](#Kotlin基础)
+ * [CS基础](#CS基础)
+ * [数据结构与算法](#数据结构与算法)
+ * [跨平台](#跨平台)
+ * [其他](#其他)
+ * [学习资料](#学习资料)
 
 ## Android基础
 <img src="./asserts/ic-android.png" width="6%" font="20"/> 
@@ -119,3 +119,28 @@
 
 - [面向对象](./docs/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md)
 - [Java中的四种引用](./docs/Java/Java%E4%B8%AD%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8.md)
+
+## Kotlin基础
+<img src="./asserts/kotlin-logo.png" width="6%" font="20"/>
+
+## CS基础
+
+## 数据结构与算法
+
+## 跨平台
+
+## 其他
+
+## 学习资料
+
+- [Android开发者官网-中国版](https://developer.android.google.cn/)
+- [Android开发者官网](https://developer.android.com/)
+- [The Java™ Tutorials](https://docs.oracle.com/javase/tutorial/index.html)
+- [w3cschools Java](https://www.w3schools.com/java)
+- [w3school Java中文](https://www.w3cschool.cn/java/)
+- [ReactiveX](https://reactivex.io/)
+- [Kotlin 语言中文站](https://www.kotlincn.net/)
+- [Kotlin官网](https://kotlinlang.org/)
+- [Flutter - Beautiful native apps in record time](https://flutter.dev/)
+- [Flutter中文网](https://flutterchina.club/)
+- [React Native · A framework for building native apps using React](https://reactnative.dev/)
