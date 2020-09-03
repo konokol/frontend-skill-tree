@@ -70,7 +70,7 @@ def _parse_args(args = []):
     write       Generate path for the files ended with '.md'. Use -o to specific target file, 
                 or write into 'PATH.md' by default.
 
-    append      Find new filed ended with '.md' not included in 'README.md' and write their 
+    append      Find new files ended with '.md' not included in 'README.md' and write their 
                 path into 'APPENDED.md' by default or specific file with -o argment. 
 
     {filename} -h show all commands

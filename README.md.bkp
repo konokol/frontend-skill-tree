@@ -1,8 +1,23 @@
-# Android学习笔记
+# 大前端学习路线图
 
-Android常用知识点汇总，不提供详细原理，只提供大致的思路，更详细的内容可以参考每一个知识点后链接的文章，所有文章的版权属于原作者所有，此处只提炼要点。
+当我们在讨论大前端的时候，我们在说什么？这里从一个Android
+开发的角度记录了一路来的学习历程，把技能树一步一步点开，不积硅步，无以至千里，不积小流，无以成江海，希望随着记录，能有进步。
+
+
+## 目录
+
+ * [Android基础](#Android基础)
+ * [Java基础](#Java基础)
+ * [Kotlin基础](#Kotlin基础)
+ * [CS基础](#CS基础)
+ * [数据结构与算法](#数据结构与算法)
+ * [跨平台](#跨平台)
+ * [其他](#其他)
+ * [学习资料](#学习资料)
 
 ## Android基础
+
+<img src="./assets/ic-android.png" width="48px"/> 
 
 ### 四大组件
 
@@ -68,11 +83,14 @@ Android常用知识点汇总，不提供详细原理，只提供大致的思路�
 - [数据库优化](./docs/Android/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96.md)
 - [图片加载相关](./docs/Android/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E7%9B%B8%E5%85%B3.md)
 
-## 其他
+### 其他
 - [如何保证进程不被杀死](./docs/Android/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E8%BF%9B%E7%A8%8B%E4%B8%8D%E8%A2%AB%E6%9D%80%E6%AD%BB.md)
 - [Android知识点汇总](./docs/Android/Android%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB.md)
 
 ## Java基础
+
+<img src="./assets/ic-java.png" width="48px"/> 
+
 
 ### 基础
 
@@ -103,3 +121,29 @@ Android常用知识点汇总，不提供详细原理，只提供大致的思路�
 
 - [面向对象](./docs/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md)
 - [Java中的四种引用](./docs/Java/Java%E4%B8%AD%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8.md)
+
+## Kotlin基础
+
+<img src="./assets/kotlin-logo.png" width="48px"/>
+
+## CS基础
+
+## 数据结构与算法
+
+## 跨平台
+
+## 其他
+
+## 学习资料
+
+- [Android开发者官网-中国版](https://developer.android.google.cn/)
+- [Android开发者官网](https://developer.android.com/)
+- [The Java™ Tutorials](https://docs.oracle.com/javase/tutorial/index.html)
+- [w3cschools Java](https://www.w3schools.com/java)
+- [w3school Java中文](https://www.w3cschool.cn/java/)
+- [ReactiveX](https://reactivex.io/)
+- [Kotlin 语言中文站](https://www.kotlincn.net/)
+- [Kotlin官网](https://kotlinlang.org/)
+- [Flutter - Beautiful native apps in record time](https://flutter.dev/)
+- [Flutter中文网](https://flutterchina.club/)
+- [React Native · A framework for building native apps using React](https://reactnative.dev/)
