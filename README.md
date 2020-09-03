@@ -59,6 +59,8 @@
 
 - [AsyncTask原理解析](./docs/Android/AsyncTask%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90.md)
 
+### 性能优化
+
 ### 开源框架源码
 
 - [ButterKnife源码解析](./docs/Android/ButterKnife%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.md)
@@ -114,6 +116,9 @@
 ### Java虚拟机
 
 - [JVM运行时内存模型](./docs/Java/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.md)
+
+
+### 设计模式
 
 ### 其他
 

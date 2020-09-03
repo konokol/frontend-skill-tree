@@ -1,3 +1,11 @@
+## 生命周期
+
+### Activity正常生命周期
+
+![Activity生命周期](../../asserts/activity_lifecycle.png)
+
+值得注意的是，Android 7.0之后，在多窗口模式下，只有获取到焦点的Activity才是onResume的状态，所以即使当前的Activity是完全可见的，没有焦点时也处于onPause状态。
+
 #### Activity异常情况下的生命周期
 
 onStop()之前调用onSaveInstante()保存数据，在onCreate之后调用onRestoreInstanceState(Bundle)恢复数据，委托Window以及上层的View保存数据</br>
