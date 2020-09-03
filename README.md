@@ -17,7 +17,7 @@
 
 ## Android基础
 
-<img src="./asserts/ic-android.png" width="6%" font="20"/> 
+<img src="./assets/ic-android.png" width="48px"/> 
 
 ### 四大组件
 
@@ -50,7 +50,7 @@
 
 ### 版本新特性
 
-- [Android 5.0到7.0的行为变更](./docs/Android/Android%205.0%E5%88%B07.0%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%8F%98%E6%9B%B4.md)
+- [Android各版本行为变更](./docs/Android/Android%E5%90%84%E7%89%88%E6%9C%AC%E8%A1%8C%E4%B8%BA%E5%8F%98%E6%9B%B4.md)
 
 ### 热修复
 
@@ -89,7 +89,7 @@
 
 ## Java基础
 
-<img src="./asserts/ic-java.png" width="30px"/> 
+<img src="./assets/ic-java.png" width="48px"/> 
 
 
 ### 基础
@@ -97,8 +97,7 @@
 - [异常](./docs/Java/%E5%BC%82%E5%B8%B8.md)
 - [注解](./docs/Java/%E6%B3%A8%E8%A7%A3.md)
 - [Java单例的写法](./docs/Java/Java%E5%8D%95%E4%BE%8B%E7%9A%84%E5%86%99%E6%B3%95.md)
-- [Java知识点汇总](./docs/Java/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB.md)
-- [String、StringBuilder、StringBuffer的区别](./docs/Java/String%E3%80%81StringBuilder%E3%80%81StringBuffer%E7%9A%84%E5%8C%BA%E5%88%AB.md)
+- [字符串](./docs/Java/%E5%AD%97%E7%AC%A6%E4%B8%B2.md)
 
 ### 新版本特性
 
@@ -124,7 +123,7 @@
 
 ## Kotlin基础
 
-<img src="./asserts/kotlin-logo.png" width="6%" font="20"/>
+<img src="./assets/kotlin-logo.png" width="48px"/>
 
 ## CS基础
 
