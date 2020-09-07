@@ -4,7 +4,7 @@
 
 Java虚拟机在执行Java程序的时候,会把它管理的内存区域分为多个部分，主要分为线程私有区和共享数据区两个部分。
 
-![JVM](../image/java_memory_model.jpg)
+![JVM](../img/java_memory_model.jpg)
 
 方法区和堆区属于共享数据区，虚拟机栈、本地方法栈和程序计数器属于线程私有区。
 
