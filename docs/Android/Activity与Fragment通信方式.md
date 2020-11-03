@@ -4,14 +4,14 @@
 
 ![Fragment生命周期](../img/fragment_lifecycle.png)
 
-## Activoty与Fragment的通信方式
+## Activity与Fragment的通信方式
 
 1. **单向通信**
 
   Activity通过设置setArgument()方法向Fragment方法传值，Fragment通过getActivity()的方式调用Activity的方法。
 
 2. **使用接口**
-  Activity和Fragment分别实现接口，在Activity中获取Fragment的实例，调用接口方法，Fragment中同理；
+    Activity和Fragment分别实现接口，在Activity中获取Fragment的实例，调用接口方法，Fragment中同理；
 
 3. **广播的方式**
 
