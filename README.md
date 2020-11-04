@@ -21,8 +21,8 @@
 
 ### 四大组件
 
-- [Service相关](./docs/Android/Service%E7%9B%B8%E5%85%B3.md)
-- [Activity相关](./docs/Android/Activity%E7%9B%B8%E5%85%B3.md)
+- [Activity相关](./docs/Android/activity.md)
+- [Service相关](./docs/Android/service.md)
 - [Activity与Fragment通信方式](./docs/Android/Activity%E4%B8%8EFragment%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F.md)
  
 ### Fragment

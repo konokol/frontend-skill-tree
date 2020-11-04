@@ -5,8 +5,8 @@ copyright: 'Copyright &copy; 2020 Ivan J. Lee.'
 nav:
     - 主页: index.md
     - Android基础:
-      - 【四大组件】Service相关: Android/Service相关.md
-      - 【四大组件】Activity相关: Android/Activity相关.md
+      - 【四大组件】Activity: Android/activity.md
+      - 【四大组件】Service: Android/service.md
     - Java基础:
       - ./Java/注解.md
     - Kotlin基础:
