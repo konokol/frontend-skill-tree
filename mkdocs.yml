@@ -25,3 +25,5 @@ theme:
     primary: 'teal'
     accent: 'white'
   
+extra_css:
+  - 'css/app.css'
