@@ -14,7 +14,7 @@ nav:
     - 跨平台技术:
       - ./about.md
     - CS理论基础:
-      - ./about.md
+      - HTTP协议: ./CS/HTTP.md
     - 关于: about.md
 
 theme:

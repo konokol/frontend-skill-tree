@@ -1,3 +1,4 @@
+# Android四大组件之Activity
 
 ## 生命周期
 
@@ -15,6 +16,8 @@ onStop()之前调用onSaveInstante()保存数据，在onCreate之后调用onRest
 
 #### 配置变化导致Activity重建
 配置```android:configChanges=""```可以让配置改变的时候不重启Activity
+
+## 启动Activity的方式
 
 ### 隐式Intent匹配
 
