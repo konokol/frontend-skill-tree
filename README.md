@@ -1,6 +1,6 @@
 # 大前端学习路线图
 
-[![Build Status](https://api.travis-ci.com/ivanjlee/frontend-roadmap.svg?branch=master)](https://travis-ci.com/github/ivanjlee/frontend-roadmap)  ![Website](https://img.shields.io/website?url=https%3A%2F%2Fivanjlee.github.io%2Ffrontend-roadmap)  ![GitHub repo size](https://img.shields.io/github/repo-size/ivanjlee/frontend-roadmap)
+[![pages-build-deployment](https://github.com/ivanjlee/frontend-roadmap/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ivanjlee/frontend-roadmap/actions/workflows/pages/pages-build-deployment)  ![Website](https://img.shields.io/website?url=https%3A%2F%2Fivanjlee.github.io%2Ffrontend-roadmap)  ![GitHub repo size](https://img.shields.io/github/repo-size/ivanjlee/frontend-roadmap)
 
 当我们在讨论大前端的时候，我们在说什么？这里从一个Android
 开发的角度记录了一路来的学习历程，把技能树一步一步点开，不积硅步，无以至千里，不积小流，无以成江海，希望随着记录，能有进步。
