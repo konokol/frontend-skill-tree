@@ -1,20 +1,42 @@
 site_name: 客户端知识图谱
 
-copyright: 'Copyright &copy; 2020 Ivan J. Lee.'
+copyright: 'Copyright &copy; 2022 Ivan J. Lee.'
 
 nav:
     - 主页: index.md
-    - Android基础:
-      - 【四大组件】Activity: Android/activity.md
-      - 【四大组件】Service: Android/service.md
+    - Android:
+      - 基础:
+        - Activity基础: Android/Activity.md
+        - Service基础: Android/Service.md
+        - BroadCastReceiver: Android/BroadcastReceiver.md
+        - ContentProvider: Android/ContentProvider.md
+        - 64K方法: Android/android-virtual-machine.md
+        - Fragment与Activity通信: Android/fragment2activity.md
+      - 架构:
+        - none.md
+      - 性能:
+        - none.md
+      - 工具:
+        - none.md
+      - 三方框架:
+        - none.md
     - Java基础:
       - ./Java/注解.md
     - Kotlin基础:
-      - ./about.md
+      - none.md
     - 跨平台技术:
-      - ./about.md
+      - none.md
     - CS理论基础:
-      - HTTP协议: ./CS/HTTP.md
+      - 网络:
+        - HTTP协议: ./CS/HTTP.md
+      - 操作系统:
+        - none.md
+      - 计算机基础:
+        - none.md
+      - 算法:
+        - none.md
+    - 工具: 
+      - none.md
     - 关于: about.md
 
 theme:

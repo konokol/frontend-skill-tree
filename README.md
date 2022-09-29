@@ -26,11 +26,10 @@
 
 - [Activity相关](./docs/Android/activity.md)
 - [Service相关](./docs/Android/service.md)
-- [Activity与Fragment通信方式](./docs/Android/Activity%E4%B8%8EFragment%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F.md)
 
 ### Fragment
 
-- [Activity与Fragment通信方式](./docs/Android/Activity%E4%B8%8EFragment%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F.md)
+- [Activity与Fragment通信方式](./docs/Android/fragment2activity.md)
 
 ### View原理
 
@@ -48,7 +47,7 @@
 
 ### 虚拟机相关
 
-- [64K方法限制](./docs/Android/64K%E6%96%B9%E6%B3%95%E9%99%90%E5%88%B6.md)
+- [64K方法限制](./docs/Android/android-virtual-machine.md)
 - [Android GC原理](./docs/Android/Android%20GC%E5%8E%9F%E7%90%86.md)
 
 ### 版本新特性

@@ -1,3 +1,5 @@
+<!-- Activity -->
+
 # Android四大组件之Activity
 
 ## 生命周期
