@@ -1,3 +1,5 @@
+# 源码阅读计划
+
 ## 获取源码
 可以直接从SDK里提供的android.jar中读，在Android Studio中看，但是其中隐藏的方法和类是无法跳转和查看的，看起来不是很方便，粗看可以，如果想要细看，还是需要把源码下载下来，https://source.android.com/source/index.html，主要看 https://android.googlesource.com/platform/frameworks/base部分
 
