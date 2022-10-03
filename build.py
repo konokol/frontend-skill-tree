@@ -21,10 +21,11 @@ names = {
     'Java': 'Java基础',
     'Kotlin': 'Kotlin基础',
     'Cross-platform': '跨平台技术',
-    'tools': '工具与工程化'
+    'tools': '工具与工程化',
+    'ref': '学习资料'
 }
 
-orders = ['主页', 'Android', 'Java基础', 'Kotlin基础', '跨平台技术', 'CS理论基础', '关于']
+orders = ['主页', 'Android', 'Java基础', 'Kotlin基础', '跨平台技术', 'CS理论基础', '关于', '学习资料']
 
 def read_docs(source, object_pairs_hook=OrderedDict):
     class OrderedLoader(yaml.Loader):

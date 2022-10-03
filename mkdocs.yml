@@ -38,6 +38,7 @@ nav:
     - 工具与工程化: 
       - none.md
     - 关于: about.md
+    - 学习资料: ref.md
 
 theme:
   language: zh
