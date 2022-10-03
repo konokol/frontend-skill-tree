@@ -1,19 +1,30 @@
 # usr/bin/env python3
 # -*- codind:utf-8 -*-
 import functools
-from importlib.abc import Loader
-import yaml
 from collections import OrderedDict
 import os
 import math
+import yaml
 
-ignore = ['assets', 'css', 'img']
+ignore = ['assets', 'css', 'img', 'none.md']
 names = {
+    '1-Basic': '基础',
+    '2-Perf': '性能',
+    '3-Arch': '架构',
+    '4-Third-part': '三方框架',
+    '5-Framework': 'Framework',
+    'Internet': '网络',
+    'OS': '操作系统',
+    'CS-basic': '计算机基础',
+    'Algorithm': '算法',
     'CS': 'CS理论基础',
     'Java': 'Java基础',
     'Kotlin': 'Kotlin基础',
+    'Cross-platform': '跨平台技术',
     'tools': '工具与工程化'
 }
+
+orders = ['主页', 'Android', 'Java基础', 'Kotlin基础', '跨平台技术', 'CS理论基础', '关于']
 
 def read_docs(source, object_pairs_hook=OrderedDict):
     class OrderedLoader(yaml.Loader):
@@ -34,27 +45,22 @@ def read_docs(source, object_pairs_hook=OrderedDict):
 def mk_docs(content = ''):
 
     nav = list()
-    for file in os.listdir('docs'):
-        if file in ignore:
-            pass
-        else:
+    folders = os.listdir('docs')
+    folders.sort()
+    for file in folders:
+        if file not in ignore:
             doc = single_doc('./docs/' + file)
             if doc is not None:
                 nav.append(doc)
 
-    pre_nav = content['nav']
-
     def cmp(m, n):
         i_m = math.inf
         i_n = math.inf
-        for i, v in enumerate(pre_nav):
-            if list(v.keys())[0] == list(m.keys())[0]:
+        for i, v in enumerate(orders):
+            if v == list(m.keys())[0]:
                 i_m = i
-            if list(v.keys())[0] == list(n.keys())[0]:
+            if v == list(n.keys())[0]:
                 i_n = i
-        print("m", m)
-        print("n", n)
-        print("i_m,i_n", i_m, i_n)
         return i_m - i_n
     
     nav.sort(key=functools.cmp_to_key(cmp))
@@ -67,22 +73,24 @@ def single_doc(file_path):
             for line in f.readlines():
                 if (line.startswith("#")):
                     name = line[1:].strip()
-                    print('add file', name)
+                    # print('add file', name)
                     return {name : os.path.relpath(file_path, './docs')}
             return {os.path.basename(file_path).split('.')[0] : os.path.relpath(file_path, './docs')}
     else:
         dirs = list()
-        for file in os.listdir(file_path):
+        files = os.listdir(file_path)
+        files.sort()
+        for file in files:
             child = single_doc(file_path + '/' + file)
             if child is not None:
                 dirs.append(child)
+        if not dirs:
+            dirs.append('none.md')
         name = os.path.basename(file_path)
         return {names[name] if name in names else name : dirs}
 
 def write_docs(target='mkdocs.yml', data = None, object_pairs_hook=OrderedDict,):
-    if data is None:
-        pass
-    else:
+    if data is not None:
         class OrderedDumper(yaml.Dumper):
             pass
 
@@ -101,4 +109,4 @@ def write_docs(target='mkdocs.yml', data = None, object_pairs_hook=OrderedDict,)
 if __name__ == "__main__":
     data = read_docs(source='mkdocs.yml')
     docs = mk_docs(data)
-    write_docs('mkdocs copy.yml', docs)
+    write_docs('mkdocs.yml', docs)
