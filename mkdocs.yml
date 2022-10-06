@@ -6,12 +6,12 @@ nav:
     - 主页: index.md
     - Android:
       - 基础:
-        - Activity基础: Android/Activity.md
-        - Service基础: Android/Service.md
-        - BroadCastReceiver: Android/BroadcastReceiver.md
-        - ContentProvider: Android/ContentProvider.md
-        - 64K方法: Android/android-virtual-machine.md
-        - Fragment与Activity通信: Android/fragment2activity.md
+        - Activity基础: Android/1-Basic/Activity.md
+        - Service基础: Android/1-Basic/Service.md
+        - BroadCastReceiver: Android/1-Basic/BroadcastReceiver.md
+        - ContentProvider: Android/1-Basic/ContentProvider.md
+        - 64K方法: Android/1-Basic/android-virtual-machine.md
+        - Fragment与Activity通信: Android/1-Basic/fragment2activity.md
       - 架构:
         - none.md
       - 性能:
@@ -21,14 +21,14 @@ nav:
       - 三方框架:
         - none.md
     - Java基础:
-      - ./Java/注解.md
+      - Java/Annotation.md
     - Kotlin基础:
       - none.md
     - 跨平台技术:
       - none.md
     - CS理论基础:
       - 网络:
-        - HTTP协议: ./CS/HTTP.md
+        - HTTP协议: ./CS/Internet/HTTP.md
       - 操作系统:
         - none.md
       - 计算机基础:
@@ -47,6 +47,37 @@ theme:
   palette:
     primary: 'teal'
     accent: 'white'
-  
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - navigation.tracking
+    - navigation.top
+  plugins:
+    - tags: 
+      enabled: true
+      tags_allowed:
+        - HTML5
+        - JavaScript
+        - CSS
+extra:
+  social:
+    - icon: fontawesome/brands/github 
+      link: https://github.com/ivanjlee
+    - icon: fontawesome/brands/zhihu
+      link: https://www.zhihu.com/people/ivanjlee
+    - icon: fontawesome/solid/envelope
+      link: mailto:lijundut@foxmail.com
+
+repo_url: https://github.com/ivanjlee/frontend-roadmap
+repo_name: ivanjlee/frontend-roadmap
+edit_uri: ""
+    
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
 extra_css:
   - 'css/app.css'
