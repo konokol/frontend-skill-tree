@@ -2,7 +2,7 @@
 
 ## Fragment的生命周期
 
-![Fragment生命周期](../../../img/fragment_lifecycle.png)
+![Fragment生命周期](../../img/fragment_lifecycle.png)
 
 ## Activity与Fragment的通信方式
 

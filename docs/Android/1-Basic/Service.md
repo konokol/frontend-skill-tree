@@ -57,7 +57,7 @@ context.startService()可以启动Service，启动之后，Service的生命周�
 
 ## 生命周期
 
-![Service生命周期](../../../img/service_lifecycle.png)
+![Service生命周期](../../img/service_lifecycle.png)
 
 ## 几种不同的Service
 
@@ -118,7 +118,7 @@ Android官网上并没定义后台Service的概念，这里的后台Service是�
    
 
 
-![已启动且允许绑定的服务的生命周期](../../../img/service_binding_tree_lifecycle.png)
+![已启动且允许绑定的服务的生命周期](../../img/service_binding_tree_lifecycle.png)
 
 ### IntentService
 

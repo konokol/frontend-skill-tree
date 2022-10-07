@@ -23,7 +23,7 @@ button.setOnClickListener(view -> Log.v(TAG, "button is clicked!"));
 
 和使用匿名内部类传入实现了某个接口的对象不同，Lambda传入的参数是一段代码快，即匿名函数(注意这里已经不在叫方法而叫函数了)。这个匿名函数中，->将参数和Lambda表达式的主体分开，view是函数的参数，Log.v(TAG, "button is clicked!")是这个函数的具体实现。
 
-![lambda表达式形式](../image/lambda.png)
+![lambda表达式形式](../img/lambda.png)
 
 lambda表达式语法：
 
@@ -256,7 +256,7 @@ Lambda表达式需要的类型称为**目标类型**。只要函数签名一致�
 List<Apple> heavierThan150g = filter(inventory, (Apple a) -> a.getWeight() > 150);
 ```
 
-![type check](../image/type_check.png)
+![type check](../img/type_check.png)
 
 ### 3.2 类型推断
 

@@ -74,10 +74,10 @@ Java 8中的集合支持一个新的stream方法，它会返回一个流，当�
 使用Stream进行的迭代是**内部迭代**，Stream已经帮你把迭代做了，你只需要告诉它你需要干什么就可以了。
 
 外部迭代：
-![外部迭代](../image/java8-out-iterator.PNG)
+![外部迭代](../img/java8-out-iterator.PNG)
 
 内部迭代：
-![](../image/java8-inner-iterator.PNG)
+![](../img/java8-inner-iterator.PNG)
 
 ## 1.3 常见的流操作
 
@@ -104,7 +104,7 @@ List<String> upperCaseList = Stream.of("talk", "is", "cheap", ",", "show", "me",
 */
 ```
 
- ![Java 8 map](../image/java8-map.PNG)
+ ![Java 8 map](../img/java8-map.PNG)
 
 map操作传入的Lambda表达式必须和Function接口的签名一致。
 
@@ -150,7 +150,7 @@ List<String> digitList = Stream.of("a1c", "123", "1q2qw", "0.5")
 */
 ```
 
-![](../image/java8-filter.PNG)
+![](../img/java8-filter.PNG)
 
 同样，filter操作传入的Lambda表达式必须和Predicate接口的签名一致。
 
@@ -227,7 +227,7 @@ int sum = Stream.of(1, 2, 3, 4)
 	.reduce(0, (acc, element) -> acc + element);
 ```
 
-![reduce](../image/java8-reduce.PNG)
+![reduce](../img/java8-reduce.PNG)
 
 reduce对应的操作有3个重载的方法：
 
