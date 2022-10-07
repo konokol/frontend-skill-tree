@@ -37,7 +37,7 @@ dex自动分包过程中策略很保守，主dex仍然有可能超过64K方法�
 
 ## dex启动优化
 
-![Image](../img/dex_opt.jpg)
+![Image](../../../img/dex_opt.jpg)
 
 开启multidex之后，对于5.0以下的系统，启动时dexopt过程会加载dex文件，会造成APP启动时在首屏耗时较多，进入主页时间慢。
 
