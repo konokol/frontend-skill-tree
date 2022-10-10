@@ -2,8 +2,11 @@ site_name: 客户端知识图谱
 
 copyright: 'Copyright &copy; 2022 Ivan J. Lee.'
 
-nav:
-    - 主页: index.md
+nav: 
+    - 主页: 
+      - 概述: index.md
+      - 学习资料: home/ref.md
+      - 关于: home/about.md
     - Android:
       - 基础:
         - Activity基础: Android/1-Basic/Activity.md
@@ -37,8 +40,6 @@ nav:
         - none.md
     - 工具与工程化: 
       - none.md
-    - 关于: about.md
-    - 学习资料: ref.md
 
 theme:
   language: zh
@@ -73,11 +74,8 @@ repo_name: ivanjlee/frontend-roadmap
 edit_uri: ""
     
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
+  - def_list
+  - attr_list
 
 extra_css:
   - 'css/app.css'
