@@ -5,6 +5,7 @@ from collections import OrderedDict
 from operator import index
 import os
 import math
+from venv import create
 import yaml
 
 ignore = ['assets', 'css', 'img', 'none.md', 'index.md']
@@ -12,7 +13,7 @@ names = {
     '1-Basic': '基础',
     '2-Perf': '性能',
     '3-Arch': '架构',
-    '4-Third-part': '三方框架',
+    '4-Thirdpart': '三方框架',
     '5-Framework': 'Framework',
     'Internet': '网络',
     'OS': '操作系统',
@@ -72,11 +73,13 @@ def mk_docs(content = ''):
 
 def single_doc(file_path):
     if (os.path.isfile(file_path)):
+        if os.path.basename(file_path) == 'none.md':
+            return {'敬请期待': os.path.relpath(file_path, './docs')}
         with open(file_path, 'r', encoding='utf-8') as f:
             for line in f.readlines():
                 if (line.startswith("#")):
                     name = line[1:].strip()
-                    # print('add file', name)
+                    print('add file', name)
                     return {name : os.path.relpath(file_path, './docs')}
             return {os.path.basename(file_path).split('.')[0] : os.path.relpath(file_path, './docs')}
     else:
@@ -84,11 +87,14 @@ def single_doc(file_path):
         files = os.listdir(file_path)
         files.sort()
         for file in files:
-            child = single_doc(file_path + '/' + file)
+            child = single_doc(os.path.join(file_path, file))
             if child is not None:
                 dirs.append(child)
         if not dirs:
-            dirs.append('none.md')
+            with open(os.path.join(file_path, 'none.md'), 'w') as f:
+                child = single_doc(f.name)
+                if child is not None:
+                    dirs.append(child)
         name = os.path.basename(file_path)
         return {names[name] if name in names else name : dirs}
 
@@ -113,4 +119,4 @@ if __name__ == "__main__":
     data = read_docs(source='mkdocs.yml')
     docs = mk_docs(data)
     docs['nav'][0]['首页'].insert(0, {'概述': 'index.md'})
-    write_docs('mkdocs.yml', docs)
+    write_docs('mkdocs1.yml', docs)
