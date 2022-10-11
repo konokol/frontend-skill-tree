@@ -1,4 +1,4 @@
-# 大前端学习路线图
+# 大前端知识图谱
 
 [![pages-build-deployment](https://github.com/ivanjlee/frontend-roadmap/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ivanjlee/frontend-roadmap/actions/workflows/pages/pages-build-deployment)  ![Website](https://img.shields.io/website?url=https%3A%2F%2Fivanjlee.github.io%2Ffrontend-roadmap)  ![GitHub repo size](https://img.shields.io/github/repo-size/ivanjlee/frontend-roadmap)
 
@@ -9,14 +9,52 @@
 
 ## 目录
 
- * [Android基础](#Android基础)
  * [Java基础](#Java基础)
+ * [Android基础](#Android基础)
  * [Kotlin基础](#Kotlin基础)
  * [CS基础](#CS基础)
  * [数据结构与算法](#数据结构与算法)
  * [跨平台](#跨平台)
  * [其他](#其他)
  * [学习资料](#学习资料)
+
+## Java基础
+
+<img src="./assets/ic-java.png" width="48px"/> 
+
+
+### 基础
+
+- [异常](./docs/Java/%E5%BC%82%E5%B8%B8.md)
+- [注解](./docs/Java/%E6%B3%A8%E8%A7%A3.md)
+- [Java单例的写法](./docs/Java/Java%E5%8D%95%E4%BE%8B%E7%9A%84%E5%86%99%E6%B3%95.md)
+- [字符串](./docs/Java/%E5%AD%97%E7%AC%A6%E4%B8%B2.md)
+
+### 新版本特性
+
+- [Java 8 Lambda表达式](./docs/Java/Java-8-lambda.md)
+- [Java 8 函数式数据处理](./docs/Java/Java-8-functional.md)
+
+### 多线程
+
+- [ThreadLocal原理](./docs/Java/ThreadLocal.md)
+
+### 集合
+
+- [集合框架](./docs/Java/Collections.md)
+
+### Java虚拟机
+
+- [JVM运行时内存模型](./docs/Java/JVM-memory-model.md)
+
+
+### 设计模式
+
+### 其他
+
+- [面向对象](./docs/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md)
+- [Java中的四种引用](./docs/Java/References.md)
+
 
 ## Android基础
 
@@ -95,43 +133,6 @@
 
 ### 其他
 - [如何保证进程不被杀死](./docs/Android/keep-alive.md)
-
-## Java基础
-
-<img src="./assets/ic-java.png" width="48px"/> 
-
-
-### 基础
-
-- [异常](./docs/Java/%E5%BC%82%E5%B8%B8.md)
-- [注解](./docs/Java/%E6%B3%A8%E8%A7%A3.md)
-- [Java单例的写法](./docs/Java/Java%E5%8D%95%E4%BE%8B%E7%9A%84%E5%86%99%E6%B3%95.md)
-- [字符串](./docs/Java/%E5%AD%97%E7%AC%A6%E4%B8%B2.md)
-
-### 新版本特性
-
-- [Java 8 Lambda表达式](./docs/Java/Java-8-lambda.md)
-- [Java 8 函数式数据处理](./docs/Java/Java-8-functional.md)
-
-### 多线程
-
-- [ThreadLocal原理](./docs/Java/ThreadLocal.md)
-
-### 集合
-
-- [集合框架](./docs/Java/Collections.md)
-
-### Java虚拟机
-
-- [JVM运行时内存模型](./docs/Java/JVM-memory-model.md)
-
-
-### 设计模式
-
-### 其他
-
-- [面向对象](./docs/Java/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md)
-- [Java中的四种引用](./docs/Java/References.md)
 
 ## Kotlin基础
 
