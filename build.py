@@ -2,11 +2,12 @@
 # -*- codind:utf-8 -*-
 import functools
 from collections import OrderedDict
+from operator import index
 import os
 import math
 import yaml
 
-ignore = ['assets', 'css', 'img', 'none.md']
+ignore = ['assets', 'css', 'img', 'none.md', 'index.md']
 names = {
     '1-Basic': '基础',
     '2-Perf': '性能',
@@ -22,10 +23,11 @@ names = {
     'Kotlin': 'Kotlin基础',
     'Cross-platform': '跨平台技术',
     'tools': '工具与工程化',
-    'ref': '学习资料'
+    'ref': '学习资料',
+    'home': '首页'
 }
 
-orders = ['主页', 'Android', 'Java基础', 'Kotlin基础', '跨平台技术', 'CS理论基础', '关于', '学习资料']
+orders = ['首页', 'Android', 'Java基础', 'Kotlin基础', '跨平台技术', 'CS理论基础', '关于', '学习资料']
 
 def read_docs(source, object_pairs_hook=OrderedDict):
     class OrderedLoader(yaml.Loader):
@@ -110,4 +112,5 @@ def write_docs(target='mkdocs.yml', data = None, object_pairs_hook=OrderedDict,)
 if __name__ == "__main__":
     data = read_docs(source='mkdocs.yml')
     docs = mk_docs(data)
+    docs['nav'][0]['首页'].insert(0, {'概述': 'index.md'})
     write_docs('mkdocs.yml', docs)
