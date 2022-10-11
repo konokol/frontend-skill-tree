@@ -15,31 +15,31 @@ nav:
         - ContentProvider: Android/1-Basic/ContentProvider.md
         - 64K方法: Android/1-Basic/android-virtual-machine.md
         - Fragment与Activity通信: Android/1-Basic/fragment2activity.md
-      - 架构:
-        - none.md
       - 性能:
-        - none.md
-      - 工具:
-        - none.md
+        - 敬请期待: Android/2-Perf/none.md
+      - 架构:
+        - 敬请期待: Android/3-Arch/none.md
       - 三方框架:
-        - none.md
+        - 敬请期待: Android/4-Thirdpart/none.md
+      - Framework:
+        - 源码阅读计划: Android/5-Framework/Android-source-code.md
     - Java基础:
       - Java/Annotation.md
     - Kotlin基础:
-      - none.md
+      - 敬请期待: Kotlin/none.md
     - 跨平台技术:
-      - none.md
+      - 敬请期待: Cross-platform/none.md
     - CS理论基础:
       - 网络:
-        - HTTP协议: ./CS/Internet/HTTP.md
+        - HTTP协议: CS/Internet/HTTP.md
       - 操作系统:
-        - none.md
+        - 敬请期待: CS/CS-basic/none.md
       - 计算机基础:
-        - none.md
+        - 敬请期待: CS/CS-basic/none.md
       - 算法:
-        - none.md
+        - 敬请期待: CS/Algorithm/none.md
     - 工具与工程化: 
-      - none.md
+      - 敬请期待: none.md
 
 theme:
   language: zh
