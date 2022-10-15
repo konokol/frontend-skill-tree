@@ -54,23 +54,51 @@ Activity是Android的四大组件之一，也是唯一可以和用户直接交�
   : 当从Activity离开，走完onStop后，如果再次返回到当前Activity，则会走到onRestart。
 
 
-### Activity异常情况下的生命周期
+### 异常生命周期
+
+🌰🌰🌰：onPause和onStop不执行
+
+如果在onStart中直接调用finish()方法，由于Activity还没到前台，onPause和onStop也就不会执行。
+
+🌰🌰🌰：onDestroy方法不执行
+
+一般情况下，onDestroy方法都是会执行的，但是当任务栈中存在多个未销毁的Activity时，通过最近任务杀死进程，只有处于栈顶的Activity才会走onDestroy方法。
+
+🌰🌰🌰： 主动finishActivity，10s之后才执行onDestroy
+
+调用finish()方法会导致系统触发Activity的onDestry()，但是调用finish()之后，只是先主线程的消息队列发送一条销毁Activity的消息，因此不会马上触发onDestroy()。比如有场景，从ActivityA启动ActivityB，并同时finish()掉ActivityA，同时ActivityB中通过Handler post消息持续播放动画，此时由于消息队列一直在处理前台的ActivityB的消息，会导致处于后台的ActivityA的销毁的消息一直等不到执行的机会，但是系统并不会让后台的Activity一直不销毁，占用系统资源，因此有一个兜底的10s时间，超时后即会销毁。同样的，如果Activity的转场动画时间很长，也同样有机会触发超时。
+
+## 状态保存与恢复
+
+一般Activity在2大类场景下需要进行状态的保存与恢复，内存不足导致Activity被杀死和配置变化导致的Activity重建。
+
+**状态保存**
+
+Activity中提供了onSaveInstanceState()方法来保存状态，该方法在onStop之前调用，将需要保存的数据写入bundle中，既可完成数据的保存。
+
+在API 21之后，Activity的onSaveInstanceState()增加了一个重载的方法：
+
+```java
+public void onSaveInstanceState(@NonNull Bundle outState,
+            @NonNull PersistableBundle outPersistentState) {
+  onSaveInstanceState(outState);
+}
+```
+在清单文件中对Activity增加属性```android:persistableMode="persistAcrossReboots"```之后，Activity具有了持久化保存数据的能力，设备重启之后首次再打开Activity，被持久化的参数就传到onCreate方法的Bundle参数中。
+
+Activity的onSaveInstanceState方法中，使用委托的方式，通过调用Window的```saveHierarchyState```方法保存视图结构，这里的Window通常是PhoneWindow，PhoneWindow又继续调用其ContentView的```saveHierarchyState```方法来委托其子View保存其状态。子View如需保存其状态，必须要有id，且必须设置属性```android:=android:saveEnabled="true"```。
+
+**状态恢复**
+
+### 内存不足Activity被杀死
+
+### 配置变化导致Activity重建
+配置```android:configChanges=""```可以让配置改变的时候不重启Activity
 
 onStop()之前调用onSaveInstante()保存数据，在onCreate之后调用onRestoreInstanceState(Bundle)恢复数据，委托Window以及上层的View保存数据
 
-#### 内存不足Activity被杀死
-
-#### 配置变化导致Activity重建
-配置```android:configChanges=""```可以让配置改变的时候不重启Activity
-
-## 状态保存
 
 ## 任务栈
-
-### 隐式Intent匹配
-
-- **category:**   可以没有，一旦指定，必须完全匹配
-- **data:**   和action的匹配规则一样
 
 ### 启动模式
 
@@ -87,6 +115,14 @@ onStop()之前调用onSaveInstante()保存数据，在onCreate之后调用onRest
   指定要启动的Activity的任务栈，taskAffinity，默认和包名一样;
 
 指定启动模式的方式，manifest文件或者Intent中设置flag，不完全一直，可以指定NEW_TASK，SINGLE_TOP，CLEAR_TOP，EXECULE_FROM_RECENT
+
+## 页面导航
+
+### 隐式Intent匹配
+
+- **category:**   可以没有，一旦指定，必须完全匹配
+- **data:**   和action的匹配规则一样
+
 
 ## Activity的启动流程
 
