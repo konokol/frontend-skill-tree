@@ -90,13 +90,28 @@ Activity的onSaveInstanceState方法中，使用委托的方式，通过调用Wi
 
 **状态恢复**
 
+状态恢复的方法有2个，一个是onCreate方法，一个是onRestoreInstanceState。
+
+onCreate方法的参数中有一个Bundle方法，Bundle非空时，可以利用Bundle中的数据恢复状态。
+
+onSaveInstanceState方法在onCreate方法之后调用，参数也是一个Bundle参数，可以通过其恢复状态。
+
 ### 内存不足Activity被杀死
 
+当系统内存不足时，会杀死一些进程来释放资源，进程被杀死的优先级跟当前进程的前后台状态有关。
+
+|  系统杀进程可能性| 进程状态                   | Activity状态                 |
+|:------------- |:------------------------- |:--------------------------- |
+|  小           |  前台（有焦点或即将获取焦点）  | onCreate、onStart、onResume  |
+|  大           |  后台（即将失去焦点）         | onPause                     |
+|  最大         |  后台（失去焦点）            |  onStop                      |
+|  最大         |  空                        |  onDestroy                   | 
+
 ### 配置变化导致Activity重建
+
+当配置发生变更时，Activity会被销毁之后重新创建。常见的会触发配置变更的行为包括：横竖屏切换、语言或输入设备发生变化。配置变更时会回调onConfigurationChanged方法，也会调用onSaveInstanceState方法，可以在对应的方法中保存状态。
+
 配置```android:configChanges=""```可以让配置改变的时候不重启Activity
-
-onStop()之前调用onSaveInstante()保存数据，在onCreate之后调用onRestoreInstanceState(Bundle)恢复数据，委托Window以及上层的View保存数据
-
 
 ## 任务栈
 
