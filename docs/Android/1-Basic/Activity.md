@@ -117,19 +117,41 @@ onSaveInstanceState方法在onCreate方法之后调用，参数也是一个Bundl
 
 ### 启动模式
 
+设置Activity的启动模式有种方式，通过清单文件设置或者在Intent中设置FLAG标记。
+
+**使用清单文件**
+
 - **stardard** 标准模式，每次启动均创建一个新的Activity实例;
 
-- **singleTop** 栈顶复用，要启动的Activity在栈顶时复用Activity实例，否则和标准模式一样；
+- **singleTop** 栈顶复用，要启动的Activity在栈顶时复用Activity实例，同时调用onNewIntent()方法，否则和标准模式一样；
 
-- **singleTask** 栈内复用，在要启动的任务栈中有Activity的实例就复用；
+- **singleTask** 栈内复用，在要启动的任务栈中有Activity的实例就复用，同时调用onNewIntent()方法，如果启动的任务栈中不存在Activity实例，就会创建一个新的任务栈，并创建Activity的实例。这种模式启动Activity自带CLEAR_TOP的特性，会将这个Activity之上的Activity都出栈；
 
-- **singleInstance** 单例模式，独享任务栈
+- **singleInstance** 单例模式，独享一个任务栈
 
-  
+**使用Intent标记**
 
-  指定要启动的Activity的任务栈，taskAffinity，默认和包名一样;
+- FLAG_ACTIVITY_NEW_TASK
+  虽然名字叫NEW_TASK，但是和清单文件中配置singleTask效果是一样的。
 
-指定启动模式的方式，manifest文件或者Intent中设置flag，不完全一直，可以指定NEW_TASK，SINGLE_TOP，CLEAR_TOP，EXECULE_FROM_RECENT
+- FLAG_ACTIVITY_SINGLE_TOP
+  效果和清单文件中配置singleTop效果一样。
+
+- FLAG_ACTIVITY_CLEAR_TOP
+  清单文件中lanchMode没有与之匹配的模式。如果启动的Activity在栈内但不在栈顶，会清空其上方的Activity，不会创建新实例，但会调用onNewIntent()方法。
+
+### 任务栈的设置
+
+清单文件中设置taskAffinity，可以指定要启动的Activity的任务栈，默认和包名一样;
+
+清单文件中还有一个属性allTaskReparenting，当设置该属性时，Activity可以从一个任务栈中移到另一个任务栈中。
+
+通过adb命令可以获取当前的任务栈：
+```
+adb shell dumpsys activity activities
+```
+
+在代码中，可以调用```activityManager.getRunningTasks```可以获取任务栈。
 
 ## 页面导航
 
