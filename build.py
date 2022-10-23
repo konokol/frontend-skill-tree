@@ -119,4 +119,4 @@ if __name__ == "__main__":
     data = read_docs(source='mkdocs.yml')
     docs = mk_docs(data)
     docs['nav'][0]['首页'].insert(0, {'概述': 'index.md'})
-    write_docs('mkdocs1.yml', docs)
+    write_docs('mkdocs.yml', docs)

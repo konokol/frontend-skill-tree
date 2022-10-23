@@ -1,81 +1,108 @@
 site_name: 客户端知识图谱
-
-copyright: 'Copyright &copy; 2022 Ivan J. Lee.'
-
-nav: 
-    - 主页: 
-      - 概述: index.md
-      - 学习资料: home/ref.md
-      - 关于: home/about.md
-    - Android:
-      - 基础:
-        - Activity基础: Android/1-Basic/Activity.md
-        - Service基础: Android/1-Basic/Service.md
-        - BroadCastReceiver: Android/1-Basic/BroadcastReceiver.md
-        - ContentProvider: Android/1-Basic/ContentProvider.md
-        - 64K方法: Android/1-Basic/android-virtual-machine.md
-        - Fragment与Activity通信: Android/1-Basic/fragment2activity.md
-      - 性能:
-        - 敬请期待: Android/2-Perf/none.md
-      - 架构:
-        - 敬请期待: Android/3-Arch/none.md
-      - 三方框架:
-        - 敬请期待: Android/4-Thirdpart/none.md
-      - Framework:
-        - 源码阅读计划: Android/5-Framework/Android-source-code.md
-    - Java基础:
-      - Java/Annotation.md
-    - Kotlin基础:
-      - 敬请期待: Kotlin/none.md
-    - 跨平台技术:
-      - 敬请期待: Cross-platform/none.md
-    - CS理论基础:
-      - 网络:
-        - HTTP协议: CS/Internet/HTTP.md
-      - 操作系统:
-        - 敬请期待: CS/CS-basic/none.md
-      - 计算机基础:
-        - 敬请期待: CS/CS-basic/none.md
-      - 算法:
-        - 敬请期待: CS/Algorithm/none.md
-    - 工具与工程化: 
-      - 敬请期待: none.md
-
+copyright: Copyright &copy; 2022 Ivan J. Lee.
+nav:
+- 首页:
+  - 概述: index.md
+  - 关于: home/about.md
+  - 学习资料: home/ref.md
+- Android:
+  - 基础:
+    - Android四大组件--Activity: Android/1-Basic/Activity.md
+    - Android GC原理: Android/1-Basic/Android-GC.md
+    - Android中对集合的优化: Android/1-Basic/Android-collections.md
+    - Android SQLite数据库优化: Android/1-Basic/Android-database.md
+    - Android内存泄漏: Android/1-Basic/Android-memory.md
+    - Android 5.0到7.0的行为变更: Android/1-Basic/Android-new-features.md
+    - 理解Activity，View，Window三者关系: Android/1-Basic/Android-window.md
+    - Android动画简介: Android/1-Basic/Animations.md
+    - AsyncTask原理解析: Android/1-Basic/AsyncTask.md
+    - BroadcastReceiver: Android/1-Basic/BroadcastReceiver.md
+    - ButterKnife原理解析: Android/1-Basic/ButterKnife.md
+    - ContentProvider: Android/1-Basic/ContentProvider.md
+    - EventBus原理解析: Android/1-Basic/EventBus.md
+    - Fresco相关: Android/1-Basic/Fresco.md
+    - 消息机制: Android/1-Basic/Handler.md
+    - HandlerThread与IntentService: Android/1-Basic/HandlerThread&IntentService.md
+    - Android 热修复原理: Android/1-Basic/Hotfix.md
+    - 高效加载图片: Android/1-Basic/Image.md
+    - Routing: Android/1-Basic/Routing.md
+    - 序列化: Android/1-Basic/Serialization.md
+    - Android四大组件之Service: Android/1-Basic/Service.md
+    - aidl: Android/1-Basic/aidl.md
+    - Android虚拟机相关: Android/1-Basic/android-virtual-machine.md
+    - 事件分发机制: Android/1-Basic/event-dispatch.md
+    - Fragment相关: Android/1-Basic/fragment2activity.md
+    - View的绘制流程: Android/1-Basic/how-is-view-drew.md
+    - keep-alive: Android/1-Basic/keep-alive.md
+    - Android打包: Android/1-Basic/tools.md
+  - 性能:
+    - 敬请期待: Android/2-Perf/none.md
+  - 架构:
+    - 敬请期待: Android/3-Arch/none.md
+  - 三方框架:
+    - 敬请期待: Android/4-Thirdpart/none.md
+  - Framework:
+    - Activity的启动流程: Android/5-Framework/Activity-source-code.md
+    - 源码阅读计划: Android/5-Framework/Android-source-code.md
+- Java基础:
+  - 注解: Java/Annotation.md
+  - Java的集合框架: Java/Collections.md
+  - 设计模式: Java/Design-pattern.md
+  - Java异常详解: Java/Exception.md
+  - JVM运行时数据区和Java内存模型: Java/JVM-memory-model.md
+  - Java 8函数式数据处理: Java/Java-8-functional.md
+  - Java 8函数式编程–––Lambda表达式: Java/Java-8-lambda.md
+  - 面向对象: Java/OO.md
+  - Java中的四种引用: Java/References.md
+  - 反射: Java/Reflation.md
+  - 字符串: Java/Strings.md
+  - ThreadLocal原理: Java/ThreadLocal.md
+  - Java单例的写法: Java/design-pattern-singleton.md
+- Kotlin基础:
+  - 敬请期待: Kotlin/none.md
+- 跨平台技术:
+  - 敬请期待: Cross-platform/none.md
+- CS理论基础:
+  - 算法:
+    - 敬请期待: CS/Algorithm/none.md
+  - 计算机基础:
+    - 敬请期待: CS/CS-basic/none.md
+  - 网络:
+    - HTTP协议详解: CS/Internet/HTTP.md
+  - 操作系统:
+    - 敬请期待: CS/OS/none.md
 theme:
   language: zh
-  name: 'material'
+  name: material
   favicon: assets/book.png
   palette:
-    primary: 'teal'
-    accent: 'white'
+    primary: teal
+    accent: white
   features:
-    - navigation.tabs
-    - navigation.expand
-    - navigation.tracking
-    - navigation.top
+  - navigation.tabs
+  - navigation.expand
+  - navigation.tracking
+  - navigation.top
   plugins:
-    - tags: 
-      enabled: true
-      tags_allowed:
-        - HTML5
-        - JavaScript
-        - CSS
+  - tags: null
+    enabled: true
+    tags_allowed:
+    - HTML5
+    - JavaScript
+    - CSS
 extra:
   social:
-    - icon: fontawesome/brands/github 
-      link: https://github.com/ivanjlee
-    - icon: fontawesome/brands/zhihu
-      link: https://www.zhihu.com/people/ivanjlee
-    - icon: fontawesome/solid/envelope
-      link: mailto:lijundut@foxmail.com
-
+  - icon: fontawesome/brands/github
+    link: https://github.com/ivanjlee
+  - icon: fontawesome/brands/zhihu
+    link: https://www.zhihu.com/people/ivanjlee
+  - icon: fontawesome/solid/envelope
+    link: mailto:lijundut@foxmail.com
 repo_url: https://github.com/ivanjlee/frontend-roadmap
 repo_name: ivanjlee/frontend-roadmap
-edit_uri: ""
-    
+edit_uri: ''
 markdown_extensions:
-  - def_list
-  - attr_list
-
+- def_list
+- attr_list
 extra_css:
-  - 'css/app.css'
+- css/app.css
