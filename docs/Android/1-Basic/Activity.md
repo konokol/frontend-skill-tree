@@ -155,15 +155,30 @@ adb shell dumpsys activity activities
 
 ## 页面导航
 
-### 隐式Intent匹配
+启动Activity的方式有两种，一种是通过隐式Intent启动，即启动时指定uri、action、category，匹配规则匹配上即可启动启动，另一种是通过在Intent中显式指定Activity的class，包名等信息直接启动指定的Activity。
 
-- **category:**   可以没有，一旦指定，必须完全匹配
-- **data:**   和action的匹配规则一样
+### 隐式启动
+
+Activity支持隐式启动必须在清单文件中通过IntentFilter配置匹配规则，一个Activity可以配置多个IntentFilter，只要其中一个能匹配上，就可以启动该Activity。匹配规则包括：
+
+**action**
+
+Action指定了操作行为，Intent中有一些默认的行为，比如android.intent.ACTION_VIEW。IntentFIlter中配置了多个action时，只要有一个匹配上就可以匹配成功。
+
+**category:** 
+
+可以没有，一旦指定，必须完全匹配。没有声明category时，启动Activity，系统一般会指定一个默认的category，android.intent.category.DEFAULT。
+
+**data:**
+
+datta和action的匹配规则一样。data中可以指定启动的uri匹配规则，以及mineType。
 
 
 ## Activity的启动流程
 
-*参考:*
+参考[Activity启动流程源码](../5-Framework/Activity-source-code.md)
+
+## *参考*
 
  1. [Android developers -- Activity](https://developer.android.google.cn/guide/components/activities/intro-activities)
  2. [Activity与启动方式详解](http://blog.csdn.net/singwhatiwanna/article/details/9294285)
