@@ -5,7 +5,7 @@
 当我们在讨论大前端的时候，我们在说什么？这里从一个Android
 开发的角度记录了一路来的学习历程，把技能树一步一步点开，不积硅步，无以至千里，不积小流，无以成江海，希望随着记录，能有进步。
 
-更好的阅读体验，请移步[客户端工程师进阶知识图谱](https://ivanjlee.github.io/frontend-roadmap/)
+更好的阅读体验，请移步[客户端工程师技能树](https://ivanjlee.github.io/frontend-skill-tree/)
 
 ## 目录
 
