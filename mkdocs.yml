@@ -47,6 +47,7 @@ nav:
 - Java基础:
   - 基础:
     - 基本数据类型: Java/1-Basic/01-Primitive-Data-Types.md
+    - 引用数据类型: Java/1-Basic/02-Refrefence-Data-Types.md
   - 注解: Java/Annotation.md
   - Java的集合框架: Java/Collections.md
   - 设计模式: Java/Design-pattern.md

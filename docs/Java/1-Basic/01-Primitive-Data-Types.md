@@ -94,3 +94,7 @@ byte b = 0b1111_1111
 long num = 0xFFFF_0AEE;
 float f = 1_2_3.987_654f;
 ```
+
+*参考*
+
+[The Java™ Tutorials Variables](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html)
