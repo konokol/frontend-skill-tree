@@ -64,6 +64,32 @@ float和double还可以用科学计数法的形式声明，如`double f = 1.1e3`
 
 浮点数如果整数部分为0，声明时可不写整数部分，如`float f = .34f`；小数部分如果是0，小数也可以不写，如`float g = 1.f`。
 
+
+### 浮点数的比较
+
+浮点数在计算过程中也会丢失精度，如下面的代码，0.1累加11次和0.1直接乘11，产生的浮点数就不一样。
+
+```Java
+    public void float() {
+        double f1 = .0;
+        for (int i = 0; i < 11; i++) {
+            f1 += .1;
+        }
+
+        double f2 = .1 * 11;
+
+        System.out.println("f1 = " + f1); // f1 = 1.0999999999999999
+        System.out.println("f2 = " + f2); // f2 = 1.1
+
+    }
+```
+
+由于浮点数表示的不精确性，一般比较浮点数推荐两种方式
+
+**计算差值和阈值对比**
+
+**使用BigDecimal**
+
 ### 进制表示
 
 对于byte、short、int和long类型，可以用二进制、八进制、十进制、十六进制来声明变量。
@@ -97,4 +123,5 @@ float f = 1_2_3.987_654f;
 
 *参考*
 
-[The Java™ Tutorials Variables](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html)
+1. [The Java™ Tutorials Variables](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html)
+2. [Correct way to compare floats or doubles in Java](https://howtodoinjava.com/java-examples/correctly-compare-float-double/#threshold-based)
