@@ -96,13 +96,13 @@ theme:
 extra:
   social:
   - icon: fontawesome/brands/github
-    link: https://github.com/ivanjlee
+    link: https://github.com/konokol
   - icon: fontawesome/brands/zhihu
-    link: https://www.zhihu.com/people/ivanjlee
+    link: https://www.zhihu.com/people/konokol
   - icon: fontawesome/solid/envelope
     link: mailto:lijundut@foxmail.com
-repo_url: https://github.com/ivanjlee/frontend-roadmap
-repo_name: ivanjlee/frontend-roadmap
+repo_url: https://github.com/konokol/frontend-roadmap
+repo_name: konokol/frontend-roadmap
 edit_uri: ''
 markdown_extensions:
 - def_list
