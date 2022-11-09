@@ -26,14 +26,34 @@ AutomaticInteger、AutomaticLong、Scripted64这几个类是java.util.concurrent
 
 ## 字符串
 
-**String**
+### String*
 
-**StringBuilder**
+Java中String是一个final类型的类，官网文档上说它算是基本类型，但是它是一个类。
 
-**StringBuffer**
+创建字符串的方式有2中：
+
+```Java
+String s1 = "abc";
+String s2 = new String("abs");
+```
+
+**常量池**
+
+Java中的字符串常量池(String Pool)是存储在堆中的中的字符串池。
+
+![字符串常量池](../../img/string-pool.png)
+
+如果直接通过""创建的字符串时，会先从常量池中找，如果存在，则返回返回其引用，否则会先在常量池中创建对象。通过new String()的方式创建的字符串则会在堆中创建新的字符串对象。调用intern()方法可以将字符串放入到常量池中。
+
+使用常量池的好处是复用了对象，减少了对象的内存占用。
+
+
+### StringBuilder
+
+### StringBuffer
 
 
 *参考*
 
-1、[Oracle-数字与字符串](https://docs.oracle.com/javase/tutorial/java/data/index.html)
-
+1. [Oracle-数字与字符串](https://docs.oracle.com/javase/tutorial/java/data/index.html)
+2. [The Java® Language Specification 3.10.5. String Literals](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5)
