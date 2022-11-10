@@ -30,7 +30,9 @@ AutomaticInteger、AutomaticLong、Scripted64这几个类是java.util.concurrent
 
 Java中String是一个final类型的类，官网文档上说它算是基本类型，但是它是一个类。
 
-创建字符串的方式有2中：
+早期的jdk版本中，String底层是通过char[]来保存字符的，从java 10开始，底层已经替换成byte[]了。
+
+创建字符串的方式有2种：
 
 ```Java
 String s1 = "abc";
@@ -47,11 +49,60 @@ Java中的字符串常量池(String Pool)是存储在堆中的中的字符串池
 
 使用常量池的好处是复用了对象，减少了对象的内存占用。
 
+**字符串的操作**
+
+- 拼接
+  
+:  1、通过concat方法
+   2、通过+，如果拼接的字符串都是已知的常量，编译器会优化成常量，否则会优化成StringBuilder拼接
+
+  两种方法都会创建新的字符串对象
+
+- 分割 -- slipt
+- 子串 -- subString
 
 ### StringBuilder
 
+![字符串的继承关系](../../img/strings.png)
+
+String、StringBuilder、StringBuffer都实现了CharSequence，其中StringBuilder和StringBuffer都是AbstractStringBuilder的子类。
+
+AbstractStringBulder中提供了很多拼接的append和inser方法，也有delte、replace、substring等方法，AbstractStringBuilder只有toString()方法是抽象的。
+
+StringBuilder继承了AbstractStringBulder，基本都是调用的super()方法来完成字符串的拼接。
+
+toString的实现：
+
+```Java
+    @Override
+    public String toString() {
+        // Create a copy, don't share the array
+        return isLatin1() ? StringLatin1.newString(value, 0, count)
+                          : StringUTF16.newString(value, 0, count);
+    }
+```
+
 ### StringBuffer
 
+StirngBuffer的实现方式和StringBuilder几乎一模一样，只不过其所有对字符串操作的方法都有synchronized关键字，如append、replace、substring、insert、toString等。
+
+因为使用了synchronized关键字，StringBuffer拼接字符串是线程安全的，但同时也会相对慢一些。
+
+另一个不同是StringBuff中toString()方法会用到一个stringCache，toString()时，先根据字符的编码方式生成一个StringCache，再根据stringCache创建一个新的字符串。
+
+```Java
+    @Override
+    public synchronized String toString() {
+        if (toStringCache == null) {
+            return toStringCache =
+                    isLatin1() ? StringLatin1.newString(value, 0, count)
+                               : StringUTF16.newString(value, 0, count);
+        }
+        return new String(toStringCache);
+    }
+```
+
+StringBuffer和StringBuilder的toString方法都会生成新的字符串。
 
 *参考*
 
