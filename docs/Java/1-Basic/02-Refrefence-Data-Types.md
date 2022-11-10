@@ -74,9 +74,29 @@ System.out.println(c == d);  //true
 浮点数类型中，还有一个特殊的值，NaN，表示Not a Num，在定义中，Float.NaN = 0.0f / 0.0f，但他的bit位上存的值和Float.intBitsToFloat(0x7fc00000)}一样，但是NaN不和任何数字相等，包括其自己。
 
 
-### 字符串
+### String
+
+String是一种特殊的引用类型，它具有和基本类型相似的性质，因为常量池的存在，通过双引号的方式创建的字符串，在传值过程中，实际传的是同一个引用。
 
 ### Object
+
+Object类是Java中所有类的基类，一共有如下的一些方法，其中除了equals、toString、finalize外，其他方法全是native方法。
+
+- getClass，获取对象运行时的Class类型
+- hashCode，返回对象hashCode，默认是对象的内存地址
+- equals，比较对象是否想等，默认用==比，实际很多类都会重写
+- clone，通过拷贝内存数据的方式快速创建新的对象，调用clone方法，类必须实现clonable接口
+- toString，对象转换成String，默认是classname@hashCode
+- notify，唤起一个正在等待这个对象锁的线程
+- notifyAll，唤起所有正在等待这个对象锁的线程
+- wait，wait方法有3个，最终都调用的是有时间参数的，作用是让当前线程等待，直到调用了notify()或者notifyAll()才唤醒
+- finalize，当垃圾回收器发现对象没有引用，触发GC回收对象时会调用这个方法，但是在Java 9之后，这个方法废弃了，不建议使用，因为使用不当经常会造成资源泄漏，宕机等问题。
+
+**hashCode约定**
+
+1. Java程序执行一次过程中，多次调用同一个对象的hashCode()方法，必须返回同一个int值；
+2. 当两个对象使用equals(Object)方法比较相等时，两个对象的hashCode返回值也必须相等；
+3. 当两个对象使用equals(Object)方法比较不等时，对hashCode方法不做要求。
 
 
 *参考*
