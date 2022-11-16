@@ -105,6 +105,17 @@ class G<T extends Number & String> {} //compile error: Interface expected here
 class G<T extends Comparable & Number>{} //compile error: Interface expected here
 ```
 
+## 类型推断
+
+Java编译器可以根据类型声明以调用的上下文来推断具体的类型，比如官网上的例子：
+
+```Java
+static <T> T pick(T a1, T a2) { return a2; }
+Serializable s = pick("d", new ArrayList<String>());
+```
+
+pick方法中的调用中，传入参数分别是String和ArrayList<String>，而方法声明中两个参数的泛型类型是一样的，因此这里的泛型T就应该是String和ArrayList<String>，即Serializable，如果两个参数没有公共的父类，则编译会失败。
+
 ## 通配符
 
 ## 泛型擦除
