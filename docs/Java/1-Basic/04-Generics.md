@@ -81,6 +81,29 @@ public static <T, R> R func(T param1, Integer param2) {
 
 ## 泛型的边界
 
+泛型边界分为上界和下界，分别用extends和super表示。
+
+**上界**
+
+```<T extends Number>```，表示使用泛型时的类型只能是Number或其子类。这里的extends不是代表继承的意思，泛型的上界可以是接口，如```<T extends Consumer>```表示泛型的类型必须要实现Consumer接口。
+
+**下界**
+
+```<T super Integer>```，表示使用泛型时的类型只能是Interger的超类，比如可以是Number，或者Objective。
+
+**多个上界**
+
+```<T extends A & B & C>```，表示类型必须是A的子类并实现B、C接口，由于Java不支持多继承，A、B、C实际上至多有一个是类其他的必须是接口，如下代码会编译失败:
+
+```Java
+class G<T extends Number & String> {} //compile error: Interface expected here
+```
+
+特殊要求，当泛型有多个上界时，如果有类，通过&连接时，必须将类放在最前面，否则会编译失败，比如上面的例子，如果有类，则只能A是类，其他的只能是接口。
+
+```Java
+class G<T extends Comparable & Number>{} //compile error: Interface expected here
+```
 
 ## 通配符
 
