@@ -155,6 +155,27 @@ list3不能赋值给list2，尽管list2中泛型类型是不确定的，但是�
 - T可以作为函数的参数，?不行
 - 作为类型使用时，T作用类似于class，可以声明一个T类型的变量，？就不行
 
+**泛型捕获**
+
+某些场景下，编译器推断出通配符类型，如List<?>，但当判断表达式的时候，又推断出具体的类型，这种现象叫泛型捕获，此时会产生编译异常。例如：
+
+```Java
+void foo(List<?> list) {
+    list.set(0, list.get(0));
+}
+```
+这段代码会产生泛型捕获的编译错误，原因是编译器将方法参数list处理成Object类型，但在调用list.set(int, E)时，又无法推断出E的类型。为了解决这个问题，一般可以重新定义一个Helper方法，如：
+
+```Java
+void foo(List<?> list) {
+    fooHelper(list);
+}
+
+void <T> fooHelper(List<T> list) {
+    list.set(0, list.get(0));
+}
+```
+
 ## 泛型擦除
 
 *参考*
