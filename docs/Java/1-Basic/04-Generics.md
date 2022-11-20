@@ -262,6 +262,100 @@ node.set("123"); //ClassCasetException
 
 ## 使用泛型的限制
 
+- 带泛型的类实例化时，泛型不能是基础类型，要用包装类型
+
+:
+```Java
+Pair<int, String> pair = new Pair(1, "123456"); //compile-time error
+```
+
+- 类型参数不能直接用new关键字实例化
+
+:
+```Java
+public <T> void foo(T val) {
+    T t = new T(); // compile-time error
+}
+```
+
+- 静态变量不能是泛型带泛型。
+
+:
+静态变量是类级别的，是所有非静态成员变量共享的，不能
+
+```Java
+public class MobileDevice<T> {
+    private static T os; // compile-time error
+
+    // ...
+}
+
+```
+
+-  由于泛型擦除，带类型参数时，不能类型强转也不能用instanceof来判断参数的具体类型
+
+```Java
+public static <E> void rtti(List<E> list) {
+    if (list instanceof ArrayList<Integer>) {  // compile-time error
+        // ...
+    }
+}
+```
+
+- 数组不能带泛型参数
+
+```Java
+List<Integer>[] arrayOfLists = new List<Integer>[2];  // compile-time error
+
+```
+
+- 异常处理时不能带泛型
+
+:
+继承Exception或Throwable的类，带泛型会编译出错
+```Java
+// Extends Throwable indirectly
+class MathException<T> extends Exception { /* ... */ }    // compile-time error
+
+// Extends Throwable directly
+class QueueFullException<T> extends Throwable { /* ... */ // compile-time error
+
+```
+
+泛型方法中如果泛型是异常，不能直接catch住
+```Java
+public static <T extends Exception, J> void execute(List<J> jobs) {
+    try {
+        for (J job : jobs)
+            // ...
+    } catch (T e) {   // compile-time error
+        // ...
+    }
+}
+```
+
+但是可以throw出来：
+
+```Java
+class Parser<T extends Exception> {
+    public void parse(File file) throws T {     // OK
+        // ...
+    }
+}
+```
+
+- 原始类型一样的方法，不能重载
+
+: 类型擦除后，两个方法的签名一模一样，因此不可以重载
+
+```Java
+public class Example {
+    public void print(Set<String> strSet) { }
+    public void print(Set<Integer> intSet) { }
+}
+
+```
+
 
 *参考*
 
