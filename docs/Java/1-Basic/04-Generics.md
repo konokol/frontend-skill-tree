@@ -178,6 +178,91 @@ void <T> fooHelper(List<T> list) {
 
 ## 泛型擦除
 
+Java中的泛型实际是伪泛型，在编译过程中，泛型的类型都会被擦除，生成的字节码中，不会保留泛型的信息，只会有原始类的信息。
+
+在传递类型参数时，对于无界的泛型（不论是T还是?），都会被替换成Object类型，对于有界的参数，则会被替换成边界类型。
+
+为了保留类型安全，必要的时候会进行类型转换。
+
+### 类型擦除与桥方法
+
+有如下的代码：
+
+```Java
+public class Node<T> {
+    protected T data;
+
+    public Node(T data) {
+        this.data = data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+}
+
+public class IntNode extends Node<Integer> {
+
+    public IntNode(Integer data) {
+        super(data);
+    }
+
+    @Override
+    public void setData(Integer data) {
+        this.data = data;
+    }
+
+}
+
+```
+
+在这个例子中，IntNode继承了Node，并将其泛型具化成Integer，此时问题就来了，IntNode继承Node之后，重载了setData方法，但是重载改变了setData的方法签名，由于泛型擦除父类中参数类型是Object，子类参数确变成了Integer，这显然不符合重载的规则，为了解决这种问题编译器会生成一个桥方法，如下：
+
+```Java
+public class Node {
+    protected T data;
+
+    public Node(Object data) {
+        this.data = data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+}
+
+public class IntNode extends Node {
+
+    public IntNode(Integer data) {
+        super(data);
+    }
+
+    // 编译器生成的桥方法，真正重载了父类的方法，同时做类型转换，调用子类的方法
+    public void setData(Object data) {
+        setData((Integer)data);
+    }
+
+    public void setData(Integer data) {
+        this.data = data;
+    }
+
+}
+
+```
+
+在子类继承父类方法的实现中，真正继承父类并和setData方法签名一致的桥方法，我们在写代码时是看不到的，编译器在编译期会为我们自动处理。
+
+基于此，在调用泛型时，如果参数和泛型规定的不一致，会产生ClassCastException，如：
+
+```Java
+IntNode intNode = new IntNode(5);
+Node node = intNode;
+node.set("123"); //ClassCasetException
+```
+
+## 使用泛型的限制
+
+
 *参考*
 
 1. [The Java™ Tutorials -- Generics](https://docs.oracle.com/javase/tutorial/java/generics/wildcards.html)
