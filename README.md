@@ -1,6 +1,6 @@
 # 大前端知识图谱
 
-[![pages-build-deployment](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment)  ![Website](https://img.shields.io/website?url=https%3A%2F%2Fkonokol.github.io%2Ffrontend-roadmap)  ![GitHub repo size](https://img.shields.io/github/repo-size/konokol/frontend-skill-tree)
+[![pages-build-deployment](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment)  ![Website](https://img.shields.io/website?url=https%3A%2F%2Fkonokol.github.io%2Ffrontend-skill-tree)  ![GitHub repo size](https://img.shields.io/github/repo-size/konokol/frontend-skill-tree)
 
 当我们在讨论大前端的时候，我们在说什么？这里从一个Android
 开发的角度记录了一路来的学习历程，把技能树一步一步点开，不积硅步，无以至千里，不积小流，无以成江海，希望随着记录，能有进步。
