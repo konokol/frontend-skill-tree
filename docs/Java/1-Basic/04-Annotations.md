@@ -89,12 +89,31 @@ public class Generation3List extends Generation2List {
 
 - RetentionPolicy.SOURCE – 只在编译期保留，生成class文件之后就没了；
 - RetentionPolicy.CLASS – 在编译期保留，保留到class文件，运行时是获取不到这种注解的；
-- RetentionPolicy.RUNTIME – 这种注解
+- RetentionPolicy.RUNTIME – 这种注解会保留到运行时，在运行时可以通过getAnnotation()方法获取到；
 
+```@Documented```
 
-- ```@Documented```
-- ```@Target```
-- ```@Inherited```
+表明用javadoc生成文档的时候该注解是否会被保留。如自定义注解@Service，如果加上了@Documented，那么有@Service注解的类，在生成docs文件时，类上的@Service就会被保留。
+
+```@Target```
+
+表明注解可以应用在哪些地方，可以有多个值：
+
+- ElementType.ANNOTATION_TYPE 可以对应用在注解上
+- ElementType.CONSTRUCTOR 可以应用在构造方法上
+- ElementType.FIELD 可以应用在成员变量上
+- ElementType.LOCAL_VARIABLE 可以应用在局部变量上
+- ElementType.METHOD 可以应用在方法上
+- ElementType.PACKAGE 可以应用在包上
+- ElementType.PARAMETER 可以应用在方法的参数及返回值上
+- ElementType.TYPE 可以应用在任何类型上
+
+```@Inherited```
+
+表示注解是否可以继承，如果父类有注解，子类也可以继承
+
 - ```@Repeatable```
+
+Java 8才支持的注解，表明注解可以注解多次。
 
 ## 获取注解
