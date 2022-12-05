@@ -260,6 +260,75 @@ Node node = intNode;
 node.set("123"); //ClassCasetException
 ```
 
+### 运行时获取泛型
+
+由于泛型的擦除，在运行时理论上是拿不到泛型的类型的，想要获取泛型的类型，必须要满足条件：
+
+- 必须要有真实的类型，既必须能拿到class；
+- 泛型的类型是明确的，如List<String>类型是明确的，List<T>是不明确的。
+
+拿到class之后，可以通过getGenericInterfaces()和getgetGenericSuperclass()两个方法获取泛型。
+
+getGenericInterfaces()获取到的是类实现的接口，返回结果是一个数组，即实现的接口的类型：
+
+```Java
+
+interface Service<T> {
+}
+
+class ServiceImpl implements Service<String> {
+
+    public Type getType() {
+        Type[] genericInterfaces = ServiceImpl.class.getGenericInterfaces();
+        ParameterizedType parameterizedType = (ParameterizedType) genericInterfaces[0];
+        return parameterizedType.getActualTypeArguments()[0];
+    }
+
+}
+
+```
+
+getgetGenericSuperclass()获取到的是父类的类型，如果泛型明确也是可以获取到泛型：
+
+```Java
+
+abstract Service<T> {
+}
+
+class ServiceImpl extends Service<String> {
+
+    public Type getType() {
+        Type genericSuperclass = ServiceImpl.class.getgetGenericSuperclass();
+        return ((ParameterizedType) genericSuperclass).getActualTypeArguments()[0];
+    }
+
+}
+
+```
+
+gson中可以利用TypeToken来获取泛型，但是泛型要是明确的如：
+
+```Java
+Type type1 = new TypeToken<String>(){}.getType();//✅
+Type type2 = new TypeToken<T>(){}.getType();//❌ 泛型不明确
+Type type3 = new TypeToken<String>().getType();//❌ 获取不到父类
+```
+
+TypeToken是使用了和getgetGenericSuperclass()实现的获取类型，其默认构造方法中，获取父类的类型并保存下来，因此利用Token获取泛型实际是实现了一个TypeToken的匿名子类，然后在子类中获取父类的泛型，如果不带```{}```，就是直接使用TypeToken，其并无父类，因此无法获取泛型。
+
+```Java
+public class TypeToken<T> {
+  final Class<? super T> rawType;
+  final Type type;
+
+    protected TypeToken() {
+        this.type = getSuperclassTypeParameter(getClass());
+        this.rawType = (Class<? super T>) $Gson$Types.getRawType(type);
+        this.hashCode = type.hashCode();
+    }
+}
+```
+
 ## 使用泛型的限制
 
 - 带泛型的类实例化时，泛型不能是基础类型，要用包装类型
