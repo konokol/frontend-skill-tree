@@ -69,10 +69,32 @@ public class Generation3List extends Generation2List {
 
 ```
 
-## 自定义注解
-
 ## Java预置注解
 
+### 常见的注解
+
+- ```@Deprecated```，表明已经被弃用了，可以用在类、方法、成员变量上；
+- ```@Override```，重写父类的方法时需要加上，不过也可以不加，但是，在父类没有的方法上加上了这个注解编译就会报错；
+- ```@SuppressWarnings```，用来忽略编译器的警告；
+- ```@SafeVarargs```，用在构造方法或普通方法上，可以用来忽略unchecked警告；
+- ```@FunctionalInterface```，Java 8才有的注解，用来表明类型是函数式接口（即只有一个方法的接口）。
+
 ### 元注解
+
+元注解是用于声明其他注解的注解，Java中的注解一共有5个：
+
+ ```@Retention```
+  
+表明注解保留策略的：
+
+- RetentionPolicy.SOURCE – 只在编译期保留，生成class文件之后就没了；
+- RetentionPolicy.CLASS – 在编译期保留，保留到class文件，运行时是获取不到这种注解的；
+- RetentionPolicy.RUNTIME – 这种注解
+
+
+- ```@Documented```
+- ```@Target```
+- ```@Inherited```
+- ```@Repeatable```
 
 ## 获取注解
