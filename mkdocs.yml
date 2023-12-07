@@ -42,6 +42,7 @@ nav:
   - 三方框架:
     - 敬请期待: Android/4-Thirdpart/none.md
   - Framework:
+    - 系统启动流程: Android/5-Framework/System-boot.md
     - Activity的启动流程: Android/5-Framework/Activity-source-code.md
     - 源码阅读计划: Android/5-Framework/Android-source-code.md
 - Java基础:
