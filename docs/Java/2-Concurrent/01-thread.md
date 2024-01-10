@@ -22,4 +22,19 @@ Process.setThreadPiority(int)是一个native方法，通过修改Linux原生线�
 
 ## 线程的状态
 
+- NEW 新创建的线程，还未开始执行
+- RUNNABLE 运行态，在Jvm中正处于运行状态，但是可能在等待操作系统中其他的资源；
+- BLOCKED 阻塞状态，在等待监视器锁(monitor lock)，调用wait之后，等代码进入synchronized或者锁代码块中；
+- WAITING 等待状态，等待另一个线程执行操作，调用Object.wait、Thread.join、LockSupport.park都能进入这种状态
+- TIMED_WAITING 等待超时，和WAITING类似，但是有超时时间，除了带超时参数调用上面的3个方法外，调用Thread.sleep、LockSupport.parkNano、LockSupport.parkUtil也会进入这种状态
+- TERMINATED 终态，运行结束
+
+## 线程停止
+
+推荐使用标志来标记线程结束，让线程自行执行完run方法。
+
+调用stop()方法也可以结束线程，这种方式是通过抛出一个ThreadDeath的错误来结束线程，会使线程持有的锁全部释放，有可能造成状态不一致，出现一些异常的行为，因此不建议使用，从Java 1.2开始，这个方式被弃用了。同样和stop配合使用的suspend()和resume()方法也被弃用了。
+
+interrupted()方法，只是给线程增加一个中断的状态，并不会真正停止线程的运行。如果线程调用了wait、join、sleep等方法，会抛出一个InterruptedException同时清空中断的标识。
+
 # 线程池
