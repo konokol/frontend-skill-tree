@@ -3,8 +3,8 @@ copyright: Copyright &copy; 2024 konokol.
 nav:
 - 首页:
   - 概述: index.md
-  - 关于: home/about.md
-  - 学习资料: home/ref.md
+  - 关于: pages/home/about.md
+  - 学习资料: pages/home/ref.md
 - Android:
   - 基础:
     - Android四大组件--Activity: Android/1-Basic/Activity.md
@@ -67,18 +67,18 @@ nav:
   - ThreadLocal原理: Java/ThreadLocal.md
   - Java单例的写法: Java/design-pattern-singleton.md
 - Kotlin基础:
-  - 敬请期待: Kotlin/none.md
+  - 敬请期待: pages/kotlin/none.md
 - 跨平台技术:
-  - 敬请期待: Cross-platform/none.md
+  - 敬请期待: pages/cross-platform/none.md
 - CS理论基础:
   - 算法:
-    - 敬请期待: CS/Algorithm/none.md
+    - 敬请期待: pages/cs/algorithm/none.md
   - 计算机基础:
-    - 敬请期待: CS/CS-basic/none.md
+    - 敬请期待: pages/cs/cs-basic/none.md
   - 网络:
-    - HTTP协议详解: CS/Internet/HTTP.md
+    - HTTP协议详解: pages/cs/internet/HTTP.md
   - 操作系统:
-    - 敬请期待: CS/OS/none.md
+    - 敬请期待: pages/cs/os/none.md
 theme:
   language: zh
   name: material
