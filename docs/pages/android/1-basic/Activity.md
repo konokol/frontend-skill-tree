@@ -14,7 +14,7 @@ Activity是Android的四大组件之一，也是唯一可以和用户直接交�
 
 ### 正常生命周期
 
-![Activity生命周期](../../img/activity_lifecycle.png)
+![Activity生命周期](../../../img/activity_lifecycle.png)
 
 - **onCreate**
 
@@ -176,7 +176,7 @@ datta和action的匹配规则一样。data中可以指定启动的uri匹配规�
 
 ## Activity的启动流程
 
-参考[Activity启动流程源码](../5-Framework/Activity-source-code.md)
+参考[Activity启动流程源码](../../5-Framework/Activity-source-code.md)
 
 ## *参考*
 
