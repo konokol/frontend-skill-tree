@@ -26,7 +26,8 @@ def fix_file_image_path(root, file):
                     line = line.replace(image, realpath)
             target.write(line)
         bak_dir = 'build/backup/'
-        shutil.rmtree(bak_dir)
+        if os.path.exists(bak_dir):
+            shutil.rmtree(bak_dir)
         os.mkdir(bak_dir)
         shutil.move(source_file, bak_dir)
         shutil.move(target_file, root)

@@ -7,7 +7,7 @@ nav:
   - 学习资料: pages/home/ref.md
 - Android:
   - 基础:
-    - Android四大组件--Activity: Android/1-Basic/Activity.md
+    - Android四大组件--Activity: pages/android/1-basic/Activity.md
     - Android GC原理: Android/1-Basic/Android-GC.md
     - Android中对集合的优化: Android/1-Basic/Android-collections.md
     - Android SQLite数据库优化: Android/1-Basic/Android-database.md
