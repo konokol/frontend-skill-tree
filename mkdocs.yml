@@ -46,8 +46,9 @@ nav:
     - Activity的启动流程: Android/5-Framework/Activity-source-code.md
     - 源码阅读计划: Android/5-Framework/Android-source-code.md
 - Java基础:
+  - 面向对象: pages/java/1-basic/00-OO.md
   - 基础:
-    - 基本数据类型: Java/1-Basic/01-Primitive-Data-Types.md
+    - 基本数据类型: pages/java/1-basic/01-Primitive-Data-Types.md
     - 引用数据类型: Java/1-Basic/02-Refrefence-Data-Types.md
     - 数字和字符串: Java/1-Basic/03-Number-and-Strings.md
     - 注解: Java/1-Basic/04-Annotation.md
@@ -60,7 +61,6 @@ nav:
   - JVM运行时数据区和Java内存模型: Java/JVM-memory-model.md
   - Java 8函数式数据处理: Java/Java-8-functional.md
   - Java 8函数式编程–––Lambda表达式: Java/Java-8-lambda.md
-  - 面向对象: Java/OO.md
   - Java中的四种引用: Java/References.md
   - 反射: Java/Reflation.md
   - 字符串: Java/Strings.md

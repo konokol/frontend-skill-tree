@@ -5,10 +5,11 @@ import os
 import re
 import shutil
 import sys
+from colorama import Fore, Style
 
 def fix_file_image_path(root, file):
     if not file.endswith('.md'):
-        print('ignore file', file)
+        print('ignore file', file, 'not ended with .md')
         return False
     dirs = os.path.join('build', root)
     if not os.path.exists(dirs):
@@ -22,7 +23,7 @@ def fix_file_image_path(root, file):
                 if re.match(r'^https?:/{2}\w.+$', image) is None:
                     dirname, filename = os.path.split(image)
                     realpath = os.path.relpath('./docs/img/'  + filename, root + file)
-                    print('fix image path', image, ' to ', realpath)
+                    print(Fore.GREEN, '✔️success:', Style.RESET_ALL, 'fix image path', image, '==>', realpath)
                     line = line.replace(image, realpath)
             target.write(line)
         bak_dir = 'build/backup/'
@@ -40,7 +41,7 @@ def fix_image_path(path='docs'):
 if __name__ == '__main__':
     if(len(sys.argv) > 1):
         file_path, filename = os.path.split(sys.argv[1])
-        print(file_path, filename)
+        print('fix path', filename, 'in', file_path)
         fix_file_image_path(file_path, filename)
     else:
         fix_image_path('./docs/')
