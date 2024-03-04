@@ -88,7 +88,27 @@ float和double还可以用科学计数法的形式声明，如`double f = 1.1e3`
 
 **计算差值和阈值对比**
 
+```Java
+public boolean equals(double f1, double f2) {
+    final double THRESHOLD = .0001;
+    return Math.abs(f1 - f2) < THRESHOLD;
+}
+```
+
 **使用BigDecimal**
+
+使用BigDecimal来比较时，必须使用compareTo对比，不能用equals，因为equals会先比较精度，再比较值。
+
+```Java
+public void equals() {
+    BigDecimal a = new BigDecimal("2.00");
+	BigDecimal b = new BigDecimal("2.0");
+
+	System.out.println(a.equals(b)); 			// false
+
+	System.out.println(a.compareTo(b) == 0); 	// true
+}
+```
 
 ### 进制表示
 

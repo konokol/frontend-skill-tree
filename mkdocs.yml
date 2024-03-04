@@ -48,7 +48,7 @@ nav:
 - Java基础:
   - 面向对象: pages/java/1-basic/00-OO.md
   - 基础:
-    - 基本数据类型: pages/java/1-basic/01-Primitive-Data-Types.md
+    - 基本数据类型: pages/java/1-basic/01-primitive-data-types.md
     - 引用数据类型: Java/1-Basic/02-Refrefence-Data-Types.md
     - 数字和字符串: Java/1-Basic/03-Number-and-Strings.md
     - 注解: Java/1-Basic/04-Annotation.md
