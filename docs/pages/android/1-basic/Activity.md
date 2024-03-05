@@ -176,7 +176,7 @@ datta和action的匹配规则一样。data中可以指定启动的uri匹配规�
 
 ## Activity的启动流程
 
-参考[Activity启动流程源码](../../5-Framework/Activity-source-code.md)
+参考[Activity启动流程源码](../5-framework/02-activity-source-code.md)
 
 ## *参考*
 

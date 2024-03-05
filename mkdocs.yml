@@ -36,22 +36,24 @@ nav:
     - keep-alive: Android/1-Basic/keep-alive.md
     - Android打包: Android/1-Basic/tools.md
   - 性能:
-    - 敬请期待: Android/2-Perf/none.md
+    - 敬请期待: none.md
   - 架构:
-    - 敬请期待: Android/3-Arch/none.md
+    - 敬请期待: none.md
   - 三方框架:
-    - 敬请期待: Android/4-Thirdpart/none.md
+    - 敬请期待: none.md
   - Framework:
-    - 系统启动流程: Android/5-Framework/system-boot.md
-    - Activity的启动流程: Android/5-Framework/Activity-source-code.md
-    - 源码阅读计划: Android/5-Framework/Android-source-code.md
+    - 源码阅读计划: pages/android/5-framework/00-android-source-code.md
+    - 系统启动流程: pages/android/5-framework/01-system-boot.md
+    - Activity的启动流程: pages/android/5-framework/02-activity-source-code.md
+  - 工具与工程:
+    - 敬请期待: none.md
 - Java基础:
   - 面向对象: pages/java/1-basic/00-OO.md
   - 基础:
     - 基本数据类型: pages/java/1-basic/01-primitive-data-types.md
     - 引用数据类型: Java/1-Basic/02-Refrefence-Data-Types.md
     - 数字和字符串: Java/1-Basic/03-Number-and-Strings.md
-    - 注解: Java/1-Basic/04-Annotation.md
+    - 注解: Java/1-Basic/04-Annotations.md
     - 泛型: Java/1-Basic/05-Generics.md
   - 并发:
     - 多线程: Java/2-Concurrent/01-thread.md
@@ -63,7 +65,6 @@ nav:
   - Java 8函数式编程–––Lambda表达式: Java/Java-8-lambda.md
   - Java中的四种引用: Java/References.md
   - 反射: Java/Reflation.md
-  - 字符串: Java/Strings.md
   - ThreadLocal原理: Java/ThreadLocal.md
   - Java单例的写法: Java/design-pattern-singleton.md
 - Kotlin基础:
