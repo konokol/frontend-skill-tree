@@ -6,6 +6,7 @@ nav:
   - 关于: pages/home/about.md
   - 学习资料: pages/home/ref.md
 - Android:
+  - Android知识树: pages/android/index.md
   - 基础:
     - Android四大组件--Activity: pages/android/1-basic/Activity.md
     - Android GC原理: Android/1-Basic/Android-GC.md
@@ -88,10 +89,11 @@ theme:
     primary: teal
     accent: white
   features:
-  - navigation.tabs
-  - navigation.expand
-  - navigation.tracking
-  - navigation.top
+    - navigation.tabs
+    - navigation.tracking
+    - navigation.top
+    - navigation.instant
+    - navigation.tabs.sticky
   plugins:
   - tags: null
     enabled: true
