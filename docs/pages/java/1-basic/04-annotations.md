@@ -14,23 +14,17 @@
 
 注解可以应用在类、变量、方法、方法参数的声明中。Java 8之后，注解还可以应用在使用类型上：
 
-- 对类实例化对象的注解
-  
-   :new @Interned MyObject();
+- 对类实例化对象的注解  
+  `new @Interned MyObject();`
 
-- 类型转换
-  
-  :str = (@NonNull String) strings;
+- 类型转换  
+  `str = (@NonNull String) strings;`
 
-- implements语句
-  
-  :class UnmodifiableList<T> implements
-        @Readonly List<@Readonly T> { ... }
+- implements语句  
+   ` class UnmodifiableList<T> implements @Readonly List<@Readonly T> {  ... } `
 
-- 异常声明
-  
-  : void monitorTemperature() throws
-        @Critical TemperatureException { ... }
+- 异常声明  
+  ` void monitorTemperature() throws @Critical TemperatureException { ... } `
 
 ### 注解类型
 
@@ -112,8 +106,60 @@ public class Generation3List extends Generation2List {
 
 表示注解是否可以继承，如果父类有注解，子类也可以继承
 
-- ```@Repeatable```
+```@Repeatable```
 
 Java 8才支持的注解，表明注解可以注解多次。
 
+## 自定义注解
+
+```java
+   @Retention(RetentionPolicy.RUNTIME)
+   @Target(ElementType.METHOD)
+   public @interface MyAnnotation { 
+      String value() default = "a";
+   }
+```
+
+**自定义注解的要点：**  
+
+ - 必须用@interface类声明注解
+ - 可以用元注解对自定义注解来标记注解的声明周期，作用等
+ - 注解的值可以是任意类型，如8种基本类型、String、Class、枚举、数组等
+
+**自定义注解应用的场景：**
+
+一般在AOP中用的比较多，比如登录拦截校验，通过AnnotationPcessor在编译期做切面打印日志、统计耗时等。
+
 ## 获取注解
+
+通过反射获取，拿到Class、Method、Field后，调用`<T extends Annotation> T getAnnotation(Class<T> annotationClass);`方法，可以获取到对应的注解。
+
+## 注解的原理
+
+注解是一种特殊的接口，javac编译后，@annotaion声明的注解会继承接口`java.lang.annotation.Annotation`。
+
+```java
+public interface MyAnnotation extends java.lang.annotation.Annotation
+```
+
+由于注解是一种特殊的接口，所以通过getAnnotatoin获取到的注解实际是一个动态代理的类。
+
+```java
+public class $Proxy1 extends Proxy implements MyAnnotation {
+   String value() { ...}
+}
+```
+通过AnnotationParser来生成代理对象，用AnnotationInvocationHandler来处理注解的取值，注解的值都存在memberValues中，取值时以注解的方法作为key。
+
+```java
+public static Annotation annotationForMap(
+   Class type, Map<String, Object> memberValues) {
+     return (Annotation) Proxy.newProxyInstance(
+         type.getClassLoader(), new Class[] { type },
+         new AnnotationInvocationHandler(type, memberValues));
+}
+```
+
+*参考*
+
+[The Java™ Tutorials - Annotations](https://docs.oracle.com/javase/tutorial/java/annotations/QandE/questions.html)
