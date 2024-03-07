@@ -4,7 +4,7 @@
 
 数字类的继承关系
 
-![数字的继承关系](../../img/numbers.png)
+![数字的继承关系](../../../img/numbers.png)
 
 大体上分为3类
 
@@ -22,7 +22,7 @@ AutomaticInteger、AutomaticLong、Scripted64这几个类是java.util.concurrent
 
 基本类型的自增和自减操作，实际上是可以拆解成n=n+1(或n=n-1)，不具备原子性，因此增加了原子类来做原子性的计算。
 
-除了图中列出的几个，还有AutomaticBoolean等原子类，只是不继承Number
+除了图中列出的几个，还有AutomaticBoolean等原子类，只是不继承Number。
 
 ## 字符串
 
@@ -43,7 +43,7 @@ String s2 = new String("abs");
 
 Java中的字符串常量池(String Pool)是存储在堆中的中的字符串池。
 
-![字符串常量池](../../img/string-pool.png)
+![字符串常量池](../../../img/string-pool.png)
 
 如果直接通过""创建的字符串时，会先从常量池中找，如果存在，则返回返回其引用，否则会先在常量池中创建对象。通过new String()的方式创建的字符串则会在堆中创建新的字符串对象。调用intern()方法可以将字符串放入到常量池中。
 
@@ -51,19 +51,20 @@ Java中的字符串常量池(String Pool)是存储在堆中的中的字符串池
 
 **字符串的操作**
 
-- 拼接
-  
-:  1、通过concat方法
-   2、通过+，如果拼接的字符串都是已知的常量，编译器会优化成常量，否则会优化成StringBuilder拼接
+- 拼接  
+    1、通过concat方法；  
+    2、通过+，如果拼接的字符串都是已知的常量，编译器会优化成常量，否则会优化成StringBuilder拼接；  
 
-  两种方法都会创建新的字符串对象
+    两种方法都会创建新的字符串对象。
 
 - 分割 -- slipt
-- 子串 -- subString
+- 截取 -- subString
+- 替换 -- replace、replaceAll、replaceFirst
+- 查找 -- constains、indexOf、lastIndexOf、starstWith、endWith
 
 ### StringBuilder
 
-![字符串的继承关系](../../img/strings.png)
+![字符串的继承关系](../../../img/strings.png)
 
 String、StringBuilder、StringBuffer都实现了CharSequence，其中StringBuilder和StringBuffer都是AbstractStringBuilder的子类。
 
@@ -103,6 +104,13 @@ StirngBuffer的实现方式和StringBuilder几乎一模一样，只不过其所�
 ```
 
 StringBuffer和StringBuilder的toString方法都会生成新的字符串。
+
+### 使用场景
+
+  - String是常量类，每次new对象和使用+拼接字符串都会生产新对象。适用于字符串的值不经常变化的场景。
+  - StringBuilder和StringBuffer是普通对象，值是通过char[]存储的，append追加对象通过对底层char[]追加元素，不会额外产生新对象，内存和效率比String高。适用于对字符串经常需要操作变化的场景。
+  - StringBuilder是非线程安全的，适用于单线程下有大量字符串操作的场景。
+  - StringBuffer有synchronized关键字修饰，是线程安全的，适合并发场景下大量字符串操作的场景。
 
 *参考*
 
