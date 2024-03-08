@@ -55,9 +55,7 @@ nav:
     - 引用数据类型: pages/java/1-basic/02-refrefence-data-types.md
     - 数字和字符串: pages/java/1-basic/03-number-and-strings.md
     - 注解: pages/java/1-basic/04-annotations.md
-    - 数字和字符串: pages/java/1-basic/03-number-and-strings.md
-    
-    - 泛型: Java/1-Basic/05-Generics.md
+    - 泛型: pages/java/1-basic/05-generics.md
   - 并发:
     - 多线程: Java/2-Concurrent/01-thread.md
   - Java的集合框架: Java/Collections.md
