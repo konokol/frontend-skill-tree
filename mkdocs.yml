@@ -58,7 +58,7 @@ nav:
     - 注解: pages/java/1-basic/05-annotations.md
     - 泛型: pages/java/1-basic/06-generics.md
   - 并发:
-    - 多线程: Java/2-Concurrent/01-thread.md
+    - 多线程: pages/java/2-concurrent/01-thread.md
   - Java的集合框架: Java/Collections.md
   - 设计模式: Java/Design-pattern.md
   - Java异常详解: Java/Exception.md
