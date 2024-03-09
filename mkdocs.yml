@@ -57,16 +57,16 @@ nav:
     - 引用: pages/java/1-basic/04-references.md
     - 注解: pages/java/1-basic/05-annotations.md
     - 泛型: pages/java/1-basic/06-generics.md
+    - 反射: pages/java/1-basic/07-reflation.md
+    - 异常: pages/java/1-basic/08-exception.md
   - 并发:
     - 多线程: pages/java/2-concurrent/01-thread.md
+    - 线程池: pages/java/2-concurrent/02-thread-pool.md
   - Java的集合框架: Java/Collections.md
   - 设计模式: Java/Design-pattern.md
-  - Java异常详解: Java/Exception.md
   - JVM运行时数据区和Java内存模型: Java/JVM-memory-model.md
   - Java 8函数式数据处理: Java/Java-8-functional.md
   - Java 8函数式编程–––Lambda表达式: Java/Java-8-lambda.md
-  - Java中的四种引用: Java/References.md
-  - 反射: Java/Reflation.md
   - ThreadLocal原理: Java/ThreadLocal.md
   - Java单例的写法: Java/design-pattern-singleton.md
 - Kotlin基础:
