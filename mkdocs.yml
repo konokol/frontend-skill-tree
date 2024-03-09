@@ -54,8 +54,9 @@ nav:
     - 基本数据类型: pages/java/1-basic/01-primitive-data-types.md
     - 引用数据类型: pages/java/1-basic/02-refrefence-data-types.md
     - 数字和字符串: pages/java/1-basic/03-number-and-strings.md
-    - 注解: pages/java/1-basic/04-annotations.md
-    - 泛型: pages/java/1-basic/05-generics.md
+    - 引用: pages/java/1-basic/04-references.md
+    - 注解: pages/java/1-basic/05-annotations.md
+    - 泛型: pages/java/1-basic/06-generics.md
   - 并发:
     - 多线程: Java/2-Concurrent/01-thread.md
   - Java的集合框架: Java/Collections.md
