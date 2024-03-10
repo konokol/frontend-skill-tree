@@ -1,6 +1,8 @@
 # Java异常详解
 
-![异常结构图](../../../img/Exception-Hierarchy-Diagram.png)
+## 异常结构
+
+![异常结构图](../../../img/java-exception.png)
 
 Throwable是所有异常的父类。异常分为两个大类，Error和Exception，Error是运行时环境出现了错误，一般由Java虚拟机抛出，发生之后一般不希望程序自己恢复过来，常见的两个是OOM和StackOverFlow. Exception子类的异常是可以捕获到的，常见的两大类是IOException和RuntimeException。
 
@@ -13,4 +15,11 @@ Throwable是所有异常的父类。异常分为两个大类，Error和Exception
 - throw   -- 用于抛出异常。
 - throws -- 用在方法签名中，用于声明该方法可能抛出的异常。
 
+## JVM处理异常的流程
+
+当发生异常时，应用程序会创建一个异常对象，包含了异常名称，异常描述以及发生异常时应用程序的状态，将对象传递给JVM。当JVM收到异常时，会顺着调用栈去查找是否有能处理异常的代码，如果有则将异常交给对应的代码处理。如果没有，JVM会将异常交给默认的异常处理器处理。默认的异常处理器是打印异常日志并终止应用程序。
+
+可以通过Thread.setUncaughtExceptionHandler()来设置异常处理器。
+
 [Java提高篇-Java异常处理](http://www.cnblogs.com/Qian123/p/5715402.html)
+
