@@ -21,5 +21,13 @@ Throwable是所有异常的父类。异常分为两个大类，Error和Exception
 
 可以通过Thread.setUncaughtExceptionHandler()来设置异常处理器。
 
+## 异常处理的最佳实践
+
+- finally 块中清理资源或者使用 try-with-resource 语句
+- 优先捕获具体的异常，如捕获NumberFormatException而不是Exception
+- 不要捕获Throwable，Throwable是异常的超类，捕获Throwable既会捕获到普通的异常，也会捕获到Error
+- 尽量使用内置的异常，除非是内置的异常满足不了
+- 异常处理很耗时，不要使用异常来做流程控制。创建和抛出异常会花费几毫秒的时间。
+
 [Java提高篇-Java异常处理](http://www.cnblogs.com/Qian123/p/5715402.html)
 
