@@ -9,25 +9,25 @@
       
       
       
-        <link rel="prev" href="../Java-8-lambda/">
+        <link rel="prev" href="../07-reflation/">
       
       
-        <link rel="next" href="../ThreadLocal/">
+        <link rel="next" href="../../2-concurrent/01-thread/">
       
       
-      <link rel="icon" href="../../assets/book.png">
+      <link rel="icon" href="../../../../assets/book.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
     
     
       
-        <title>反射 - 客户端知识图谱</title>
+        <title>异常 - 客户端知识图谱</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e359304.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,9 +46,9 @@
       
     
     
-      <link rel="stylesheet" href="../../css/app.css">
+      <link rel="stylesheet" href="../../../../css/app.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#java" class="md-skip">
           跳转至
         </a>
       
@@ -88,7 +88,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../.." title="客户端知识图谱" class="md-header__button md-logo" aria-label="客户端知识图谱" data-md-component="logo">
+    <a href="../../../.." title="客户端知识图谱" class="md-header__button md-logo" aria-label="客户端知识图谱" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              反射
+              异常
             
           </span>
         </div>
@@ -185,7 +185,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../.." class="md-tabs__link">
+        <a href="../../../.." class="md-tabs__link">
           
   
   首页
@@ -203,7 +203,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../pages/android/" class="md-tabs__link">
+        <a href="../../../android/" class="md-tabs__link">
           
   
   Android
@@ -223,7 +223,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../pages/java/1-basic/00-OO/" class="md-tabs__link">
+        <a href="../00-OO/" class="md-tabs__link">
           
   
   Java基础
@@ -241,7 +241,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../pages/kotlin/none/" class="md-tabs__link">
+        <a href="../../../kotlin/none/" class="md-tabs__link">
           
   
   Kotlin基础
@@ -259,7 +259,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../pages/cross-platform/none/" class="md-tabs__link">
+        <a href="../../../cross-platform/none/" class="md-tabs__link">
           
   
   跨平台技术
@@ -283,7 +283,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../pages/cs/algorithm/none/" class="md-tabs__link">
+        <a href="../../../cs/algorithm/none/" class="md-tabs__link">
           
   
   CS理论基础
@@ -325,7 +325,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="客户端知识图谱" class="md-nav__button md-logo" aria-label="客户端知识图谱" data-md-component="logo">
+    <a href="../../../.." title="客户端知识图谱" class="md-nav__button md-logo" aria-label="客户端知识图谱" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -393,7 +393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -414,7 +414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/home/about/" class="md-nav__link">
+      <a href="../../../home/about/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -435,7 +435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/home/ref/" class="md-nav__link">
+      <a href="../../../home/ref/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -501,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/android/" class="md-nav__link">
+      <a href="../../../android/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -560,7 +560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/android/1-basic/Activity/" class="md-nav__link">
+      <a href="../../../android/1-basic/Activity/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -581,7 +581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Android-GC/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Android-GC/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -602,7 +602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Android-collections/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Android-collections/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -623,7 +623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Android-database/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Android-database/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -644,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Android-memory/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Android-memory/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -665,7 +665,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Android-new-features/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Android-new-features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -686,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Android-window/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Android-window/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -707,7 +707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Animations/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Animations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -728,7 +728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/AsyncTask/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/AsyncTask/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -749,7 +749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/BroadcastReceiver/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/BroadcastReceiver/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -770,7 +770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/ButterKnife/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/ButterKnife/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -791,7 +791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/ContentProvider/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/ContentProvider/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -812,7 +812,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/EventBus/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/EventBus/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -833,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Fresco/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Fresco/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -854,7 +854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Handler/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Handler/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -875,7 +875,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/HandlerThread%26IntentService/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/HandlerThread%26IntentService/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -896,7 +896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Hotfix/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Hotfix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -917,7 +917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Image/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Image/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -938,7 +938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Routing/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Routing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -959,7 +959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Serialization/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Serialization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -980,7 +980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/Service/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Service/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1001,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/aidl/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/aidl/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1022,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/android-virtual-machine/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/android-virtual-machine/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1043,7 +1043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/event-dispatch/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/event-dispatch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1064,7 +1064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/fragment2activity/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/fragment2activity/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1085,7 +1085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/how-is-view-drew/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/how-is-view-drew/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1106,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/keep-alive/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/keep-alive/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1127,7 +1127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Android/1-Basic/tools/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/tools/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1194,7 +1194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../none/" class="md-nav__link">
+      <a href="../../../../none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1261,7 +1261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../none/" class="md-nav__link">
+      <a href="../../../../none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1328,7 +1328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../none/" class="md-nav__link">
+      <a href="../../../../none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1395,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/android/5-framework/00-android-source-code/" class="md-nav__link">
+      <a href="../../../android/5-framework/00-android-source-code/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1416,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/android/5-framework/01-system-boot/" class="md-nav__link">
+      <a href="../../../android/5-framework/01-system-boot/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1437,7 +1437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/android/5-framework/02-activity-source-code/" class="md-nav__link">
+      <a href="../../../android/5-framework/02-activity-source-code/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1504,7 +1504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../none/" class="md-nav__link">
+      <a href="../../../../none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1583,7 +1583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/java/1-basic/00-OO/" class="md-nav__link">
+      <a href="../00-OO/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1601,6 +1601,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1610,11 +1612,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
         
           
           <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
@@ -1628,7 +1630,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             基础
@@ -1642,7 +1644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/java/1-basic/01-primitive-data-types/" class="md-nav__link">
+      <a href="../01-primitive-data-types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1663,7 +1665,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/java/1-basic/02-refrefence-data-types/" class="md-nav__link">
+      <a href="../02-refrefence-data-types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1684,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/java/1-basic/03-number-and-strings/" class="md-nav__link">
+      <a href="../03-number-and-strings/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1705,7 +1707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/java/1-basic/04-references/" class="md-nav__link">
+      <a href="../04-references/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1726,7 +1728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/java/1-basic/05-annotations/" class="md-nav__link">
+      <a href="../05-annotations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1747,7 +1749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/java/1-basic/06-generics/" class="md-nav__link">
+      <a href="../06-generics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1756,6 +1758,115 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-reflation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    反射
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    异常
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    异常
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      JVM处理异常的流程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常处理的最佳实践
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1814,11 +1925,32 @@
   
   
     <li class="md-nav__item">
-      <a href="../2-Concurrent/01-thread/" class="md-nav__link">
+      <a href="../../2-concurrent/01-thread/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     多线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-concurrent/02-thread-pool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线程池
   </span>
   
 
@@ -1843,7 +1975,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Collections/" class="md-nav__link">
+      <a href="../../../../Java/Collections/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1864,7 +1996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Design-pattern/" class="md-nav__link">
+      <a href="../../../../Java/Design-pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1885,28 +2017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Exception/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Java异常详解
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../JVM-memory-model/" class="md-nav__link">
+      <a href="../../../../Java/JVM-memory-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1927,7 +2038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Java-8-functional/" class="md-nav__link">
+      <a href="../../../../Java/Java-8-functional/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1948,7 +2059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Java-8-lambda/" class="md-nav__link">
+      <a href="../../../../Java/Java-8-lambda/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1969,59 +2080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../References.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Java中的四种引用
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    反射
-  </span>
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ThreadLocal/" class="md-nav__link">
+      <a href="../../../../Java/ThreadLocal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2042,7 +2101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-pattern-singleton/" class="md-nav__link">
+      <a href="../../../../Java/design-pattern-singleton/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2108,7 +2167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/kotlin/none/" class="md-nav__link">
+      <a href="../../../kotlin/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2174,7 +2233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/cross-platform/none/" class="md-nav__link">
+      <a href="../../../cross-platform/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2278,7 +2337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/cs/algorithm/none/" class="md-nav__link">
+      <a href="../../../cs/algorithm/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2345,7 +2404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/cs/cs-basic/none/" class="md-nav__link">
+      <a href="../../../cs/cs-basic/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2412,7 +2471,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/cs/internet/HTTP/" class="md-nav__link">
+      <a href="../../../cs/internet/HTTP/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2479,7 +2538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pages/cs/os/none/" class="md-nav__link">
+      <a href="../../../cs/os/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2528,6 +2587,41 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      JVM处理异常的流程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常处理的最佳实践
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2541,7 +2635,34 @@
                   
 
 
-<h1 id="_1">反射</h1>
+<h1 id="java">Java异常详解</h1>
+<h2 id="_1">异常结构</h2>
+<p><img alt="异常结构图" src="../../../../img/java-exception.png" /></p>
+<p>Throwable是所有异常的父类。异常分为两个大类，Error和Exception，Error是运行时环境出现了错误，一般由Java虚拟机抛出，发生之后一般不希望程序自己恢复过来，常见的两个是OOM和StackOverFlow. Exception子类的异常是可以捕获到的，常见的两大类是IOException和RuntimeException。</p>
+<p>异常也可以分为检查异常和非检查异常，检查异常在编码时强制要求捕获，否则编译不通过，非检查异常包括Error，RuntimeException和它们的子类，不必强制捕获，理论上都是可以避免的。</p>
+<ul>
+<li>try        -- 用于监听。将要被监听的代码(可能抛出异常的代码)放在try语句块之内，当try语句块内发生异常时，异常就被抛出。</li>
+<li>
+<p>catch   -- 用于捕获异常。catch用来捕获try语句块中发生的异常。</p>
+</li>
+<li>
+<p>finally  -- finally语句块总是会被执行。它主要用于回收在try块里打开的物力资源(如数据库连接、网络连接和磁盘文件)。只有finally块，执行完成之后，才会回来执行try或者catch块中的return或者throw语句，如果finally中使用了return或者throw等终止方法的语句，则就不会跳回执行，直接停止。</p>
+</li>
+<li>throw   -- 用于抛出异常。</li>
+<li>throws -- 用在方法签名中，用于声明该方法可能抛出的异常。</li>
+</ul>
+<h2 id="jvm">JVM处理异常的流程</h2>
+<p>当发生异常时，应用程序会创建一个异常对象，包含了异常名称，异常描述以及发生异常时应用程序的状态，将对象传递给JVM。当JVM收到异常时，会顺着调用栈去查找是否有能处理异常的代码，如果有则将异常交给对应的代码处理。如果没有，JVM会将异常交给默认的异常处理器处理。默认的异常处理器是打印异常日志并终止应用程序。</p>
+<p>可以通过Thread.setUncaughtExceptionHandler()来设置异常处理器。</p>
+<h2 id="_2">异常处理的最佳实践</h2>
+<ul>
+<li>finally 块中清理资源或者使用 try-with-resource 语句</li>
+<li>优先捕获具体的异常，如捕获NumberFormatException而不是Exception</li>
+<li>不要捕获Throwable，Throwable是异常的超类，捕获Throwable既会捕获到普通的异常，也会捕获到Error</li>
+<li>尽量使用内置的异常，除非是内置的异常满足不了</li>
+<li>异常处理很耗时，不要使用异常来做流程控制。创建和抛出异常会花费几毫秒的时间。</li>
+</ul>
+<p><a href="http://www.cnblogs.com/Qian123/p/5715402.html">Java提高篇-Java异常处理</a></p>
 
 
 
@@ -2632,10 +2753,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
       
     
   </body>
