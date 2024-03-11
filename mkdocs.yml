@@ -29,7 +29,6 @@ nav:
     - 高效加载图片: Android/1-Basic/Image.md
     - Routing: Android/1-Basic/Routing.md
     - 序列化: Android/1-Basic/Serialization.md
-    - Android四大组件之Service: Android/1-Basic/Service.md
     - aidl: Android/1-Basic/aidl.md
     - Android虚拟机相关: Android/1-Basic/android-virtual-machine.md
     - 事件分发机制: Android/1-Basic/event-dispatch.md
