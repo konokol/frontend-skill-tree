@@ -9,25 +9,25 @@
       
       
       
-        <link rel="prev" href="../Serialization/">
+        <link rel="prev" href="../01-Activity/">
       
       
-        <link rel="next" href="../aidl/">
+        <link rel="next" href="../../../../Android/1-Basic/Android-GC/">
       
       
-      <link rel="icon" href="../../../assets/book.png">
+      <link rel="icon" href="../../../../assets/book.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
     
     
       
-        <title>Android四大组件之Service - 客户端知识图谱</title>
+        <title>Android四大组件--Service - 客户端知识图谱</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e359304.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,9 +46,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../css/app.css">
+      <link rel="stylesheet" href="../../../../css/app.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -88,7 +88,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../../.." title="客户端知识图谱" class="md-header__button md-logo" aria-label="客户端知识图谱" data-md-component="logo">
+    <a href="../../../.." title="客户端知识图谱" class="md-header__button md-logo" aria-label="客户端知识图谱" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Android四大组件之Service
+              Android四大组件--Service
             
           </span>
         </div>
@@ -185,7 +185,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+        <a href="../../../.." class="md-tabs__link">
           
   
   首页
@@ -205,7 +205,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../pages/android/" class="md-tabs__link">
+        <a href="../../" class="md-tabs__link">
           
   
   Android
@@ -223,7 +223,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../pages/java/1-basic/00-OO/" class="md-tabs__link">
+        <a href="../../../java/1-basic/00-OO/" class="md-tabs__link">
           
   
   Java基础
@@ -241,7 +241,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../pages/kotlin/none/" class="md-tabs__link">
+        <a href="../../../kotlin/none/" class="md-tabs__link">
           
   
   Kotlin基础
@@ -259,7 +259,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../pages/cross-platform/none/" class="md-tabs__link">
+        <a href="../../../cross-platform/none/" class="md-tabs__link">
           
   
   跨平台技术
@@ -283,7 +283,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../pages/cs/algorithm/none/" class="md-tabs__link">
+        <a href="../../../cs/algorithm/none/" class="md-tabs__link">
           
   
   CS理论基础
@@ -325,7 +325,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="客户端知识图谱" class="md-nav__button md-logo" aria-label="客户端知识图谱" data-md-component="logo">
+    <a href="../../../.." title="客户端知识图谱" class="md-nav__button md-logo" aria-label="客户端知识图谱" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -393,7 +393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -414,7 +414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/home/about/" class="md-nav__link">
+      <a href="../../../home/about/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -435,7 +435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/home/ref/" class="md-nav__link">
+      <a href="../../../home/ref/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -506,7 +506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/android/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -567,410 +567,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/android/1-basic/Activity/" class="md-nav__link">
+      <a href="../01-Activity/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Android四大组件--Activity
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Android-GC/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Android GC原理
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Android-collections/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Android中对集合的优化
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Android-database/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Android SQLite数据库优化
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Android-memory/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Android内存泄漏
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Android-new-features/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Android 5.0到7.0的行为变更
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Android-window/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    理解Activity，View，Window三者关系
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Animations/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Android动画简介
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../AsyncTask/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    AsyncTask原理解析
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../BroadcastReceiver/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    BroadcastReceiver
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ButterKnife/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ButterKnife原理解析
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ContentProvider/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ContentProvider
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../EventBus/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    EventBus原理解析
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Fresco/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Fresco相关
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Handler/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    消息机制
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../HandlerThread%26IntentService/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    HandlerThread与IntentService
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Hotfix/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Android 热修复原理
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Image/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    高效加载图片
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Routing/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Routing
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Serialization/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    序列化
   </span>
   
 
@@ -1000,7 +601,7 @@
           
   
   <span class="md-ellipsis">
-    Android四大组件之Service
+    Android四大组件--Service
   </span>
   
 
@@ -1011,7 +612,7 @@
         
   
   <span class="md-ellipsis">
-    Android四大组件之Service
+    Android四大组件--Service
   </span>
   
 
@@ -1168,7 +769,427 @@
   
   
     <li class="md-nav__item">
-      <a href="../aidl/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/Android-GC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android GC原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Android-collections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中对集合的优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Android-database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android SQLite数据库优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Android-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android内存泄漏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Android-new-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android 5.0到7.0的行为变更
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Android-window/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    理解Activity，View，Window三者关系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Animations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android动画简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/AsyncTask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AsyncTask原理解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/BroadcastReceiver/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BroadcastReceiver
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/ButterKnife/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ButterKnife原理解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/ContentProvider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ContentProvider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/EventBus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EventBus原理解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Fresco/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fresco相关
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Handler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    消息机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/HandlerThread%26IntentService/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HandlerThread与IntentService
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Hotfix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android 热修复原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Image/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高效加载图片
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Routing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Routing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Serialization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    序列化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/Service.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android四大组件之Service
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Android/1-Basic/aidl/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1189,7 +1210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../android-virtual-machine/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/android-virtual-machine/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1210,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../event-dispatch/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/event-dispatch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1231,7 +1252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fragment2activity/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/fragment2activity/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1252,7 +1273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-is-view-drew/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/how-is-view-drew/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1273,7 +1294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../keep-alive/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/keep-alive/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1294,7 +1315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/" class="md-nav__link">
+      <a href="../../../../Android/1-Basic/tools/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1361,7 +1382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../none/" class="md-nav__link">
+      <a href="../../../../none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1428,7 +1449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../none/" class="md-nav__link">
+      <a href="../../../../none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1495,7 +1516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../none/" class="md-nav__link">
+      <a href="../../../../none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1562,7 +1583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/android/5-framework/00-android-source-code/" class="md-nav__link">
+      <a href="../../5-framework/00-android-source-code/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1583,7 +1604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/android/5-framework/01-system-boot/" class="md-nav__link">
+      <a href="../../5-framework/01-system-boot/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1604,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/android/5-framework/02-activity-source-code/" class="md-nav__link">
+      <a href="../../5-framework/02-activity-source-code/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1671,7 +1692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../none/" class="md-nav__link">
+      <a href="../../../../none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1745,7 +1766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/00-OO/" class="md-nav__link">
+      <a href="../../../java/1-basic/00-OO/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1804,7 +1825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/01-primitive-data-types/" class="md-nav__link">
+      <a href="../../../java/1-basic/01-primitive-data-types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1825,7 +1846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/02-refrefence-data-types/" class="md-nav__link">
+      <a href="../../../java/1-basic/02-refrefence-data-types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1846,7 +1867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/03-number-and-strings/" class="md-nav__link">
+      <a href="../../../java/1-basic/03-number-and-strings/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1867,7 +1888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/04-references/" class="md-nav__link">
+      <a href="../../../java/1-basic/04-references/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1888,7 +1909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/05-annotations/" class="md-nav__link">
+      <a href="../../../java/1-basic/05-annotations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1909,7 +1930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/06-generics/" class="md-nav__link">
+      <a href="../../../java/1-basic/06-generics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1930,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/07-reflation/" class="md-nav__link">
+      <a href="../../../java/1-basic/07-reflation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1951,7 +1972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/1-basic/08-exception/" class="md-nav__link">
+      <a href="../../../java/1-basic/08-exception/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2018,7 +2039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/2-concurrent/01-thread/" class="md-nav__link">
+      <a href="../../../java/2-concurrent/01-thread/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2039,7 +2060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/java/2-concurrent/02-thread-pool/" class="md-nav__link">
+      <a href="../../../java/2-concurrent/02-thread-pool/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2068,7 +2089,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Java/Collections/" class="md-nav__link">
+      <a href="../../../../Java/Collections/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2089,7 +2110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Java/Design-pattern/" class="md-nav__link">
+      <a href="../../../../Java/Design-pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2110,7 +2131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Java/JVM-memory-model/" class="md-nav__link">
+      <a href="../../../../Java/JVM-memory-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2131,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Java/Java-8-functional/" class="md-nav__link">
+      <a href="../../../../Java/Java-8-functional/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2152,7 +2173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Java/Java-8-lambda/" class="md-nav__link">
+      <a href="../../../../Java/Java-8-lambda/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2173,7 +2194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Java/ThreadLocal/" class="md-nav__link">
+      <a href="../../../../Java/ThreadLocal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2194,7 +2215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Java/design-pattern-singleton/" class="md-nav__link">
+      <a href="../../../../Java/design-pattern-singleton/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2260,7 +2281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/kotlin/none/" class="md-nav__link">
+      <a href="../../../kotlin/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2326,7 +2347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/cross-platform/none/" class="md-nav__link">
+      <a href="../../../cross-platform/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2430,7 +2451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/cs/algorithm/none/" class="md-nav__link">
+      <a href="../../../cs/algorithm/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2497,7 +2518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/cs/cs-basic/none/" class="md-nav__link">
+      <a href="../../../cs/cs-basic/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2564,7 +2585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/cs/internet/HTTP/" class="md-nav__link">
+      <a href="../../../cs/internet/HTTP/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2631,7 +2652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pages/cs/os/none/" class="md-nav__link">
+      <a href="../../../cs/os/none/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2865,7 +2886,7 @@
 <p>使用bindService启动service之后，不允许再通过startService启动（todo）。</p>
 <p>这种方式启动的Service多用于跨进程通信，或者是从Activity中启动和UI有交互。生命周期中的onBind()会返回一个IBinder，在bindService()的参数中有一个ServiceConnection接口，可以获取到这个IBinder接口，从而进行进程间的通信。</p>
 <h2 id="_3">生命周期</h2>
-<p><img alt="Service生命周期" src="../../../img/service_lifecycle.png" /></p>
+<p><img alt="Service生命周期" src="../../../../img/service_lifecycle.png" /></p>
 <h2 id="service_2">几种不同的Service</h2>
 <h3 id="service_3">前台Service</h3>
 <p>前台Service可以通过startService(int, Notification)启动，Service运行时，必须在状态栏显示通知，停止使用stopForground()。</p>
@@ -2910,7 +2931,7 @@
 <p>AIDL文件中定义接口，客户端访问Service时，拷贝.aidl文件，获取到Stub接口之后，可以调用到Service的方法。一般来说同一个应用中不建议使用AIDL，只有不同APP之间跨进程通信时才需要用到。</p>
 </li>
 </ol>
-<p><img alt="已启动且允许绑定的服务的生命周期" src="../../../img/service_binding_tree_lifecycle.png" /></p>
+<p><img alt="已启动且允许绑定的服务的生命周期" src="../../../../img/service_binding_tree_lifecycle.png" /></p>
 <h3 id="intentservice">IntentService</h3>
 <p>&#8195;&#8195;Service在onStartCommand中，仍然是在主线程中，IntentService在onCreate方法中实例化了一个HandlerThread，在onStartCommand中通过Handler把消息post到子线程上，提供一个onHandleIntent()的抽象方法，在onHandleIntent中，实际是在子线程中处理，可以进行耗时操作，之后onHandleIntent执行完调用stopSelf()结束自己。</p>
 
@@ -3003,10 +3024,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
       
     
   </body>
