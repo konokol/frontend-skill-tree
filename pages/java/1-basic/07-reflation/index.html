@@ -1779,6 +1779,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    反射
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1788,6 +1799,67 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取class的方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      优缺点
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2530,6 +2602,56 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本使用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取class的方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      优缺点
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2544,6 +2666,31 @@
 
 
 <h1 id="_1">反射</h1>
+<p>Java中在运行时动态获取类的信息和动态调用对象方法的机制叫反射。</p>
+<h2 id="_2">基本原理</h2>
+<p>正常的类加载机制中，创建对象时，先加载class文件到JVM内存中，在JVM中创建一个class对象，相同的类只有一个class对象。反射的原理即从class对象中读取实例的信息。</p>
+<p><a href="../../../../img/java-reflection.png">Java反射的原理</a></p>
+<h2 id="_3">基本使用</h2>
+<h3 id="class">获取class的方式</h3>
+<ul>
+<li>通过实例getClass()方法，object.getClass()</li>
+<li>通过类型，SomeClass.class</li>
+<li>通过Class.forName()传入完整类名</li>
+<li>通过classloader.load()传入完整类名</li>
+</ul>
+<h2 id="_4">优缺点</h2>
+<p>优点：</p>
+<ul>
+<li>反射能够使Java在运行时获取到分析类的信息，让Java具备了动态语言的特性。</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>性能，由于动态调用，虚拟机的各种优化都不会生效，对各种类型的包装会造成内存的额外开销，因此反射比普通的API性能更差。</li>
+<li>安全性，在运行时调用需要有权限，会产生权限问题以及异常</li>
+<li>开放性，反射可以调用任何API，破坏了封装性，使得任意私有的API都能对外暴露。</li>
+</ul>
+<p><em>参考</em></p>
+<p><a href="https://docs.oracle.com/javase/tutorial/reflect/TOC.html">Trail: The Reflection API</a></p>
 
 
 
