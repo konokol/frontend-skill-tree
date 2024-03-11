@@ -8,7 +8,8 @@ nav:
 - Android:
   - Android知识树: pages/android/index.md
   - 基础:
-    - Android四大组件--Activity: pages/android/1-basic/Activity.md
+    - Android四大组件--Activity: pages/android/1-basic/01-Activity.md
+    - Android四大组件--Service: pages/android/1-basic/02-Service.md
     - Android GC原理: Android/1-Basic/Android-GC.md
     - Android中对集合的优化: Android/1-Basic/Android-collections.md
     - Android SQLite数据库优化: Android/1-Basic/Android-database.md
