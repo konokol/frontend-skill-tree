@@ -111,7 +111,7 @@ Android官网上并没定义后台Service的概念，这里的后台Service是�
 
     客户端中通过Messager对象的sendMessage(msg)方法向Service发消息；
 
-3. AIDL
+3. **AIDL**
 
     AIDL文件中定义接口，客户端访问Service时，拷贝.aidl文件，获取到Stub接口之后，可以调用到Service的方法。一般来说同一个应用中不建议使用AIDL，只有不同APP之间跨进程通信时才需要用到。
 
