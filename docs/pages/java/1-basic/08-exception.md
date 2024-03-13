@@ -4,7 +4,10 @@
 
 ![异常结构图](../../../img/java-exception.png)
 
-Throwable是所有异常的父类。异常分为两个大类，Error和Exception，Error是运行时环境出现了错误，一般由Java虚拟机抛出，发生之后一般不希望程序自己恢复过来，常见的两个是OOM和StackOverFlow. Exception子类的异常是可以捕获到的，常见的两大类是IOException和RuntimeException。
+Throwable是所有异常的父类。异常分为两个大类，Error和Exception。
+
+- Error，是运行时环境出现了错误，一般由Java虚拟机抛出，发生之后一般不希望程序自己恢复过来，常见的两个是OOM和StackOverFlow.
+- Exception，子类的异常是可以捕获到的，常见的两大类是IOException和RuntimeException。
 
 异常也可以分为检查异常和非检查异常，检查异常在编码时强制要求捕获，否则编译不通过，非检查异常包括Error，RuntimeException和它们的子类，不必强制捕获，理论上都是可以避免的。
 
