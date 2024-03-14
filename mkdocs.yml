@@ -70,7 +70,6 @@ nav:
     - 构建型模式: pages/java/6-design-pattern/01-creational-pattern.md
     - 结构型模式: pages/java/6-design-pattern/02-structural-pattern.md
     - 行为型模式: pages/java/6-design-pattern/03-behavioral-pattern.md
-    - Java单例的写法: Java/design-pattern-singleton.md
   - JVM:
     - JVM运行时数据区和Java内存模型: Java/JVM-memory-model.md
     - Java 8函数式数据处理: Java/Java-8-functional.md
