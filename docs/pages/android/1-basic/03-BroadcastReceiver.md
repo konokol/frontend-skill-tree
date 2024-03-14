@@ -63,7 +63,7 @@ context.sendStickyBroadcast(Intent)，黏性广播是指在发送之后，即使
 - **本地广播**    
 LocalBroadcastManager.getInstance(Context).sendBroadCastReceiver(Intent)，本地广播只能在当前进程内接受，安全性更高。
 
-## 系统API发生的行为变更
+## API行为变更
 
 - Android 14，APP处于后台时，会延迟收到一些不重要的广播，当恢复到前台时，会立刻收到这些延迟的广播。
 - Android 9，NETWORK_STATE_CHANGED_ACTION 不再接收位置信息和个人身份数据相关的信息。
