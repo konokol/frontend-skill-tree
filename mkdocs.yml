@@ -8,8 +8,9 @@ nav:
 - Android:
   - Android知识树: pages/android/index.md
   - 基础:
-    - Android四大组件--Activity: pages/android/1-basic/01-Activity.md
-    - Android四大组件--Service: pages/android/1-basic/02-Service.md
+    - 四大组件--Activity: pages/android/1-basic/01-Activity.md
+    - 四大组件--Service: pages/android/1-basic/02-Service.md
+    - 四大组件--BroadcastReceiver: pages/android/1-basic/03-BroadcastReceiver.md
     - Android GC原理: Android/1-Basic/Android-GC.md
     - Android中对集合的优化: Android/1-Basic/Android-collections.md
     - Android SQLite数据库优化: Android/1-Basic/Android-database.md
@@ -18,7 +19,6 @@ nav:
     - 理解Activity，View，Window三者关系: Android/1-Basic/Android-window.md
     - Android动画简介: Android/1-Basic/Animations.md
     - AsyncTask原理解析: Android/1-Basic/AsyncTask.md
-    - BroadcastReceiver: Android/1-Basic/BroadcastReceiver.md
     - ButterKnife原理解析: Android/1-Basic/ButterKnife.md
     - ContentProvider: Android/1-Basic/ContentProvider.md
     - EventBus原理解析: Android/1-Basic/EventBus.md
