@@ -47,6 +47,7 @@ nav:
     - 系统启动流程: pages/android/5-framework/01-system-boot.md
     - Activity的启动流程: pages/android/5-framework/02-activity-source-code.md
   - 工具与工程:
+    - 打包流程: pages/android/6-tools/01-apk-build.md
     - 敬请期待: none.md
 - Java基础:
   - 面向对象: pages/java/1-basic/00-OO.md
