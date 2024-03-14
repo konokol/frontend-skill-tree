@@ -63,13 +63,19 @@ nav:
   - 并发:
     - 多线程: pages/java/2-concurrent/01-thread.md
     - 线程池: pages/java/2-concurrent/02-thread-pool.md
-  - Java的集合框架: Java/Collections.md
-  - 设计模式: Java/Design-pattern.md
-  - JVM运行时数据区和Java内存模型: Java/JVM-memory-model.md
-  - Java 8函数式数据处理: Java/Java-8-functional.md
+  - 集合:  
+    - Java的集合框架: Java/Collections.md
+  - 设计模式: 
+    - 设计模式: pages/java/6-design-pattern/00-design-pattern.md
+    - 构建型模式: pages/java/6-design-pattern/01-creational-pattern.md
+    - 结构型模式: pages/java/6-design-pattern/02-structural-pattern.md
+    - 行为型模式: pages/java/6-design-pattern/03-behavioral-pattern.md
+    - Java单例的写法: Java/design-pattern-singleton.md
+  - JVM:
+    - JVM运行时数据区和Java内存模型: Java/JVM-memory-model.md
+    - Java 8函数式数据处理: Java/Java-8-functional.md
   - Java 8函数式编程–––Lambda表达式: Java/Java-8-lambda.md
   - ThreadLocal原理: Java/ThreadLocal.md
-  - Java单例的写法: Java/design-pattern-singleton.md
 - Kotlin基础:
   - 敬请期待: pages/kotlin/none.md
 - 跨平台技术:
