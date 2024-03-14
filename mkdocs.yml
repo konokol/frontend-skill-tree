@@ -102,25 +102,30 @@ theme:
     - navigation.instant
     - navigation.tabs.sticky
   plugins:
-  - tags: null
-    enabled: true
-    tags_allowed:
+    - tags: null
+      enabled: true
+      tags_allowed:
     - HTML5
     - JavaScript
     - CSS
 extra:
   social:
-  - icon: fontawesome/brands/github
-    link: https://github.com/konokol
-  - icon: fontawesome/brands/zhihu
-    link: https://www.zhihu.com/people/konokol
-  - icon: fontawesome/solid/envelope
-    link: mailto:lijundut@foxmail.com
-repo_url: https://github.com/konokol/frontend-skill-tree
+    - icon: fontawesome/brands/github
+      link: https://github.com/konokol
+    - icon: fontawesome/brands/zhihu
+      link: https://www.zhihu.com/people/konokol
+    - icon: fontawesome/solid/envelope
+      link: mailto:lijundut@foxmail.com
+  repo_url: https://github.com/konokol/frontend-skill-tree
 repo_name: konokol/frontend-skill-tree
 edit_uri: ''
 markdown_extensions:
-- def_list
-- attr_list
+  - def_list
+  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 extra_css:
-- css/app.css
+  - css/app.css
