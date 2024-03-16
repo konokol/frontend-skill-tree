@@ -1,4 +1,4 @@
-# 广播
+# BroadcastReceiver
 
 BroadCastReceiver是Android四大组件之一，主要用于接收系统或者app发送的广播事件。广播采用了观察者模式，通过发布订阅的模式实现通信，广播的通信机制也是用Android的Binder。
 

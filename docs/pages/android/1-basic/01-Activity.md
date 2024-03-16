@@ -1,6 +1,4 @@
-<!-- Activity -->
-
-# Android四大组件--Activity
+# Activity
 
 ## 基本概念
 

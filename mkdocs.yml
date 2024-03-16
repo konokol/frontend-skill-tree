@@ -11,6 +11,7 @@ nav:
     - 四大组件--Activity: pages/android/1-basic/01-Activity.md
     - 四大组件--Service: pages/android/1-basic/02-Service.md
     - 四大组件--BroadcastReceiver: pages/android/1-basic/03-BroadcastReceiver.md
+    - 四大组件--ContentProvder: pages/android/1-basic/04-ContentProvider.md
     - Android GC原理: Android/1-Basic/Android-GC.md
     - Android中对集合的优化: Android/1-Basic/Android-collections.md
     - Android SQLite数据库优化: Android/1-Basic/Android-database.md
