@@ -72,8 +72,9 @@ nav:
     - 行为型模式: pages/java/6-design-pattern/03-behavioral-pattern.md
   - JVM:
     - JVM运行时数据区和Java内存模型: Java/JVM-memory-model.md
-    - Java 8函数式数据处理: Java/Java-8-functional.md
-  - Java 8函数式编程–––Lambda表达式: Java/Java-8-lambda.md
+  - Java各版本新特性:
+    - Java 8 -- 函数式数据处理: Java/Java-8-functional.md
+    - Java 8 -- Lambda表达式: Java/Java-8-lambda.md
   - ThreadLocal原理: Java/ThreadLocal.md
 - Kotlin基础:
   - 敬请期待: pages/kotlin/none.md
@@ -88,6 +89,8 @@ nav:
     - HTTP协议详解: pages/cs/internet/HTTP.md
   - 操作系统:
     - 敬请期待: pages/cs/os/none.md
+- 大前端:
+   - 敬请期待: none.md
 theme:
   language: zh
   name: material
