@@ -21,7 +21,6 @@ nav:
     - Android动画简介: Android/1-Basic/Animations.md
     - AsyncTask原理解析: Android/1-Basic/AsyncTask.md
     - ButterKnife原理解析: Android/1-Basic/ButterKnife.md
-    - ContentProvider: Android/1-Basic/ContentProvider.md
     - EventBus原理解析: Android/1-Basic/EventBus.md
     - Fresco相关: Android/1-Basic/Fresco.md
     - 消息机制: Android/1-Basic/Handler.md
@@ -36,7 +35,6 @@ nav:
     - Fragment相关: Android/1-Basic/fragment2activity.md
     - View的绘制流程: Android/1-Basic/how-is-view-drew.md
     - keep-alive: Android/1-Basic/keep-alive.md
-    - Android打包: Android/1-Basic/tools.md
   - 性能:
     - 敬请期待: none.md
   - 架构:
@@ -48,6 +46,7 @@ nav:
     - 系统启动流程: pages/android/5-framework/01-system-boot.md
     - Activity的启动流程: pages/android/5-framework/02-activity-source-code.md
   - 工具与工程:
+    - Android打包: pages/android/6-tools/00-tools.md
     - 打包流程: pages/android/6-tools/01-apk-build.md
     - 敬请期待: none.md
 - Java基础:
