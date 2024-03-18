@@ -119,7 +119,7 @@ extra:
       link: https://www.zhihu.com/people/konokol
     - icon: fontawesome/solid/envelope
       link: mailto:lijundut@foxmail.com
-  repo_url: https://github.com/konokol/frontend-skill-tree
+repo_url: https://github.com/konokol/frontend-skill-tree
 repo_name: konokol/frontend-skill-tree
 edit_uri: ''
 markdown_extensions:
