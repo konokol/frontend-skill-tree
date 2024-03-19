@@ -66,6 +66,15 @@ public class ExampleProvider extends ContentProvider {
 }
 ```
 
-
 ## 原理
 
+![ContentProvider的原理](../../../img/content-provider.png)
+
+应用启动时，先创建ContextImpl和Instrumentation，接着创建Application，查找当前进程的ContentProvider，创建ContentProvider的对象，同时调用onCreate()方法。
+
+调用contentResolver的query、update、insert、delete方法时，获取到的ContentResolver实际是ApplicationContentResolver，通过acquireProvider()方法查找对应的ContentProvider是否存在，如果存在直接返回，否则会走到启动进程的流程，在ActivityThread中调用instalProvider()，启动对应的ContentProvider，并调用onCreate方法。
+
+***参考***
+
+[Android Developer ContentProvider简介](https://developer.android.google.cn/guide/topics/providers/content-providers?hl=zh-cn)  
+[CSDN-ContentProvider工作原理——独家秘方](https://blog.csdn.net/XiaoRenEi/article/details/109715763)  
