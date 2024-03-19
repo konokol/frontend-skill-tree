@@ -48,7 +48,7 @@ nav:
   - 工具与工程:
     - Android打包: pages/android/6-tools/00-tools.md
     - 打包流程: pages/android/6-tools/01-apk-build.md
-    - 敬请期待: none.md
+    - apk的安装: pages/android/6-tools/02-apk-install.md
 - Java基础:
   - 面向对象: pages/java/1-basic/00-OO.md
   - 基础:
