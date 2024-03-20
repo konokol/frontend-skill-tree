@@ -4,3 +4,4 @@
 site/
 build/
 .pyenv
+.venv
