@@ -55,7 +55,26 @@ public class ExampleActivity extends AppCompatActivity {
 
 ## FragmentManager与FragmentTransaction
 
-## 声明周期
+Fragment的操作都是通过FragmentTransaction和FragmentTransaction来实现的。
+
+FragmentManager可以通过FragmentActivity及其子类的`getSupportFragmentManager()`方法获取，通过`fragmentManager.beginTransaction()`可以开启一个事务，事务中可以进行Fragment的各种操作。
+
+常用的FragmentManager的方法包括：
+
+-  findFragmentById(int)，id即Fragment容器View的id
+-  findFragmentByTag(String)，tag是fragmentTranstation.add()时指定的tag
+
+对Fragment的操作几乎都是通过FramentTransaction来实现的，常见的操作包括：
+
+- add/remove/replace 从界面上添加/移除/替换Fragment，会触发onCreateView/onViewDestroy方法
+- show/hide 显示和隐藏，会触发onHiddenChange()方法
+- detach/attach 从界面上暂时移除/添加Fragment
+- setPrimaryNavigation() 设置当前活跃的Fragment
+- setMaxLifecycle() 设置最大的生命周期状态，如果设置的状态比当前的状态更小，则会强制回退状态
+- commit/commitAllowingStateLoss 异步提交事务，commitAllowingStateLoss会在执行时不检查Fragment的状态
+- commitNow/commitNowAllowingStateLoss 同步提交事务
+
+## 生命周期
 
 ## 状态保存
 
