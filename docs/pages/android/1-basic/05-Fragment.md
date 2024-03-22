@@ -68,17 +68,29 @@ FragmentManager可以通过FragmentActivity及其子类的`getSupportFragmentMan
 
 - add/remove/replace 从界面上添加/移除/替换Fragment，会触发onCreateView/onViewDestroy方法
 - show/hide 显示和隐藏，会触发onHiddenChange()方法
-- detach/attach 从界面上暂时移除/添加Fragment
+- detach/attach 从界面上暂时移除/添加Fragment，不同与add/remove，Fragment的状态仍然由FragmentManager维护
 - setPrimaryNavigation() 设置当前活跃的Fragment
 - setMaxLifecycle() 设置最大的生命周期状态，如果设置的状态比当前的状态更小，则会强制回退状态
 - commit/commitAllowingStateLoss 异步提交事务，commitAllowingStateLoss会在执行时不检查Fragment的状态
 - commitNow/commitNowAllowingStateLoss 同步提交事务
 
+## 回退栈
+
+同Activity类似，FragmentManager中也维护了一个栈，栈中的每个元素都是BackRacod，它是FragmentTransaction的子类。在执行Fragment的事务时，通过`transaction.addBackRecord()`将当前的操作加入到栈中，通过`fragmentManager.popBackStack()`可以进行出栈操作。
+
+当按返回按钮时，会执行事务的出栈操作，当没有可以出栈的事务后，会执行到Activity的onBackPress方法中。
+
+通过`supportFragmentManager.saveBackStack(String)`和`supportFragmentManager.restoreBackStack(String)`也可以进行事务状态的保存和恢复。
+
 ## 生命周期
+
+![Fragment生命周期](../../../img/fragment-view-lifecycle.png)
 
 ## 状态保存
 
 ## 通信
+
+## Fragment事务的工作原理
 
 *参考*
 
