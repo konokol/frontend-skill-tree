@@ -88,10 +88,24 @@ FragmentManager可以通过FragmentActivity及其子类的`getSupportFragmentMan
 
 ## 状态保存
 
+Fragment的状态保存同Activity一样，在onSavedInstanceState和onRestoreInstanceState中完成。通过`fragment.setArgument(Bundle)`方法设置的参数，在Fragment重建之后，也会被恢复，Fragment中其他的成员变量则无法被恢复。
+
 ## 通信
+
+- Fragment与Fragment    
+   1、通过共同的Activity桥接    
+   2、直接用EventBus之类的事件订阅来通信       
+   3、官网推荐用ViewModel来实现通信，多个Fragment可以共享一个ViewModule  
+   4、通过fragmentManager的ResultApi，用观察者模式实现
+   ![同级Fragment之间的同学](../../../img/fragment-a-to-b.png)
+
+- Activity与Fragment    
+  Activity通过`fragment.setArgument(Bundle)`向Fragment传递参数，拿到Fragment对象，直接调用fragment方法。    
+  Fragment通过`getContext()`获取到宿主Activity，通过回调的方式调用Activity中的方法。
 
 ## Fragment事务的工作原理
 
 *参考*
 
-[Android Developer Fragment简介](https://developer.android.google.cn/guide/fragments?hl=zh-cn)
+[Android Developer Fragment简介](https://developer.android.google.cn/guide/fragments?hl=zh-cn)  
+[Android Developer 与Fragment通信](https://developer.android.google.cn/guide/fragments/communicate?hl=zh-cn)

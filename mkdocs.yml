@@ -33,7 +33,6 @@ nav:
     - aidl: Android/1-Basic/aidl.md
     - Android虚拟机相关: Android/1-Basic/android-virtual-machine.md
     - 事件分发机制: Android/1-Basic/event-dispatch.md
-    - Fragment相关: Android/1-Basic/fragment2activity.md
     - View的绘制流程: Android/1-Basic/how-is-view-drew.md
     - keep-alive: Android/1-Basic/keep-alive.md
   - 性能:
