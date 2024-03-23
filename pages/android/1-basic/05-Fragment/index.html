@@ -735,7 +735,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      声明周期
+      回退栈
     </span>
   </a>
   
@@ -744,7 +744,7 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      状态保存
+      生命周期
     </span>
   </a>
   
@@ -753,7 +753,25 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
+      状态保存
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
       通信
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fragment_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fragment事务的工作原理
     </span>
   </a>
   
@@ -1179,27 +1197,6 @@
   
   <span class="md-ellipsis">
     事件分发机制
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../Android/1-Basic/fragment2activity/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Fragment相关
   </span>
   
 
@@ -2984,7 +2981,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      声明周期
+      回退栈
     </span>
   </a>
   
@@ -2993,7 +2990,7 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      状态保存
+      生命周期
     </span>
   </a>
   
@@ -3002,7 +2999,25 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
+      状态保存
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
       通信
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fragment_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fragment事务的工作原理
     </span>
   </a>
   
@@ -3073,12 +3088,77 @@
 </li>
 </ul>
 <h2 id="fragmentmanagerfragmenttransaction">FragmentManager与FragmentTransaction</h2>
-<p>Fragment的操作都是通过Fragment和FragmentTransaction来实现的，</p>
-<h2 id="_1">声明周期</h2>
-<h2 id="_2">状态保存</h2>
-<h2 id="_3">通信</h2>
+<p>Fragment的操作都是通过FragmentTransaction和FragmentTransaction来实现的。</p>
+<p>FragmentManager可以通过FragmentActivity及其子类的<code>getSupportFragmentManager()</code>方法获取，通过<code>fragmentManager.beginTransaction()</code>可以开启一个事务，事务中可以进行Fragment的各种操作。</p>
+<p>常用的FragmentManager的方法包括：</p>
+<ul>
+<li>findFragmentById(int)，id即Fragment容器View的id</li>
+<li>findFragmentByTag(String)，tag是fragmentTranstation.add()时指定的tag</li>
+</ul>
+<p>对Fragment的操作几乎都是通过FramentTransaction来实现的，常见的操作包括：</p>
+<ul>
+<li>add/remove/replace 从界面上添加/移除/替换Fragment，会触发onCreateView/onViewDestroy方法</li>
+<li>show/hide 显示和隐藏，会触发onHiddenChange()方法</li>
+<li>detach/attach 从界面上暂时移除/添加Fragment，不同与add/remove，Fragment的状态仍然由FragmentManager维护</li>
+<li>setPrimaryNavigation() 设置当前活跃的Fragment</li>
+<li>setMaxLifecycle() 设置最大的生命周期状态，如果设置的状态比当前的状态更小，则会强制回退状态</li>
+<li>commit/commitAllowingStateLoss 异步提交事务，commitAllowingStateLoss会在执行时不检查Fragment的状态</li>
+<li>commitNow/commitNowAllowingStateLoss 同步提交事务</li>
+</ul>
+<h2 id="_1">回退栈</h2>
+<p>同Activity类似，FragmentManager中也维护了一个栈，栈中的每个元素都是BackRacod，它是FragmentTransaction的子类。在执行Fragment的事务时，通过<code>transaction.addBackRecord()</code>将当前的操作加入到栈中，通过<code>fragmentManager.popBackStack()</code>可以进行出栈操作。</p>
+<p>当按返回按钮时，会执行事务的出栈操作，当没有可以出栈的事务后，会执行到Activity的onBackPress方法中。</p>
+<p>通过<code>supportFragmentManager.saveBackStack(String)</code>和<code>supportFragmentManager.restoreBackStack(String)</code>也可以进行事务状态的保存和恢复。</p>
+<h2 id="_2">生命周期</h2>
+<p><img alt="Fragment生命周期" src="../../../../img/fragment-view-lifecycle.png" /></p>
+<h2 id="_3">状态保存</h2>
+<p>Fragment的状态保存同Activity一样，在onSavedInstanceState和onRestoreInstanceState中完成。通过<code>fragment.setArgument(Bundle)</code>方法设置的参数，在Fragment重建之后，也会被恢复，Fragment中其他的成员变量则无法被恢复。</p>
+<h2 id="_4">通信</h2>
+<ul>
+<li>
+<p>Fragment与Fragment  <br />
+   1、通过共同的Activity桥接  <br />
+   2、直接用EventBus之类的事件订阅来通信     <br />
+   3、官网推荐用ViewModel来实现通信，多个Fragment可以共享一个ViewModule<br />
+   4、通过fragmentManager的ResultApi，用观察者模式实现
+   <img alt="同级Fragment之间的同学" src="../../../../img/fragment-a-to-b.png" /></p>
+</li>
+<li>
+<p>Activity与Fragment  <br />
+  Activity通过<code>fragment.setArgument(Bundle)</code>向Fragment传递参数，拿到Fragment对象，直接调用fragment方法。  <br />
+  Fragment通过<code>getContext()</code>获取到宿主Activity，通过回调的方式调用Activity中的方法。</p>
+</li>
+</ul>
+<h2 id="fragment_2">Fragment事务的工作原理</h2>
+<ol>
+<li>
+<p>通过FragmentManager.beganTransaction开启事务，即FragmentTransaction，FragmentTransaction是一个抽象类，它的实现类通常是BackStackRecord。    </p>
+</li>
+<li>
+<p>FragmentTransaction中以ArrayList<Op>的形式维护了一系列的操作队列，执行add/remove等方法时，都会创建一个新的Op对象。  </p>
+</li>
+<li>
+<p>当执行FragmentTransaction的commit()方法时，将FragmentTransaction对象放入到FragmentManager的mPendingActions队列中，异步执行。如果使用的是commitNow()相关的方法，会立即执行。     </p>
+</li>
+<li>
+<p>在FragmentManager中经过一系列的状态校验后，会调用到moveState方法，在其中进行Fragment的状态流转，并执行生命周期方法。   <br />
+    Fragment的状态有8个:    </p>
+<ul>
+<li>INITIALIZING = -1;          // Not yet attached.</li>
+<li>ATTACHED = 0;               // Attached to the host.</li>
+<li>CREATED = 1;                // Created.</li>
+<li>VIEW_CREATED = 2;           // View Created.</li>
+<li>AWAITING_EXIT_EFFECTS = 3;  // Downward state, awaiting exit effects</li>
+<li>ACTIVITY_CREATED = 4;       // Fully created, not started.</li>
+<li>STARTED = 5;                // Created and started, not resumed.</li>
+<li>AWAITING_ENTER_EFFECTS = 6; // Upward state, awaiting enter effects</li>
+<li>RESUMED = 7;                // Created started and resumed.</li>
+</ul>
+</li>
+</ol>
 <p><em>参考</em></p>
-<p><a href="https://developer.android.google.cn/guide/fragments?hl=zh-cn">Android Developer Fragment简介</a></p>
+<p><a href="https://developer.android.google.cn/guide/fragments?hl=zh-cn">Android Developer Fragment简介</a><br />
+<a href="https://developer.android.google.cn/guide/fragments/communicate?hl=zh-cn">Android Developer 与Fragment通信</a></p>
 
 
 
