@@ -105,6 +105,24 @@ Fragment的状态保存同Activity一样，在onSavedInstanceState和onRestoreIn
 
 ## Fragment事务的工作原理
 
+1. 通过FragmentManager.beganTransaction开启事务，即FragmentTransaction，FragmentTransaction是一个抽象类，它的实现类通常是BackStackRecord。    
+     
+2. FragmentTransaction中以ArrayList<Op>的形式维护了一系列的操作队列，执行add/remove等方法时，都会创建一个新的Op对象。  
+   
+3. 当执行FragmentTransaction的commit()方法时，将FragmentTransaction对象放入到FragmentManager的mPendingActions队列中，异步执行。如果使用的是commitNow()相关的方法，会立即执行。     
+   
+4. 在FragmentManager中经过一系列的状态校验后，会调用到moveState方法，在其中进行Fragment的状态流转，并执行生命周期方法。     
+    Fragment的状态有8个:    
+     - INITIALIZING = -1;          // Not yet attached.
+     - ATTACHED = 0;               // Attached to the host.
+     - CREATED = 1;                // Created.
+     - VIEW_CREATED = 2;           // View Created.
+     - AWAITING_EXIT_EFFECTS = 3;  // Downward state, awaiting exit effects
+     - ACTIVITY_CREATED = 4;       // Fully created, not started.
+     - STARTED = 5;                // Created and started, not resumed.
+     - AWAITING_ENTER_EFFECTS = 6; // Upward state, awaiting enter effects
+     - RESUMED = 7;                // Created started and resumed.
+
 *参考*
 
 [Android Developer Fragment简介](https://developer.android.google.cn/guide/fragments?hl=zh-cn)  
