@@ -1975,7 +1975,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      创建线程池的核心参数
+      线程池的基本使用
     </span>
   </a>
   
@@ -1988,12 +1988,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="线程池的工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建线程池的核心参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      各参数意义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#jdk" class="md-nav__link">
     <span class="md-ellipsis">
-      JDK常用的集中线程池
+      JDK常用的线程池
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程池参数配置最佳实践
     </span>
   </a>
   
@@ -2945,7 +2978,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      创建线程池的核心参数
+      线程池的基本使用
     </span>
   </a>
   
@@ -2958,12 +2991,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="线程池的工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建线程池的核心参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      各参数意义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#jdk" class="md-nav__link">
     <span class="md-ellipsis">
-      JDK常用的集中线程池
+      JDK常用的线程池
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程池参数配置最佳实践
     </span>
   </a>
   
@@ -2991,9 +3057,121 @@
 <li>提高响应速度。通过复用线程，省去创建线程的过程，因此整体上提升了系统的响应速度；</li>
 <li>提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，因此，需要使用线程池来管理线程。</li>
 </ul>
-<h2 id="_3">创建线程池的核心参数</h2>
+<h2 id="_3">线程池的基本使用</h2>
+<p>1、使用JDK自带的线程池</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">ExecutorService</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Excutors</span><span class="p">.</span><span class="na">newFixedThreadPool</span><span class="p">(</span><span class="n">nThreads</span><span class="p">);</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">service</span><span class="p">.</span><span class="na">submit</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+<p>2、自定义线程池</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">ExecutorService</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">                                </span><span class="n">corePoolSize</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">                                </span><span class="n">maximumPoolSize</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">                                </span><span class="n">keepAliveTime</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">                                </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">                                </span><span class="n">workQueue</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">                                </span><span class="n">threadFactory</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">                                </span><span class="n">handler</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">                                </span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">service</span><span class="p">.</span><span class="na">submit</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
 <h2 id="_4">线程池的工作原理</h2>
-<h2 id="jdk">JDK常用的集中线程池</h2>
+<h3 id="_5">创建线程池的核心参数</h3>
+<ul>
+<li><code>int corePoolSize</code>，核心线程数，需要大于0；</li>
+<li><code>int maximumPoolSize</code>，最大线程数，需要大于0；</li>
+<li><code>long keepAliveTime</code>，线程存活的时间；</li>
+<li><code>TimeUnit unit</code>，时间单位，从纳秒到天，非空；</li>
+<li><code>BlockingQueue&lt;Runnable&gt; workQueue</code>，等待队列，非空；</li>
+<li><code>ThreadFactory threadFactory</code>，创建线程的工厂方法，非空；</li>
+<li><code>RejectedExecutionHandler handler</code>，执行拒绝策略时的处理器，非空。</li>
+</ul>
+<h3 id="_6">各参数意义</h3>
+<ul>
+<li>corePoolSize<br />
+  向线程池中提交一个线程时，如果线程池中已有线程的数小于corePoolSize，即使存在空闲的线程，也会创建新的线程，创建新的线程使用的是threadFactory.newThread()来创建。如果线程数已经超过corePoolSize，看是否有空闲的线程，存在空闲的线程，则用空闲线程执行任务，如果没有，则根据maximumPoolSize来决定是否创建线程。</li>
+<li>maximumPoolSize <br />
+  提交任务时，如果线程池中线程数量超过corePoolSize，且没有空闲的线程，检查线程数量是否超过了maximumPoolSize，超过了则会执行拒绝策略，交由handle处理，没超过最大线程数，将线程放入等待队列。如workQueue为无界队列，这个参数会被忽略。</li>
+<li>workQueue   <br />
+  等待队列，工作线程超过corePoolSize后，会被放入等待队列。</li>
+<li>threadFactory 
+  创建线程的工厂方法，可以指定线程的分组，线程优先级，线程名等。</li>
+<li>rejectedExecutionHandler<br />
+  提交的线程数量超过了最大线程数，交给rejectedExecutionHandler处理，参数包括Runnable和executor。JDK中默认内置了4种处理策略：  <ul>
+<li>ThreadPoolExecutor.AbortPolicy，拒绝执行任务，并抛出RejectedExecutionException异常；</li>
+<li>ThreadPoolExecutor.DiscardPolicy，丢弃任务，什么也不做；</li>
+<li>ThreadPoolExecutor.DiscardOldestPolicy，丢弃排队最久的任务，重试执行，如果线程池已经关闭，直接丢弃任务；</li>
+<li>ThreadPoolExecutor.CallerRunsPolicy，由调用者所在的线程执行该任务，如果线程池已经关闭了，直接丢弃任务；</li>
+</ul>
+</li>
+</ul>
+<h2 id="jdk">JDK常用的线程池</h2>
+<p>Excutors中有几个静态方法newXXXPool，用来创建线程池:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">线程池方法</th>
+<th style="text-align: center;">corePoolSize</th>
+<th style="text-align: center;">maximumPoolSize</th>
+<th style="text-align: left;">workQueue</th>
+<th style="text-align: center;">keepAliveTime</th>
+<th style="text-align: left;">rejectedExecutionHandler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">newCachedThreadPool</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">Integer.MAX_VALUE</td>
+<td style="text-align: left;">SynchronousQueue</td>
+<td style="text-align: center;">60s</td>
+<td style="text-align: left;">AbortPolicy</td>
+</tr>
+<tr>
+<td style="text-align: left;">newSingleThreadScheduledExecutor</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Integer.MAX_VALUE</td>
+<td style="text-align: left;">DelayedWorkQueue</td>
+<td style="text-align: center;">10min</td>
+<td style="text-align: left;">AbortPolicy</td>
+</tr>
+<tr>
+<td style="text-align: left;">newScheduledThreadPool</td>
+<td style="text-align: center;">参数传入</td>
+<td style="text-align: center;">Integer.MAX_VALUE</td>
+<td style="text-align: left;">DelayedWorkQueue</td>
+<td style="text-align: center;">10min</td>
+<td style="text-align: left;">AbortPolicy</td>
+</tr>
+<tr>
+<td style="text-align: left;">newSingleThreadExecutor</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">LinkedBlockingQueue</td>
+<td style="text-align: center;">0min</td>
+<td style="text-align: left;">AbortPolicy</td>
+</tr>
+<tr>
+<td style="text-align: left;">newFixedThreadPool</td>
+<td style="text-align: center;">参数传入</td>
+<td style="text-align: center;">参数传入</td>
+<td style="text-align: left;">LinkedBlockingQueue</td>
+<td style="text-align: center;">0min</td>
+<td style="text-align: left;">AbortPolicy</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>newCachedThreadPool</strong> 该线程池无限大，只要不存在空闲线程，可以一直创建新线程。</li>
+<li><strong>newSingleThreadScheduledExecutor</strong>，只有一个线程，周期性执行任务。</li>
+<li><strong>newScheduledThreadPool</strong>，周期性执行任务，核心线程数可以通过参数指定。</li>
+<li><strong>newSingleThreadExecutor</strong>，单线程的线程池，所有任务都是串行执行。</li>
+<li><strong>newFixedThreadPool</strong>，大小固定，即限定最大并发数，超过这个数量，会排队执行。</li>
+</ul>
+<h2 id="_7">线程池参数配置最佳实践</h2>
+<p>CPU密集型任务，限制线程的数量，一般设置为CPU的核数；  <br />
+IO密集型，由于IO的速度远低于CPU速度，可以多配置线程，提升CPU的利用率。</p>
+<p><em>参考</em><br />
+<a href="https://blog.csdn.net/qq_40093255/article/details/116990431">java线程池使用最全详解</a></p>
 
 
 
