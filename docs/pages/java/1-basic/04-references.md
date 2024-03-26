@@ -32,4 +32,4 @@ public PhantomReference(T referent, ReferenceQueue<? super T> q) {
 NIO中使用了虚引用来管理堆外内存。
 
 *参考*
-[Java中的四种引用类型](http://www.cnblogs.com/linghu-java/p/5691804.html)
+1、[Java中的四种引用类型](http://www.cnblogs.com/linghu-java/p/5691804.html)

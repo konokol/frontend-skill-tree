@@ -21,6 +21,7 @@
 ```Java
 class name<T1, T2, ..., Tn> { /* ... */ }
 ```
+
 这里的T可以是除基本类型的任意的类型，不过一般不用Object，因为Object和没加泛型的效果是一样的。
 
 泛型参数一般的命名格式为大小的单个字母，不过这并不是强制要求，写成其他的也不会编译报错。一些约定俗称的简称如下：
@@ -63,6 +64,7 @@ Box b1 = intBox; //OK
 Box<Integer> b2 = rawBox; //warning: unchecked conversion
 Box<String> b3 = intBox; //error: incompatable type found
 ```
+
 对于unchecked类型的警告，可以通过在当前语句、方法、类上加注解 @SuppressWarnings("unchecked")消除，也可以在javac命令的参数中加上-Xlint:unchecked消除警告。
 
 ### 泛型方法
@@ -145,6 +147,7 @@ List list1 = new ArrayList<A>();
 List<?> list2 = new ArrayList<A>();
 List<A> list3 = new ArrayList<A>();
 ```
+
 list2、list3、list4都可以赋值给list1，因为list1没有声明泛型，是原始类型。
 
 list3不能赋值给list2，尽管list2中泛型类型是不确定的，但是它还是有泛型的，只不过其泛型我们不知道是什么，有可能是A，也可能是B、C、D等其它类型，因此将```List<A>```类型的变量直接赋值给
@@ -164,6 +167,7 @@ void foo(List<?> list) {
     list.set(0, list.get(0));
 }
 ```
+
 这段代码会产生泛型捕获的编译错误，原因是编译器将方法参数list处理成Object类型，但在调用list.set(int, E)时，又无法推断出E的类型。为了解决这个问题，一般可以重新定义一个Helper方法，如：
 
 ```Java
@@ -334,6 +338,7 @@ public class TypeToken<T> {
 - 带泛型的类实例化时，泛型不能是基础类型，要用包装类型
 
 :
+
 ```Java
 Pair<int, String> pair = new Pair(1, "123456"); //compile-time error
 ```
@@ -341,6 +346,7 @@ Pair<int, String> pair = new Pair(1, "123456"); //compile-time error
 - 类型参数不能直接用new关键字实例化
 
 :
+
 ```Java
 public <T> void foo(T val) {
     T t = new T(); // compile-time error
@@ -361,7 +367,7 @@ public class MobileDevice<T> {
 
 ```
 
--  由于泛型擦除，带类型参数时，不能类型强转也不能用instanceof来判断参数的具体类型
+- 由于泛型擦除，带类型参数时，不能类型强转也不能用instanceof来判断参数的具体类型
 
 ```Java
 public static <E> void rtti(List<E> list) {
@@ -382,6 +388,7 @@ List<Integer>[] arrayOfLists = new List<Integer>[2];  // compile-time error
 
 :
 继承Exception或Throwable的类，带泛型会编译出错
+
 ```Java
 // Extends Throwable indirectly
 class MathException<T> extends Exception { /* ... */ }    // compile-time error
@@ -392,6 +399,7 @@ class QueueFullException<T> extends Throwable { /* ... */ // compile-time error
 ```
 
 泛型方法中如果泛型是异常，不能直接catch住
+
 ```Java
 public static <T extends Exception, J> void execute(List<J> jobs) {
     try {
@@ -425,7 +433,5 @@ public class Example {
 
 ```
 
-
-*参考*
-
-1. [The Java™ Tutorials -- Generics](https://docs.oracle.com/javase/tutorial/java/generics/wildcards.html)
+*参考*  
+[The Java™ Tutorials -- Generics](https://docs.oracle.com/javase/tutorial/java/generics/wildcards.html)

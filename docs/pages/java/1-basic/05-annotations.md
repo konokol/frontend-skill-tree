@@ -42,6 +42,7 @@
    String[] reviewers();
 }
 ```
+
 使用时，将注解使用在类上：
 
 ```Java
@@ -122,9 +123,9 @@ Java 8才支持的注解，表明注解可以注解多次。
 
 **自定义注解的要点：**  
 
- - 必须用@interface类声明注解
- - 可以用元注解对自定义注解来标记注解的声明周期，作用等
- - 注解的值可以是任意类型，如8种基本类型、String、Class、枚举、数组等
+- 必须用@interface类声明注解
+- 可以用元注解对自定义注解来标记注解的声明周期，作用等
+- 注解的值可以是任意类型，如8种基本类型、String、Class、枚举、数组等
 
 **自定义注解应用的场景：**
 
@@ -149,6 +150,7 @@ public class $Proxy1 extends Proxy implements MyAnnotation {
    String value() { ...}
 }
 ```
+
 通过AnnotationParser来生成代理对象，用AnnotationInvocationHandler来处理注解的取值，注解的值都存在memberValues中，取值时以注解的方法作为key。
 
 ```java
@@ -160,6 +162,5 @@ public static Annotation annotationForMap(
 }
 ```
 
-*参考*
-
+*参考*  
 [The Java™ Tutorials - Annotations](https://docs.oracle.com/javase/tutorial/java/annotations/QandE/questions.html)

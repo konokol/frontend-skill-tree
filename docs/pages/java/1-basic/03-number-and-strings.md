@@ -107,12 +107,11 @@ StringBuffer和StringBuilder的toString方法都会生成新的字符串。
 
 ### 使用场景
 
-  - String是常量类，每次new对象和使用+拼接字符串都会生产新对象。适用于字符串的值不经常变化的场景。
-  - StringBuilder和StringBuffer是普通对象，值是通过char[]存储的，append追加对象通过对底层char[]追加元素，不会额外产生新对象，内存和效率比String高。适用于对字符串经常需要操作变化的场景。
-  - StringBuilder是非线程安全的，适用于单线程下有大量字符串操作的场景。
-  - StringBuffer有synchronized关键字修饰，是线程安全的，适合并发场景下大量字符串操作的场景。
+- String是常量类，每次new对象和使用+拼接字符串都会生产新对象。适用于字符串的值不经常变化的场景。
+- StringBuilder和StringBuffer是普通对象，值是通过char[]存储的，append追加对象通过对底层char[]追加元素，不会额外产生新对象，内存和效率比String高。适用于对字符串经常需要操作变化的场景。
+- StringBuilder是非线程安全的，适用于单线程下有大量字符串操作的场景。
+- StringBuffer有synchronized关键字修饰，是线程安全的，适合并发场景下大量字符串操作的场景。
 
 *参考*
-
-1. [Oracle-数字与字符串](https://docs.oracle.com/javase/tutorial/java/data/index.html)
-2. [The Java® Language Specification 3.10.5. String Literals](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5)
+1、[Oracle-数字与字符串](https://docs.oracle.com/javase/tutorial/java/data/index.html)  
+2、[The Java® Language Specification 3.10.5. String Literals](https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.10.5)

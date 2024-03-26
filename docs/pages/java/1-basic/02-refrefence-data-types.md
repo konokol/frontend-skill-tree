@@ -97,7 +97,6 @@ Object类是Java中所有类的基类，一共有如下的一些方法，其中�
 2. 当两个对象使用equals(Object)方法比较相等时，两个对象的hashCode返回值也必须相等；
 3. 当两个对象使用equals(Object)方法比较不等时，对hashCode方法不做要求。
 
-
 *参考*
 
 1. [Java中的基本数据类型和引用数据类型的区别](https://www.cnblogs.com/maskwolf/p/9972982.html)

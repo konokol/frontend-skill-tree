@@ -29,7 +29,7 @@ char类型由于是2个字节，可以表示到'\uffff'的字符，更长的字�
 
 float和double遵循IEEE/754的标准来表示数字，但是他们表示的数字都是不精确的，原因是float和double类型变量在存储时使用二进制的科学计数法来表示，表示成±1.f*2<sup>e</sup>，小数部分的位数有限（float小数部分23位，指数部分8位，double小数部分53位，指数部分11位），对于小数除不尽的情况，只能丢弃。
 
-![](../../../img/float.jpeg)
+![浮点数的表示](../../../img/float.jpeg)
 
 如果想要精确表示浮点数，应该用BigDecimal类。
 
@@ -55,7 +55,6 @@ long类型声明变量时，需要在数字末尾加上l或L，如`long num = 11
 
 long类型声明时，可以不带后缀，但实际上这种写法是将int类型强转成long，由于long类型所占字节更长，强转时高位补0，实际上不会有损失，但是一般建议long类型还是要加后缀显式声明。
 
-
 **float和double**
 
 float的变量声明需要显式的加f或F后缀，double需要加d或者D，不加则默认是用doble来表示的，如`float f = 1f`、`double d = 2d`。声明float变量时，强烈建议加上后缀，不加是会将一个double类型的数字强转成float，编译时会有警告，但不会出错。
@@ -63,7 +62,6 @@ float的变量声明需要显式的加f或F后缀，double需要加d或者D，�
 float和double还可以用科学计数法的形式声明，如`double f = 1.1e3`，表示的是1.1*2<sup>3</sup>，即8.8。
 
 浮点数如果整数部分为0，声明时可不写整数部分，如`float f = .34f`；小数部分如果是0，小数也可以不写，如`float g = 1.f`。
-
 
 ### 浮点数的比较
 
@@ -102,11 +100,11 @@ public boolean equals(double f1, double f2) {
 ```Java
 public void equals() {
     BigDecimal a = new BigDecimal("2.00");
-	BigDecimal b = new BigDecimal("2.0");
+    BigDecimal b = new BigDecimal("2.0");
 
-	System.out.println(a.equals(b)); 			// false
+    System.out.println(a.equals(b));    // false
 
-	System.out.println(a.compareTo(b) == 0); 	// true
+    System.out.println(a.compareTo(b) == 0);  // true
 }
 ```
 
@@ -141,7 +139,6 @@ long num = 0xFFFF_0AEE;
 float f = 1_2_3.987_654f;
 ```
 
-*参考*
-
-1. [The Java™ Tutorials Variables](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html)
-2. [Correct way to compare floats or doubles in Java](https://howtodoinjava.com/java-examples/correctly-compare-float-double/#threshold-based)
+*参考*  
+1、[The Java™ Tutorials Variables](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html)  
+2、[Correct way to compare floats or doubles in Java](https://howtodoinjava.com/java-examples/correctly-compare-float-double/#threshold-based)
