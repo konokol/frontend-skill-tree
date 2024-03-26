@@ -61,6 +61,7 @@ nav:
     - 反射: pages/java/1-basic/07-reflation.md
     - 异常: pages/java/1-basic/08-exception.md
   - 并发:
+    - 并发编程基础: pages/java/2-concurrent/00-concurrent.md
     - 多线程: pages/java/2-concurrent/01-thread.md
     - 线程池: pages/java/2-concurrent/02-thread-pool.md
   - 集合:  
