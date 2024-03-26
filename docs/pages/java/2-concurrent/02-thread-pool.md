@@ -70,18 +70,19 @@ Excutors中有几个静态方法newXXXPool，用来创建线程池:
 |newScheduledThreadPool          |     参数传入  | Integer.MAX_VALUE | DelayedWorkQueue |     10min     |   AbortPolicy              |
 |newSingleThreadExecutor         |      1       | 1                 | LinkedBlockingQueue |     0min   |   AbortPolicy             |
 |newFixedThreadPool              |     参数传入   | 参数传入           | LinkedBlockingQueue |     0min   |   AbortPolicy             |
- 
+
 - **newCachedThreadPool** 该线程池无限大，只要不存在空闲线程，可以一直创建新线程。
 - **newSingleThreadScheduledExecutor**，只有一个线程，周期性执行任务。
 - **newScheduledThreadPool**，周期性执行任务，核心线程数可以通过参数指定。
 - **newSingleThreadExecutor**，单线程的线程池，所有任务都是串行执行。
 - **newFixedThreadPool**，大小固定，即限定最大并发数，超过这个数量，会排队执行。
+- **newWorkStealingPool**，JDK 8 中才加入线程池，使用ForkJoinPool，并发数为处理器的数量。
 
 ## 线程池参数配置最佳实践
 
-CPU密集型任务，限制线程的数量，一般设置为CPU的核数；    
-IO密集型，由于IO的速度远低于CPU速度，可以多配置线程，提升CPU的利用率。
+CPU密集型任务，限制线程的数量，一般设置为CPU的核数；
 
+IO密集型，由于IO的速度远低于CPU速度，可以多配置线程，提升CPU的利用率。
 
 *参考*  
 [java线程池使用最全详解](https://blog.csdn.net/qq_40093255/article/details/116990431)

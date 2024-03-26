@@ -35,3 +35,9 @@ Process.setThreadPiority(int)是一个native方法，通过修改Linux原生线�
 调用stop()方法也可以结束线程，这种方式是通过抛出一个ThreadDeath的错误来结束线程，会使线程持有的锁全部释放，有可能造成状态不一致，出现一些异常的行为，因此不建议使用，从Java 1.2开始，这个方式被弃用了。同样和stop配合使用的suspend()和resume()方法也被弃用了。
 
 interrupted()方法，只是给线程增加一个中断的状态，并不会真正停止线程的运行。如果线程调用了wait、join、sleep等方法，会抛出一个InterruptedException同时清空中断的标识。
+
+## 守护线程
+
+JVM中的线程分为守护线程和用户线程。当进程中不存在任何用户进程后，守护线程会被自动销毁。常见的守护线程时垃圾回收线程。
+
+通过设置thread.setDaemon(true)设置一个线程为守护线程。
