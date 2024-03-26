@@ -47,8 +47,6 @@ dex自动分包过程中策略很保守，主dex仍然有可能超过64K方法�
 
 - 美团方案：美团是通过插件干涉dex分包过程，保证被首页直接依赖的类都在主dex中，先启动主dex，其他dex异步加载，当进首页之后，如果使用到了其他dex中的文件，则先跳出一个loadingActivity，等待类所在dex加载完成之后在跳转。
 
-  
-
 *参考:* 
 
 [Android Developer 配置方法数超过 64K 的应用](https://developer.android.com/studio/build/multidex.html#) 
