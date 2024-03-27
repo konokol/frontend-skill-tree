@@ -9,14 +9,14 @@
       
       
       
-        <link rel="prev" href="../../1-basic/08-exception/">
+        <link rel="prev" href="../00-concurrent/">
       
       
         <link rel="next" href="../02-thread-pool/">
       
       
       <link rel="icon" href="../../../../assets/book.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.10ba22f1.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e359304.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1894,6 +1894,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-concurrent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并发编程基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1973,6 +1994,15 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       线程停止
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      守护线程
     </span>
   </a>
   
@@ -2969,6 +2999,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      守护线程
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3013,6 +3052,9 @@
 <p>推荐使用标志来标记线程结束，让线程自行执行完run方法。</p>
 <p>调用stop()方法也可以结束线程，这种方式是通过抛出一个ThreadDeath的错误来结束线程，会使线程持有的锁全部释放，有可能造成状态不一致，出现一些异常的行为，因此不建议使用，从Java 1.2开始，这个方式被弃用了。同样和stop配合使用的suspend()和resume()方法也被弃用了。</p>
 <p>interrupted()方法，只是给线程增加一个中断的状态，并不会真正停止线程的运行。如果线程调用了wait、join、sleep等方法，会抛出一个InterruptedException同时清空中断的标识。</p>
+<h2 id="_6">守护线程</h2>
+<p>JVM中的线程分为守护线程和用户线程。当进程中不存在任何用户进程后，守护线程会被自动销毁。常见的守护线程时垃圾回收线程。</p>
+<p>通过设置thread.setDaemon(true)设置一个线程为守护线程。</p>
 
 
 
@@ -3106,7 +3148,7 @@
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
       
     
   </body>

@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../../assets/book.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.10ba22f1.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e359304.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1897,6 +1897,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../00-concurrent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并发编程基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../01-thread/" class="md-nav__link">
         
   
@@ -3089,19 +3110,19 @@
 <ul>
 <li>corePoolSize<br />
   向线程池中提交一个线程时，如果线程池中已有线程的数小于corePoolSize，即使存在空闲的线程，也会创建新的线程，创建新的线程使用的是threadFactory.newThread()来创建。如果线程数已经超过corePoolSize，看是否有空闲的线程，存在空闲的线程，则用空闲线程执行任务，如果没有，则根据maximumPoolSize来决定是否创建线程。</li>
-<li>maximumPoolSize <br />
+<li>maximumPoolSize
   提交任务时，如果线程池中线程数量超过corePoolSize，且没有空闲的线程，检查线程数量是否超过了maximumPoolSize，超过了则会执行拒绝策略，交由handle处理，没超过最大线程数，将线程放入等待队列。如workQueue为无界队列，这个参数会被忽略。</li>
-<li>workQueue   <br />
+<li>workQueue
   等待队列，工作线程超过corePoolSize后，会被放入等待队列。</li>
-<li>threadFactory 
+<li>threadFactory
   创建线程的工厂方法，可以指定线程的分组，线程优先级，线程名等。</li>
 <li>rejectedExecutionHandler<br />
-  提交的线程数量超过了最大线程数，交给rejectedExecutionHandler处理，参数包括Runnable和executor。JDK中默认内置了4种处理策略：  <ul>
+  提交的线程数量超过了最大线程数，交给rejectedExecutionHandler处理，参数包括Runnable和executor。JDK中默认内置了4种处理策略：  <ol>
 <li>ThreadPoolExecutor.AbortPolicy，拒绝执行任务，并抛出RejectedExecutionException异常；</li>
 <li>ThreadPoolExecutor.DiscardPolicy，丢弃任务，什么也不做；</li>
 <li>ThreadPoolExecutor.DiscardOldestPolicy，丢弃排队最久的任务，重试执行，如果线程池已经关闭，直接丢弃任务；</li>
 <li>ThreadPoolExecutor.CallerRunsPolicy，由调用者所在的线程执行该任务，如果线程池已经关闭了，直接丢弃任务；</li>
-</ul>
+</ol>
 </li>
 </ul>
 <h2 id="jdk">JDK常用的线程池</h2>
@@ -3166,10 +3187,11 @@
 <li><strong>newScheduledThreadPool</strong>，周期性执行任务，核心线程数可以通过参数指定。</li>
 <li><strong>newSingleThreadExecutor</strong>，单线程的线程池，所有任务都是串行执行。</li>
 <li><strong>newFixedThreadPool</strong>，大小固定，即限定最大并发数，超过这个数量，会排队执行。</li>
+<li><strong>newWorkStealingPool</strong>，JDK 8 中才加入线程池，使用ForkJoinPool，并发数为处理器的数量。</li>
 </ul>
 <h2 id="_7">线程池参数配置最佳实践</h2>
-<p>CPU密集型任务，限制线程的数量，一般设置为CPU的核数；  <br />
-IO密集型，由于IO的速度远低于CPU速度，可以多配置线程，提升CPU的利用率。</p>
+<p>CPU密集型任务，限制线程的数量，一般设置为CPU的核数；</p>
+<p>IO密集型，由于IO的速度远低于CPU速度，可以多配置线程，提升CPU的利用率。</p>
 <p><em>参考</em><br />
 <a href="https://blog.csdn.net/qq_40093255/article/details/116990431">java线程池使用最全详解</a></p>
 
@@ -3265,7 +3287,7 @@ IO密集型，由于IO的速度远低于CPU速度，可以多配置线程，提�
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
       
     
   </body>
