@@ -2992,9 +2992,9 @@
 <h2 id="_2">并发编程的基础</h2>
 <p>并发编程的三要素，也是并发问题的源头：</p>
 <ul>
-<li><strong>原子性</strong></li>
-<li><strong>有序性</strong></li>
-<li><strong>可见性</strong></li>
+<li><strong>原子性</strong>，一个或多个操作在CPU执行过程中不能被中断；</li>
+<li><strong>有序性</strong>，程序执行的顺序按照代码的先后顺序执行；</li>
+<li><strong>可见性</strong>，一个线程对共享变量的修改，另一个线程可以会立刻看到修改后的值；</li>
 </ul>
 <h2 id="jvmjmm">JVM内存模型(JMM)</h2>
 <p>解决有序性和可见性的直接办法是禁用缓存和编译优化，Java内存模型(Java Memory Model)规定了如何按需提供禁用缓存和编译优化的方法，即3个关键字(volatile、synchronized、final)和8个happens-before规则。</p>
@@ -3020,9 +3020,9 @@
 <p>当多个先程访问一个对象时，如果不用考虑这些线程在运行时环境下的调度和交替执行，也不需要进行额外的同步，或者在调用方进行任何其他的协调操作，调用这个对象的行为都可以获得正确的结果，那这个对象就是线程安全的。</p>
 <p>实现线程安全的方法：</p>
 <ul>
-<li><strong>互斥同步</strong></li>
-<li><strong>非阻塞同步</strong></li>
-<li><strong>无同步</strong></li>
+<li><strong>互斥同步</strong>，synchronized 和 ReentrantLock</li>
+<li><strong>非阻塞同步</strong>，CAS，AtomicInteger，ABA</li>
+<li><strong>无同步</strong>，栈封闭，ThreadLocal,可重入代码(Reentrant Code)</li>
 </ul>
 <p><em>参考</em>
 <a href="https://www.pdai.tech/md/java/thread/java-thread-x-overview.html">Java并发知识体系详解</a></p>
