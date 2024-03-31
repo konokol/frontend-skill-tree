@@ -64,6 +64,7 @@ nav:
     - 并发编程基础: pages/java/2-concurrent/00-concurrent.md
     - 多线程: pages/java/2-concurrent/01-thread.md
     - 线程池: pages/java/2-concurrent/02-thread-pool.md
+    - synchronized: pages/java/2-concurrent/03-synchronized.md
   - 集合:  
     - Java的集合框架: Java/Collections.md
   - 设计模式: 
