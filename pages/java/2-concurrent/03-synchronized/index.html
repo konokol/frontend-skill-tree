@@ -2012,10 +2012,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="基本使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      对象锁
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      类锁
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       原理
     </span>
@@ -2973,10 +2997,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="基本使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      对象锁
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      类锁
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       原理
     </span>
@@ -3010,7 +3058,7 @@
 
 <h1 id="synchronized">Synchronized详解</h1>
 <h2 id="_1">基本使用</h2>
-<p>1、<strong>对象锁</strong></p>
+<h3 id="_2">对象锁</h3>
 <p>使用在普通方法上，锁的对象时当前的实例，即this。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">class</span> <span class="nc">Instance</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">synchronized</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
@@ -3032,7 +3080,7 @@
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
 </code></pre></div>
-<p>2、<strong>类锁</strong></p>
+<h3 id="_3">类锁</h3>
 <p>使用在静态方法上或者锁定的对象是Class对象。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">class</span> <span class="nc">Instance</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
@@ -3044,9 +3092,9 @@
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="_2">原理</h2>
+<h2 id="_4">原理</h2>
 <p>synchronized作用在代码块上和方法上，底层的原理不一样。</p>
-<p>作用在方法上时，是通过Monitor来实现的，每一个对象都有一个monitor，当一个monitor被持有后，对象即处于锁定状态。synchronized代码块中，在字节码前后分别会插入一个monitorenter和monitorexit。</p>
+<p>作用在方法上时，是通过ObjectMonitor来实现的，每一个对象都有一个monitor，当一个monitor被持有后，对象即处于锁定状态。synchronized代码块中，在字节码前后分别会插入一个monitorenter和monitorexit。</p>
 <p>当线程进入monitorenter时，会尝试获取monitor的所有权，过程如下：</p>
 <p>1、当monitor的计数为0，则当前线程进入monitor，同时计数加1，即该线程持有了monitor；<br />
 2、如果当前线程已经持有的monitor，重新进入monitor，计数也加1；<br />
@@ -3054,8 +3102,19 @@
 <p>monitorexit：执行monitorexit的线程必须是持有monitorenter的线程，当进入monitorexit时，monitor的计数减1，如果减1后变成了0，则当前线程退出monitor，其他的线程可以尝试进入monitor。</p>
 <p>作用在方法上时，在方法常量池中会有一个ACC_SYNCHRONIZED，表明该方法是一个同步方法。当JVM调用到该方法时，会先尝试获取monitor，获取成功之后才可以执行该方法，执行结束之后释放monitor。在同步方法执行期间，其他任何方法都无法获取monitor。</p>
 <h2 id="jvmsynchronized">JVM对synchronized的优化</h2>
+<p>在JDK 1.6之前，才是直接用ObjectMonitor的enter和exit，这是重量级的锁，用的是操作系统的MutexLock，需要将当前线程挂起，操作系统频繁由用户态切换到内核态，非常消耗性能。</p>
+<p>JDK 1.6中引入了锁粗化、锁消除、轻量级锁、偏向锁、适应性自旋等手段来减少锁的开销。在JDK 15中，偏向锁又被废除。</p>
+<ul>
+<li>锁粗化，减少不必要的lock和unlock，将多个连续的锁扩大一个更大的锁</li>
+<li>锁消除，编译器对锁的优化，JIT编译器在动态编译同步代码块时，使用逃逸技术，判断同步代码块是否只能被同一个对象访问，如果确认没有逃逸，则不会锁申请和锁释放的机器码</li>
+<li>轻量级锁，</li>
+<li>偏向锁，</li>
+<li>适应性自旋，</li>
+</ul>
+<p>JDK 1.6中Synchronized的锁有4种状态，无锁、偏向锁、轻量级锁、重量级锁，随着竞争的激烈程度，锁会逐渐升级，并且升级后不会降级。</p>
 <p><em>参考</em>
-<a href="https://www.pdai.tech/md/java/thread/java-thread-x-key-synchronized.html">synchhronized</a></p>
+1、<a href="https://www.pdai.tech/md/java/thread/java-thread-x-key-synchronized.html">synchhronized</a><br />
+2、<a href="https://www.cnblogs.com/510602159-Yano/p/14098797.html">由Java 15废弃偏向锁，谈谈Java Synchronized 的锁机制</a></p>
 
 
 
