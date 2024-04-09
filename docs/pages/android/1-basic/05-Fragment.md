@@ -16,7 +16,8 @@ class ExampleFragment extends Fragment {
 
 使用时，有2种方法将Fragment加到页面上：
 
-- 通过xml加载   
+- 通过xml加载
+
 ```xml
 <!-- res/layout/example_activity.xml -->
 <androidx.fragment.app.FragmentContainerView
@@ -25,7 +26,9 @@ class ExampleFragment extends Fragment {
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 ```
+
 不使用androidx时，也可以直接在xml中写fragment标签
+
 ```xml
 <fragment
     android:id="@+id/example_fragment"
@@ -34,7 +37,8 @@ class ExampleFragment extends Fragment {
     android:name="com.example.ExampleFragment" />
 ```
 
-- 以代码的形式通过FragmentManager加载   
+- 以代码的形式通过FragmentManager加载
+
 ```Java
 public class ExampleActivity extends AppCompatActivity {
     public ExampleActivity() {
@@ -61,8 +65,8 @@ FragmentManager可以通过FragmentActivity及其子类的`getSupportFragmentMan
 
 常用的FragmentManager的方法包括：
 
--  findFragmentById(int)，id即Fragment容器View的id
--  findFragmentByTag(String)，tag是fragmentTranstation.add()时指定的tag
+- findFragmentById(int)，id即Fragment容器View的id
+- findFragmentByTag(String)，tag是fragmentTranstation.add()时指定的tag
 
 对Fragment的操作几乎都是通过FramentTransaction来实现的，常见的操作包括：
 
@@ -92,27 +96,27 @@ Fragment的状态保存同Activity一样，在onSavedInstanceState和onRestoreIn
 
 ## 通信
 
-- Fragment与Fragment    
-   1、通过共同的Activity桥接    
-   2、直接用EventBus之类的事件订阅来通信       
+- Fragment与Fragment
+   1、通过共同的Activity桥接
+   2、直接用EventBus之类的事件订阅来通信
    3、官网推荐用ViewModel来实现通信，多个Fragment可以共享一个ViewModule  
    4、通过fragmentManager的ResultApi，用观察者模式实现
-   ![同级Fragment之间的同学](../../../img/fragment-a-to-b.png)
+   ![同级Fragment之间的通信](../../../img/fragment-a-to-b.png)
 
-- Activity与Fragment    
-  Activity通过`fragment.setArgument(Bundle)`向Fragment传递参数，拿到Fragment对象，直接调用fragment方法。    
+- Activity与Fragment
+  Activity通过`fragment.setArgument(Bundle)`向Fragment传递参数，拿到Fragment对象，直接调用fragment方法。
   Fragment通过`getContext()`获取到宿主Activity，通过回调的方式调用Activity中的方法。
 
 ## Fragment事务的工作原理
 
-1. 通过FragmentManager.beganTransaction开启事务，即FragmentTransaction，FragmentTransaction是一个抽象类，它的实现类通常是BackStackRecord。    
-     
+1. 通过FragmentManager.beganTransaction开启事务，即FragmentTransaction，FragmentTransaction是一个抽象类，它的实现类通常是BackStackRecord。
+
 2. FragmentTransaction中以ArrayList<Op>的形式维护了一系列的操作队列，执行add/remove等方法时，都会创建一个新的Op对象。  
-   
-3. 当执行FragmentTransaction的commit()方法时，将FragmentTransaction对象放入到FragmentManager的mPendingActions队列中，异步执行。如果使用的是commitNow()相关的方法，会立即执行。     
-   
-4. 在FragmentManager中经过一系列的状态校验后，会调用到moveState方法，在其中进行Fragment的状态流转，并执行生命周期方法。     
-    Fragment的状态有8个:    
+
+3. 当执行FragmentTransaction的commit()方法时，将FragmentTransaction对象放入到FragmentManager的mPendingActions队列中，异步执行。如果使用的是commitNow()相关的方法，会立即执行。
+
+4. 在FragmentManager中经过一系列的状态校验后，会调用到moveState方法，在其中进行Fragment的状态流转，并执行生命周期方法。
+    Fragment的状态有8个:
      - INITIALIZING = -1;          // Not yet attached.
      - ATTACHED = 0;               // Attached to the host.
      - CREATED = 1;                // Created.
@@ -123,7 +127,7 @@ Fragment的状态保存同Activity一样，在onSavedInstanceState和onRestoreIn
      - AWAITING_ENTER_EFFECTS = 6; // Upward state, awaiting enter effects
      - RESUMED = 7;                // Created started and resumed.
 
-*参考*
+## *参考*
 
 [Android Developer Fragment简介](https://developer.android.google.cn/guide/fragments?hl=zh-cn)  
 [Android Developer 与Fragment通信](https://developer.android.google.cn/guide/fragments/communicate?hl=zh-cn)

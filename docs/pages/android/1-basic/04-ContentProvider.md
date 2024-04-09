@@ -10,7 +10,7 @@ ContentProvider对外暴露的统一的接口，业务方使用时只需要使�
 
 ## 使用
 
-**自定义ContentProvider**
+自定义ContentProvider
 
 实现ContentProvider必须实现onCreate和增删改查方法。
 
