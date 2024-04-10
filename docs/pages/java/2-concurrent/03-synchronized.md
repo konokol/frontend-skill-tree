@@ -82,6 +82,23 @@ Java的对象实例中包括对象头、实例数据、对齐填充数据，其�
 
 JDK 1.6中Synchronized的锁有4种状态，无锁、偏向锁、轻量级锁、重量级锁，随着竞争的激烈程度，锁会逐渐升级，并且升级后不会降级。
 
+## synchronized和Lock的区别
+
+synchronized的缺陷
+
+- 效率低，只有当代码执行结束才能释放锁，获取锁的时候也不能超时；
+- 不够灵活，加锁和解锁的时机和条件都比较单一，无法定制；
+- 无法知道是否成功获取锁，Lock可以根据获取锁成功和失败做不同的操作。
+
+synchronized的区别
+
+- Lock是显式锁，需要手动开启和关闭，synchronized是隐式锁，自动释放锁；
+- Lock可以中断，synchronized只能等代码执行完了才可以释放锁；
+- 发生异常时，Lock不会主动释放锁，必须手动unlock，可能会发生死锁，synchronized发生异常时会自动释放资源，不会死锁；
+- Lock可以判断锁的状态，synchronized不可以；
+- Lock是可重入锁、公平锁，synchronized是可重入锁、非公平锁；
+- Lock适用于高并发大量同步代码块的场景，synchronized适用于少了同步代码块的场景。
+
 *参考*
 1、[synchhronized](https://www.pdai.tech/md/java/thread/java-thread-x-key-synchronized.html)  
 2、[由Java 15废弃偏向锁，谈谈Java Synchronized 的锁机制](https://www.cnblogs.com/510602159-Yano/p/14098797.html)
