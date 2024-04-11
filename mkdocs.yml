@@ -65,6 +65,7 @@ nav:
     - 多线程: pages/java/2-concurrent/01-thread.md
     - 线程池: pages/java/2-concurrent/02-thread-pool.md
     - synchronized: pages/java/2-concurrent/03-synchronized.md
+    - volatile: pages/java/2-concurrent/04-volatile.md
   - 集合:  
     - Java的集合框架: Java/Collections.md
   - 设计模式: 
