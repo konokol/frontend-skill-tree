@@ -12,11 +12,11 @@
         <link rel="prev" href="../02-thread-pool/">
       
       
-        <link rel="next" href="../../../../Java/Collections/">
+        <link rel="next" href="../04-volatile/">
       
       
       <link rel="icon" href="../../../../assets/book.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.10ba22f1.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -2056,10 +2056,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#synchronizedlock" class="md-nav__link">
+    <span class="md-ellipsis">
+      synchronized和Lock的区别
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-volatile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    volatile
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -3041,6 +3071,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#synchronizedlock" class="md-nav__link">
+    <span class="md-ellipsis">
+      synchronized和Lock的区别
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3104,14 +3143,33 @@
 <h2 id="jvmsynchronized">JVM对synchronized的优化</h2>
 <p>在JDK 1.6之前，才是直接用ObjectMonitor的enter和exit，这是重量级的锁，用的是操作系统的MutexLock，需要将当前线程挂起，操作系统频繁由用户态切换到内核态，非常消耗性能。</p>
 <p>JDK 1.6中引入了锁粗化、锁消除、轻量级锁、偏向锁、适应性自旋等手段来减少锁的开销。在JDK 15中，偏向锁又被废除。</p>
+<p>Java的对象实例中包括对象头、实例数据、对齐填充数据，其中对象头中的Mark Word记录了对象和锁相关的信息</p>
+<p><img alt="Mark Word" src="../../../../img/java-object-mark-word.jpeg" /></p>
 <ul>
 <li>锁粗化，减少不必要的lock和unlock，将多个连续的锁扩大一个更大的锁</li>
-<li>锁消除，编译器对锁的优化，JIT编译器在动态编译同步代码块时，使用逃逸技术，判断同步代码块是否只能被同一个对象访问，如果确认没有逃逸，则不会锁申请和锁释放的机器码</li>
-<li>轻量级锁，</li>
-<li>偏向锁，</li>
-<li>适应性自旋，</li>
+<li>锁消除，编译器对锁的优化，JIT编译器在动态编译同步代码块时，使用逃逸技术，判断同步代码块是否只能被同一个对象访问，如果确认没有逃逸，则不会生成锁申请和锁释放的机器码</li>
+<li>偏向锁，用于优化同一个线程多次申请同一个锁，使用monitor时一个线程反复持有和释放同一个锁会造成用户态和内核态反复切换，比较耗性能。同一个线程访问同步代码块时，线程只需要判断Mark Word中是否有偏向锁指向自己，如有则不进入monitor。当有其它线程竞争锁时，偏向锁会被撤销，时机在全局安全点，此时会暂停持有锁的线程，同时检查该线程是否还在执行该方法，是则升级锁，否则其他线程去抢占锁。<br />
+  高并发场景下，多个线程同时竞争锁资源时，偏向锁会被撤销，发生GC后，重新开启偏向锁会带来较大的性能开销，所以在JDK 15中，取消了偏向锁。</li>
+<li>轻量级锁，另一个线程竞争锁资源时，发现Mark Word中偏向锁的线程id不是自己，则会尝试用CAS来获取锁，获取成功，继续保持偏向锁，Mark Word中的线程id替换成自己，获取失败，锁继续升级。</li>
+<li>自旋锁，轻量级锁CAS失败后，线程会被挂起阻塞，若持有锁的线程很快释放了锁，刚刚进入阻塞状态的线程会重新申请锁资源，该过程可以一直持续，自旋的次数可以通过JVM的参数设置，JDK 1.7之后，自旋是默认开启的，但是自旋字数由JVM控制。当自旋重试失败后，同步锁会升级成重量级锁，未抢占到锁的线程，都会进入monitor，被阻塞在队列中。</li>
 </ul>
 <p>JDK 1.6中Synchronized的锁有4种状态，无锁、偏向锁、轻量级锁、重量级锁，随着竞争的激烈程度，锁会逐渐升级，并且升级后不会降级。</p>
+<h2 id="synchronizedlock">synchronized和Lock的区别</h2>
+<p>synchronized的缺陷</p>
+<ul>
+<li>效率低，只有当代码执行结束才能释放锁，获取锁的时候也不能超时；</li>
+<li>不够灵活，加锁和解锁的时机和条件都比较单一，无法定制；</li>
+<li>无法知道是否成功获取锁，Lock可以根据获取锁成功和失败做不同的操作。</li>
+</ul>
+<p>synchronized和Lock的区别</p>
+<ul>
+<li>Lock是显式锁，需要手动开启和关闭，synchronized是隐式锁，自动释放锁；</li>
+<li>Lock可以中断，synchronized只能等代码执行完了才可以释放锁；</li>
+<li>发生异常时，Lock不会主动释放锁，必须手动unlock，可能会发生死锁，synchronized发生异常时会自动释放资源，不会死锁；</li>
+<li>Lock可以判断锁的状态，synchronized不可以；</li>
+<li>Lock是可重入锁、公平锁，synchronized是可重入锁、非公平锁；</li>
+<li>Lock适用于高并发大量同步代码块的场景，synchronized适用于少了同步代码块的场景。</li>
+</ul>
 <p><em>参考</em>
 1、<a href="https://www.pdai.tech/md/java/thread/java-thread-x-key-synchronized.html">synchhronized</a><br />
 2、<a href="https://www.cnblogs.com/510602159-Yano/p/14098797.html">由Java 15废弃偏向锁，谈谈Java Synchronized 的锁机制</a></p>
@@ -3208,7 +3266,7 @@
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.bd41221c.min.js"></script>
       
     
   </body>
