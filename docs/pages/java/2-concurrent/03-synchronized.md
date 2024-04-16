@@ -90,7 +90,7 @@ synchronized的缺陷
 - 不够灵活，加锁和解锁的时机和条件都比较单一，无法定制；
 - 无法知道是否成功获取锁，Lock可以根据获取锁成功和失败做不同的操作。
 
-synchronized的区别
+synchronized和Lock的区别
 
 - Lock是显式锁，需要手动开启和关闭，synchronized是隐式锁，自动释放锁；
 - Lock可以中断，synchronized只能等代码执行完了才可以释放锁；
