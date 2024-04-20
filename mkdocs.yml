@@ -13,17 +13,17 @@ nav:
     - 四大组件--BroadcastReceiver: pages/android/1-basic/03-BroadcastReceiver.md
     - 四大组件--ContentProvder: pages/android/1-basic/04-ContentProvider.md
     - Fragment: pages/android/1-basic/05-Fragment.md
+    - 消息机制: pages/android/1-basic/06-Handler.md
     - Android GC原理: Android/1-Basic/Android-GC.md
     - Android中对集合的优化: Android/1-Basic/Android-collections.md
     - Android SQLite数据库优化: Android/1-Basic/Android-database.md
     - Android内存泄漏: Android/1-Basic/Android-memory.md
-    - Android 5.0到7.0的行为变更: Android/1-Basic/Android-new-features.md
+    - Android各版本的行为变更: Android/1-Basic/Android-new-features.md
     - 理解Activity，View，Window三者关系: Android/1-Basic/Android-window.md
     - Android动画简介: Android/1-Basic/Animations.md
     - AsyncTask原理解析: Android/1-Basic/AsyncTask.md
     - ButterKnife原理解析: Android/1-Basic/ButterKnife.md
     - Fresco相关: Android/1-Basic/Fresco.md
-    - 消息机制: Android/1-Basic/Handler.md
     - HandlerThread与IntentService: Android/1-Basic/HandlerThread&IntentService.md
     - Android 热修复原理: Android/1-Basic/Hotfix.md
     - 高效加载图片: Android/1-Basic/Image.md
