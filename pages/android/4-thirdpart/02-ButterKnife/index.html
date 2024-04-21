@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../../../../none/">
+        <link rel="prev" href="../01-EventBus/">
       
       
         <link rel="next" href="../../5-framework/00-android-source-code/">
@@ -20,7 +20,7 @@
     
     
       
-        <title>EventBus - 客户端知识图谱</title>
+        <title>ButterKnife原理解析 - 客户端知识图谱</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#eventbus" class="md-skip">
+        <a href="#butterknife" class="md-skip">
           跳转至
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              EventBus
+              ButterKnife原理解析
             
           </span>
         </div>
@@ -877,27 +877,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Android/1-Basic/ButterKnife/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ButterKnife原理解析
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../../Android/1-Basic/Fresco/" class="md-nav__link">
         
   
@@ -1308,6 +1287,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-EventBus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EventBus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1324,7 +1324,7 @@
           
   
   <span class="md-ellipsis">
-    EventBus
+    ButterKnife原理解析
   </span>
   
 
@@ -1335,7 +1335,7 @@
         
   
   <span class="md-ellipsis">
-    EventBus
+    ButterKnife原理解析
   </span>
   
 
@@ -1357,27 +1357,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#butterknife_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ButterKnife用法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      简介
+      原理解析
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#eventbus_1" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      EventBus的用法
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#eventbus_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      EventBus的原理
+      3. 总结
     </span>
   </a>
   
@@ -2967,27 +2967,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#butterknife_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ButterKnife用法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      简介
+      原理解析
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#eventbus_1" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      EventBus的用法
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#eventbus_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      EventBus的原理
+      3. 总结
     </span>
   </a>
   
@@ -3008,55 +3008,117 @@
                   
 
 
-<h1 id="eventbus">EventBus</h1>
-<h2 id="_1">简介</h2>
-<p><img alt="EventBus" src="../../../../img/event-bus.webp" /></p>
-<p>EventBus是一个轻量级的组件通信框架，通过发布订阅模式实现了模块间通信，解耦。</p>
-<h2 id="eventbus_1">EventBus的用法</h2>
-<p>注册与解注册</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">//3.x版本的注册</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">EventBus</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">register</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">//2.x版本的注册</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">EventBus</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">register</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">EventBus</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">register</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">EventBus</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">registerSticky</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">EventBus</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">registerSticky</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">//解注册</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">EventBus</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">unregister</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<h1 id="butterknife">ButterKnife</h1>
+<p>基于ButterKnife 8.5.1</p>
+<h2 id="butterknife_1">ButterKnife用法</h2>
+<p><a href="http://jakewharton.github.io/butterknife/">Field and method binding for Android views</a></p>
+<p>ButterKnife可用的地方很多，Activity，Fragment，Dialog甚至是任意的Object，不过用法都大同小异。基本用法都是对View加上@BindView注解，然后在适当的地方调用ButterKnife.bind(target, source)方法。</p>
+<h2 id="_1">原理解析</h2>
+<p>这里以Fragment中的用法为例，下面的是ButterKnife官网上的例子。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FancyFragment</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Fragment</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nd">@BindView</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">button1</span><span class="p">)</span><span class="w"> </span><span class="n">Button</span><span class="w"> </span><span class="n">button1</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nd">@BindView</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">button2</span><span class="p">)</span><span class="w"> </span><span class="n">Button</span><span class="w"> </span><span class="n">button2</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nd">@Override</span><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="n">View</span><span class="w"> </span><span class="nf">onCreateView</span><span class="p">(</span><span class="n">LayoutInflater</span><span class="w"> </span><span class="n">inflater</span><span class="p">,</span><span class="w"> </span><span class="n">ViewGroup</span><span class="w"> </span><span class="n">container</span><span class="p">,</span><span class="w"> </span><span class="n">Bundle</span><span class="w"> </span><span class="n">savedInstanceState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">View</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inflater</span><span class="p">.</span><span class="na">inflate</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">layout</span><span class="p">.</span><span class="na">fancy_fragment</span><span class="p">,</span><span class="w"> </span><span class="n">container</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">ButterKnife</span><span class="p">.</span><span class="na">bind</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">view</span><span class="p">);</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="c1">// TODO Use fields...</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">view</span><span class="p">;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
 </code></pre></div>
-<p>响应事件</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">//3.x版本</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nd">@Subscribe</span><span class="p">(</span><span class="n">threadMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ThreadMode</span><span class="p">.</span><span class="na">BACKGROUND</span><span class="p">,</span><span class="w"> </span><span class="n">sticky</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="n">priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">//2.x版本</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onEvent</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onEventMainThread</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onEventBackgroundThread</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
+<p>一步一步来分析源码。</p>
+<p>首先从ButterKnife.bind(this, view)看，戳进源码：  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">  </span><span class="nd">@NonNull</span><span class="w"> </span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nd">@UiThread</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Unbinder</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="nd">@NonNull</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="nd">@NonNull</span><span class="w"> </span><span class="n">View</span><span class="w"> </span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">createBinding</span><span class="p">(</span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="p">}</span>
 </code></pre></div>
-<p>发送事件</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">EventBus</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">postEvent</span><span class="p">(</span><span class="s">&quot;event&quot;</span><span class="p">);</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">EventBus</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">postSticky</span><span class="p">(</span><span class="s">&quot;event&quot;</span><span class="p">);</span>
+<p>这里调用了createBinding方法, 返回一个Unbinder对象。</p>
+<p>继续往下看，createBinding方法是怎么创建Unbinder对象的：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Unbinder</span><span class="w"> </span><span class="nf">createBinding</span><span class="p">(</span><span class="nd">@NonNull</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="nd">@NonNull</span><span class="w"> </span><span class="n">View</span><span class="w"> </span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">targetClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="na">getClass</span><span class="p">();</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">debug</span><span class="p">)</span><span class="w"> </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Looking up binding for &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">targetClass</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">Constructor</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Unbinder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findBindingConstructorForClass</span><span class="p">(</span><span class="n">targetClass</span><span class="p">);</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">constructor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">Unbinder</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="c1">//...</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">constructor</span><span class="p">.</span><span class="na">newInstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">);</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="c1">//省略异常处理的代码</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
 </code></pre></div>
-<p>postEvent()是普通的用法，只有订阅了该事件的Subscriber才能接受到事件。<br />
-postSticky()叫黏性事件，即使发送事件时没有注册，在注册后也同样能收到事件。</p>
-<h2 id="eventbus_2">EventBus的原理</h2>
-<ul>
-<li>EventBus.getDefault()通过单例模式获取EventBus的对象；</li>
-<li>register()，2.x的版本中，通过反射，找到onEventXxx方法，将类和方法信息缓存起来。在3.0版本中除了通过反射，通过注解，在编译期生成订阅者信息，保存起来。</li>
-<li>post(Object)，获取到PostingThreadState对象（ThreadLocal），确定发送的线程，将事件加入队列（list），发送出去。发送时根据事件的类型，是在主线程或者是后台线程，通过不同HandlerPoster，发送到不同的线程。</li>
-</ul>
-<p><a href="http://www.jianshu.com/p/f057c460c77e">EventBus 3.0 源码分析</a></p>
+<p>可以看到，这里是找到通过targetClass找到一个Unbinder类的构造方法，并通过构造方法产生一个Unbinder对象，具体到上面的例子中，targetClass就是我们的FancyFragment。  </p>
+<p>再继续看怎么找构造方法的，点开findBindingConstructorForClass方法：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@Nullable</span><span class="w"> </span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nd">@CheckResult</span><span class="w"> </span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nd">@UiThread</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Constructor</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Unbinder</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findBindingConstructorForClass</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">cls</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">   </span><span class="c1">//BINDINGS是一个HashMap&lt;class, Constructor&gt;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">   </span><span class="n">Constructor</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Unbinder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bindingCtor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BINDINGS</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">cls</span><span class="p">);</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bindingCtor</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">debug</span><span class="p">)</span><span class="w"> </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;HIT: Cached in binding map.&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">bindingCtor</span><span class="p">;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">   </span><span class="p">}</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">   </span><span class="n">String</span><span class="w"> </span><span class="n">clsName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="na">getName</span><span class="p">();</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">   </span><span class="c1">//忽略调android和java包下的类</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clsName</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;android.&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">clsName</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;java.&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">debug</span><span class="p">)</span><span class="w"> </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MISS: Reached framework class. Abandoning search.&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">   </span><span class="p">}</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">   </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">     </span><span class="c1">//新建一个ViewBinding类</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">     </span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">bindingClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="n">clsName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;_ViewBinding&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">     </span><span class="c1">//noinspection unchecked</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">     </span><span class="n">bindingCtor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Constructor</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Unbinder</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="n">bindingClass</span><span class="p">.</span><span class="na">getConstructor</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="w"> </span><span class="n">View</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">debug</span><span class="p">)</span><span class="w"> </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;HIT: Loaded binding class and constructor.&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">   </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">debug</span><span class="p">)</span><span class="w"> </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Not found. Trying superclass &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cls</span><span class="p">.</span><span class="na">getSuperclass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">     </span><span class="n">bindingCtor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findBindingConstructorForClass</span><span class="p">(</span><span class="n">cls</span><span class="p">.</span><span class="na">getSuperclass</span><span class="p">());</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">   </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">NoSuchMethodException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">     </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;Unable to find binding constructor for &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">clsName</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">   </span><span class="p">}</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">   </span><span class="n">BINDINGS</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="w"> </span><span class="n">bindingCtor</span><span class="p">);</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">bindingCtor</span><span class="p">;</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>这里代码也很简单，先从一个HashMap也就是BINDINGS中找，如果没有的话，就通过反射的方法新建实例化一个类然后取其构造方法，这个类的类名是clsName_ViewBinding，具体到上面的例子，就是创建了一个FancyFragment_ViewBinding的对象。之后，将这个对象的构造方法存入HashMap中。</p>
+<p>那么这个BINDINGS是什么呢？翻源码也可以看到，它是一个静态的HashMap，以class为key，value是构造方法，在这里，其实它就相当于一个缓存，只要ButterKnife.bind(...)方法调用过一次，下次就可以直接找到相关的_ViewBinding的构造方法。</p>
+<p>看到这里，稍微有一点点疑问，这里 <em>为什么只缓存构造方法，再通过构造方法实例化_ViewBinding对象，而不是把_ViewBinding对象缓存起来呢？</em> 下面会解答。  </p>
+<p>具体到我们最开始Fragment中ButterKnife使用的例子，到这里可以整理一下思路。在FancyFragment的onCreateView(...)方法中，我们调用了ButterKnife.bind(this, view)方法，调用这个方法之后，最终是通过构造方法实例化了一个类，即FancyFragment_ViewBinding。这个类是什么呢？肯定不能实例化一个不存在的类，编译完成之后，在项目中搜索一下这个类，会发现这个类在build文件夹下，是在编译期自动生成的，看一下这个类实现：  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FancyFragment_ViewBinding</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Unbinder</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="kd">private</span><span class="w"> </span><span class="n">FancyFragment</span><span class="w"> </span><span class="n">target</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nd">@UiThread</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="nf">FancyFragment_ViewBinding</span><span class="p">(</span><span class="n">FancyFragment</span><span class="w"> </span><span class="n">target</span><span class="p">,</span><span class="w"> </span><span class="n">View</span><span class="w"> </span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target</span><span class="p">;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">target</span><span class="p">.</span><span class="na">button1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="na">findRequiredViewAsType</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">button1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;field &#39;button1&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Button</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">target</span><span class="p">.</span><span class="na">button2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Utils</span><span class="p">.</span><span class="na">findRequiredViewAsType</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">button2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;field &#39;button2&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Button</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span><span class="nd">@Override</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">  </span><span class="nd">@CallSuper</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">unbind</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="n">ChannelAudioFragment</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">target</span><span class="p">;</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;Bindings already cleared.&quot;</span><span class="p">);</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="n">target</span><span class="p">.</span><span class="na">button1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="n">target</span><span class="p">.</span><span class="na">button2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="p">}</span>
+</code></pre></div>
+<p>看到这里3中的问题也就很很好解释了，ViewBinding对象中保存了targetClass的对象，也就是FancyFragment_ViewBinding中保存了FancyFragment对象，如果缓存了targetClass对象，就会使得FancyFragment被放在了静态的HashMap中，一直得不到释放，最终造成内存泄漏。  </p>
+<p>这里代码也很明确，Utils.findRequiredViewAsType(...)就是调用view.findViewById(id)方法，然后通过反射进行一下强制类型转换，这样就找到了id对应的view，然后复制给targetClass中注解的属性。整个流程也就省去了我们手写findViewById(id)方法的过程。  </p>
+<p>这个FancyFragment_ViewBinding类是怎么生成的呢？毫无疑问肯定是根据注解生成的了，具体怎么生成，以后有时间在看源码。  </p>
+<h2 id="3">3. 总结</h2>
+<p>经过上面的分析，整个ButterKnife的原理也就清晰了。编译时，对有注解的target类生成_ViewBinding类，这个类的属性中保存了target对象，构造方法中，通过调用findViewById找到View，并给target类有注解的View赋值。</p>
+<p>绑定的时候，调用ButterKnife.bind(target, source)，通过target的类找到缓存的target对应的_ViewBinding类的构造方法，并实例化它，没找到的化，直接通过类名来实例化，然后缓存。在实例化_ViewBinding类的过程中，就直接调用了findViewById方法。</p>
+<p>以上是BindView的过程，当然，ButterKnife其它的绑定方法，比如绑定点击事件，也是同样的原理。</p>
 
 
 
