@@ -22,7 +22,6 @@ nav:
     - 理解Activity，View，Window三者关系: Android/1-Basic/Android-window.md
     - Android动画简介: Android/1-Basic/Animations.md
     - AsyncTask原理解析: Android/1-Basic/AsyncTask.md
-    - ButterKnife原理解析: Android/1-Basic/ButterKnife.md
     - Fresco相关: Android/1-Basic/Fresco.md
     - HandlerThread与IntentService: Android/1-Basic/HandlerThread&IntentService.md
     - Android 热修复原理: Android/1-Basic/Hotfix.md
@@ -39,7 +38,8 @@ nav:
   - 架构:
     - 敬请期待: none.md
   - 三方框架:
-    - EventBus: pages/android/4-thirdpart/01-eventbus.md
+    - EventBus: pages/android/4-thirdpart/01-EventBus.md
+    - ButterKnife原理解析: pages/android/4-thirdpart/02-ButterKnife.md
   - Framework:
     - 源码阅读计划: pages/android/5-framework/00-android-source-code.md
     - 系统启动流程: pages/android/5-framework/01-system-boot.md
