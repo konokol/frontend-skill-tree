@@ -1,4 +1,4 @@
-# Synchronized详解
+# Synchronized
 
 ## 基本使用
 
