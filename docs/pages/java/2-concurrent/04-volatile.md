@@ -14,6 +14,14 @@
 
 ## 实现原理
 
+volatile的可见性是基于内存屏障(Memory Barrier)来实现的。
+
+内存屏障是一个CPU指令。为了提升性能，编译器和CPU会对指令进行重排序，JMM为了保证在不同编译器和CPU上都有相同的执行结果，会插入特定的内存屏障的指令来禁止编译器和CPU进行进行指令重排。
+
+JVM中volatile是通过lock指令来实现内存屏障的。为了提高处理器的速度，处理器内都带有高速缓存。当对volatile修饰的变量进行写操作时，会生成一条带有lock的指令，同时将缓存中的值写入主存中，其他CPU在总线上感知到这个写操作之后，会让缓存这个变量的值失效，当读取到这个值时，发现缓存无效，就会先从主存中先读出值放入缓存中。
+
+volatile有序性的实现是通过happens-before来保证的，对一个volatile变量的写，happens-before于任意后续会这个变量的读。
+
 ## 参考
 
 [volatile详解](https://www.pdai.tech/md/java/thread/java-thread-x-key-volatile.html)
