@@ -65,6 +65,7 @@ nav:
     - 线程池: pages/java/2-concurrent/02-thread-pool.md
     - synchronized: pages/java/2-concurrent/03-synchronized.md
     - volatile: pages/java/2-concurrent/04-volatile.md
+    - ThreadLocal: pages/java/2-concurrent/08-thread-local.md
   - 集合:  
     - Java的集合框架: Java/Collections.md
   - 设计模式: 
@@ -77,7 +78,6 @@ nav:
   - Java各版本新特性:
     - Java 8 -- 函数式数据处理: Java/Java-8-functional.md
     - Java 8 -- Lambda表达式: Java/Java-8-lambda.md
-  - ThreadLocal原理: Java/ThreadLocal.md
 - Kotlin基础:
   - 敬请期待: pages/kotlin/none.md
 - 跨平台技术:
