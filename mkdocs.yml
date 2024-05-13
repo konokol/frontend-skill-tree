@@ -33,7 +33,7 @@ nav:
     - 结构型模式: pages/java/6-design-pattern/02-structural-pattern.md
     - 行为型模式: pages/java/6-design-pattern/03-behavioral-pattern.md
   - JVM:
-    - JVM运行时数据区和Java内存模型: Java/JVM-memory-model.md
+    - JVM运行时数据区和Java内存模型: pages/java/2-concurrent/07-java-memory-model.md
   - Java各版本新特性:
     - Java 8 -- 函数式数据处理: Java/Java-8-functional.md
     - Java 8 -- Lambda表达式: Java/Java-8-lambda.md
@@ -74,8 +74,8 @@ nav:
   - 架构:
     - 敬请期待: none.md
   - 三方框架:
-    - EventBus: pages/android/4-thirdpart/01-EventBus.md
-    - ButterKnife原理解析: pages/android/4-thirdpart/02-ButterKnife.md
+    - EventBus: pages/android/4-thirdpart/01-eventbus.md
+    - ButterKnife: pages/android/4-thirdpart/02-butterknife.md
   - Framework:
     - 源码阅读计划: pages/android/5-framework/00-android-source-code.md
     - 系统启动流程: pages/android/5-framework/01-system-boot.md
