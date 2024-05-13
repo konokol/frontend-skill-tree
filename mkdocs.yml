@@ -23,6 +23,7 @@ nav:
     - 线程池: pages/java/2-concurrent/02-thread-pool.md
     - synchronized: pages/java/2-concurrent/03-synchronized.md
     - volatile: pages/java/2-concurrent/04-volatile.md
+    - final: pages/java/2-concurrent/05-final.md
     - 内存模型: pages/java/2-concurrent/07-java-memory-model.md
     - ThreadLocal: pages/java/2-concurrent/08-thread-local.md
   - 集合:  
