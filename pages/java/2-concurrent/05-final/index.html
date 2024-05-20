@@ -2331,6 +2331,17 @@
 <a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
 <h2 id="final_2">final重排序规则</h2>
+<ul>
+<li>基本数据类型    <ul>
+<li>写：禁止final的写重排序到构造方法外面，即保证当对象对其他线程可见时，final变量一定是被初始化过的。</li>
+<li>读：禁止初次读对象的引用与读该对象的final域变量重排序，即保证读到final变量的引用时，一定会先读包含final变量的引用，从而避免了读到未初始化变量的情况。</li>
+</ul>
+</li>
+<li>引用类型  <ul>
+<li>增加额外的约束：禁止对“构造方法对final变量的写入”和“将对象引用赋值给引用变量”重排序，避免重新赋值后，取到未赋值的final变量。</li>
+</ul>
+</li>
+</ul>
 <h2 id="final_3">final的实现原理</h2>
 <h2 id="_2">参考</h2>
 <p><a href="https://www.pdai.tech/md/java/thread/java-thread-x-key-final.html">关键字: final详解</a></p>
