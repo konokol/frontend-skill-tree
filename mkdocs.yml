@@ -24,6 +24,7 @@ nav:
     - synchronized: pages/java/2-concurrent/03-synchronized.md
     - volatile: pages/java/2-concurrent/04-volatile.md
     - final: pages/java/2-concurrent/05-final.md
+    - 锁: pages/java/2-concurrent/06-lock.md
     - 内存模型: pages/java/2-concurrent/07-java-memory-model.md
     - ThreadLocal: pages/java/2-concurrent/08-thread-local.md
   - 集合:  
@@ -71,9 +72,9 @@ nav:
     - View的绘制流程: Android/1-Basic/how-is-view-drew.md
     - keep-alive: Android/1-Basic/keep-alive.md
   - 性能:
-    - 敬请期待: none.md
+    - 敬请期待: pages/android/2-perf/none.md
   - 架构:
-    - 敬请期待: none.md
+    - 敬请期待: pages/android/3-arch/none.md
   - 三方框架:
     - EventBus: pages/android/4-thirdpart/01-eventbus.md
     - ButterKnife: pages/android/4-thirdpart/02-butterknife.md
