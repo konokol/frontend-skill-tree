@@ -2,9 +2,7 @@
 
 [![pages-build-deployment](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment)  ![Website](https://img.shields.io/website?url=https%3A%2F%2Fkonokol.github.io%2Ffrontend-skill-tree)  ![GitHub repo size](https://img.shields.io/github/repo-size/konokol/frontend-skill-tree)
 
-从客户端角度看大前端发展的路线，逐渐点亮自己的技能树。
-
-更好的阅读体验，请移步[客户端工程师技能树](https://konokol.github.io/frontend-skill-tree/)
+从客户端角度看大前端发展的路线，逐渐点亮自己的技能树。更好的阅读体验，请移步[客户端工程师技能树](https://konokol.github.io/frontend-skill-tree/)
 
 ## 目录
 
