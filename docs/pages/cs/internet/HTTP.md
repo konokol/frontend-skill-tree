@@ -2,17 +2,50 @@
 
 ## HTTP的发展历史
 
-### HTTP/0.9
+### HTTP/0.9 -- 单行协议
+
+HTTP最初没有版本，为了区分后面的版本，第一个版本被命名为v0.9. HTTP/0.9中只支持GET请求，响应也只有文档本身，没有Header，也没有状态码和错误码。
+
+请求：
+
+```text
+GET /mypage.html
+```
+
+响应：
+
+```text
+<html>
+  hello
+</html>
+
+```
 
 - 通过TCP/IP（或者类似的面向连接的服务）与服务器和端口（可选，默认80）建立连接；
 - 客户端发送一行ASCII文本，包括GET、文档地址（无空格）、回车符（可选）和换行符；
 - 服务端使用HTML格式的消息响应，该消息被定义为“ASCII字符的字节流”；
 - 通过服务器关闭连接来终止消息；
 - 错误响应以可读的文本显示，使用HTML语法，除了文本内容，无法区分错误响应和正确响应；
-- 请求时幂等的；
+- 请求是幂等的；
 - 服务器不需要在断开连接之后存储任何请求的信息；
 
-### HTTP/1.0
+### HTTP/1.0 -- 构建可扩展性
+
+HTTP/1.0的一个请求
+```text
+GET /mypage.html HTTP/1.0
+User-Agent: NCSA_Mosaic/2.0 (Windows 3.1)
+
+200 OK
+Date: Tue, 15 Nov 1994 08:12:31 GMT
+Server: CERN/3.0 libwww/2.17
+Content-Type: text/html
+<HTML>
+一个包含图片的页面
+  <IMG SRC="/myimage.gif">
+</HTML>
+
+```
 
 - 更多请求方法。除了HTTP 0.9中的GET方法，新增了HEAD和POST方法；
 - 为所有的消息增加了版本号字段。该字段是可选的，为了向后兼容，默认使用HTTP/0.9；
@@ -29,7 +62,7 @@ HTTP/1.0 中的响应码：
 | 4xx（客户端错误） | 400<br />401<br />403<br />404 | Bad request<br/>Unauthorized<br />Forbidden<br />Not Found   | 服务端无法理解请求或请求参数有误<br/>请求未被授权访问<br />通过授权，但是没有访问资源的权限<br />资源找不到 |
 | 5xx（服务端错误） | 500<br />501<br />502<br />503 | Internal server error<br />Not implemented<br />Bad gateway<br />Service unavailable | 服务端内部错误，请求无法完成<br />服务端不识别请求（如未实现的HTTP方法）<br />网关或代理服务收到上游服务错误<br />由于负载过高或者维护，服务端无法完成请求 |
 
-### HTTP/1.1
+### HTTP/1.1 -- 标准化的协议
 
 - 强制增加Host首部
 - 持久连接（Keep-Alive）
@@ -65,3 +98,7 @@ TLSv1.0和SSL类似，但是它们不兼容。TLS1.1和TLS1.2分别在2006年和
 5. 找不到证书报错，给出不安全提示
 6. 找到证书，用本地CA的公钥对收到的证书的签名解密
 7. 客户端用相同的hash算法计算收到证书的hash，与收到的证书中的hash对比
+
+## 参考
+
+![mozilla. HTTP 基础](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP)
