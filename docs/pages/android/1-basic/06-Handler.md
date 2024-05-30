@@ -1,4 +1,4 @@
-# 消息机制
+lea# 消息机制
 
 ## 基本用法
 
@@ -54,3 +54,4 @@ post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，
 综上，每一个线程都是形成Handler-Looper-Message-MessageQueue的形式，可以说是Handler是和某个线程对应的，通过哪个线程的Handler发送消息，最终消息处理也就在哪一个线程中。
 
 [Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系](http://blog.csdn.net/lmj623565791/article/details/38377229)
+[Handler原理解析，玩转同步屏障](https://juejin.cn/post/7342420969879175219?searchId=20240530235309A0B8DB497A314390ADB0)
