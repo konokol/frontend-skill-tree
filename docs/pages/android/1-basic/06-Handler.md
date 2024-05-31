@@ -1,4 +1,4 @@
-lea# 消息机制
+# 消息机制
 
 ## 基本用法
 
@@ -34,12 +34,12 @@ handler.post(() -> {
 Handler相关的类有4个，Handler，Looper，Message，MessageQueue. 简单来说，消息机制就是Handler发送消息，将Message放到MessageQueue中，通过Looper进行死循环，不断从MessageQueue中取Message，然后通过Message.target.dispatchMessage()处理消息。
 
 - Looper  
-Looper中存有一个Thread对象和一个MessageQueue，在构造方法中会初始化，新建一个MessageQueue，把当前Thread的引用指向当前线程。  
+Looper中存有一个Thread对象和一个MessageQueue，在构造方法中会初始化MessageQueue，把当前Thread的引用指向当前线程。  
 此外，Looper中还有一个静态的ThreadLocal对象，在prepare()方法中，会新建一个Looper对象，存入ThreadLocal中。  
 Looper中还有一个loop()方法，loop()方法中是一个死循环，不断从MessageQueue中取出消息，通过target.dispatchMessage()方法分发消息。
 
 - Handler  
-Handler有一个Looper实例，还有一个MessageQueue，MessageQueue即Looper的queue，发送消息时，最终都会走到sendMessageAtTime()将Message放入消息队列中。  
+Handler持有一个Looper实例的引用，还有一个MessageQueue，MessageQueue即Looper的queue，发送消息时，最终都会走到sendMessageAtTime()将Message放入消息队列中。  
 post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，先执行Callback的方法。  
 取消消息可以通过removeMessage(what)和removeMessage(Runnable)
 
