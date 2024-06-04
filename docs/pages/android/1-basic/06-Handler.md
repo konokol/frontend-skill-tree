@@ -34,8 +34,8 @@ handler.post(() -> {
 Handler相关的类有4个，Handler，Looper，Message，MessageQueue. 简单来说，消息机制就是Handler发送消息，将Message放到MessageQueue中，通过Looper进行死循环，不断从MessageQueue中取Message，然后通过Message.target.dispatchMessage()处理消息。
 
 - Looper  
-Looper中存有一个Thread对象和一个MessageQueue，在构造方法中会初始化MessageQueue，把当前Thread的引用指向当前线程。  
-此外，Looper中还有一个静态的ThreadLocal对象，在prepare()方法中，会新建一个Looper对象，存入ThreadLocal中。  
+Looper持有一个Thread对象和一个MessageQueue，在构造方法中会初始化MessageQueue，把当前Thread的引用指向当前线程。  
+此外，Looper中还有一个静态的ThreadLocal对象保存当前线程的Looper对象，调用prepare()方法，会新建一个Looper对象，存入ThreadLocal中。调用Looper.myLooper()方法时，返回当前线程对应的Looper实例。主线程Looper.prepare()是在ActivityThread中调用的，子线程需要自己调用。
 Looper中还有一个loop()方法，loop()方法中是一个死循环，不断从MessageQueue中取出消息，通过target.dispatchMessage()方法分发消息。
 
 - Handler  
