@@ -89,8 +89,11 @@ nav:
     
 - 跨平台技术:
   - 敬请期待: pages/cross-platform/none.md
+- 大前端:
+   - 敬请期待: none.md
 - CS理论基础:
   - 算法:
+    - Leetcode常见题: pages/cs/algorithm/leetcode.md
     - 敬请期待: pages/cs/algorithm/none.md
   - 计算机基础:
     - 敬请期待: pages/cs/cs-basic/none.md
@@ -98,8 +101,6 @@ nav:
     - HTTP协议详解: pages/cs/internet/HTTP.md
   - 操作系统:
     - 敬请期待: pages/cs/os/none.md
-- 大前端:
-   - 敬请期待: none.md
 theme:
   language: zh
   name: material
