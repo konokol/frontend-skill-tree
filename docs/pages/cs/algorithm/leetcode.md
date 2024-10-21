@@ -136,3 +136,11 @@
 ## 区间
 
 ## 数学
+
+[颠倒二进制位](https://leetcode.cn/problems/add-binary/description)
+
+颠倒给定的 32 位无符号整数的二进制位。
+
+**解法一**：循环
+
+使用循环，每次1位，左移然后按位与。
