@@ -48,7 +48,7 @@ Box<Integer> box1 = new Box<Integer>();
 Box<Integer> box2 = new Box<>();
 ```
 
-Java 7之前，实例化泛型要在new关键字后面<>也声明泛型的类型，Java 8之后可以省略。
+Java 7之前，实例化泛型要在new关键字后面<>来声明泛型的类型，Java 8之后可以省略。
 
 **原始类型**
 
