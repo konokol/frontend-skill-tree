@@ -217,7 +217,7 @@
 
 说明：你不能倾斜容器。
 
-![例子](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg)
+![例子](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg "aaa")
 
 **解法一**：双指针  
 
@@ -245,7 +245,7 @@
         return max;
     }
   ```
-<details>
+</details>
 
 ### [15. 三数之和](https://leetcode.cn/problems/3sum)  
 
@@ -255,12 +255,12 @@
 
 注意：答案中不可以包含重复的三元组。
 
-**解法一：**双指针
+**解法一**：双指针
 
 先排序，从头遍历，跳过重复的元素，从第i个位置开始，将区间[i+1, nums.length - 1]内的问题转换成有序数组的两数之和问题。难点在于去重，找到满足条件的📚之后，左右都要跳过相同的数。
 
 <details>
-  <summary>双指针法<summary>
+  <summary> 双指针法 </summary>
   ```Java
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
@@ -293,7 +293,7 @@
         return ans;
     }
   ```
-<details>
+</details>
 
 ## 滑动窗口
 
