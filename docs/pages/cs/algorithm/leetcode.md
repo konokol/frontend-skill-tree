@@ -24,6 +24,66 @@
 **解法三**  快慢指针优化，打乱顺序  
 左右指针，元素相等时，将右指针上元素赋值给当前位置，右指针左移。
 
+### [560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k)
+
+难度：⭐️⭐️
+
+给你一个整数数组 nums 和一个整数 k ，请你统计并返回 该数组中和为 k 的子数组的个数 。
+
+子数组是数组中元素的连续非空序列。
+
+**解法一**：穷举
+
+2层遍历，穷举所有的组合。
+
+<details>
+  <summary>2层遍历穷举法</summary>
+  ```Java
+  public int subarraySum(int[] nums, int k) {
+        int ret = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int sum = 0;
+            for (int j = i; j < nums.length; j++) {
+                sum += nums[j];
+                if (sum == k) {
+                    ret++;
+                }
+            }
+        }
+        return ret;
+    }
+  ```
+
+</details>
+
+
+**解法二**：哈希表  
+
+使用哈希表，key为前缀和，value为该前缀和的数量。遍历时，同时记录前缀和为某个值的数量。
+
+<details>
+  <summary>哈希表记录前缀和</summary>
+  ```Java
+  public int subarraySum(int[] nums, int k) {
+        // <sum, count>
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        int count = 0;
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (map.containsKey(sum - k)) {
+                count += map.get(sum - k);
+            }
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+        return count;
+    }
+  ```
+
+</details>
+
+
 ## 链表
 
 ### [21. 合并两个有序链表](https://leetcode.cn/problems/merge-two-sorted-lists/description/)
