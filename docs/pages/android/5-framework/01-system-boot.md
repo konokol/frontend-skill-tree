@@ -14,7 +14,6 @@
 4. Java中，Zygote主要干了以下几件事  
     - 开始socket连接，等待处理消息
     - 预加载类和资源，这个阶段特别耗时
-    
     - fork出system_server进程，在system_server进程中，清理掉socket等资源
     - 运行runSelectLoop，等待处理请求
    
