@@ -98,6 +98,8 @@ nav:
       - 链表: pages/cs/algorithm/leetcode/02-linkedlist.md
       - 滑动窗口: pages/cs/algorithm/leetcode/08-sliding-window.md
       - 区间: pages/cs/algorithm/leetcode/09-intervals.md
+      - 动态规划: pages/cs/algorithm/leetcode/12-dynamic-programmings.md
+
       - leetcode热题100: pages/cs/algorithm/leetcode.md
     - 敬请期待: pages/cs/algorithm/none.md
   - 计算机基础:
