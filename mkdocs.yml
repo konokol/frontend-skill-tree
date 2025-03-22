@@ -95,6 +95,7 @@ nav:
   - 算法:
     - Leetcode常见题: 
       - 数组/字符串: pages/cs/algorithm/leetcode/01-arrays.md
+      - 链表: pages/cs/algorithm/leetcode/02-linkedlist.md
       - 滑动窗口: pages/cs/algorithm/leetcode/08-slide-window.md
       - leetcode热题100: pages/cs/algorithm/leetcode.md
     - 敬请期待: pages/cs/algorithm/none.md
