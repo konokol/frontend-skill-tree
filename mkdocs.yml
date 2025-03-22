@@ -93,7 +93,10 @@ nav:
    - 敬请期待: none.md
 - CS理论基础:
   - 算法:
-    - Leetcode常见题: pages/cs/algorithm/leetcode.md
+    - Leetcode常见题: 
+      - 数组/字符串: pages/cs/algorithm/leetcode/01-arrays.md
+      - 滑动窗口: pages/cs/algorithm/leetcode/08-slide-window.md
+      - leetcode热题100: pages/cs/algorithm/leetcode.md
     - 敬请期待: pages/cs/algorithm/none.md
   - 计算机基础:
     - 敬请期待: pages/cs/cs-basic/none.md

@@ -59,9 +59,21 @@ post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，
 
 ## native方法
 
-Message的构造方法
+Message的构造方法，。
 
 Looper的loop方法中调用MessageQueue.next取下一条消息，调用nativePollOnce
+
+
+## epoll机制
+
+epoll是Linux内核提供的一种I/O多路复用机制，用于监听文件描述符的变化。
+
+核心机制跟3个系统调用有关：
+
+- epoll_create 创建epoll实例，返回fd对象
+- epoll_ctl 向epoll实例注册、修改、删除需要监控的fd
+- epoll_wait 阻塞等待注册注册的fd发生事件
+
 
 [Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系](http://blog.csdn.net/lmj623565791/article/details/38377229)
 [Handler原理解析，玩转同步屏障](https://juejin.cn/post/7342420969879175219?searchId=20240530235309A0B8DB497A314390ADB0)

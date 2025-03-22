@@ -36,6 +36,8 @@
 
 通过对native层操作，替换有问题的方法。
 
+![AndFix修复原理](http://cdn3.infoqstatic.com/statics_s2_20170810-0346/resource/articles/Android-hot-fix/zh/resources/18.jpg) 
+
 **优点：**
 - 即时生效，不需要重启APP；
 - 对应用无侵入；
@@ -59,4 +61,4 @@
 *参考*
 
 [Android热修复技术选型——三大流派解析](http://www.infoq.com/cn/articles/Android-hot-fix) 
-![AndFix修复原理](http://cdn3.infoqstatic.com/statics_s2_20170810-0346/resource/articles/Android-hot-fix/zh/resources/18.jpg) 
+[](https://blog.csdn.net/idaretobe/article/details/114992807)
