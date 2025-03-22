@@ -1,5 +1,88 @@
 # 数组/字符串
 
+
+## [27.移除数组中指定元素](https://leetcode.cn/problems/remove-element/description/)
+
+难度：⭐️
+
+给你一个数组 `nums` 和一个值 `val`，你需要 原地 移除所有数值等于 `val` 的元素。元素的顺序可能发生改变。然后返回 `nums` 中与 `val` 不同的元素的数量。
+
+**解法一** 暴力解法
+
+[不推荐] 直接2层循环，遇到重复的元素，把后面的元素都覆盖到前面。
+
+<details>
+  <summary>暴力遍历</summary>
+  ```java
+    public int removeElement(int[] nums, int val) {
+        int k = 0;
+        for (int i = 0; i < nums.length - k;) {
+            if (nums[i] != val) {
+                i++;
+                continue;
+            }
+            k++;
+            for (int j = i; j < nums.length - 1; j++) {
+                nums[j] = nums[j + 1];
+            }
+        }
+        return nums.length - k;
+    }
+  ```
+</details>
+
+
+**解法二** 快慢指针
+
+相等元素移动快指针，不同元素直接赋值。
+
+<details>
+  <summary>快慢指针</summary>
+  ```java
+    public int removeElement(int[] nums, int val) {
+        int slow = 0;
+        int fast = 0;
+        int k = 0;
+        while (fast < nums.length) {
+            if (nums[fast] == val) {
+                fast++;
+            } else {
+                nums[slow] = nums[fast];
+                slow++;
+                fast++;
+                k++;
+            }
+        }
+        return k;
+    }
+  ```
+</details>
+
+**解法三** 双指针
+
+没有要求有序，可以使用左右指针，元素相等时，将右指针上元素赋值给当前位置，右指针左移，直到两个指针相遇。
+
+<details>
+  <summary>左右双指针</summary>
+  ```java
+    public int removeElement(int[] nums, int val) {
+        int left = 0;
+        int right = nums.length;
+        int k = 0;
+        while (left < right) {
+            if (nums[left] == val) {
+                nums[left] = nums[right - 1];
+                right--;
+            } else {
+                k++;
+                left++;
+            }
+        }
+        return k;
+    }
+  ```
+</details>
+
 ## [88.合并2个有序数组](https://leetcode.cn/problems/merge-sorted-array/description)
 
 难度：难度：⭐️
@@ -50,17 +133,6 @@
   ```
 </details>
 
-## [移除数组中指定元素](https://leetcode.cn/problems/remove-element/description/)
-
-给你一个数组 `nums` 和一个值 `val`，你需要 原地 移除所有数值等于 `val` 的元素。元素的顺序可能发生改变。然后返回 `nums` 中与 `val` 不同的元素的数量。
-
-**解法一** 2次循环直接移动  
-
-**解法二**  快慢指针  
-相等元素移动快指针，不同元素直接赋值。  
-
-**解法三**  快慢指针优化，打乱顺序  
-左右指针，元素相等时，将右指针上元素赋值给当前位置，右指针左移。
 
 ## [560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k)
 
