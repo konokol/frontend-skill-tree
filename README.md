@@ -11,8 +11,8 @@
   - [ Java基础](#-java基础)
   - [ Android基础](#-android基础)
   - [ Kotlin基础](#-kotlin基础)
+  - [前端基础](#前端基础)
   - [CS基础](#cs基础)
-  - [数据结构与算法](#数据结构与算法)
   - [跨平台](#跨平台)
   - [其他](#其他)
   - [学习资料](#学习资料)
@@ -27,7 +27,7 @@
 - [设计模式](/docs/pages/java/6-design-pattern/)
 - [新特性](/docs/pages/java/99-new-features/)
 
-## <img src="./assets/ic-android.png" width="18px"/> Android基础
+## <img src="./assets/ic-android.png" width="20px"/> Android基础
 
 - [版本新特性](/docs/pages/android/0-new-feature/)
 - [基础](/docs/pages/android/1-basic/)
@@ -39,11 +39,21 @@
 
 ## <img src="./assets/kotlin-logo.png" width="20px" styles="margin-top:20px"/> Kotlin基础
 
+## 前端基础
+
 ## CS基础
 
-## 数据结构与算法
+- [计算机基础](/docs/pages/cs/cs-basic/)
+- [操作系统](/docs/pages/cs/os/)
+- [网络](/docs/pages/cs/internet/)
+- [数据结构](/docs/pages/cs/data-structure/)
+- [算法](/docs/pages/cs/algorithm/)
 
 ## 跨平台
+
+- [Flutter](/docs/pages/cross-platform/flutter/)
+- [小程序](/docs/pages/cross-platform/miniprogram/)
+- [ReactNative](/docs/pages/cross-platform/react-native/)
 
 ## 其他
 
