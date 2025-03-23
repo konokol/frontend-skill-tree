@@ -133,6 +133,51 @@
 </details>
 
 
+## [189. 轮转数组](https://leetcode.cn/problems/rotate-array)
+
+难度：⭐️⭐️⭐️
+
+给定一个整数数组 `nums`，将数组中的元素向右轮转 `k` 个位置，其中 `k` 是非负数。
+
+**解法一** 循环
+
+下标每次走k步，直到走完n步。注意走到重复的位置时，往后多走一步，防止西循环。
+
+<details>
+  <summary>循环</summary>
+
+  ```java
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;
+        if (k == 0) {
+            return;
+        }
+        int count = 0;
+        int v = nums[0];
+        int p = 0;
+        int start = 0;
+        while (count < n) {
+            int next = (p + k) % n;
+            int nextValue = nums[next];
+            nums[next] = v;
+            v = nextValue;
+            p = next;
+            if (p == start) {
+                start++;
+                p++;
+                v = nums[p];
+            }
+            count++;
+        }
+    }
+  ```
+</details>
+
+**解法二** 额外空间
+
+先申请额外的空间，把后面的元素保存上。
+
 ## [560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k)
 
 难度：⭐️⭐️
