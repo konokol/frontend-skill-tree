@@ -1,4 +1,6 @@
-# View的绘制流程
+## View
+
+## View的绘制流程
 
 **测量(Measure)**
 
@@ -42,5 +44,9 @@ getDefault(getSuggestedMinimum(), measureSpec)，建议最小一般是背景图�
 
 requestLayout()会重新布局，invalidate()和postInvalidate()重新绘制，invalidate是在主线程中，postInvalidate是异步刷新
 
-**参考**</br>
+## 自定义View
+
+
+**参考**  
+
 [View的绘制流程](http://www.jianshu.com/p/5a71014e7b1b)

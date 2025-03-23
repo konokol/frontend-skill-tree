@@ -5,7 +5,7 @@
 
 ## 升级依赖
 
-一键升级全部依赖： `pip3 list -o --format columns|  cut -d' ' -f1|xargs -n1 pip install -U`  
+一键升级全部依赖： `pip3 list -o --format columns| cut -d' ' -f1|xargs -n1 pip install -U`  
 保存依赖：`pip3 freeze > requirements.txt`
 
 # mkdocs部署

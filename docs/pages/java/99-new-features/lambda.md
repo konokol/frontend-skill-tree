@@ -256,7 +256,7 @@ Lambda表达式需要的类型称为**目标类型**。只要函数签名一致�
 List<Apple> heavierThan150g = filter(inventory, (Apple a) -> a.getWeight() > 150);
 ```
 
-![type check](../../../img/type_check.png)
+![type check](/img/type_check.png)
 
 ### 3.2 类型推断
 
