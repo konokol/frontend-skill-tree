@@ -28,7 +28,8 @@ nav:
     - 内存模型: pages/java/2-concurrent/07-java-memory-model.md
     - ThreadLocal: pages/java/2-concurrent/08-thread-local.md
   - 集合:  
-    - Java的集合框架: Java/Collections.md
+    - Java的集合框架: pages/java/3-collections/01-collections.md
+    - Android特有的集合: pages/java/3-collections/10-android-collections.md
   - 设计模式: 
     - 设计模式: pages/java/6-design-pattern/00-design-pattern.md
     - 构建型模式: pages/java/6-design-pattern/01-creational-pattern.md
@@ -46,38 +47,42 @@ nav:
 - Android:
   - Android知识树: pages/android/index.md
   - 基础:
-    - 四大组件--Activity: pages/android/1-basic/01-Activity.md
-    - 四大组件--Service: pages/android/1-basic/02-Service.md
-    - 四大组件--BroadcastReceiver: pages/android/1-basic/03-BroadcastReceiver.md
-    - 四大组件--ContentProvder: pages/android/1-basic/04-ContentProvider.md
-    - Fragment: pages/android/1-basic/05-Fragment.md
-    - 消息机制: pages/android/1-basic/06-Handler.md
-    - Android GC原理: Android/1-Basic/Android-GC.md
-    - Android中对集合的优化: Android/1-Basic/Android-collections.md
-    - Android SQLite数据库优化: Android/1-Basic/Android-database.md
-    - Android内存泄漏: Android/1-Basic/Android-memory.md
-    - Android各版本的行为变更: Android/1-Basic/Android-new-features.md
-    - 理解Activity，View，Window三者关系: Android/1-Basic/Android-window.md
-    - Android动画简介: Android/1-Basic/Animations.md
-    - AsyncTask原理解析: Android/1-Basic/AsyncTask.md
-    - Fresco相关: Android/1-Basic/Fresco.md
-    - HandlerThread与IntentService: Android/1-Basic/HandlerThread&IntentService.md
-    - Android 热修复原理: Android/1-Basic/Hotfix.md
-    - 高效加载图片: Android/1-Basic/Image.md
-    - Routing: Android/1-Basic/Routing.md
-    - 序列化: Android/1-Basic/Serialization.md
-    - aidl: Android/1-Basic/aidl.md
-    - Android虚拟机相关: Android/1-Basic/android-virtual-machine.md
-    - 事件分发机制: Android/1-Basic/event-dispatch.md
-    - View的绘制流程: Android/1-Basic/how-is-view-drew.md
-    - keep-alive: Android/1-Basic/keep-alive.md
+    - 四大组件--Activity: pages/android/1-basic/01-activity.md
+    - 四大组件--Service: pages/android/1-basic/02-service.md
+    - 四大组件--BroadcastReceiver: pages/android/1-basic/03-broadcastreceiver.md
+    - 四大组件--ContentProvder: pages/android/1-basic/04-contentprovider.md
+    - Fragment: pages/android/1-basic/05-fragment.md
+    - View: pages/android/1-basic/06-view.md
+    - 动画: pages/android/1-basic/07-animations.md
+    - 事件机制: pages/android/1-basic/08-event.md
+    - 消息机制: pages/android/1-basic/09-handler.md
+    - 异步: pages/android/1-basic/10-async.md
+    - Android SQLite数据库优化: pages/android/1-basic/11-database.md
+    - Window: pages/android/1-basic/12-window.md
+    - RecyclerView: pages/android/1-basic/13-recyclerview.md
+    - AIDL: pages/android/1-basic/25-aidl.md
+    - Android虚拟机: pages/android/1-basic/30-virtual-machine.md
   - 性能:
-    - 敬请期待: pages/android/2-perf/none.md
+    - 启动优化: pages/android/2-performance/01-startup.md
+    - 包大小: pages/android/2-performance/02-apksize.md
+    - 图片优化: pages/android/2-performance/03-image.md
+    - ANR: pages/android/2-performance/04-anr.md
+    - crash: pages/android/2-performance/05-crash.md
+    - 内存优化: pages/android/2-performance/06-memory.md
+    - 热修复: pages/android/2-performance/10-hotfix.md
+    - 插件化: pages/android/2-performance/11-plugins.md
+    - 进程保活: pages/android/2-performance/21-plugins.md
   - 架构:
     - 敬请期待: pages/android/3-arch/none.md
   - 三方框架:
     - EventBus: pages/android/4-thirdpart/01-eventbus.md
     - ButterKnife: pages/android/4-thirdpart/02-butterknife.md
+    - 图片库: pages/android/4-thirdpart/03-image.md
+    - Fresco: pages/android/4-thirdpart/03-fresco.md
+    - BlockCanary: pages/android/4-thirdpart/04-blockcanary.md
+    - LeakCanary: pages/android/4-thirdpart/05-leakcanary.md
+    - OkHttp: pages/android/4-thirdpart/06-okhttp.md
+    - Retrofit: pages/android/4-thirdpart/07-retrofit.md
   - Framework:
     - 源码阅读计划: pages/android/5-framework/00-android-source-code.md
     - 系统启动流程: pages/android/5-framework/01-system-boot.md
