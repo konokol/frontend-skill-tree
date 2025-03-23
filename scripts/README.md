@@ -12,3 +12,13 @@
 
 运行 `mkdocs serve`，本地预览。
 执行 `mkdocs gh-deploy`，部署到Github上。
+
+# 工具
+
+## 修复图片路径
+
+在项目根目录下执行
+
+```bash
+python3 scripts/fix_image.py xxx # 修复单个文件
+```

@@ -37,8 +37,8 @@ nav:
   - JVM:
     - JVM运行时数据区和Java内存模型: pages/java/2-concurrent/07-java-memory-model.md
   - Java各版本新特性:
-    - Java 8 -- 函数式数据处理: Java/Java-8-functional.md
-    - Java 8 -- Lambda表达式: Java/Java-8-lambda.md
+    - 函数式数据处理: pages/java/99-new-features/functional-interface.md
+    - Lambda表达式: pages/java/99-new-features/lambda.md
 
 - Kotlin基础:
   - 敬请期待: pages/kotlin/none.md

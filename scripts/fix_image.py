@@ -16,6 +16,7 @@ def fix_file_image_path(root, file):
         os.makedirs(dirs)
     source_file = os.path.join(root, file)
     target_file = 'build/' + source_file
+    print('try fix image path for', source_file, '...')
     with open(source_file, 'r', encoding='utf-8') as source, open(target_file, 'w', encoding='utf-8') as target:
         for line in source:
             images = re.findall(r'(?:!\[.*\]\((.*?)\))', line)
