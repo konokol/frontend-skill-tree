@@ -1,6 +1,8 @@
-# Android SQLite数据库优化
+# 数据库
 
-## 建立索引
+## SQLite数据库优化
+
+### 建立索引
 
 建立索引的语句：
 ```Java
@@ -11,15 +13,15 @@ CREATE INDEX index_name ON table_name (column_name);
 ```
 需要注意的是，索引会使查询的速度加快，但是却会使插入，删除和更新的速度变慢，在数据量比较小的时候，新建索引反而会增大数据库的大小。
 
-## 编译SQL语句
+### 编译SQL语句
 
 对于需要重复执行很多次的SQL语句，可以编译成SQLiteStatement语句。
 
-## 使用事务
+### 使用事务
 
 批量操作，可以使用事务，减少反复数据库文件的IO操作。
 
-## 其它的优化
+### 其它的优化
 
 - db.query语句，只返回需要的列；
 - 遍历cursor时，提前通过curcor.getColumnIndex()获取到index，不在循环中做；

@@ -47,17 +47,17 @@ nav:
 - Android:
   - Android知识树: pages/android/index.md
   - 基础:
-    - 四大组件--Activity: pages/android/1-basic/01-activity.md
-    - 四大组件--Service: pages/android/1-basic/02-service.md
-    - 四大组件--BroadcastReceiver: pages/android/1-basic/03-broadcastreceiver.md
-    - 四大组件--ContentProvder: pages/android/1-basic/04-contentprovider.md
+    - Activity: pages/android/1-basic/01-activity.md
+    - Service: pages/android/1-basic/02-service.md
+    - BroadcastReceiver: pages/android/1-basic/03-broadcastreceiver.md
+    - ContentProvder: pages/android/1-basic/04-contentprovider.md
     - Fragment: pages/android/1-basic/05-fragment.md
     - View: pages/android/1-basic/06-view.md
     - 动画: pages/android/1-basic/07-animations.md
     - 事件机制: pages/android/1-basic/08-event.md
     - 消息机制: pages/android/1-basic/09-handler.md
     - 异步: pages/android/1-basic/10-async.md
-    - Android SQLite数据库优化: pages/android/1-basic/11-database.md
+    - 数据库: pages/android/1-basic/11-database.md
     - Window: pages/android/1-basic/12-window.md
     - RecyclerView: pages/android/1-basic/13-recyclerview.md
     - AIDL: pages/android/1-basic/25-aidl.md

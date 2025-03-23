@@ -1,4 +1,4 @@
-# Android动画简介
+# Android动画
 
 ## ViewAnimation
 ViewAnimation是比较简单的动画，一共有4种alpha, rotate, translate, scale. 需要注意的是，ViewAnimation并不会改变View本身的属性。
