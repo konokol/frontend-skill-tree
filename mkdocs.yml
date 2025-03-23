@@ -71,7 +71,7 @@ nav:
     - 内存优化: pages/android/2-performance/06-memory.md
     - 热修复: pages/android/2-performance/10-hotfix.md
     - 插件化: pages/android/2-performance/11-plugins.md
-    - 进程保活: pages/android/2-performance/21-plugins.md
+    - 进程保活: pages/android/2-performance/21-keep-alive.md
   - 架构:
     - 敬请期待: pages/android/3-arch/none.md
   - 三方框架:
