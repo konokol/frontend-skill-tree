@@ -8,22 +8,16 @@
 
 - [大前端知识图谱](#大前端知识图谱)
   - [目录](#目录)
-  - [Java基础 ](#java基础-)
-  - [Android基础](#android基础)
-    - [基础](#基础)
-    - [性能](#性能)
-    - [架构](#架构)
-    - [开源框架](#开源框架)
-    - [工程与工具](#工程与工具)
-    - [系统与源码](#系统与源码)
-  - [Kotlin基础](#kotlin基础)
+  - [ Java基础](#-java基础)
+  - [ Android基础](#-android基础)
+  - [ Kotlin基础](#-kotlin基础)
   - [CS基础](#cs基础)
   - [数据结构与算法](#数据结构与算法)
   - [跨平台](#跨平台)
   - [其他](#其他)
   - [学习资料](#学习资料)
 
-## Java基础 <img src="./assets/ic-java.png" width="48px"/> 
+## <img src="./assets/ic-java.png" width="20px"/> Java基础
 
 - [基础](/docs/pages/java/1-basic/)
 - [并发](/docs/pages/java/2-concurrent/)
@@ -33,20 +27,17 @@
 - [设计模式](/docs/pages/java/6-design-pattern/)
 - [新特性](/docs/pages/java/99-new-features/)
 
-## Android基础
+## <img src="./assets/ic-android.png" width="18px"/> Android基础
 
-<img src="./assets/ic-android.png" width="48px"/> 
+- [版本新特性](/docs/pages/android/0-new-feature/)
+- [基础](/docs/pages/android/1-basic/)
+- [性能](/docs/pages/android/2-performance/)
+- [架构](/docs/pages/android/3-arch/)
+- [开源框架](/docs/pages/android/4-thirdpart/)
+- [Framework](/docs/pages/android/5-framework/)
+- [工程与工具](/docs/pages/android/6-tools/)
 
-### 基础
-### 性能
-### 架构
-### 开源框架
-### 工程与工具
-### 系统与源码
-
-## Kotlin基础
-
-<img src="./assets/kotlin-logo.png" width="48px"/>
+## <img src="./assets/kotlin-logo.png" width="20px" styles="margin-top:20px"/> Kotlin基础
 
 ## CS基础
 
