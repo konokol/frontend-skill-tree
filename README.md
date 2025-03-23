@@ -19,20 +19,19 @@
 
 <img src="./assets/ic-java.png" width="48px"/> 
 
-### 基础
-### 新版本特性
-### 集合
-### 并发
-### IO
-### JVM
-### 设计模式
+### [基础](/docs/pages/java/1-basic/)
+### [并发](/docs/pages/java/2-concurrent/)
+### [集合](/docs/pages/java/3-collections/)
+### [I/O](/docs/pages/java/4-io/)
+### [JVM](/docs/pages/java/5-jvm/)
+### [设计模式](/docs/pages/java/6-design-pattern/)
+### [新特性](/docs/pages/java/99-new-features/)
 
 ## Android基础
 
 <img src="./assets/ic-android.png" width="48px"/> 
 
 ### 基础
-### 性能
 ### 性能
 ### 架构
 ### 开源框架
