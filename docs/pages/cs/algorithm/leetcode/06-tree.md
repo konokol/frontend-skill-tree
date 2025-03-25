@@ -60,6 +60,48 @@
   ```
 </details>
 
+## [102. 二叉树的层次遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal)
+
+难度：⭐️⭐️
+
+给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。
+
+**方法一** 队列
+
+<details>
+  <summary>广度优先层次遍历</summary>
+
+  ```java
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> layer = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                layer.add(node.val);
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            if (!layer.isEmpty()) {
+                list.add(layer);
+            }
+        }
+        return list;
+    }
+  ```
+
+</details>
+
 
 ## [104. 二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree)
 
@@ -122,7 +164,6 @@
 
 **方法一** 递归
 
-
 <details>
   <summary>递归</summary>
 
@@ -175,3 +216,5 @@
    }
   ```
 </details>
+
+
