@@ -115,6 +115,41 @@
   ```
 </details>
 
+**解法二** 原地哈希
+
+![图解](../../../../img/first_missing_positive.png)
+
+<details>
+  <summary>原地哈希</summary>
+
+  ```java
+  public int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+        // 把所有的负数都变成正数
+        for (int i = 0; i < n; i++) {
+            if (nums[i] <= 0) {
+                nums[i] = 1 + n;
+            }
+        }
+        // 对于小于n的数，将nums[n]设置成负数，那么没有设置的数字，就是缺失的正数
+        // 相当于变相建立了一个哈希表 <num, index>
+        for (int i = 0; i < n; i++) {
+            int num = Math.abs(nums[i]);
+            if (num <= n) {
+                nums[num - 1] = -Math.abs(nums[num - 1]);
+            }
+        }
+        // 遍历数组，找到第一个正数，下标即为缺失的正数
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > 0) {
+                return i + 1;
+            }
+        }
+        return n + 1;
+    }
+  ```
+</details>
+
 ## [88.合并2个有序数组](https://leetcode.cn/problems/merge-sorted-array/description)
 
 难度：难度：⭐️
