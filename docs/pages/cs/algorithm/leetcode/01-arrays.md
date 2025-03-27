@@ -247,6 +247,45 @@
 
 先申请额外的空间，把后面的元素保存上。
 
+## [238. 除自身以外数组的乘积](https://leetcode.cn/problems/product-of-array-except-self)
+
+难度：⭐️⭐️⭐️
+
+**解法一** 左右数组
+
+额外创建2个数组，分别从左和右保存乘积。
+
+<details>
+  <summary>左右数组</summary>
+
+  ```java
+  public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        left[0] = nums[0];
+        right[n - 1] = nums[n - 1];
+        for (int i = 1; i < n; i++) {
+            left[i] = nums[i] * left[i - 1];
+            right[n - i - 1] = nums[n - i - 1] * right[n - i];
+        }
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) {
+            int l = 1;
+            int r = 1;
+            if (i > 0) {
+                l = left[i - 1];
+            }
+            if (i < n - 1) {
+                r = right[i + 1];
+            }
+            result[i] = l * r;
+        }
+        return result;
+    }
+  ```
+</details>
+
 ## [560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k)
 
 难度：⭐️⭐️
