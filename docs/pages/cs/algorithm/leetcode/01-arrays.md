@@ -291,7 +291,7 @@
 基于解法一，直接利用结果数组，第一次遍历从左往右，第i个位置保存其左边元素的乘积，第二次遍历从右往左，但是将右边元素的乘积用一个数字记录起来。
 
 <details>
-  <summary></summary>
+  <summary>优化的左右乘积列表</summary>
 
   ```java
     public int[] productExceptSelf(int[] nums) {
