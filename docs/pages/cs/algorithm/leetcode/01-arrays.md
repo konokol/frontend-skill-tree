@@ -82,6 +82,39 @@
   ```
 </details>
 
+
+
+## [41.缺失的第一个正数](https://leetcode.cn/problems/first-missing-positive)
+
+难度：难度：⭐️⭐️⭐️⭐️
+
+给你一个未排序的整数数组 `nums` ，请你找出其中没有出现的最小的正整数。
+
+请你实现时间复杂度为 `O(n)` 并且只使用常数级别额外空间的解决方案。
+
+**解法一** 哈希表
+
+空间复杂度为O(n)，用哈希表将数组中的元素存起来。for循环，当哈希表中不存在该元素时，下标的n+1位置就是缺失的第一个正数，如果循环完了每个元素都在哈希表中，结果就是数组的长度加1.
+
+<details>
+  <summary>哈希表(空间复杂度不满足题目要求)</summary>
+
+  ```java
+    public int firstMissingPositive(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int n : nums) {
+            set.add(n);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (!set.contains(i + 1)) {
+                return i + 1;
+            }
+        }
+        return nums.length + 1;
+    }
+  ```
+</details>
+
 ## [88.合并2个有序数组](https://leetcode.cn/problems/merge-sorted-array/description)
 
 难度：难度：⭐️
@@ -114,6 +147,7 @@
 
 <details>
   <summary>倒序双指针</summary>
+
   ```java
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         for (int i = m + n - 1; i >= 0; i--) {
