@@ -286,6 +286,31 @@
   ```
 </details>
 
+**解法二** 优化的左右乘积列表
+
+基于解法一，直接利用结果数组，第一次遍历从左往右，第i个位置保存其左边元素的乘积，第二次遍历从右往左，但是将右边元素的乘积用一个数字记录起来。
+
+<details>
+  <summary></summary>
+
+  ```java
+    public int[] productExceptSelf(int[] nums) {
+        int[] result = new int[nums.length];
+        result[0] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            result[i] = result[i - 1] * nums[i - 1];
+        }
+        // 1 2 3 24
+        int r = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            result[i] = r * result[i];
+            r *= nums[i];
+        }
+        return result;
+    }
+  ```
+</details>
+
 ## [560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k)
 
 难度：⭐️⭐️
