@@ -120,3 +120,40 @@
     }
     ```
 </details>
+
+## [24.两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs)
+
+难度：⭐️⭐️
+
+给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
+
+**解法一** 直接交换
+
+运用占位的前驱节点，同时记录前序节点和当前节点。
+
+<details>
+  <summary>直接交换</summary>
+
+  ```java
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode pre = dummy;
+        ListNode p = head;
+        // 1 -> 2 -> 3
+        while (p != null && p.next != null) {
+            // 2
+            ListNode next = p.next;
+            // 1 -> 3
+            p.next = next.next;
+            // 2 -> 1 -> 3
+            next.next = p;
+            // * -> 2 -> 1 -> 3
+            pre.next = next;
+            pre = p;
+            p = p.next;
+        }
+        return dummy.next;
+    }
+  ```
+</details>
