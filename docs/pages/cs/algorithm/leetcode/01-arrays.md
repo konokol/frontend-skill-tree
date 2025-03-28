@@ -150,6 +150,70 @@
   ```
 </details>
 
+## [76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring)
+
+难度：⭐️⭐️⭐️⭐️
+
+给你一个字符串 `s` 、一个字符串 `t` 。返回 `s` 中涵盖 `t` 所有字符的最小子串。如果 `s` 中不存在涵盖 `t` 所有字符的子串，则返回空字符串 `""` 。
+
+**解法一** 滑动窗口
+
+使用哈希表保存子串中每个对应字符出现的次数，滑动窗口，记录每个窗口中子串是否满足条件，满足条件移动窗口左值，否则移动窗口右值。
+
+<details>
+  <summary>滑动窗口</summary>
+
+  ```java
+    public String minWindow(String s, String t) {
+        if (s.length() < t.length()) {
+            return "";
+        }
+        Map<Character, Integer> dict = new HashMap<>();
+        Map<Character, Integer> subDict = new HashMap<>();
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            dict.put(c, dict.getOrDefault(c, 0) + 1);
+        }
+        int left = 0;
+        int right = 0;
+        int rl = 0;
+        int rr = Integer.MAX_VALUE;
+        while (right < s.length()) {
+            char rc = s.charAt(right);
+            subDict.put(rc, subDict.getOrDefault(rc, 0) + 1);
+            while (contains(dict, subDict)) {
+                char lc = s.charAt(left);
+                subDict.put(lc, subDict.getOrDefault(lc, 1) - 1);
+                if (rr - rl > right - left) {
+                    rl = left;
+                    rr = right;
+                }
+                left++;
+            }
+            right++;
+        }
+        if (rr - rl > s.length()) {
+            return "";
+        } else {
+            return s.substring(rl, rr + 1);
+        }
+    }
+
+    private boolean contains(Map<Character, Integer> dict, Map<Character, Integer> subDict) {
+        for (Map.Entry<Character, Integer> entry : dict.entrySet()) {
+            Character c = entry.getKey();
+            int count = entry.getValue();
+            int subCount = subDict.getOrDefault(c, 0);
+            if (count > subCount) {
+                return false;
+            }
+        }
+        return true;
+    }
+  ```
+</details>
+
+
 ## [88.合并2个有序数组](https://leetcode.cn/problems/merge-sorted-array/description)
 
 难度：难度：⭐️
