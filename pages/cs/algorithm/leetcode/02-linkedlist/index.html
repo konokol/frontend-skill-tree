@@ -12,7 +12,7 @@
         <link rel="prev" href="../01-arrays/">
       
       
-        <link rel="next" href="../08-sliding-window/">
+        <link rel="next" href="../06-tree/">
       
       
       <link rel="icon" href="../../../../../assets/book.png">
@@ -1325,11 +1325,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../java/99-new-features/functional-interface/" class="md-nav__link">
+      <a href="../../../../java/99-new-features/stream/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    函数式数据处理
+    Java 8 流
   </span>
   
 
@@ -1350,7 +1350,7 @@
         
   
   <span class="md-ellipsis">
-    Lambda表达式
+    Java 8 Lambda表达式
   </span>
   
 
@@ -2948,6 +2948,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      24.两两交换链表中的节点
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2964,11 +2973,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-sliding-window/" class="md-nav__link">
+      <a href="../06-tree/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    滑动窗口
+    二叉树
   </span>
   
 
@@ -2985,7 +2994,28 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-intervals/" class="md-nav__link">
+      <a href="../07-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-intervals/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3006,11 +3036,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../12-dynamic-programmings/" class="md-nav__link">
+      <a href="../10-matrix.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    动态规划
+    矩阵
   </span>
   
 
@@ -3027,11 +3057,32 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-matrix/" class="md-nav__link">
+      <a href="../12-sliding-window/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    矩阵
+    滑动窗口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-dynamic-programmings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    动态规划
   </span>
   
 
@@ -3351,6 +3402,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      24.两两交换链表中的节点
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3465,6 +3525,37 @@
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">list2</span><span class="p">;</span>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h2 id="24"><a href="https://leetcode.cn/problems/swap-nodes-in-pairs">24.两两交换链表中的节点</a></h2>
+<p>难度：⭐️⭐️</p>
+<p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p>
+<p><strong>解法一</strong> 直接交换</p>
+<p>运用占位的前驱节点，同时记录前序节点和当前节点。</p>
+<details>
+  <summary>直接交换</summary>
+
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="n">ListNode</span><span class="w"> </span><span class="nf">swapPairs</span><span class="p">(</span><span class="n">ListNode</span><span class="w"> </span><span class="n">head</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">      </span><span class="n">ListNode</span><span class="w"> </span><span class="n">dummy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">();</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">      </span><span class="n">dummy</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="n">ListNode</span><span class="w"> </span><span class="n">pre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dummy</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="n">ListNode</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="c1">// 1 -&gt; 2 -&gt; 3</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">          </span><span class="c1">// 2</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">          </span><span class="n">ListNode</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">          </span><span class="c1">// 1 -&gt; 3</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">          </span><span class="n">p</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">          </span><span class="c1">// 2 -&gt; 1 -&gt; 3</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">          </span><span class="n">next</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">          </span><span class="c1">// * -&gt; 2 -&gt; 1 -&gt; 3</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">          </span><span class="n">pre</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">          </span><span class="n">pre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">          </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">dummy</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">  </span><span class="p">}</span>
 </code></pre></div>
 </details>
 
