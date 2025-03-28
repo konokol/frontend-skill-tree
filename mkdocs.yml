@@ -104,7 +104,7 @@ nav:
       - 二叉树: pages/cs/algorithm/leetcode/06-tree.md
       - 图论: pages/cs/algorithm/leetcode/07-graph.md
       - 区间: pages/cs/algorithm/leetcode/08-intervals.md
-      - 矩阵: pages/cs/algorithm/leetcode/10-matrix.md
+      - 矩阵: pages/cs/algorithm/leetcode/09-matrix.md
       - 滑动窗口: pages/cs/algorithm/leetcode/12-sliding-window.md
       - 动态规划: pages/cs/algorithm/leetcode/16-dynamic-programmings.md
       - leetcode热题100: pages/cs/algorithm/leetcode.md
