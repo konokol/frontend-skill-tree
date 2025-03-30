@@ -10,7 +10,7 @@
 
 **解法一** 原地旋转
 
-循环，每次将4个位置的值轮换。为了防止旋转之后恢复原状，只需要遍历1/2。
+顺时针循环，每次将4个位置的值轮换。为了防止旋转之后恢复原状，只需要遍历1/2。
 
 <details>
   <summary>原地旋转</summary>
@@ -30,6 +30,39 @@
     }
   ```
 </details>
+
+**解法二** 翻转
+
+先水平翻转，再沿主对角线翻转。
+
+
+<details>
+  <summary>两次翻转</summary>
+
+  ```java
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        // 水平翻转
+        for (int i = 0; i < n / 2; i++) {
+            for (int j = 0; j < n; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[n - i - 1][j];
+                matrix[n - i - 1][j] = temp;
+            }
+        }
+
+        // 主对角线翻转
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+    }
+  ```
+</details>
+
 
 ## [54.螺旋矩阵](https://leetcode.cn/problems/spiral-matrix)
 
