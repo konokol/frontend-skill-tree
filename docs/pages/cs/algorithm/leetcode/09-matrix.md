@@ -149,3 +149,42 @@
     }
   ```
 </details>
+
+## [240.搜索二维矩阵](https://leetcode.cn/problems/search-a-2d-matrix-ii)
+
+难度：⭐️⭐️
+
+编写一个高效的算法来搜索 `m x n` 矩阵 `matrix` 中的一个目标值 `target` 。该矩阵具有以下特性：
+
+每行的元素从左到右升序排列。
+每列的元素从上到下升序排列。
+
+**解法一** Z字形遍历
+
+从右上或者左下开始遍历。
+
+<details>
+  <summary>Z字形遍历</summary>
+  
+  ```java
+    public int[][] merge(int[][] intervals) {
+        int start = 0;
+        int end = 0;
+        Arrays.sort(intervals, (int[] a, int[] b) -> {
+            return a[0] - b[0];
+        });
+        List<int[]> resultList = new ArrayList<>();
+        resultList.add(intervals[0]);
+        for (int i = 1; i < intervals.length; i++) {
+            int[] range = intervals[i];
+            int[] merged = resultList.get(resultList.size() - 1);
+            if (range[0] > merged[1]) {
+                resultList.add(range);
+            } else {
+                merged[1] = Math.max(range[1], merged[1]);
+            }
+        }
+        return resultList.toArray(new int[resultList.size()][]);
+    }
+  ```
+</details>
