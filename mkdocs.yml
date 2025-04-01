@@ -107,6 +107,7 @@ nav:
       - 矩阵: pages/cs/algorithm/leetcode/09-matrix.md
       - 滑动窗口: pages/cs/algorithm/leetcode/12-sliding-window.md
       - 动态规划: pages/cs/algorithm/leetcode/16-dynamic-programmings.md
+      - 技巧题: pages/cs/algorithm/leetcode/20-others.md
       - leetcode热题100: pages/cs/algorithm/leetcode.md
     - 敬请期待: pages/cs/algorithm/none.md
   - 计算机基础:
