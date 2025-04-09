@@ -60,11 +60,80 @@
   ```
 </details>
 
+## [98.验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree)
+
+难度：⭐️⭐️
+
+给你一个二叉树的根节点 `root` ，判断其是否是一个有效的二叉搜索树。
+
+有效 二叉搜索树定义如下：
+
+- 节点的左子树只包含 小于 当前节点的数。
+- 节点的右子树只包含 大于 当前节点的数。
+- 所有左子树和右子树自身必须也是二叉搜索树。
+
+**解法一** 递归
+
+按照条件直接递归。
+
+<details>
+  <summary>直接递归</summary>
+  
+  ```java
+  public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        boolean isLeftBst = true;
+        if (root.left != null) {
+            int maxLeft = max(root.left);
+            if (maxLeft >= root.val) {
+                return false;
+            }
+        }
+        if (root.right != null) {
+            int minRight = min(root.right);
+            if (minRight <= root.val) {
+                return false;
+            }
+        }
+        return isValidBST(root.left) && isValidBST(root.right);
+    }
+
+    private int min(TreeNode root) {
+        if (root == null) {
+            return Integer.MAX_VALUE;
+        }
+        int value = root.val;
+        int min = Math.min(min(root.left), min(root.right));
+        return Math.min(min, value);
+    }
+
+    private int max(TreeNode root) {
+        if (root == null) {
+            return Integer.MIN_VALUE;
+        }
+        int value = root.val;
+        int max = Math.max(max(root.left), max(root.right));
+        return Math.max(max, value);
+    }
+  ```
+</details>
+
+<details>
+  <summary>优化版本的递归</summary>
+
+  ```java
+  ```
+</details>
+
+**解法二** 中序遍历
+
 ## [102. 二叉树的层次遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal)
 
 难度：⭐️⭐️
 
-给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。
+给你二叉树的根节点 `root` ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。
 
 **方法一** 队列
 
