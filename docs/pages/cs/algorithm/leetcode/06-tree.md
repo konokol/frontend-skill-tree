@@ -219,4 +219,40 @@
   ```
 </details>
 
+## [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
 
+难度：⭐️⭐️
+
+给你一棵二叉树的根节点，返回该树的 **直径** 。
+
+二叉树的 **直径** 是指树中任意两个节点之间最长路径的 **长度** 。这条路径可能经过也可能不经过根节点 `root` 。
+
+两节点之间路径的 **长度** 由它们之间边数表示。
+
+**解法一** 深度遍历
+
+递归解法计算二叉树的深度，取左子树和右子树的最大深度之和。由于可能不经过根节点，需要在遍历的过程中记录最大深度。
+
+<details>
+  <summary>深度遍历</summary>
+
+  ```java
+    private int ans;
+    public int diameterOfBinaryTree(TreeNode root) {
+        ans = 1;
+        depth(root);
+        return ans - 1;
+    }
+
+    private int depth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = depth(root.left);
+        int right = depth(root.right);
+        ans = Math.max(ans, left + right + 1);
+        return 1 + Math.max(left, right);
+    }
+  ```
+
+</details>
