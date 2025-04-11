@@ -14,6 +14,39 @@
 
 **解法一** 二分查找
 
+二分查找，注意一部分是有序，一部分是无序。判断target是否在有序区间内，如果不是，去另一半查找。注意区间的开闭。
+
+<details>
+  <summary>二分查找</summary>
+
+  ```java
+    public int search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[left] <= nums[mid]) {
+                if (nums[left] <= target && target < nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+  ```
+</details>
+
+
 ## [34.排序数组中查找元素首尾位置](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array)
 
 难度：⭐️⭐️
@@ -196,5 +229,5 @@
         return nums[left];
     }
   ```
-
 </details>
+
