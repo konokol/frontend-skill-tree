@@ -1,6 +1,20 @@
 # 排序算法
 
-## [34.在排序数组中查找元素的第一个和最后一个位置](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array)
+## [33.搜索排序数组](https://leetcode.cn/problems/search-in-rotated-sorted-array)
+
+难度：⭐️⭐️
+
+整数数组 `nums` 按升序排列，数组中的值 互不相同 。
+
+`在传递给函数之前，nums` 在预先未知的某个下标 `k（0 <= k < nums.length）`上进行了 旋转，使数组变为 `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]`（下标 从 0 开始 计数）。例如， `[0,1,2,4,5,6,7]` 在下标 3 处经旋转后可能变为 `[4,5,6,7,0,1,2]` 。
+
+给你 旋转后 的数组 `nums` 和一个整数 `target` ，如果 `nums` 中存在这个目标值 `target` ，则返回它的下标，否则返回 -1 。
+
+你必须设计一个时间复杂度为 `O(log n)` 的算法解决此问题。
+
+**解法一** 二分查找
+
+## [34.排序数组中查找元素首尾位置](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array)
 
 难度：⭐️⭐️
 
@@ -12,7 +26,7 @@
 
 **解法一** 二分查找
 
-二分查找到元素后，分别向左和向右搜索，直到找到第一个不想等的位置。
+二分查找到元素后，分别向左和向右搜索，直到找到第一个不想等的位置。也可以用2次二分查找。
 
 <details>
   <summary>二分查找</summary>
@@ -145,4 +159,42 @@
         return false;
     }
   ```
+</details>
+
+## [153.寻找旋转排序数组中的最小值](https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array)
+
+难度：⭐️⭐️⭐️
+
+已知一个长度为 `n` 的数组，预先按照升序排列，经由 `1` 到 `n` 次 旋转 后，得到输入数组。例如，原数组 `nums = [0,1,2,4,5,6,7]` 在变化后可能得到：
+若旋转 4 次，则可以得到 `[4,5,6,7,0,1,2]`
+若旋转 7 次，则可以得到 `[0,1,2,4,5,6,7]`
+注意，数组 `[a[0], a[1], a[2], ..., a[n-1]]` 旋转一次 的结果为数组 `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]` 。
+
+给你一个元素值 **互不相同** 的数组 `nums` ，它原来是一个升序排列的数组，并按上述情形进行了多次旋转。请你找出并返回数组中的 最小元素 。
+
+你必须设计一个时间复杂度为 `O(log n)` 的算法解决此问题。
+
+**解法一** 二分查找
+
+二分查找，右侧有序则向左搜索。
+
+<details>
+  <summary>二分查找</summary>
+
+  ```java
+    public int findMin(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < nums[right]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return nums[left];
+    }
+  ```
+
 </details>
