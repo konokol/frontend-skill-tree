@@ -121,6 +121,67 @@
     ```
 </details>
 
+## [23.合并 K 个升序链表](https://leetcode.cn/problems/merge-k-sorted-lists)
+
+难度：⭐️⭐️⭐️⭐️
+
+给你一个链表数组，每个链表都已经按升序排列。
+
+请你将所有链表合并到一个升序链表中，返回合并后的链表。
+
+**解法一** 顺序合并
+
+两两合并，按顺序合并。
+
+<details>
+  <summary>顺序合并</summary>
+
+  ```java
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode head = null;
+        for (int i = 0; i < lists.length; i++) {
+            head = mergeLists(head, lists[i]);
+        }
+        return head;
+    }
+
+    private ListNode mergeLists(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
+        }
+        if (list2 == null) {
+            return list1;
+        }
+        ListNode dummy = new ListNode(-1);
+        ListNode p = dummy;
+        ListNode p1 = list1;
+        ListNode p2 = list2;
+        while (p1 != null && p2 != null) {
+            if (p1.val < p2.val) {
+                p.next = p1;
+                p1 = p1.next;
+            } else {
+                p.next = p2;
+                p2 = p2.next;
+            }
+            p = p.next;
+            if (p1 == null) {
+                p.next = p2;
+            }
+            if (p2 == null) {
+                p.next = p1;
+            }
+        }
+        return dummy.next;
+    }
+  ```
+</details>
+
+**解法二** 分治
+
+**解法三** 优先级队列
+
+
 ## [24.两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs)
 
 难度：⭐️⭐️

@@ -101,6 +101,7 @@ nav:
     - Leetcode常见题: 
       - 数组/字符串: pages/cs/algorithm/leetcode/01-arrays.md
       - 链表: pages/cs/algorithm/leetcode/02-linkedlist.md
+      - 栈: pages/cs/algorithm/leetcode/04-stack.md
       - 二叉树: pages/cs/algorithm/leetcode/06-tree.md
       - 图论: pages/cs/algorithm/leetcode/07-graph.md
       - 区间: pages/cs/algorithm/leetcode/08-intervals.md
