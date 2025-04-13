@@ -179,7 +179,90 @@
 
 **解法二** 分治
 
+将数组分成2部分，头尾排序，递归调用。
+
+<details>
+  <summary>分治</summary>
+
+  ```java
+    public ListNode mergeKLists(ListNode[] lists) {
+        return merge(lists, 0, lists.length - 1);
+    }
+
+    private ListNode merge(ListNode[] lists, int start, int end) {
+        if (start == end) {
+            return lists[start];
+        } else if (start > end) {
+            return null;
+        } else {
+            int mid = (end + start) >> 1;
+            return mergeLists(merge(lists, start, mid), merge(lists, mid + 1, end));
+        }
+    }
+
+    private ListNode mergeLists(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
+        }
+        if (list2 == null) {
+            return list1;
+        }
+        ListNode dummy = new ListNode(-1);
+        ListNode p = dummy;
+        ListNode p1 = list1;
+        ListNode p2 = list2;
+        while (p1 != null && p2 != null) {
+            if (p1.val < p2.val) {
+                p.next = p1;
+                p1 = p1.next;
+            } else {
+                p.next = p2;
+                p2 = p2.next;
+            }
+            p = p.next;
+            if (p1 == null) {
+                p.next = p2;
+            }
+            if (p2 == null) {
+                p.next = p1;
+            }
+        }
+        return dummy.next;
+    }
+  ```
+</details>
+
 **解法三** 优先级队列
+
+将所有链表的头结点加入优先级队列中，最前面的即为最小值，每次循环，将最小值排序并将最小值的next入队，直到队列为空。
+
+<details>
+  <summary>优先级队列</summary>
+
+  ```java
+    public ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<ListNode> queue = new PriorityQueue<>((ListNode n1, ListNode n2) -> {
+            return n1.val - n2.val;
+        });
+        for (ListNode node : lists) {
+            if (node != null) {
+                queue.offer(node);
+            }
+        }
+        ListNode head = new ListNode(-1);
+        ListNode p = head;
+        while (!queue.isEmpty()) {
+            ListNode min = queue.poll();
+            p.next = min;
+            if (min.next != null) {
+                queue.offer(min.next);
+            }
+            p = p.next;
+        }
+        return head.next;
+    }
+  ```
+</details>
 
 
 ## [24.两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs)
