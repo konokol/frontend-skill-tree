@@ -39,6 +39,41 @@
   ```
 </details>
 
+**解法二** 记录次数
+
+第一次循环计算每种颜色的数量，第二次循环根据数量分别设置值
+
+<details>
+  <summary>记录次数</summary>
+
+  ```java
+  public void sortColors(int[] nums) {
+        int r = 0;
+        int w = 0;
+        int b = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                r++;
+            } else if (nums[i] == 1) {
+                w++;
+            } else {
+                b++;
+            }
+        }
+        int rw = r + w;
+        for (int i = 0; i < nums.length; i++) {
+            if (i < r) {
+                nums[i] = 0;
+            } else if (i < rw) {
+                nums[i] = 1;
+            } else {
+                nums[i] = 2;
+            }
+        }
+    }
+
+  ```
+</details>
 
 ## [136.只出现一次的数字](https://leetcode.cn/problems/single-number)
 
