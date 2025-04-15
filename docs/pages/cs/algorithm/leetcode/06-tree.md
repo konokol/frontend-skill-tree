@@ -319,6 +319,41 @@
   ```
 </details>
 
+## [230. 二叉搜索树中第 K 小的元素](https://leetcode.cn/problems/kth-smallest-element-in-a-bst)
+
+难度：⭐️⭐️
+
+给定一个二叉搜索树的根节点 `root` ，和一个整数 `k` ，请你设计一个算法查找其中第 `k` 小的元素（从 `1` 开始计数）。
+
+**解法一** 深度优先遍历
+
+<details>
+  <summary>深度优先遍历</summary>
+
+  ```java
+    public int kthSmallest(TreeNode root, int k) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode p = root;
+        int i = 0;
+        stack.push(p);
+        while (!stack.isEmpty()) {
+            while(p != null) {
+                stack.push(p);
+                p = p.left;
+            }
+            TreeNode node = stack.pop();
+            i++;
+            if (i == k) {
+                return node.val;
+            }
+            p = node.right;
+        }
+        return -1;
+    }
+  ```
+</details>
+
+
 ## [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
 
 难度：⭐️⭐️
@@ -356,3 +391,4 @@
   ```
 
 </details>
+
