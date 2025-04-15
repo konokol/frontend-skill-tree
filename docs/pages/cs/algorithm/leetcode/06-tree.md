@@ -258,6 +258,87 @@
   ```
 </details>
 
+
+## [199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view)
+
+难度：⭐️⭐️
+
+给定一个二叉树的 根节点 `root`，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+
+**解法一** 非递归深度优先
+
+深度优先前序遍历，使用哈希表保存遍历到的每一层的深度和第一个访问到的节点。
+
+<details>
+  <summary>哈希表 + 深度优先</summary>
+
+  ```java
+    public List<Integer> rightSideView(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        Deque<Integer> depthStack = new ArrayDeque<>();
+        Map<Integer, Integer> map = new LinkedHashMap<>();
+        TreeNode p = root;
+        stack.push(root);
+        depthStack.push(0);
+        while(!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            int depth = depthStack.pop();
+            if (!map.containsKey(depth)) {
+                map.put(depth, node.val);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+                depthStack.push(depth + 1);
+            }
+            if (node.right != null) {
+                stack.push(node.right);
+                depthStack.push(depth + 1);
+            }
+        }
+        return new ArrayList<>(map.values());
+    }
+  ```
+</details>
+
+**解法二** 层次遍历
+
+层次遍历，每一层的最后一个节点即为最右侧节点。
+
+<details>
+  <summary>哈希表 + 深度优先</summary>
+
+  ```java
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> list = new LinkedList<>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (i == size - 1) {
+                    list.add(node.val);
+                }
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+        return list;
+    }
+  ```
+</details>
+
+
 ## [226. 翻转二叉树](https://leetcode.cn/problems/invert-binary-tree)
 
 难度：⭐️
