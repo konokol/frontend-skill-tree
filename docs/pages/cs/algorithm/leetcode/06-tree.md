@@ -258,6 +258,47 @@
   ```
 </details>
 
+## [114. 二叉树展开为链表](https://leetcode.cn/problems/flatten-binary-tree-to-linked-list)
+
+难度：⭐️⭐️
+
+给你二叉树的根结点 `root` ，请你将它展开为一个单链表：
+
+- 展开后的单链表应该同样使用 `TreeNode` ，其中 `right` 子指针指向链表中下一个结点，而左子指针始终为 `null` 。
+- 展开后的单链表应该与二叉树 先序遍历 顺序相同。
+
+**解法一** 先序遍历
+
+使用栈，先序遍历二叉树。遍历过程中，对节点进行处理。
+
+<details>
+  <summary>非递归先序遍历</summary>
+
+  ```java
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode dummy = new TreeNode(-1);
+        TreeNode p = dummy;
+        dummy.right = root;
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            p.right = node;
+            p.left = null;
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+            p = p.right;
+        }
+    }
+  ```
+</details>
 
 ## [199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view)
 
@@ -337,6 +378,10 @@
     }
   ```
 </details>
+
+**解法三** 递归 + 深度遍历
+
+递归遍历的过程中，记录层数。
 
 
 ## [226. 翻转二叉树](https://leetcode.cn/problems/invert-binary-tree)
