@@ -44,3 +44,73 @@
   ```
 </details>
 
+## [155. 最小栈](https://leetcode.cn/problems/min-stack/description)
+
+难度：⭐️⭐️
+
+设计一个支持 `push` `，pop` `，top` 操作，并能在常数时间内检索到最小元素的栈。
+
+实现 `MinStack` 类:
+
+- MinStack() 初始化堆栈对象。
+- void push(int val) 将元素val推入堆栈。
+- void pop() 删除堆栈顶部的元素。
+- int top() 获取堆栈顶部的元素。
+- int getMin() 获取堆栈中的最小元素。
+
+**解法一** 使用数组
+
+<details>
+  <summary>数组</summary>
+
+```java
+class MinStack {
+
+    private int min = Integer.MAX_VALUE;
+    private int capcity = 30000;
+    private int[] elements;
+    private int index = -1;
+
+    public MinStack() {
+        elements = new int[capcity];
+    }
+    
+    public void push(int val) {
+        if (index >= elements.length - 1) {
+            int[] temp = elements;
+            elements = new int[(temp.length >> 1) + temp.length];
+            System.arraycopy(temp, 0, elements, 0, temp.length);
+        }
+        elements[++index] = val;
+        min = Math.min(min, val);
+    }
+    
+    public void pop() {
+        int top = elements[index];
+        if (top == min) {
+            min = Integer.MAX_VALUE;
+            for (int i = 0; i < index; i++) {
+                min = Math.min(min, elements[i]);
+            }
+        }
+        index--;
+        if (index < (elements.length >> 1) && index > capcity) {
+            int[] temp = elements;
+            elements = new int[elements.length >> 1];
+            System.arraycopy(temp, 0, elements, 0, elements.length);
+        }
+    }
+    
+    public int top() {
+        return elements[index];
+    }
+    
+    public int getMin() {
+        return min;
+    }
+}
+```
+</details>
+
+**解法二** 使用原生的集合
+
