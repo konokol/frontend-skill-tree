@@ -227,6 +227,43 @@
   ```
 </details>
 
+## [105. 从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal)
+
+难度：⭐️⭐️⭐️⭐️
+
+给定两个整数数组 `preorder` 和 `inorder` ，其中 `preorder` 是二叉树的先序遍历， `inorder` 是同一棵树的中序遍历，请构造二叉树并返回其根节点。
+
+**解法一** 递归
+
+前序数组的第一个元素是根节点，找到根节点在中序数组的下标，对数组进行拆分。
+
+<details>
+  <summary>递归</summary>
+
+  ```java
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return buildTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+    }
+
+    private TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
+        if (preStart > preEnd) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int mid = inStart;
+        while (inorder[mid] != root.val) {
+            mid++;
+        }
+        int leftLength = mid - inStart;
+        int rightSize = inEnd - mid;
+        //[ [...] mid [...]]
+        root.left = buildTree(preorder, preStart + 1, preStart + leftLength, inorder, inStart, mid - 1);
+        root.right = buildTree(preorder, preStart + 1 + leftLength, preEnd, inorder, mid + 1, inEnd);
+        return root;
+    }
+  ```
+</details>
+
 ## [108. 有序数组转二叉搜索树](https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree)
 
 难度：⭐️
