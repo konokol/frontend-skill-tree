@@ -264,6 +264,38 @@
   ```
 </details>
 
+也可以使用哈希表保存下标，避免每次循环找根节点的index
+
+<details>
+  <summary>递归 + 哈希表</summary>
+
+  ```java
+    private Map<Integer, Integer> map; // 使用哈希表保存下标
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        map = new HashMap<>(inorder.length);
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        return buildTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+    }
+
+    private TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
+        if (preStart > preEnd) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int mid = map.get(root.val);
+        int leftLength = mid - inStart;
+        int rightSize = inEnd - mid;
+        //[ [...] mid [...]]
+        root.left = buildTree(preorder, preStart + 1, preStart + leftLength, inorder, inStart, mid - 1);
+        root.right = buildTree(preorder, preStart + 1 + leftLength, preEnd, inorder, mid + 1, inEnd);
+        return root;
+    }
+  ```
+</details>
+
 ## [108. 有序数组转二叉搜索树](https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree)
 
 难度：⭐️
