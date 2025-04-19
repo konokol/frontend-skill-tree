@@ -590,7 +590,30 @@
         return node;
     }
   ```
+</details>
 
+**解法二** 递归
+
+在左子树和右子树中查找，根据条件返回：
+
+1. 当root和p、q中任意节点相等时，最近节点为root
+2. 当左子树和右子树中查找的值都非空，说明p、q分别在左子树和右子树中，结果为root
+3. 当左子树或右子树中有一个为空，说明p、q同在另一个子树中，结果为非空的子节点
+
+<details>
+  <summary>递归</summary>
+
+  ```java
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return null;
+        if (root == p || root == q) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right != null) return root;
+        if (left != null) return left;
+        return right;
+    }
+  ```
 </details>
 
 ## [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
