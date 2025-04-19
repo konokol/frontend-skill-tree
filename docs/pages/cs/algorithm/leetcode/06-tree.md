@@ -548,6 +548,50 @@
   ```
 </details>
 
+## [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree)
+
+难度：⭐️⭐️
+
+给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+**解法一** 哈希表
+
+深度遍历，遍历过程中使用哈希表记录每个节点的父节点，根据哈希表查两个节点的父节点，两次分别遍历两个找到公共父节点。
+
+<details>
+  <summary>哈希表保存父节点</summary>
+
+  ```java
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+         lowest(root, p , q);
+         return res;
+    }
+    TreeNode res;
+    boolean flag = false;
+
+    private TreeNode lowest(TreeNode node, TreeNode p, TreeNode q) {
+        if (node == null || flag) return null;
+
+        TreeNode left = lowest(node.left, p, q);
+        TreeNode right = lowest(node.right, p, q);
+
+
+        if ((p == left && q == right) || (q == left && p == right)
+         || (p == left && node == q) || (p == right && node == q)
+         || (q == left && node == p) || (q == right && node == p)) {
+            flag = true;
+            res = node;
+         }
+        if (left == p || right == p) return p;
+        if (left == q || right == q) return q;
+
+        return node;
+    }
+  ```
+
+</details>
 
 ## [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
 
