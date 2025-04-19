@@ -369,6 +369,51 @@
   ```
 </details>
 
+## [124. 二叉树中的最大路径和](https://leetcode.cn/problems/binary-tree-maximum-path-sum)
+
+二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。
+
+路径和 是路径中各节点值的总和。
+
+给你一个二叉树的根节点 · ，返回其 **最大路径和** 。
+
+**解法一** 递归
+
+递归分别看左子树和右子树的最大路径和，遍历过程中，将最大值保存。
+
+<details>
+  <summary>递归</summary>
+
+  ```java
+    int max = Integer.MIN_VALUE;
+
+    public int maxPathSum(TreeNode root) {
+        max(root);
+        return max;
+    }
+
+    private int max(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = 0;
+        if (root.left != null) {
+            // 最大值有可能是负值，如果为负值，忽略
+            left = Math.max(max(root.left), 0);
+        }
+        int right = 0;
+        if (root.right != null) { 
+            // 最大值有可能是负值，如果为负值，忽略
+            right =  Math.max(max(root.right), 0);
+        }
+        // 递归过程中，保存最大值
+        max = Math.max(max, left + right + root.val);
+        return root.val + Math.max(left, right);
+    }
+  ```
+</details>
+
+
 ## [199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view)
 
 难度：⭐️⭐️
