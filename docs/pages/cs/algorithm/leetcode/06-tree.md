@@ -129,6 +129,71 @@
 
 **解法二** 中序遍历
 
+## [101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/description)
+
+给你一个二叉树的根节点 `root` ， 检查它是否轴对称。
+
+难度：⭐️
+
+**解法一** 递归
+
+递归检查子树的左右节点是否对称。
+
+<details>
+  <summary>递归</summary>
+
+  ```java
+    public boolean isSymmetric(TreeNode root) {
+        return root != null && check(root.left, root.right);
+    }
+
+    private boolean check(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        } else if (left == null || right == null) {
+            return false;
+        } else {
+            return left.val == right.val && check(left.left, right.right) && check(left.right, right.left);
+        }
+    }
+
+  ```
+</details>
+
+*解法二** 迭代
+
+层次遍历，每次访问2个节点。
+
+<details>
+  <summary>递归</summary>
+
+  ```java
+    public boolean isSymmetric(TreeNode root) {
+        return check(root, root);
+    }
+
+    private boolean check(TreeNode ll, TreeNode rr) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(ll);
+        queue.offer(rr);
+        while(!queue.isEmpty()) {
+            TreeNode left = queue.poll();
+            TreeNode right = queue.poll();
+            if (left == null && right == null) {
+                continue;
+            } else if (left == null || right == null || left.val != right.val) {
+                return false;
+            }
+            queue.offer(left.left);
+            queue.offer(right.right);
+            queue.offer(left.right);
+            queue.offer(right.left);
+        }
+        return true;
+    }
+  ```
+</details>
+
 ## [102. 二叉树的层次遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal)
 
 难度：⭐️⭐️
