@@ -60,13 +60,19 @@
 
 **解法一** 广度优先拓扑排序
 
+经典的拓扑排序算法，先构建每门课程完成后下一门可休课程的数组，即出度，同时记录每门课程先修的数量，即入度。  
+使用队列开始广度遍历，先找到前序课程为0的课，即入度为0，加入队列访问它。 
+然后访问其下一门课，将下一门课的入度减一，当下一门课的入度减为0后，加入队列。
+重复上述过程，直到访问完所有入度为0的课，记录一共可以访问到多少节点。
+当访问的节点树和课程总数相同时，即所有的课程都可以修完。
+
 <details>
   <summary>拓扑排序，广度优先</summary>
 
   ```java
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int[] prev = new int[numCourses];
-        List[] nextList = new List[numCourses];
+        int[] prev = new int[numCourses]; // 入度数组
+        List[] nextList = new List[numCourses]; // 出度数组
         for (int i = 0; i < prerequisites.length;i++) {
             int course = prerequisites[i][1];
             int nextCourse = prerequisites[i][0];
@@ -74,7 +80,7 @@
             if (next == null) {
                 next = new ArrayList<>();
             }
-            prev[nextCourse]++;
+            prev[nextCourse]++; 
             next.add(nextCourse);
             nextList[course] = next;
         }
@@ -100,6 +106,76 @@
         }
         return count == numCourses;
     }
+  ```
+</details>
+
+**解法二** 深度优先遍历
+
+## [208. Trie数](https://leetcode.cn/problems/implement-trie-prefix-tree)
+
+难度：⭐️⭐️⭐️
+
+[Trie](https://baike.baidu.com/item/%E5%AD%97%E5%85%B8%E6%A0%91/9825209?fr=aladdin)（发音类似 "try"）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补全和拼写检查。
+
+请你实现 Trie 类：
+
+- `Trie()` 初始化前缀树对象。
+- `void insert(String word)` 向前缀树中插入字符串 `word` 。
+- `boolean search(String word)` 如果字符串 `word` 在前缀树中，返回 `true`（即，在检索之前已经插入）；否则，返回 `false` 。
+- `boolean startsWith(String prefix)` 如果之前已经插入的字符串 `word` 的前缀之一为 `prefix` ，返回 `true` ；否则，返回 `false` 。
+
+**解法一** 字典树
+
+相当于一个26叉数，每一层代表单词中的一个字符，用isEnd表示是否到了单词的最后一个字母。
+
+<details>
+  <summary>字典树</summary>
+
+  ```java
+  class Trie {
+
+    private Trie[] children;
+    private boolean isEnd;
+
+    public Trie() {
+        children = new Trie[26];
+        isEnd = false;
+    }
+    
+    public void insert(String word) {
+        Trie node = this;
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (node.children[c - 'a'] == null) {
+                node.children[c - 'a'] = new Trie();
+            }
+            node = node.children[c - 'a'];
+        }
+        node.isEnd = true;
+    }
+    
+    public boolean search(String word) {
+        Trie node =  searchPrefix(word);
+        return node != null && node.isEnd;
+    }
+    
+    public boolean startsWith(String prefix) {
+        Trie node =  searchPrefix(prefix);
+        return node != null;
+    }
+
+    private Trie searchPrefix(String prefix) {
+        Trie node = this;
+        for (int i = 0; i < prefix.length(); i++) {
+            char c = prefix.charAt(i);
+            if (node.children[c - 'a'] == null) {
+                return null;
+            }
+            node = node.children[c - 'a'];
+        }
+        return node;
+    }
+  }
   ```
 </details>
 
