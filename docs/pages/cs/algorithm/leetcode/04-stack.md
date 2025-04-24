@@ -114,3 +114,34 @@ class MinStack {
 
 **解法二** 使用原生的集合
 
+
+## [739. 每日温度](https://leetcode.cn/problems/daily-temperatures/description)
+
+难度：⭐️⭐️⭐️
+
+给定一个整数数组 `temperatures` ，表示每天的温度，返回一个数组 `answer` ，其中 `answer[i]` 是指对于第 `i` 天，下一个更高温度出现在几天后。如果气温在这之后都不会升高，请在该位置用 `0` 来代替。
+
+**解法一** 单调栈
+
+使用栈保存温度的下标，栈中的顺序是从栈底到栈顶递增。
+
+<details>
+  <summary>单调栈</summary>
+
+  ```java
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] ans = new int[temperatures.length];
+        Deque<Integer> stack = new LinkedList<>();
+        for (int i = 0; i < temperatures.length; i++) {
+            int t = temperatures[i];
+            while (!stack.isEmpty() && t > temperatures[stack.peek()]) {
+                int top = stack.pop();
+                ans[top] = i - top;
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+  ```
+
+</details>
