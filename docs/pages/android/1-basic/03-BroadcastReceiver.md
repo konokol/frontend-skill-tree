@@ -9,6 +9,7 @@ BroadCastReceiver是Android四大组件之一，主要用于接收系统或者ap
 - **清单文件注册**    
 
 在Manifest文件中声明广播，注册intent-filter.
+
 ```xml
 <receiver android:name=".MyBroadcastReceiver" android:exported="false">
     <intent-filter>
@@ -61,14 +62,29 @@ context.sendOrderedBroadcast(Intent, String)，按顺序向接收者发送广播
 context.sendStickyBroadcast(Intent)，黏性广播是指在发送之后，即使接收器后没有注册，也能在注册之后收到广播。接受黏性关闭需要权限`android.permission.BROADCAST_STICKY`。由于存在安全问题，黏性广播已经被废弃了。
 
 - **本地广播**    
-LocalBroadcastManager.getInstance(Context).sendBroadCastReceiver(Intent)，本地广播只能在当前进程内接受，安全性更高。
+LocalBroadcastManager.getInstance(Context).sendBroadCastReceiver(Intent)，LocalBroadcastManager是support包中提供的一个工具方法，其发送的广播只能在当前进程内接受，安全性更高。底层实现是一个Handler在接受消息，并对不同类型消息进行分发。
 
 ## API行为变更
 
-- Android 14，APP处于后台时，会延迟收到一些不重要的广播，当恢复到前台时，会立刻收到这些延迟的广播。
+- Android 14，APP处于后台时，会延迟收到一些不重要的广播，当恢复到前台时，会立刻收到这些延迟的广播。动态注册的广播必须显式声明exported。
 - Android 9，NETWORK_STATE_CHANGED_ACTION 不再接收位置信息和个人身份数据相关的信息。
 - Android 8.0，对隐式注册的广播限制，通过清单文件注册的广播接收器，大部分系统广播都无法收到。通过context注册的广播不受限制。
 - Android 7，targetApi >= 24，系统不发送ACTION_NEW_PICTURE，ACTION_NEW_VIDEO广播。清单文件中注册的接收器，不能接收CONNECTIVITY_ACTION广播。
+
+## 广播的权限
+
+为了安全性，可以在发送广播时指定权限，仅拥有对应权限的组件才能接受到广播。该权限即可以是系统权限，也可以是自定义权限。
+
+## 实现原理
+
+**注册**
+
+注册广播时，通过Binder通信调用到AMS.registerReceiverWithFeature中，将调用者信息保存起来，AMS中保存这些信息是通过一个HashMap<IBinder, ReceiverList>.
+
+**发送**
+
+发送广播时通过两个队列，mParallelBroadcasts和mOrderedBroadcasts，分别分发无序广播和有序广播。
+
 
 ## 最佳实践
 
@@ -80,5 +96,6 @@ LocalBroadcastManager.getInstance(Context).sendBroadCastReceiver(Intent)，本�
 
 *参考*
 
-[Android Developer 广播概览 ](https://developer.android.com/develop/background-work/background-tasks/broadcasts?hl=zh-cn#changes-system-broadcasts)
-[理解四大组件Broadcast 发送与接收流程(基于Android10)](https://juejin.cn/post/7123570621346217992)
+1. [Android Developer 广播概览 ](https://developer.android.com/develop/background-work/background-tasks/broadcasts?hl=zh-cn#changes-system-broadcasts)  
+2. [理解四大组件Broadcast 发送与接收流程(基于Android10)](https://juejin.cn/post/7123570621346217992)  
+3. [一文彻底搞懂Android广播的所有知识--四大组件系统](https://juejin.cn/post/7456448405100478515)  
