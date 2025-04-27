@@ -2984,6 +2984,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#146lru" class="md-nav__link">
+    <span class="md-ellipsis">
+      146.LRU缓存
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3528,6 +3537,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#146lru" class="md-nav__link">
+    <span class="md-ellipsis">
+      146.LRU缓存
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3888,6 +3906,106 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 </details>
 
 <p><strong>解法二</strong> 迭代</p>
+<h2 id="146lru"><a href="https://leetcode.cn/problems/lru-cache/description">146.LRU缓存</a></h2>
+<p>难度：⭐️⭐️⭐️</p>
+<p>请你设计并实现一个满足  LRU (最近最少使用) 缓存 约束的数据结构。
+实现 <code>LRUCache</code> 类：</p>
+<ul>
+<li><code>LRUCache(int capacity)</code> 以 <strong>正整数</strong> 作为容量 <code>capacity</code> 初始化 <code>LRU</code> 缓存</li>
+<li><code>int get(int key)</code> 如果关键字 <code>key</code> 存在于缓存中，则返回关键字的值，否则返回 <code>-1</code> 。</li>
+<li><code>void put(int key, int value)</code> 如果关键字 <code>key</code> 已经存在，则变更其数据值 <code>value</code> ；如果不存在，则向缓存中插入该组 <code>key-value</code> 。如果插入操作导致关键字数量超过 <code>capacity</code> ，则应该 <strong>逐出</strong> 最久未使用的关键字。</li>
+</ul>
+<p>函数 <code>get</code> 和 <code>put</code> 必须以 <code>O(1)</code> 的平均时间复杂度运行。</p>
+<p><strong>解法一</strong> 双向链表 + 哈希表</p>
+<p>使用双向链表记录LRU中的节点的顺序，使用哈希表保持插入的值，移除节点时用双向列表可以保证时间复杂度为O(1).</p>
+<details>
+ <summary>双向链表 + 哈希表</summary>
+
+ ```java
+ class LRUCache {
+
+    class Node {
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private int capacity;
+    private int size;
+    private Map<Integer, Node> cache;
+    private Node head;
+    private Node tail;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+        this.cache = new HashMap<>(capacity);
+        this.head = new Node(-1, -1);
+        this.tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public int get(int key) {
+        Node node = cache.get(key);
+        if (node == null) {
+            return -1;
+        } else {
+            moveToHead(node);
+            return node.value;
+        }
+    }
+
+    public void put(int key, int value) {
+        Node node = cache.get(key);
+        if (node == null) {
+            node = new Node(key, value);
+            cache.put(key, node);
+            size++;
+            addToHead(node);
+            if (size > capacity) {
+                Node last = removeLast();
+                cache.remove(last.key);
+            }
+        } else {
+            node.value = value;
+            moveToHead(node);
+        }
+    }
+
+    private void removeNode(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    private void moveToHead(Node node) {
+        removeNode(node);
+        addToHead(node);
+    }
+
+    private void addToHead(Node node) {
+        Node next = head.next;
+        node.next = next;
+        next.prev = node;
+        node.prev = head;
+        head.next = node;
+    }
+
+    private Node removeLast() {
+        Node node = tail.prev;
+        removeNode(node);
+        return node;
+    }
+
+}
+ ```
+</details>
 
 
 

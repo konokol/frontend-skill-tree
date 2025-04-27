@@ -1665,6 +1665,24 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
+      广播的权限
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
       最佳实践
     </span>
   </a>
@@ -3480,6 +3498,24 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
+      广播的权限
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
       最佳实践
     </span>
   </a>
@@ -3508,13 +3544,13 @@
 <ul>
 <li><strong>清单文件注册</strong>    </li>
 </ul>
-<p>在Manifest文件中声明广播，注册intent-filter.
+<p>在Manifest文件中声明广播，注册intent-filter.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&lt;receiver</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;.MyBroadcastReceiver&quot;</span><span class="w"> </span><span class="na">android:exported=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">&lt;intent-filter&gt;</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="nt">&lt;action</span><span class="w"> </span><span class="na">android:name=</span><span class="s">&quot;APP_SPECIFIC_BROADCAST&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&lt;/intent-filter&gt;</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">&lt;/receiver&gt;</span>
-</code></pre></div></p>
+</code></pre></div>
 <p>实现BroadcastReceiver，在onReceive中处理收到的广播。
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyBroadcastReceiver</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">BroadcastReceiver</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nd">@Override</span>
@@ -3560,17 +3596,24 @@ context.sendStickyBroadcast(Intent)，黏性广播是指在发送之后，即使
 </li>
 <li>
 <p><strong>本地广播</strong>  <br />
-LocalBroadcastManager.getInstance(Context).sendBroadCastReceiver(Intent)，本地广播只能在当前进程内接受，安全性更高。</p>
+LocalBroadcastManager.getInstance(Context).sendBroadCastReceiver(Intent)，LocalBroadcastManager是support包中提供的一个工具方法，其发送的广播只能在当前进程内接受，安全性更高。底层实现是一个Handler在接受消息，并对不同类型消息进行分发。</p>
 </li>
 </ul>
 <h2 id="api">API行为变更</h2>
 <ul>
-<li>Android 14，APP处于后台时，会延迟收到一些不重要的广播，当恢复到前台时，会立刻收到这些延迟的广播。</li>
+<li>Android 14，APP处于后台时，会延迟收到一些不重要的广播，当恢复到前台时，会立刻收到这些延迟的广播。动态注册的广播必须显式声明exported。</li>
 <li>Android 9，NETWORK_STATE_CHANGED_ACTION 不再接收位置信息和个人身份数据相关的信息。</li>
 <li>Android 8.0，对隐式注册的广播限制，通过清单文件注册的广播接收器，大部分系统广播都无法收到。通过context注册的广播不受限制。</li>
 <li>Android 7，targetApi &gt;= 24，系统不发送ACTION_NEW_PICTURE，ACTION_NEW_VIDEO广播。清单文件中注册的接收器，不能接收CONNECTIVITY_ACTION广播。</li>
 </ul>
-<h2 id="_3">最佳实践</h2>
+<h2 id="_3">广播的权限</h2>
+<p>为了安全性，可以在发送广播时指定权限，仅拥有对应权限的组件才能接受到广播。该权限即可以是系统权限，也可以是自定义权限。</p>
+<h2 id="_4">实现原理</h2>
+<p><strong>注册</strong></p>
+<p>注册广播时，通过Binder通信调用到AMS.registerReceiverWithFeature中，将调用者信息保存起来，AMS中保存这些信息是通过一个HashMap<IBinder, ReceiverList>.</p>
+<p><strong>发送</strong></p>
+<p>发送广播时通过两个队列，mParallelBroadcasts和mOrderedBroadcasts，分别分发无序广播和有序广播。</p>
+<h2 id="_5">最佳实践</h2>
 <ul>
 <li>广播接收器的onReiceive运行在主线程上，不可以做耗时的操作，运行时间超过15s，会产生ANR。</li>
 <li>广播接收器的生命周期在onReceive执行结束之后就结束了，因此不要在onReceive中执行长期存在的任务，比如开一个耗时的线程，类似的做法建议用Service。</li>
@@ -3579,8 +3622,11 @@ LocalBroadcastManager.getInstance(Context).sendBroadCastReceiver(Intent)，本�
 <li>广播中不要发送隐私信息，容易被其他应用接受到，可以在发送广播时指定权限。</li>
 </ul>
 <p><em>参考</em></p>
-<p><a href="https://developer.android.com/develop/background-work/background-tasks/broadcasts?hl=zh-cn#changes-system-broadcasts">Android Developer 广播概览 </a>
-<a href="https://juejin.cn/post/7123570621346217992">理解四大组件Broadcast 发送与接收流程(基于Android10)</a></p>
+<ol>
+<li><a href="https://developer.android.com/develop/background-work/background-tasks/broadcasts?hl=zh-cn#changes-system-broadcasts">Android Developer 广播概览 </a>  </li>
+<li><a href="https://juejin.cn/post/7123570621346217992">理解四大组件Broadcast 发送与接收流程(基于Android10)</a>  </li>
+<li><a href="https://juejin.cn/post/7456448405100478515">一文彻底搞懂Android广播的所有知识--四大组件系统</a>  </li>
+</ol>
 
 
 
