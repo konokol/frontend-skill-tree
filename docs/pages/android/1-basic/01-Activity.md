@@ -127,6 +127,8 @@ onSaveInstanceState方法在onCreate方法之后调用，参数也是一个Bundl
 
 - **singleInstance** 单例模式，独享一个任务栈
 
+- **singleInstancePerTask** Android 12 新增的模式，只能作为任务栈中的第一个Activity。启动时，如果栈内不存在当前Activity，新建一个任务栈，后续启动其他的Activity，会在新开的栈中。
+
 **使用Intent标记**
 
 - FLAG_ACTIVITY_NEW_TASK
