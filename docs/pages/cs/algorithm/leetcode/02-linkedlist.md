@@ -12,7 +12,7 @@
 
 示例：
 
-![两数相加](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/01/02/addtwonumber1.jpg)
+![两数相加](../../../../img/addtwonumber.jpg)
 
 **解法一** 直接相加
 

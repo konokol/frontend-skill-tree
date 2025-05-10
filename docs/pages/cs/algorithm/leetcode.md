@@ -2,18 +2,6 @@
 
 ## 哈希表
 
-### [49. 字母异位词分组](https://leetcode.cn/problems/group-anagrams)
-
-给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。字母异位词 是由重新排列源单词的所有字母得到的一个新单词。 
-
-示例 1: 
-
-输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"] 
-输出: [["bat"],["nat","tan"],["ate","eat","tea"]] 
-
-**解法** 哈希表  
-使用哈希表，key是重排序的后的单词，值是字母异位词分组的List。
-
 ### [128. 最长连续序列](https://leetcode.cn/problems/longest-consecutive-sequence)
 
 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
