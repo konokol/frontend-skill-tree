@@ -83,6 +83,7 @@ nav:
     - LeakCanary: pages/android/4-thirdpart/05-leakcanary.md
     - OkHttp: pages/android/4-thirdpart/06-okhttp.md
     - Retrofit: pages/android/4-thirdpart/07-retrofit.md
+    - RxJava: pages/android/4-thirdpart/08-rxjava.md
   - Framework:
     - 源码阅读计划: pages/android/5-framework/00-android-source-code.md
     - 系统启动流程: pages/android/5-framework/01-system-boot.md
