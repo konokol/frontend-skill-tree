@@ -1546,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1-basic/01-activity/" class="md-nav__link">
+      <a href="../../1-basic/01-activity.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2082,17 +2082,17 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#youhua" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      单张图youhua
+      单张图优化
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="单张图youhua">
+    <nav class="md-nav" aria-label="单张图优化">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       指标监控
     </span>
@@ -2111,7 +2111,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       高效加载图片
     </span>
@@ -2526,6 +2526,27 @@
   
   <span class="md-ellipsis">
     Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-thirdpart/08-rxjava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava
   </span>
   
 
@@ -3047,6 +3068,27 @@
   
   <span class="md-ellipsis">
     链表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cs/algorithm/leetcode/03-hash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    哈希表
   </span>
   
 
@@ -3623,17 +3665,17 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#youhua" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      单张图youhua
+      单张图优化
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="单张图youhua">
+    <nav class="md-nav" aria-label="单张图优化">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
       指标监控
     </span>
@@ -3652,7 +3694,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       高效加载图片
     </span>
@@ -3689,14 +3731,14 @@
 <h2 id="_6">图片加载优化</h2>
 <h3 id="_7">图片占用的大小</h3>
 <p>size = 原图高度 * (设备的 dpi / 目录对应的 dpi ) 新图的宽度 = 原图宽度 * (设备的 dpi / 目录对应的 dpi ) * 4</p>
-<h3 id="youhua">单张图youhua</h3>
+<h3 id="_8">单张图优化</h3>
 <ul>
 <li>放在合适drawable目录下</li>
 <li>图片加载框架加载</li>
 <li>减少图片格式，RGB565比RGB8888占用内存更少</li>
 <li>降低图片分辨率，BitmapFactory.Options.inSampleSize</li>
 </ul>
-<h4 id="_8">指标监控</h4>
+<h4 id="_9">指标监控</h4>
 <ul>
 <li>大图监控</li>
 <li>缓存命中率</li>
@@ -3704,15 +3746,15 @@
 <li>图片加载成功率</li>
 <li>图片加载速度</li>
 </ul>
-<h2 id="_9">高效加载图片</h2>
+<h2 id="_10">高效加载图片</h2>
 <p><strong>加载缩略图</strong></p>
 <p>BitmapFactory.Options解码图片，inJustDecodeBound选项，置为true的时候，解码出来的图片，只返回图片的宽高，并不把图片加载到内存中，然后调整合适的inSampleSize，缩放图片；</p>
 <p><strong>缓存</strong></p>
 <p>使用LruCache，根据设备可用内存，缩放后图片的大小，图片使用频率等情况设计缓存。还可以实现大图后台线程加载。</p>
 <p><em>参考</em>
-<a href="http://blog.csdn.net/guolin_blog/article/details/9316683">Android高效加载大图、多图解决方案，有效避免程序OOM</a>
-https://juejin.cn/post/6987360280686624804
-https://juejin.cn/post/7095565564029960206/#heading-3</p>
+<a href="http://blog.csdn.net/guolin_blog/article/details/9316683">Android高效加载大图、多图解决方案，有效避免程序OOM</a><br />
+https://juejin.cn/post/6987360280686624804<br />
+https://juejin.cn/post/7095565564029960206  </p>
 
 
 
