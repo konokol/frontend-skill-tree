@@ -55,4 +55,5 @@
   *参考:*
 
   [Android性能优化-内存泄露的检查与处理](https://mp.weixin.qq.com/s?__biz=MzI0MjE3OTYwMg==&mid=2649547284&idx=1&sn=78b6b1e07680ae9898ff65c5ca24f8db&scene=21#wechat_redirect)</br>
-  [LeakCanary 内存泄露监测原理研究](http://www.jianshu.com/p/5ee6b471970e)
+  [LeakCanary 内存泄露监测原理研究](http://www.jianshu.com/p/5ee6b471970e)  
+  https://juejin.cn/post/7123452813656457253
