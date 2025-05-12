@@ -55,14 +55,17 @@ post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，
 
 ## 同步消息与异步消息
 
-## 内存屏障
+## 同步屏障
+
+消息处理时先判断此消息是否为屏障消息，如果是屏障消息，则去循环遍历，直到寻找到异步消息为止。通过这种方式跳过了普通消息，直接执行异步消息。也就是说同步屏障为handler消息机制提供了一种优先级策略，异步消息的优先级要高于同步消息。
+
+## IdelHandler
 
 ## native方法
 
 Message的构造方法，。
 
 Looper的loop方法中调用MessageQueue.next取下一条消息，调用nativePollOnce
-
 
 ## epoll机制
 
@@ -74,6 +77,9 @@ epoll是Linux内核提供的一种I/O多路复用机制，用于监听文件描�
 - epoll_ctl 向epoll实例注册、修改、删除需要监控的fd
 - epoll_wait 阻塞等待注册注册的fd发生事件
 
+## (黑科技)保证APP永远不会Crash
+
+MainHandler.post一个死循环的Runnable，主动调用Lopper.loop()，并把它的异常捕获了。
 
 *参考*  
 
