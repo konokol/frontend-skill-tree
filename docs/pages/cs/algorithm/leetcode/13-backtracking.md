@@ -77,3 +77,90 @@
 **解法二** 位运算
 
 长度为n的数组，一共可以组成2^n个子数组，对于每一位数字，比特位是1认为使用该元素，0认为不使用。
+
+## [79.单词搜索](https://leetcode.cn/problems/word-search/description)
+
+难度：⭐️⭐️⭐️
+
+给定一个 `m x n` 二维字符网格 `board` 和一个字符串单词 `word` 。如果 `word` 存在于网格中，返回 `true` ；否则，返回 `false` 。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+
+示例 1：
+
+![word](../../../../img/word2.jpg)
+
+输入：board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+输出：true
+
+**解法一** 回溯
+
+类似图的遍历，找到匹配的首字母后，向上下左右4个方向搜索，用额外的数组记录当前位置是否被搜索过，然后递归调用。
+
+<details>
+  <summary>回溯</summary>
+
+  ```java
+    private boolean[][] visited;
+
+    public boolean exist(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+        visited = new boolean[m][n];
+        char c = word.charAt(0);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == c) {
+                    boolean found = find(board, i, j, word, 0);
+                    if (found) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean find(char[][] board, int x, int y, String word, int index) {
+        char c = word.charAt(index);
+        if (board[x][y] != c) {
+            return false;
+        }
+        if (index == word.length() - 1) {
+            return true;
+        } else {
+            visited[x][y] = true;
+            // left
+            if (0 < y && !visited[x][y - 1]) {
+                boolean found = find(board, x, y - 1, word, index + 1);
+                if (found) {
+                    return true;
+                }
+            }
+            // top
+            if (0 < x && !visited[x - 1][y]) {
+                boolean found = find(board, x - 1, y, word, index + 1);
+                if (found) {
+                    return true;
+                }
+            }
+            // right
+            if (y + 1 < board[0].length && !visited[x][y + 1]) {
+                boolean found = find(board, x, y + 1, word, index + 1);
+                if (found) {
+                    return true;
+                }
+            }
+            // bottom
+            if (x + 1 < board.length && !visited[x + 1][y]) {
+                boolean found = find(board, x + 1, y, word, index + 1);
+                if (found) {
+                    return true;
+                }
+            }
+            visited[x][y] = false;
+            return false;
+        }
+    }
+  ```
+</details>

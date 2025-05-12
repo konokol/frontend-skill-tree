@@ -15,8 +15,6 @@
   
   ```java
     public int[][] merge(int[][] intervals) {
-        int start = 0;
-        int end = 0;
         Arrays.sort(intervals, (int[] a, int[] b) -> {
             return a[0] - b[0];
         });
