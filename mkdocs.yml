@@ -30,13 +30,17 @@ nav:
   - 集合:  
     - Java的集合框架: pages/java/3-collections/01-collections.md
     - Android特有的集合: pages/java/3-collections/10-android-collections.md
+  - I&O:
+    - 序列化: pages/java/4-io/01-serilization.md
   - 设计模式: 
     - 设计模式: pages/java/6-design-pattern/00-design-pattern.md
     - 构建型模式: pages/java/6-design-pattern/01-creational-pattern.md
     - 结构型模式: pages/java/6-design-pattern/02-structural-pattern.md
     - 行为型模式: pages/java/6-design-pattern/03-behavioral-pattern.md
   - JVM:
-    - JVM运行时数据区和Java内存模型: pages/java/2-concurrent/07-java-memory-model.md
+    - 内存模型: pages/java/2-concurrent/07-java-memory-model.md
+    - GC: pages/java/5-jvm/01-classload.md
+    - GC: pages/java/5-jvm/02-gc.md
   - Java各版本新特性:
     - Java 8 流: pages/java/99-new-features/stream.md
     - Java 8 Lambda表达式: pages/java/99-new-features/lambda.md
@@ -46,6 +50,8 @@ nav:
 
 - Android:
   - Android知识树: pages/android/index.md
+  - 新特性: 
+    - Android L~O: pages/android/0-new-feature/l~o.md
   - 基础:
     - Activity: pages/android/1-basic/01-activity.md
     - Service: pages/android/1-basic/02-service.md
@@ -73,7 +79,8 @@ nav:
     - 插件化: pages/android/2-performance/11-plugins.md
     - 进程保活: pages/android/2-performance/21-keep-alive.md
   - 架构:
-    - 敬请期待: pages/android/3-arch/none.md
+    - Jetpack: pages/android/3-arch/0-jetpack.md
+    - 组件化: pages/android/3-arch/10-componentization.md
   - 三方框架:
     - EventBus: pages/android/4-thirdpart/01-eventbus.md
     - ButterKnife: pages/android/4-thirdpart/02-butterknife.md
@@ -88,6 +95,7 @@ nav:
     - 源码阅读计划: pages/android/5-framework/00-android-source-code.md
     - 系统启动流程: pages/android/5-framework/01-system-boot.md
     - Activity的启动流程: pages/android/5-framework/02-activity-source-code.md
+    - Activity的启动流程: pages/android/5-framework/09-binder.md
   - 工具与工程:
     - Android打包: pages/android/6-tools/00-tools.md
     - 打包流程: pages/android/6-tools/01-apk-build.md
@@ -95,32 +103,39 @@ nav:
     
 - 跨平台技术:
   - 敬请期待: pages/cross-platform/none.md
+
 - 大前端:
-   - 敬请期待: none.md
+   - 前端常见知识点: pages/frontend/basic/index.md
+
 - CS理论基础:
-  - 算法:
-    - Leetcode常见题: 
-      - 数组/字符串: pages/cs/algorithm/leetcode/01-arrays.md
-      - 链表: pages/cs/algorithm/leetcode/02-linkedlist.md
-      - 哈希表: pages/cs/algorithm/leetcode/03-hash.md
-      - 栈: pages/cs/algorithm/leetcode/04-stack.md
-      - 二叉树: pages/cs/algorithm/leetcode/06-tree.md
-      - 图论: pages/cs/algorithm/leetcode/07-graph.md
-      - 区间: pages/cs/algorithm/leetcode/08-intervals.md
-      - 矩阵: pages/cs/algorithm/leetcode/09-matrix.md
-      - 滑动窗口: pages/cs/algorithm/leetcode/12-sliding-window.md
-      - 回溯: pages/cs/algorithm/leetcode/13-backtracking.md
-      - 动态规划: pages/cs/algorithm/leetcode/16-dynamic-programmings.md
-      - 排序: pages/cs/algorithm/leetcode/19-sort.md
-      - 技巧题: pages/cs/algorithm/leetcode/20-others.md
-      - leetcode热题100: pages/cs/algorithm/leetcode.md
-    - 敬请期待: pages/cs/algorithm/none.md
   - 计算机基础:
     - 敬请期待: pages/cs/cs-basic/none.md
   - 网络:
     - HTTP协议详解: pages/cs/internet/HTTP.md
   - 操作系统:
     - 敬请期待: pages/cs/os/none.md
+  - 算法:
+    - Leetcode常见题: 
+      - 数组/字符串: pages/cs/algorithm/leetcode/01-arrays.md
+      - 链表: pages/cs/algorithm/leetcode/02-linkedlist.md
+      - 哈希表: pages/cs/algorithm/leetcode/03-hash.md
+      - 栈: pages/cs/algorithm/leetcode/04-stack.md
+      - 堆: pages/cs/algorithm/leetcode/05-heap.md
+      - 二叉树: pages/cs/algorithm/leetcode/06-tree.md
+      - 图论: pages/cs/algorithm/leetcode/07-graph.md
+      - 区间: pages/cs/algorithm/leetcode/08-intervals.md
+      - 矩阵: pages/cs/algorithm/leetcode/09-matrix.md
+      - 数学: pages/cs/algorithm/leetcode/10-mathematical.md
+      - 双指针: pages/cs/algorithm/leetcode/11-double-pointer.md
+      - 滑动窗口: pages/cs/algorithm/leetcode/12-sliding-window.md
+      - 回溯: pages/cs/algorithm/leetcode/13-backtracking.md
+      - 分治: pages/cs/algorithm/leetcode/14-division.md
+      - 贪心: pages/cs/algorithm/leetcode/15-greedy.md
+      - 动态规划: pages/cs/algorithm/leetcode/16-dynamic-programmings.md
+      - 排序: pages/cs/algorithm/leetcode/19-sort.md
+      - 技巧题: pages/cs/algorithm/leetcode/20-others.md
+      - leetcode热题100: pages/cs/algorithm/leetcode.md
+
 theme:
   language: zh
   name: material
