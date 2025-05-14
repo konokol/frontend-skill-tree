@@ -1800,7 +1800,16 @@
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      内存屏障
+      同步屏障
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idelhandler" class="md-nav__link">
+    <span class="md-ellipsis">
+      IdelHandler
     </span>
   </a>
   
@@ -1819,6 +1828,15 @@
   <a href="#epoll" class="md-nav__link">
     <span class="md-ellipsis">
       epoll机制
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appcrash" class="md-nav__link">
+    <span class="md-ellipsis">
+      (黑科技)保证APP永远不会Crash
     </span>
   </a>
   
@@ -3171,6 +3189,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../cs/algorithm/leetcode/13-backtracking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    回溯
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../cs/algorithm/leetcode/16-dynamic-programmings/" class="md-nav__link">
         
   
@@ -3558,7 +3597,16 @@
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      内存屏障
+      同步屏障
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idelhandler" class="md-nav__link">
+    <span class="md-ellipsis">
+      IdelHandler
     </span>
   </a>
   
@@ -3577,6 +3625,15 @@
   <a href="#epoll" class="md-nav__link">
     <span class="md-ellipsis">
       epoll机制
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appcrash" class="md-nav__link">
+    <span class="md-ellipsis">
+      (黑科技)保证APP永远不会Crash
     </span>
   </a>
   
@@ -3647,7 +3704,9 @@ post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，
 <h2 id="_4">线程间通信原理</h2>
 <p>综上，每一个线程都是形成Handler-Looper-Message-MessageQueue的形式，可以说是Handler是和某个线程对应的，通过哪个线程的Handler发送消息，最终消息处理也就在哪一个线程中。</p>
 <h2 id="_5">同步消息与异步消息</h2>
-<h2 id="_6">内存屏障</h2>
+<h2 id="_6">同步屏障</h2>
+<p>消息处理时先判断此消息是否为屏障消息，如果是屏障消息，则去循环遍历，直到寻找到异步消息为止。通过这种方式跳过了普通消息，直接执行异步消息。也就是说同步屏障为handler消息机制提供了一种优先级策略，异步消息的优先级要高于同步消息。</p>
+<h2 id="idelhandler">IdelHandler</h2>
 <h2 id="native">native方法</h2>
 <p>Message的构造方法，。</p>
 <p>Looper的loop方法中调用MessageQueue.next取下一条消息，调用nativePollOnce</p>
@@ -3659,6 +3718,8 @@ post(Runnable)方法会先执行，因为handleMessage时会先判断Callback，
 <li>epoll_ctl 向epoll实例注册、修改、删除需要监控的fd</li>
 <li>epoll_wait 阻塞等待注册注册的fd发生事件</li>
 </ul>
+<h2 id="appcrash">(黑科技)保证APP永远不会Crash</h2>
+<p>MainHandler.post一个死循环的Runnable，主动调用Lopper.loop()，并把它的异常捕获了。</p>
 <p><em>参考</em>  </p>
 <p><a href="http://blog.csdn.net/lmj623565791/article/details/38377229">Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系</a>
 <a href="https://juejin.cn/post/7342420969879175219?searchId=20240530235309A0B8DB497A314390ADB0">Handler原理解析，玩转同步屏障</a></p>
