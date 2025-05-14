@@ -46,7 +46,14 @@ nav:
     - Java 8 Lambda表达式: pages/java/99-new-features/lambda.md
 
 - Kotlin基础:
-  - 敬请期待: pages/kotlin/none.md
+  - 基础: 
+    - Kotlin入门: pages/kotlin/1-basic/00-basic.md
+    - 常见的Kotlin模式: pages/kotlin/1-basic/01-common-patterns.md
+    - 编码风格: pages/kotlin/1-basic/02-style-guide.md
+  - 进阶:
+    - 协程: pages/kotlin/2-coroutines/0-coroutines.md
+    - Flow: pages/kotlin/3-flow/0-flow.md
+    - 序列化: pages/kotlin/4-parcelize/0-parcelize.md
 
 - Android:
   - Android知识树: pages/android/index.md
