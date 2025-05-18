@@ -164,3 +164,17 @@
     }
   ```
 </details>
+
+## [131. 分割回文串](https://leetcode.cn/problems/palindrome-partitioning/description)
+
+难度：⭐️⭐️⭐️
+
+给你一个字符串 s，请你将 s 分割成一些 子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。
+
+**解法一** 回溯 + 动态规划
+
+当搜索到第i位置时，s[0, i-1]位置的字符串已经被分成了回文串了，只需要找到下一个位置j，使得s[i, j]也是回文串。回文串用双指针时会有重复计算，使用动态规划，状态转移方程 fn(i, j) = fn(i + 1, j - 1) && s[i] == s[j]。i >= j时，子串长度 <= 1，固定位true。
+
+<details>
+  <summary>回溯 + 动态规划</summary>
+</details>
