@@ -56,7 +56,9 @@
 
 **解法一** 哈希表 + 优先级队列
 
-使用哈希表保存每个元素出现的次数，遍历加入到优先级队列中，取优先级队列中前K个元素。
+第一步：使用哈希表保存每个元素出现的次数  
+第二步：遍历加入到优先级队列中，当前队列容量小于k，直接入队，否则看队列最小值，若比当前值大，用当前值替换队列最小值(节省空间)  
+第三步：取优先级队列中前K个元素。  
 
 <details>
   <summary>哈希表+优先级队列</summary>
@@ -83,6 +85,51 @@
         int[] ans = new int[k];
         for (int i = k; i > 0; i--) {
             ans[i - 1] = queue.poll()[0];
+        }
+        return ans;
+    }
+  ```
+</details>
+
+**解法二** 桶排序
+
+思路同解法一，只是第二步将优先级队列换成数组，用数组的下标作为数字出现的次数，保存成类似于哈希表的结构。
+
+<details>
+  <summary>桶排序</summary>
+
+  ```java
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int max = 0;
+        for (int n : nums) {
+            int count = map.getOrDefault(n, 0) + 1;
+            map.put(n, count);
+            max = Math.max(count, max);
+        }
+        List<Integer>[] buckets = new List[max];
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int index = entry.getValue() - 1;
+            List<Integer> valueList = buckets[index];
+            if (valueList == null) {
+                valueList = new ArrayList<>();
+            }
+            valueList.add(entry.getKey());
+            buckets[index] = valueList;
+        }
+        int[] ans = new int[k];
+        int index = 0;
+        for (int i = buckets.length - 1; index < k && i >= 0; i--) {
+            List<Integer> valueList = buckets[i];
+            if (valueList == null) {
+                continue;
+            }
+            for (Integer num : valueList) {
+                ans[index++] = num;
+                if (index >= k) {
+                    return ans;
+                }
+            }
         }
         return ans;
     }
