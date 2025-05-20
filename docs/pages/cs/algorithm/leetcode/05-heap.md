@@ -47,3 +47,44 @@
   ```
 
 </details>
+
+## [347.前K个高频元素](https://leetcode.cn/problems/top-k-frequent-elements/description)
+
+难度：⭐️⭐️
+
+给你一个整数数组 `nums` 和一个整数 `k` ，请你返回其中出现频率前 `k` 高的元素。你可以按 **任意顺序** 返回答案。
+
+**解法一** 哈希表 + 优先级队列
+
+使用哈希表保存每个元素出现的次数，遍历加入到优先级队列中，取优先级队列中前K个元素。
+
+<details>
+  <summary>哈希表+优先级队列</summary>
+
+  ```java
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        Queue<int[]> queue = new PriorityQueue<>((int[] a, int[] b) -> {
+            return a[1] - b[1];
+        });
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int num = entry.getKey();
+            int count = entry.getValue();
+            if (queue.size() < k) {
+                queue.offer(new int[] {num, count});
+            } else if (count > queue.peek()[1]) {
+                queue.poll();
+                queue.offer(new int[] {num, count});
+            }
+        }
+        int[] ans = new int[k];
+        for (int i = k; i > 0; i--) {
+            ans[i - 1] = queue.poll()[0];
+        }
+        return ans;
+    }
+  ```
+</details>
