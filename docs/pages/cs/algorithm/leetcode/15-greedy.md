@@ -101,3 +101,46 @@
   ```
 
 </details>
+
+## [763.划分字母区间](https://leetcode.cn/problems/partition-labels/description)
+
+难度：⭐️⭐️⭐️
+
+给你一个字符串 `s` 。我们要把这个字符串划分为尽可能多的片段，同一字母最多出现在一个片段中。例如，字符串 `"ababcc"` 能够被分为 `["abab", "cc"]`，但类似 `["aba", "bcc"]` 或 `["ab", "ab", "cc"]` 的划分是非法的。
+
+注意，划分结果需要满足：将所有划分结果按顺序连接，得到的字符串仍然是 `s` 。
+
+返回一个表示每个字符串片段的长度的列表。
+
+**解法一** 贪心算法
+
+第一步，记录每个字符出现的最后的下标
+第二步，划分的区间的起始和终止位置，初始start和end都为0，遍历字符找到当前字符的最后位置(当前位置的最右值和end取最大值)
+第三步，当end和当前位置的最大值相等时，[start, end]区间内的字符是合法的最大区间，添加到答案中，从end+1的位置继续开始此过程。
+
+<details>
+  <summary>贪心</summary>
+
+  ```java
+    public List<Integer> partitionLabels(String s) {
+        char[] arr = s.toCharArray();
+        int[] last = new int[26];
+        for (int i = 0; i < arr.length; i++) {
+            last[arr[i] - 'a'] = i;
+        }
+
+        List<Integer> ans = new LinkedList<>();
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < arr.length; i++) {
+            end = Math.max(end, last[arr[i] - 'a']);
+            if (end == i) {
+                ans.add(end - start + 1);
+                start = end + 1;
+            }
+        }
+        return ans;
+    }
+  ```
+</details>
+
