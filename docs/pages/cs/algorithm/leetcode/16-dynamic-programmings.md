@@ -29,3 +29,41 @@
     }
   ```
 </details>
+
+## [118.杨辉三角](https://leetcode.cn/problems/pascals-triangle/description)
+
+难度：⭐️
+
+给定一个非负整数 numRows，生成「杨辉三角」的前 numRows 行。
+
+在「杨辉三角」中，每个数是它左上方和右上方的数的和。
+
+![杨辉三角](../../../../img/pascal-triangle-animated2.gif)
+
+**解法一** 动态规划
+
+杨辉三角的每一列的元素满足条件`f(n)[i] = f(n - 1)[i] + f(n-1)[i-1]`，根据条件直接循环。
+
+<details>
+  <summary>动态规划</summary>
+
+  ```java
+    public List<List<Integer>> generate(int numRows) {
+         List<List<Integer>> ans = new ArrayList<>(numRows);
+         // f(n)[i] = f(n - 1)[i] + f(n-1)[i-1]
+         List<Integer> first = Collections.singletonList(1);
+         ans.add(first);
+         for (int i = 1; i < numRows; i++) {
+            List<Integer> last = ans.get(i - 1);
+            List<Integer> row = new LinkedList<>();
+            row.add(1);
+            for (int j = 1; j < last.size(); j++) {
+                row.add(last.get(j) + last.get(j - 1));
+            }
+            row.add(1);
+            ans.add(row);
+         }
+         return ans;
+    }
+  ```
+</details>
