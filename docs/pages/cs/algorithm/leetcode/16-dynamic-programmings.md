@@ -51,16 +51,16 @@
     public List<List<Integer>> generate(int numRows) {
          List<List<Integer>> ans = new ArrayList<>(numRows);
          // f(n)[i] = f(n - 1)[i] + f(n-1)[i-1]
-         List<Integer> first = Collections.singletonList(1);
-         ans.add(first);
-         for (int i = 1; i < numRows; i++) {
-            List<Integer> last = ans.get(i - 1);
-            List<Integer> row = new LinkedList<>();
-            row.add(1);
-            for (int j = 1; j < last.size(); j++) {
-                row.add(last.get(j) + last.get(j - 1));
+         for (int i = 0; i < numRows; i++) {
+            List<Integer> row = new ArrayList<>(i + 1);
+            for (int j = 0; j < i + 1; j++) {
+                if (j == 0 || j == i) {
+                    row.add(1);
+                } else {
+                    List<Integer> last = ans.get(i - 1);
+                    row.add(last.get(j) + last.get(j - 1));
+                }
             }
-            row.add(1);
             ans.add(row);
          }
          return ans;
