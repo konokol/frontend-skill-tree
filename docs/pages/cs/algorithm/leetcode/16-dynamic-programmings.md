@@ -221,3 +221,37 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
 
 **解法二** 回溯
 
+## [139.单词拆分](https://leetcode.cn/problems/word-break)
+
+难度：⭐️⭐️⭐️
+
+给你一个字符串 `s` 和一个字符串列表 `wordDict` 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 `s` 则返回 `true`。
+
+注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+
+**解法一** 动态规划
+
+dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`dp[i] = dp[j] + dict.contains(s[j, i])`
+
+<details>
+  <summary>动态规划</summary>
+
+  ```java
+    public boolean wordBreak(String s, List<String> wordDict) {
+        // dp[i] = dp[j] && wordDict.contains(s[j, i])
+        Set<String> dict = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && dict.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+  ```
+</details>
+
