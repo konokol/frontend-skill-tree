@@ -68,6 +68,40 @@
   ```
 </details>
 
+## [139.单词拆分](https://leetcode.cn/problems/word-break/description)
+
+难度：⭐️⭐️⭐️
+
+给你一个字符串 `s` 和一个字符串列表 `wordDict` 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 `s` 则返回 `true`。
+
+注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+
+**解法一** 动态规划
+
+dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`dp[i] = dp[j] + dict.contains(s[j, i])`
+
+<details>
+  <summary>动态规划</summary>
+
+  ```java
+    public boolean wordBreak(String s, List<String> wordDict) {
+        // dp[i] = dp[j] && wordDict.contains(s[j, i])
+        Set<String> dict = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && dict.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+  ```
+</details>
+
 ## [198.打家劫舍](https://leetcode.cn/problems/house-robber/description)
 
 难度：⭐️
@@ -178,7 +212,44 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
   ```
 </details>
 
-## [322. 零钱兑换](https://leetcode.cn/problems/coin-change/description)
+## [*300.最长增长子序列](https://leetcode.cn/problems/longest-increasing-subsequence/description)
+
+难度：⭐️⭐️⭐️
+
+给你一个整数数组 `nums` ，找到其中最长严格递增子序列的长度。
+
+子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，`[3,6,2,7] `是数组 `[0,3,1,6,2,2,7]` 的子序列。
+
+**解法一** 动态规划
+
+用dp[i]表示子数组nums[0,i]的答案，状态转移方程为`dp[i] = max(..., dp[j])`，其中需要满足`num[i] > nums[j]`。
+
+<details>
+  <summary>动态规划</summary>
+
+  ```java
+    public int lengthOfLIS(int[] nums) {
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int ans = 1;
+        for (int i = 1; i < nums.length; i++) {
+            int max = 1;
+            for(int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    max = Math.max(max, dp[j] + 1);
+                }
+            }
+            dp[i] = max;
+            ans = Math.max(ans, max);
+        }
+        return ans;
+    }
+  ```
+</details>
+
+**解法二** 贪心 + 二分查找
+
+## [322.零钱兑换](https://leetcode.cn/problems/coin-change/description)
 
 难度：⭐️⭐️⭐️
 
@@ -221,37 +292,5 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
 
 **解法二** 回溯
 
-## [139.单词拆分](https://leetcode.cn/problems/word-break)
 
-难度：⭐️⭐️⭐️
-
-给你一个字符串 `s` 和一个字符串列表 `wordDict` 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 `s` 则返回 `true`。
-
-注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
-
-**解法一** 动态规划
-
-dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`dp[i] = dp[j] + dict.contains(s[j, i])`
-
-<details>
-  <summary>动态规划</summary>
-
-  ```java
-    public boolean wordBreak(String s, List<String> wordDict) {
-        // dp[i] = dp[j] && wordDict.contains(s[j, i])
-        Set<String> dict = new HashSet<>(wordDict);
-        boolean[] dp = new boolean[s.length() + 1];
-        dp[0] = true;
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (dp[j] && dict.contains(s.substring(j, i))) {
-                    dp[i] = true;
-                    break;
-                }
-            }
-        }
-        return dp[s.length()];
-    }
-  ```
-</details>
 
