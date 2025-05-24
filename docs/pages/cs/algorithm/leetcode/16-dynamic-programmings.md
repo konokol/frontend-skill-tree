@@ -147,3 +147,33 @@
     }
   ```
 </details>
+
+## [*279.完全平方数](https://leetcode.cn/problems/perfect-squares/description)
+
+难度：⭐️⭐️⭐️
+
+给你一个整数 `n` ，返回 **和** 为 `n` 的完全平方数的最少数量 。
+
+完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，`1`、`4`、`9` 和 `16` 都是完全平方数，而 `3` 和 `11` 不是。
+
+**解法一**：动态规划
+
+f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历到√i，f[i]的最大值为i（1+1+...+1），遍历到位置j时，一定可以组成i的组合为 j * j + 1+1+...+1，因此状态转移方程为f[i] = min(j, f[i - j*j])
+
+<details>
+  <summary>动态规划</summary>
+
+  ```java
+    public int numSquares(int n) {
+        int[] f = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int j = 1; j * j <= i; j++) {
+                min = Math.min(min, f[i - j * j] + 1);
+            }
+            f[i] = min;
+        }
+        return f[n];
+    }
+  ```
+</details>
