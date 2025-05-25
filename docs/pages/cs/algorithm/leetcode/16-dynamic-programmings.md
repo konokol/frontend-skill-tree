@@ -102,6 +102,53 @@ dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`d
   ```
 </details>
 
+## [152.乘积最大的子数组](https://leetcode.cn/problems/maximum-product-subarray/description)
+
+难度：⭐️⭐️⭐️
+
+给你一个整数数组 `nums` ，请你找出数组中乘积最大的非空连续 **子数组**（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+
+测试用例的答案是一个 **32-位** 整数。
+
+示例 1:
+
+输入: `nums = [2,3,-2,4]`
+输出: `6`
+解释: 子数组 `[2,3]` 有最大乘积 `6`。
+示例 2:
+
+输入: `nums = [-2,0,-1]`
+输出: `0`
+解释: 结果不能为 `2`, 因为 `[-2,-1]` 不是子数组。
+
+**解法一** 动态规划 + 滚动数组
+
+乘积最大的子数组需要考虑负数相乘为正数的情况，max[i]和min[i]分表示以下标i结尾的子数组的最大值和最小值，状态转移方程为： 
+- `max[i] = max(nums[i], nums[i] * max[i - 1], nums[i] * min[i-1])`
+- `min[i] = min(nums[i], nums[i] * max[i - 1], nums[i] * min[i-1])`
+
+由于向后搜索时，由于只需要用到前一个数字，所以只使用2个数字来记录上一步的最大值和最小值，可以节省空间复杂度。
+
+<details>
+  <summary>动态规划 + 滚动数组</summary>
+
+  ```java
+      public int maxProduct(int[] nums) {
+        int max = nums[0];
+        int min = nums[0];
+        int ans = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int newMax = Math.max(nums[i], Math.max(max * nums[i], min * nums[i]));
+            int newMin = Math.min(nums[i], Math.min(min * nums[i], max * nums[i]));
+            max = newMax;
+            min = newMin;
+            ans = Math.max(max, ans);
+        }
+        return ans;
+    }
+  ```
+</details>
+
 ## [198.打家劫舍](https://leetcode.cn/problems/house-robber/description)
 
 难度：⭐️
