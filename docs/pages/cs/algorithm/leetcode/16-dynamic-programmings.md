@@ -249,6 +249,42 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
 
 **解法二** 贪心 + 二分查找
 
+将递增数组保存下来，记为max[], 需要保证递增数组增长的速度是最慢的才可以尽可能多的插入元素，遍历更新有2个条件：  
+
+1. 当nums[i] > max[len]时，即找到了更大的元素，插入数组中；
+2. 当nums[i] <= max[len]时，不需要更新长度，找到第一个比nums[i]更小的元素，将它下一个元素替换成nums[i]
+
+<details>
+  <summary>贪心 + 二分查找</summary>
+
+  ```java
+    public int lengthOfLIS(int[] nums) {
+        int[] range = new int[nums.length];
+        int length = 1;
+        range[0] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > range[length - 1]) {
+                range[length++] = nums[i];
+            } else {
+                int left = 0;
+                int right = length;
+                while (left < right) {
+                    int mid = left + (right - left) / 2;
+                    if (range[mid] < nums[i]) {
+                        left = mid + 1;
+                    } else {
+                        right = mid;
+                    }
+                }
+                range[left] = nums[i];
+            }
+        }
+        return length;
+    }
+  ```
+</details>
+
+
 ## [322.零钱兑换](https://leetcode.cn/problems/coin-change/description)
 
 难度：⭐️⭐️⭐️
