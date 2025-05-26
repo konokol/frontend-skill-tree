@@ -1,5 +1,76 @@
 # 动态规划
 
+## [32.最长有效括号](https://leetcode.cn/problems/longest-valid-parentheses)
+
+难度：⭐️⭐️⭐️⭐️
+
+给你一个只包含 `'('` 和 `')'` 的字符串，找出最长有效（格式正确且连续）括号子串的长度。
+
+示例 1：
+
+输入：`s = "(()"`
+输出：`2`
+解释：最长有效括号子串是 `"()"`
+
+示例 2：
+
+输入：`s = ")()())"`
+输出：`4`
+解释：最长有效括号子串是 `"()()"`
+
+示例 3：
+
+输入：`s = "()(())"`
+输出：`6`
+解释：最长有效括号子串是 `"()(())"`
+
+**解法一** 动态规划
+
+使用数组dp[i]表示子串中以i结尾的最长连续括号数，当遍历到位置i时，考虑3种情况，列出状态转移方程：  
+
+1. `s[i] == '('`，必定不连续，`dp[i] = 0`;
+2. `s[i] == ')'` 且 `s[i - 1] == '('`，表示 `...()` 的情况，直接加2，`dp[i] = dp[i - 2] + 2`;
+3. `s[i] == ')'` 且 `s[i - 1] == ')'`，表示 `...))` 的情况，向前追溯到 `dp[i - 1]` 个位置，子串 `s[i - dp[i - 1], i - 1]`必定是连续有效的括号，只需要判断 `i - dp[i - 1]` 的前一个字符是否为 `(`，是则说明可以多加一对括号，`dp[i] = dp[i - 1] + dp[i - dp[i-1] - 2] + 2`
+
+在2和3中，需注意边界情况，不要越界。
+
+<details>
+  <summary>动态规划</summary>
+
+  ```java
+      public int longestValidParentheses(String s) {
+        int[] dp = new int[s.length()];
+        int max = 0;
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == ')') {
+                if (s.charAt(i - 1) == '(') {
+                    // ...()
+                    if (i >= 2) {
+                        dp[i] = dp[i - 2] + 2;
+                    } else {
+                        dp[i] = 2;
+                    }
+                } else {
+                    // ...))
+                    int lastLeft = i - dp[i - 1];
+                    if (lastLeft > 0 && s.charAt(lastLeft - 1) == '(') {
+                        if (lastLeft >= 2) {
+                            dp[i] = dp[i - 1] + dp[lastLeft - 2] + 2;
+                        } else {
+                            dp[i] = dp[i - 1] + 2;
+                        }
+                    }
+                }
+                max = Math.max(dp[i], max);
+            }
+        }
+        return max;
+    }
+  ```
+</details>
+
+**解法二** 栈
+
 ## [70. 爬楼梯](https://leetcode.cn/problems/climbing-stairs)
 
 难度：⭐️
