@@ -38,6 +38,91 @@
   ```
 </details>
 
+## [51.N皇后](https://leetcode.cn/problems/n-queens/description/)
+
+难度：⭐️⭐️⭐️⭐️
+
+按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。
+
+`n` 皇后问题 研究的是如何将 `n` 个皇后放置在 `n×n` 的棋盘上，并且使皇后彼此之间不能相互攻击。
+
+给你一个整数 `n` ，返回所有不同的 `n` 皇后问题 的解决方案。
+
+每一种解法包含一个不同的 `n` 皇后问题 的棋子放置方案，该方案中 `'Q'` 和 `'.'` 分别代表了皇后和空位。
+
+示例 1：
+
+![N皇后](../../../../img/queens.jpg)
+
+输入：n = 4
+输出：[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+解释：如上图所示，4 皇后问题存在两个不同的解法。
+
+
+**解法一** 回溯法 + 数组
+
+要求行、列、同一斜线上不可以有棋子，用3个数组columns、diagonals0、diagonals1分别表示列中、主对角线方向、副对角线方向是否有值。
+按行扫描，从第0行开始，尝试在0~n的位置放置棋子，当3个数组都不包含当前位置时，说明该位置是可以放置棋子的，放置棋子，并进入下一行。
+
+<details>
+  <summary>数组</summary>
+
+  ```java
+  class Solution {
+
+    private List<List<String>> ans = new LinkedList<>();
+
+    public List<List<String>> solveNQueens(int n) {
+        Set<Integer> columns = new HashSet<>();
+        Set<Integer> diagonals0 = new HashSet<>();
+        Set<Integer> diagonals1 = new HashSet<>();
+        int[] queues = new int[n];
+        Arrays.fill(queues, -1);
+        solve(queues, 0, columns, diagonals0, diagonals1);
+        return ans;
+    }
+
+    private void solve(int[] queues, int index, Set<Integer> columns, Set<Integer> diagonals0, Set<Integer> diagonals1) {
+        int n = queues.length;
+        if (index == n) {
+            List<String> matrix = new LinkedList<>();
+            for (int i = 0; i < n; i++) {
+                char[] line = new char[n];
+                Arrays.fill(line, '.');
+                line[queues[i]] = 'Q';
+                matrix.add(new String(line));
+            }
+            ans.add(matrix);
+        } else {
+            for (int i = 0; i < n; i++) {
+                if (columns.contains(i)) {
+                    continue;
+                }
+                if (diagonals0.contains(index - i)) {
+                    continue;
+                }
+                if (diagonals1.contains(index + i)) {
+                    continue;
+                }
+                queues[index] = i;
+                columns.add(i);
+                diagonals0.add(index - i);
+                diagonals1.add(index + i);
+                solve(queues, index + 1, columns, diagonals0, diagonals1);
+                queues[index] = -1;
+                columns.remove(i);
+                diagonals0.remove(index - i);
+                diagonals1.remove(index + i);
+            }
+        }
+    }
+
+  }
+  ```
+</details>
+
+3个数组的空间复杂度较高，也可以使用int值结合位运算来保存列和对角线上是否出现的元素。
+
 ## [78.子集](https://leetcode.cn/problems/subsets/)
 
 难度：⭐️⭐️⭐️⭐️

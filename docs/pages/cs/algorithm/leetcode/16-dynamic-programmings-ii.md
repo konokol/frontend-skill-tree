@@ -39,3 +39,24 @@
   ```
 </details>
 
+## [64.最小路径和](https://leetcode.cn/problems/minimum-path-sum/description)
+
+给定一个包含非负整数的 `m x n` 网格 `grid` ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+
+说明：每次只能向下或者向右移动一步。
+
+[](../../../../img/minpath.jpg)
+
+**解法一** 动态规划
+
+和62的解法相同，只需要记录上一步的最小值即可。
+
+<details>
+  <sumamry>动态规划</summary>
+
+  ```java
+  
+  ```
+
+</details>
+
