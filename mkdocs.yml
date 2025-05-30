@@ -139,7 +139,7 @@ nav:
       - 分治: pages/cs/algorithm/leetcode/14-division.md
       - 贪心: pages/cs/algorithm/leetcode/15-greedy.md
       - 动态规划: pages/cs/algorithm/leetcode/16-dynamic-programmings-i.md
-      - 多维动态规划: pages/cs/algorithm/leetcode/16-dynamic-programmings-ii.md
+      - 多维动态规划: pages/cs/algorithm/leetcode/17-dynamic-programmings-ii.md
       - 排序: pages/cs/algorithm/leetcode/19-sort.md
       - 技巧题: pages/cs/algorithm/leetcode/20-others.md
       - leetcode热题100: pages/cs/algorithm/leetcode.md

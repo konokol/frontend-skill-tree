@@ -447,4 +447,74 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
 **解法二** 回溯
 
 
+## [416.分割等和子集](https://leetcode.cn/problems/partition-equal-subset-sum/description)
+
+难度：⭐️⭐️⭐️⭐️
+
+给你一个 只包含正整数 的 **非空** 数组 `nums` 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
+
+**解法一** 动态规划 + 二维数组
+
+先排除特殊无解的情况：
+
+- 数组只有1个元素
+- 所有元素之和是奇数
+- 数组中有一个数超过了总和的一半，取最大值
+
+定义二维数组dp，共 `nums.length` 行，`target + 1`列，`dp[i][j]`表示`nums[0, i]`中选取一些数，是否可以使这些数字之和等于j，那么有初始值：
+
+- `dp[i][0] = true`，表示任何数字都不选，和为0
+- `dp[0][nums[0]] = true`，表示只选择数组中第一个元素，和为nums[0]
+
+状态转移方程`dp[i][j]`的取值，为分2种情况：
+
+1. 当 `nums[i] <= j` 时，表示所选取的数没超过 `target` 值，`nums[i]` 可选可不选，`dp[i][j] = dp[i - 1][j - nums[i]] || dp[i - 1][j]`
+   - 选 `nums[i]` 时，往前回溯一步，看其是否可以达到 `target - nums[i]`，即取`dp[i - 1][j - nums[i]]`
+   - 不选 `nums[i]` 时，往前回溯一步，看其是否可以达到 `target`，即取 `dp[i - 1][j]`
+2. 当 `nums[i] > j` 时，表示第i个数已经超过了 `target`，必然是不可选的，只能往前回溯一步，看是否能满足条件，即取 `dp[i - 1][j]`
+
+<details>
+  <summary>二维数组</summary>
+
+  ```java
+      public boolean canPartition(int[] nums) {
+        if (nums.length < 2) {
+            return false;
+        }
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+        for (int n : nums) {
+            sum += n;
+            max = Math.max(max, n);
+        }
+        if (sum % 2 == 1) {
+            return false;
+        }
+        int target = sum / 2;
+        if (max > target) {
+            // more than half
+            return false;
+        }
+        boolean[][] dp = new boolean[nums.length][target + 1];
+        for (int i = 0; i < nums.length; i++) {
+            dp[i][0] = true;
+        }
+        dp[1][nums[0]] = true;
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 1; j <= target; j++) {
+                if (nums[i] <= j) {
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+        return dp[nums.length - 1][target];
+    }
+  ```
+</details>
+
+**解法二** 动态规划 + 一维数组
+
+解法一中，使用二维数组有额外的空间复杂度，2种条件中都只用到了dp[i - 1]的值，可以使用一维数组节省空间复杂度，但是需要注意第二层循环需要从大到小便利。
 
