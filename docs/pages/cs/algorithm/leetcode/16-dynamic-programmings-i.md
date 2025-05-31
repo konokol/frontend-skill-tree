@@ -1,5 +1,60 @@
 # 动态规划
 
+## [5.最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/description)
+
+难度：⭐️⭐️⭐️⭐️
+
+给你一个字符串 `s`，找到 `s` 中最长的 **回文** 子串。
+
+
+示例 1：
+
+输入：`s = "babad"`
+输出：`"bab"`
+解释：`"aba"` 同样是符合题意的答案。
+
+示例 2：
+
+输入：`s = "cbbd"`
+输出：`"bb"`
+
+**解法一** 动态规划
+
+**解法二** 中心扩展算法
+
+遍历到位置i时，向左右两边扩展，回文串分aba和aa两种情况，分别算出两个左右边界，当长度更长时，更新最左和最右值。
+
+<details>
+  <summary>中心扩展算法</summary>
+
+  ```java
+  public String longestPalindrome(String s) {
+         int start = 0;
+         int end = 0;
+         int max = 0;
+         for (int i = 0; i < s.length(); i++) {
+            int len = Math.max(find(s, i, i), find(s, i, i + 1));
+            if (len > max) {
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
+                max = len;
+            }
+         }
+         return s.substring(start, end + 1);
+    }
+
+    private int find(String s, int start, int end) {
+        while (start >= 0 && end < s.length() && s.charAt(start) == s.charAt(end)) {
+            start--;
+            end++;
+        }
+        return end - start - 1;
+    }
+  ```
+
+</details>
+
+
 ## [32.最长有效括号](https://leetcode.cn/problems/longest-valid-parentheses)
 
 难度：⭐️⭐️⭐️⭐️
