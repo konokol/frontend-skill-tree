@@ -60,3 +60,47 @@
 
 </details>
 
+## [1143.最长公共子序列](https://leetcode.cn/problems/longest-common-subsequence/description)
+
+难度：⭐️⭐️⭐️
+
+给定两个字符串 `text1` 和 `text2`，返回这两个字符串的最长 **公共子序列** 的长度。如果不存在 **公共子序列** ，返回 `0` 。
+
+一个字符串的 **子序列** 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+
+- 例如，`"ace"` 是 `"abcde"` 的子序列，但 `"aec"` 不是 `"abcde"` 的子序列。
+- 
+两个字符串的 **公共子序列** 是这两个字符串所共同拥有的子序列。
+
+**解法一** 动态规划
+
+定义二维数组dp[][]，`dp[i][j]` 表示 `text1[0, i]` 和 `text2[0, j]`的最长公共子序列的长度，状态转移方程为：
+
+- 当 `text1[i] ==  text[j]` 时，两个字符串都往前回溯一个字符，`dp[i][j] = dp[i - 1][j - 1] + 1`；
+- 当 `text1[i] != text[j]` 时，分别把text1和text2往前回溯一个字符，取最大值；
+
+可以将text1和text2转成字符数组，空间复杂度增加一点，但时间复杂度可以减低。
+
+<details>
+  <summary>动态规划</summary>
+
+  ```java
+    public int longestCommonSubsequence(String text1, String text2) {
+        char[] t1 = text1.toCharArray();
+        char[] t2 = text2.toCharArray();
+        int n = t1.length;
+        int m = t2.length;
+        int[][] f = new int[n+1][m+1];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(t1[i] == t2[j]){
+                    f[i+1][j+1] = f[i][j]+1;  
+                } else {
+                    f[i+1][j+1] = Math.max(f[i][j+1],f[i+1][j]);
+                }
+            }
+        }
+        return f[n][m];
+    }
+  ```
+</details>
