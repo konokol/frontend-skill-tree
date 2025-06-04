@@ -36,6 +36,18 @@ val name: String = null // 编译报错
 val name: String? = null
 ```
 
+## 常见操作符
+
+与Java中不一样的操作符
+
+- `?` 表明类型是可空的，如 `val name: String? = null`
+- `?:` Elvis操作符，表明左值为空时，取右值，如 `val firstName = name?:'unknown'`，firstName的值是unknown
+- `?.` 安全调用，左值为空时，值也返回空，如 `val length = name?.length`，length的值也为null
+- `!!` 断言一个表达式非空，如果为空会抛异常
+- `==` 与 `!=` 值相等比较，等同于Java中的equals
+- `===` 与 `!==` 引用比较，比较的是内存地址，等同于Java中的==
+- `$` 字符串模板中引用变量或表达式
+- `_` 在lambda或解构中代替未使用的参数
 
 
 ## 条件语句
@@ -54,3 +66,4 @@ val name: String? = null
 *参考*
 
 1. [学习 Kotlin 编程语言](https://developer.android.google.cn/kotlin/learn?hl=zh-cn)
+2. [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html)
