@@ -49,8 +49,37 @@ val name: String? = null
 - `$` 字符串模板中引用变量或表达式
 - `_` 在lambda或解构中代替未使用的参数
 
-
 ## 条件语句
+
+**if-else**
+
+常规用法和Java一样，但是可以Kotlin中的if-else可以用来当条件表达式，例如：
+
+```kotlin
+val String message = if (code == 400) {
+  "client error"
+} else if (code == 500) {
+  "server error"
+} else {
+  "known error
+}
+```
+
+Kotlin中没有Java中的三目运算符 ?:，类似的用法都可以用三元表达式来实现。
+
+**when**
+
+当条件较多时，也可以用`when`关键字来做条件判断，示例：
+
+```kotlin
+var message: String
+
+when {
+  code == 400 -> "client error"
+  code == 500 -> "server errro"
+  else -> "known error"
+}
+```
 
 ## 函数
 
