@@ -15,6 +15,17 @@ var sum: Int = 20
 sum = count + sum // sum的值变为30
 ```
 
+- `const`，声明常量
+
+`const`关键字用于修饰val类型的变量，表明该'变量'是一个常量。只能修饰顶层属性和类属性，且值必须在编译期就确定，类型只能是String和基本类型。
+
+总结：
+
+- `val`和`var`可以修饰顶层属性、类属性、局部变量
+- `val`修饰类属性，可以生成`getter`方法，`var`修饰类属性可以生成`getter`和`setter`方法。
+- 局部变量不会有`getter`和`setter`，`val`修饰局部变量相当于Java中的final
+- `const`只能修饰顶层属性和类属性，值必须在编译期确定，值的类型只能是String和final类型。
+
 **类型推断**
 
 声明变量时同时赋值，即使不显式声明变量的类型，编译器也可以推断出变量的类型。
@@ -48,6 +59,36 @@ val name: String? = null
 - `===` 与 `!==` 引用比较，比较的是内存地址，等同于Java中的==
 - `$` 字符串模板中引用变量或表达式
 - `_` 在lambda或解构中代替未使用的参数
+
+**类型判断**
+
+`is`和`!is`可以用来做类型判断，相当于Java中的instanceof，用is判断了类型之后，在代码块中可以自动调用对应类型的方法，例如：
+
+```kotlin
+if (obj is String) {
+    print(obj.length)
+}
+
+if (obj !is String) { // 与 !(obj is String) 相同
+    print("Not a String")
+} else {
+    print(obj.length) // 智能转换
+}
+```
+
+**类型转换**
+
+`as`可以用来做类型转换，相当于Java中的强制类型转换。不安全的转换会在编译期报错。
+
+```kotlin
+val x: String = y as String
+```
+
+`as?`可以做安全的类型转换，当转换失败是返回null。
+
+```kotlin
+val x: String? = y as? String
+```
 
 ## 条件语句
 
@@ -83,7 +124,15 @@ when {
 
 ## 函数
 
+简单的函数声明可以省略{}，例如：
+
+```kotlin
+fun sum(n : Int, m : Int) = n + m // 省略了花括号和返回值，因为可以根据类型推断出返回类型
+```
+
 ### 匿名函数
+
+
 
 ### 高阶函数
 
