@@ -186,7 +186,89 @@ inline fun inlineParams(m: Int, mapper: (Int) -> String, noinline reducer: (Int)
 }
 ```
 
+### Kotlin内置的函数
+
+**let**
+
+let是一个作用域函数，在一个作用域内，对对象统一进行操作而不用重复判空。返回值由作用域内最后一行表达式或者return语句决定。
+
+```kotlin
+val american: American? = if (System.nanoTime() % 10 > 5) American() else null
+val nation = american?.let {
+  it.sayHello()
+  it.showGift()
+  // 返回值
+  it.nation // 也可以写成 return it.nation
+}
+print(nation)
+```
+
+**also**
+
+also的作用和let一样，区别是also返回的是传入作用域的对象。
+
+```kotlin
+// also
+val chinese = Chinese()
+val person = chinese.also {
+  it.sayHello()
+  // 返回person本身，而不是nation
+  it.nation
+}
+print(person.nation)
+```
+
+**with**
+
+with的使用方法和let类似，返回值是最行一行表达式或者return语句。它有2个参数，第二个参数是匿名函数。使用时用`with(obj){...}`
+在作用域内使用时可以省略对象名，直接调用对象的方法或属性。
+
+```kotlin
+val age = with(chinese) {
+  sayHello()
+  print("I come from $nation")
+  showGift()
+  val age = 20
+  // 返回age
+  age
+}
+println("with: age $age")
+
+```
+
+**run**
+
+run相当于是let和with的结合体，返回值也是**最后一行表达式**或**return语句**，使用时直接用`obj.run{...}`，作用域内可以省略对象名，直接调用方法或属性
+
+```kotlin
+    val ret = chinese.run {
+        sayHello()
+        showGift()
+        // 返回bye
+        "bye"
+    }
+    println("run: $ret")
+```
+
+**apply**
+
+apply相当于是also和with的结合体，返回值是**对象本身**。使用时直接用`obj.run{...}`，作用域内可以省略对象名，直接调用方法或属性
+
+```kotlin
+    val person2 = chinese.apply {
+        sayHello()
+        showGift()
+        sayGoodbye()
+        // 返回chinese对象本身
+    }
+    println("apply: ${person2.javaClass}") // com.kotlin.classes.Chinese
+```
+
+![internal functions](../../../img/kotlin-internal-functions.png)
+
 ## 类
+
+
 
 
 *参考*
