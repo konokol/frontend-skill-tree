@@ -268,10 +268,90 @@ apply相当于是also和with的结合体，返回值是**对象本身**。使用
 
 ## 类
 
+### 类的构造
 
+Kotlin中类实例化不需要使用new关键字。
+
+**构造函数**
+
+类有一个主构造函数，和多个次构造函数。当主构造函数没有修饰符时，可以省略constructor关键字。
+
+```kotlin
+// 主构造函数
+class Person constructor(firstName: String) { /*……*/ }
+
+// 可省略constructor参数
+class Person(firstName: String) { /*……*/ }
+
+// 次级构造函数
+class Person(val name: String) {
+    val children: MutableList<Person> = mutableListOf()
+    constructor(name: String, parent: Person) : this(name) {
+        parent.children.add(this)
+    }
+}
+
+```
+
+### 可见性
+
+Kotlin中类默认都是不可继承的(抽象类除外)，如需继承，需要加`open`关键字。
+
+### 特殊的类
+
+**密封类**
+
+密封类通过`sealed`关键字修饰，所有直接继承自密封类的子类都必须在编译期确定。1.5之前，密封类只能定义在同一个文件中，1.5之后放宽了限制，密封类的子类可以定义在相同包的任意文件中，但是超出对应包之后，还是会编译失败。1.5中还引入了密封接口，用法类似。
+
+```kotlin
+// SealedClass.kt
+package com.kotlin.classes
+
+sealed class Expr
+
+data class Const(val number: Double) : Expr()
+
+object NotNumber: Expr()
+
+// SealedClassOtherFile.kt -- 同一个包下的其他文件也可以定义密封类的子类
+package com.kotlin.classes
+
+class Empty(string: String): Expr()
+
+// SealedClassOtherModule.kt -- 其他包中类不可以直接继承密封类
+package com.kotlin.class2
+
+import com.kotlin.classes.Expr
+
+package com.kotlin.class2
+
+// 编译失败，因为Expr在另一个包中
+class Empty(string: String): Expr()
+```
+
+Java 15中新增了一个新的关键字sealed，和kotlin中的密封类用法一样
+
+密封类的使用场景：
+
+- 只想要有限的继承：想要在编译期知道全部的类型。
+- 对类型安全有诉求：状态管理、复杂逻辑处理等场景，可以用when表达式，枚举出所有的场景，保重不出现意料之外的类型。
+- 封闭API：例如开发SDK时，只期望对外暴露有限的接口
+
+**数据类**
+
+**嵌套类**
+
+**枚举类**
+
+**内联类**
+
+### 伴生对象
+
+### 委托
 
 
 *参考*
 
 1. [学习 Kotlin 编程语言](https://developer.android.google.cn/kotlin/learn?hl=zh-cn)
 2. [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html)
+3. [巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238)
