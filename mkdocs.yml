@@ -141,7 +141,8 @@ nav:
       - 动态规划: pages/cs/algorithm/leetcode/16-dynamic-programmings-i.md
       - 多维动态规划: pages/cs/algorithm/leetcode/17-dynamic-programmings-ii.md
       - 排序: pages/cs/algorithm/leetcode/19-sort.md
-      - 技巧题: pages/cs/algorithm/leetcode/20-others.md
+      - 二分查找: pages/cs/algorithm/leetcode/20-binary.md
+      - 技巧题: pages/cs/algorithm/leetcode/21-others.md
       - leetcode热题100: pages/cs/algorithm/leetcode.md
 
 theme:
