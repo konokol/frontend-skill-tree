@@ -511,3 +511,44 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 }
  ```
 </details>
+
+## [160.相交链表](https://leetcode.cn/problems/intersection-of-two-linked-lists/description)
+
+给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。
+
+图示两个链表在节点 c1 开始相交：
+
+![相交链表](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png)
+
+题目数据 保证 整个链式结构中不存在环。
+
+**解法一** Hash集合
+
+先一次遍历，将其中一个链表的值放在Set中存起来，再遍历另一个链表，结点在Set中存在，则说明相交。
+
+<details>
+
+<summary>Hash集合</summary>
+
+```java
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        Set<ListNode> set = new HashSet<>();
+        ListNode pa = new ListNode();
+        pa.next = headA;
+        while (pa.next != null) {
+            set.add(pa.next);
+            pa = pa.next;
+        }
+        ListNode pb = new ListNode();
+        pb.next = headB;
+        while (pb.next != null) {
+            if (set.contains(pb.next)) {
+                return pb.next;
+            }
+            pb = pb.next;
+        }
+        return null;
+    }
+```
+</details>
+
