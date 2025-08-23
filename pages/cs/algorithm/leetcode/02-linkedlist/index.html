@@ -3628,6 +3628,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#160" class="md-nav__link">
+    <span class="md-ellipsis">
+      160.相交链表
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4148,6 +4157,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#160" class="md-nav__link">
+    <span class="md-ellipsis">
+      160.相交链表
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4607,6 +4625,56 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 
 }
  ```
+</details>
+
+<h2 id="160"><a href="https://leetcode.cn/problems/intersection-of-two-linked-lists/description">160.相交链表</a></h2>
+<p>难度：⭐️</p>
+<p>给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。</p>
+<p>图示两个链表在节点 c1 开始相交：</p>
+<p><img alt="相交链表" src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png" /></p>
+<p>题目数据 保证 整个链式结构中不存在环。</p>
+<p><strong>解法一</strong> Hash集合</p>
+<p>先一次遍历，将其中一个链表的值放在Set中存起来，再遍历另一个链表，结点在Set中存在，则说明相交。</p>
+<details>
+
+<summary>Hash集合</summary>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ListNode</span><span class="w"> </span><span class="nf">getIntersectionNode</span><span class="p">(</span><span class="n">ListNode</span><span class="w"> </span><span class="n">headA</span><span class="p">,</span><span class="w"> </span><span class="n">ListNode</span><span class="w"> </span><span class="n">headB</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">        </span><span class="n">Set</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&gt;</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashSet</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="n">ListNode</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">();</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">        </span><span class="n">pa</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">headA</span><span class="p">;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">            </span><span class="n">set</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="na">next</span><span class="p">);</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">            </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pa</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">        </span><span class="n">ListNode</span><span class="w"> </span><span class="n">pb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">();</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">        </span><span class="n">pb</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">headB</span><span class="p">;</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">pb</span><span class="p">.</span><span class="na">next</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">set</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">pb</span><span class="p">.</span><span class="na">next</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">pb</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">            </span><span class="n">pb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pb</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+</details>
+
+<p><strong>解法二</strong> 双指针</p>
+<p>用2个指针，初始分别指向头结点，遍历完之后，将尾节点接到另一条链表上，如果最终2个指针可以相遇，说明相交。</p>
+<details>
+    <summary>双指针</summary>
+
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">ListNode</span><span class="w"> </span><span class="nf">getIntersectionNode</span><span class="p">(</span><span class="n">ListNode</span><span class="w"> </span><span class="n">headA</span><span class="p">,</span><span class="w"> </span><span class="n">ListNode</span><span class="w"> </span><span class="n">headB</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">ListNode</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">headA</span><span class="p">;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">ListNode</span><span class="w"> </span><span class="n">pb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">headB</span><span class="p">;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">pa</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">pb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">        </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">headB</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">pa</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">        </span><span class="n">pb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pb</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">headA</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">pb</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pa</span><span class="p">;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="p">}</span>
+</code></pre></div>
 </details>
 
 
