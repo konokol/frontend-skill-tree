@@ -514,6 +514,8 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 
 ## [160.相交链表](https://leetcode.cn/problems/intersection-of-two-linked-lists/description)
 
+难度：⭐️
+
 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。
 
 图示两个链表在节点 c1 开始相交：
@@ -552,3 +554,22 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 ```
 </details>
 
+**解法二** 双指针
+
+用2个指针，初始分别指向头结点，遍历完之后，将尾节点接到另一条链表上，如果最终2个指针可以相遇，说明相交。
+
+<details>
+    <summary>双指针</summary>
+
+    ```java
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode pa = headA;
+        ListNode pb = headB;
+        while (pa != pb) {
+            pa = pa == null ? headB : pa.next;
+            pb = pb == null ? headA : pb.next;
+        }
+        return pa;
+    }
+    ```
+</details>
