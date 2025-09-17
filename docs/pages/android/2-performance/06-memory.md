@@ -1,10 +1,10 @@
-# Android内存泄漏
+# Android内存治理
 
-## 概念
+## 内存泄漏
 
-   Android内存泄漏是指某些对象实际已经没有了使用价值，但是还是间接或直接引用GC Roots，导致对象无法被回收，一直占用着内存空间。
+Android内存泄漏是指某些对象实际已经没有了使用价值，但是还是间接或直接引用GC Roots，导致对象无法被回收，一直占用着内存空间。
 
-## 常见的内存泄漏
+### 常见的内存泄漏
 
 1. **单例模式的不当使用**
 
@@ -40,7 +40,7 @@
 
     ***解决办法：*** 适当的时候解注册。
 
-## 检查内存泄漏的方法
+### 检查内存泄漏的方法
 
 1. Android Studio自带的Device Monitor观察内存状况，手动GC，dump出堆的hprof文件，分析内存状况。
 
@@ -57,3 +57,9 @@
   [Android性能优化-内存泄露的检查与处理](https://mp.weixin.qq.com/s?__biz=MzI0MjE3OTYwMg==&mid=2649547284&idx=1&sn=78b6b1e07680ae9898ff65c5ca24f8db&scene=21#wechat_redirect)</br>
   [LeakCanary 内存泄露监测原理研究](http://www.jianshu.com/p/5ee6b471970e)  
   https://juejin.cn/post/7123452813656457253
+
+## OOM
+
+### OOM的原因
+
+### 治理OOM的手段
