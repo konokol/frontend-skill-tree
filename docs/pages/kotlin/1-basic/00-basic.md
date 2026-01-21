@@ -358,3 +358,4 @@ Java 15中新增了一个新的关键字sealed，和kotlin中的密封类用法�
 1. [学习 Kotlin 编程语言](https://developer.android.google.cn/kotlin/learn?hl=zh-cn)
 2. [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html)
 3. [巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238)
+4. [Get started with Kotlin](https://kotlinlang.org/docs/getting-started.html)
