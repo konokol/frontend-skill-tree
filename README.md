@@ -14,6 +14,7 @@
   - [前端基础](#前端基础)
   - [CS基础](#cs基础)
   - [跨平台](#跨平台)
+  - [AI](#AI)
   - [其他](#其他)
   - [学习资料](#学习资料)
 
@@ -54,6 +55,8 @@
 - [Flutter](/docs/pages/cross-platform/flutter/)
 - [小程序](/docs/pages/cross-platform/miniprogram/)
 - [ReactNative](/docs/pages/cross-platform/react-native/)
+
+## AI
 
 ## 其他
 
