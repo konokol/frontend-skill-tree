@@ -1,6 +1,5 @@
 # 数组/字符串
 
-
 ## [27.移除数组中指定元素](https://leetcode.cn/problems/remove-element/description/)
 
 难度：⭐️
