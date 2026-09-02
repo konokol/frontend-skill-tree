@@ -1,4 +1,7 @@
 site_name: 客户端知识图谱
+site_url: https://konokol.github.io/frontend-skill-tree/
+site_description: 客户端与大前端工程师技能树及知识图谱
+site_author: konokol
 copyright: Copyright &copy; 2024 konokol.
 nav:
 - 首页:
@@ -10,12 +13,12 @@ nav:
   - 面向对象: pages/java/1-basic/00-OO.md
   - 基础:
     - 基本数据类型: pages/java/1-basic/01-primitive-data-types.md
-    - 引用数据类型: pages/java/1-basic/02-refrefence-data-types.md
+    - 引用数据类型: pages/java/1-basic/02-reference-data-types.md
     - 数字和字符串: pages/java/1-basic/03-number-and-strings.md
     - 引用: pages/java/1-basic/04-references.md
     - 注解: pages/java/1-basic/05-annotations.md
     - 泛型: pages/java/1-basic/06-generics.md
-    - 反射: pages/java/1-basic/07-reflation.md
+    - 反射: pages/java/1-basic/07-reflection.md
     - 异常: pages/java/1-basic/08-exception.md
   - 并发:
     - 并发编程基础: pages/java/2-concurrent/00-concurrent.md
@@ -31,7 +34,7 @@ nav:
     - Java的集合框架: pages/java/3-collections/01-collections.md
     - Android特有的集合: pages/java/3-collections/10-android-collections.md
   - I&O:
-    - 序列化: pages/java/4-io/01-serilization.md
+    - 序列化: pages/java/4-io/01-serialization.md
   - 设计模式: 
     - 设计模式: pages/java/6-design-pattern/00-design-pattern.md
     - 构建型模式: pages/java/6-design-pattern/01-creational-pattern.md
@@ -39,8 +42,8 @@ nav:
     - 行为型模式: pages/java/6-design-pattern/03-behavioral-pattern.md
   - JVM:
     - 内存模型: pages/java/2-concurrent/07-java-memory-model.md
-    - GC: pages/java/5-jvm/01-classload.md
-    - GC: pages/java/5-jvm/02-gc.md
+    - 类加载: pages/java/5-jvm/01-classload.md
+    - 垃圾回收(GC): pages/java/5-jvm/02-gc.md
   - Java各版本新特性:
     - Java 8 流: pages/java/99-new-features/stream.md
     - Java 8 Lambda表达式: pages/java/99-new-features/lambda.md
@@ -63,7 +66,7 @@ nav:
     - Activity: pages/android/1-basic/01-activity.md
     - Service: pages/android/1-basic/02-service.md
     - BroadcastReceiver: pages/android/1-basic/03-broadcastreceiver.md
-    - ContentProvder: pages/android/1-basic/04-contentprovider.md
+    - ContentProvider: pages/android/1-basic/04-contentprovider.md
     - Fragment: pages/android/1-basic/05-fragment.md
     - View: pages/android/1-basic/06-view.md
     - 动画: pages/android/1-basic/07-animations.md
@@ -76,6 +79,7 @@ nav:
     - AIDL: pages/android/1-basic/25-aidl.md
     - Android虚拟机: pages/android/1-basic/30-virtual-machine.md
   - 性能:
+    - 性能优化工具: pages/android/2-performance/00-tools.md
     - 启动优化: pages/android/2-performance/01-startup.md
     - 包大小: pages/android/2-performance/02-apksize.md
     - 图片优化: pages/android/2-performance/03-image.md
@@ -102,7 +106,7 @@ nav:
     - 源码阅读计划: pages/android/5-framework/00-android-source-code.md
     - 系统启动流程: pages/android/5-framework/01-system-boot.md
     - Activity的启动流程: pages/android/5-framework/02-activity-source-code.md
-    - Activity的启动流程: pages/android/5-framework/09-binder.md
+    - Binder通信机制: pages/android/5-framework/09-binder.md
   - 工具与工程:
     - Android打包: pages/android/6-tools/00-tools.md
     - 打包流程: pages/android/6-tools/01-apk-build.md
@@ -150,21 +154,35 @@ theme:
   name: material
   favicon: assets/book.png
   palette:
-    primary: teal
-    accent: white
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: 切换到暗色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: 切换到亮色模式
   features:
     - navigation.tabs
     - navigation.tracking
     - navigation.top
     - navigation.instant
     - navigation.tabs.sticky
-  plugins:
-    - tags: null
+    - content.code.copy
+    - content.code.annotate
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+  - tags:
       enabled: true
-      tags_allowed:
-    - HTML5
-    - JavaScript
-    - CSS
 extra:
   social:
     - icon: fontawesome/brands/github

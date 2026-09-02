@@ -40,21 +40,25 @@
 
 ## <img src="./assets/kotlin-logo.png" width="20px" styles="margin-top:20px"/> Kotlin基础
 
+- [基础入门与常见模式](/docs/pages/kotlin/1-basic/00-basic.md)
+- [协程 (Coroutines)](/docs/pages/kotlin/2-coroutines/0-coroutines.md)
+- [Flow 响应式数据流](/docs/pages/kotlin/3-flow/0-flow.md)
+- [Parcelize 序列化](/docs/pages/kotlin/4-parcelize/0-parcelize.md)
+
 ## 前端基础
+
+- [前端常见知识点](/docs/pages/frontend/basic/index.md)
 
 ## CS基础
 
-- [计算机基础](/docs/pages/cs/cs-basic/)
-- [操作系统](/docs/pages/cs/os/)
-- [网络](/docs/pages/cs/internet/)
-- [数据结构](/docs/pages/cs/data-structure/)
-- [算法](/docs/pages/cs/algorithm/)
+- [计算机基础](/docs/pages/cs/cs-basic/none.md)
+- [操作系统](/docs/pages/cs/os/none.md)
+- [网络 (HTTP/HTTPS)](/docs/pages/cs/internet/HTTP.md)
+- [算法与数据结构 (LeetCode)](/docs/pages/cs/algorithm/leetcode.md)
 
 ## 跨平台
 
-- [Flutter](/docs/pages/cross-platform/flutter/)
-- [小程序](/docs/pages/cross-platform/miniprogram/)
-- [ReactNative](/docs/pages/cross-platform/react-native/)
+- [跨平台技术](/docs/pages/cross-platform/none.md)
 
 ## AI
 

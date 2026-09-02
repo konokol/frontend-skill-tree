@@ -89,7 +89,7 @@ Android官网上并没定义后台Service的概念，这里的后台Service是�
 - startService()之后，默认运行在主线程上；
 - 没有用户界面，除非到设置里去看，否则用户感知不到Service的存在；
 
-具体参考[startService](#starService)
+具体参考[startService](#startservice)
 
 ### 绑定Service
 
