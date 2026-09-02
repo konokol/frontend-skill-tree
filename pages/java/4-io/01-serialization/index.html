@@ -6,13 +6,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="客户端与大前端工程师技能树及知识图谱">
       
       
+        <meta name="author" content="konokol">
       
-        <link rel="prev" href="../06-generics/">
+      
+        <link rel="canonical" href="https://konokol.github.io/frontend-skill-tree/pages/java/4-io/01-serialization/">
       
       
-        <link rel="next" href="../08-exception/">
+        <link rel="prev" href="../../3-collections/10-android-collections/">
+      
+      
+        <link rel="next" href="../../6-design-pattern/00-design-pattern/">
       
       
       <link rel="icon" href="../../../../assets/book.png">
@@ -20,7 +26,7 @@
     
     
       
-        <title>反射 - 客户端知识图谱</title>
+        <title>序列化 - 客户端知识图谱</title>
       
     
     
@@ -60,10 +66,12 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="white">
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="deep-orange">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -108,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              反射
+              序列化
             
           </span>
         </div>
@@ -116,7 +124,33 @@
     </div>
     
       
+        <form class="md-header__option" data-md-component="palette">
+  
     
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="切换到亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -205,7 +239,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../00-OO/" class="md-tabs__link">
+        <a href="../../1-basic/00-OO/" class="md-tabs__link">
           
   
   Java基础
@@ -533,7 +567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../00-OO/" class="md-nav__link">
+      <a href="../../1-basic/00-OO/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -551,8 +585,6 @@
                 
   
   
-    
-  
   
   
     
@@ -562,11 +594,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -580,7 +612,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             基础
@@ -594,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01-primitive-data-types/" class="md-nav__link">
+      <a href="../../1-basic/01-primitive-data-types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -615,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-refrefence-data-types/" class="md-nav__link">
+      <a href="../../1-basic/02-reference-data-types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -636,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03-number-and-strings/" class="md-nav__link">
+      <a href="../../1-basic/03-number-and-strings/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -657,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04-references/" class="md-nav__link">
+      <a href="../../1-basic/04-references/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -678,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05-annotations/" class="md-nav__link">
+      <a href="../../1-basic/05-annotations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -699,7 +731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06-generics/" class="md-nav__link">
+      <a href="../../1-basic/06-generics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -717,30 +749,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    反射
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../1-basic/07-reflection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -749,68 +761,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      基本原理
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      基本使用
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="基本使用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#class" class="md-nav__link">
-    <span class="md-ellipsis">
-      获取class的方式
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      优缺点
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -823,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-exception/" class="md-nav__link">
+      <a href="../../1-basic/08-exception/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1172,6 +1122,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1181,11 +1133,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
         
           
           <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
@@ -1199,7 +1151,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             I&O
@@ -1210,10 +1162,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../4-io/01-serilization/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1222,6 +1183,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1435,7 +1397,7 @@
         
   
   <span class="md-ellipsis">
-    GC
+    类加载
   </span>
   
 
@@ -1456,7 +1418,7 @@
         
   
   <span class="md-ellipsis">
-    GC
+    垃圾回收(GC)
   </span>
   
 
@@ -2070,7 +2032,7 @@
         
   
   <span class="md-ellipsis">
-    ContentProvder
+    ContentProvider
   </span>
   
 
@@ -2356,6 +2318,27 @@
             性能
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../android/2-performance/00-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    性能优化工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -2989,7 +2972,7 @@
         
   
   <span class="md-ellipsis">
-    Activity的启动流程
+    Binder通信机制
   </span>
   
 
@@ -4054,56 +4037,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      基本原理
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      基本使用
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="基本使用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#class" class="md-nav__link">
-    <span class="md-ellipsis">
-      获取class的方式
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      优缺点
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -4117,32 +4050,7 @@
                   
 
 
-<h1 id="_1">反射</h1>
-<p>Java中在运行时动态获取类的信息和动态调用对象方法的机制叫反射。</p>
-<h2 id="_2">基本原理</h2>
-<p>正常的类加载机制中，创建对象时，先加载class文件到JVM内存中，在JVM中创建一个class对象，相同的类只有一个class对象。反射的原理即从class对象中读取实例的信息。</p>
-<p><a href="../../../../img/java-reflection.png">Java反射的原理</a></p>
-<h2 id="_3">基本使用</h2>
-<h3 id="class">获取class的方式</h3>
-<ul>
-<li>通过实例getClass()方法，object.getClass()</li>
-<li>通过类型，SomeClass.class</li>
-<li>通过Class.forName()传入完整类名</li>
-<li>通过classloader.load()传入完整类名</li>
-</ul>
-<h2 id="_4">优缺点</h2>
-<p>优点：</p>
-<ul>
-<li>反射能够使Java在运行时获取到分析类的信息，让Java具备了动态语言的特性。</li>
-</ul>
-<p>缺点:</p>
-<ul>
-<li>性能，由于动态调用，虚拟机的各种优化都不会生效，对各种类型的包装会造成内存的额外开销，因此反射比普通的API性能更差。</li>
-<li>安全性，在运行时调用需要有权限，会产生权限问题以及异常</li>
-<li>开放性，反射可以调用任何API，破坏了封装性，使得任意私有的API都能对外暴露。</li>
-</ul>
-<p><em>参考</em><br />
-<a href="https://docs.oracle.com/javase/tutorial/reflect/TOC.html">Trail: The Reflection API</a></p>
+<h1 id="_1">序列化</h1>
 
 
 
@@ -4233,7 +4141,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky"], "search": "../../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.top", "navigation.instant", "navigation.tabs.sticky", "content.code.copy", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
       <script src="../../../../assets/javascripts/bundle.56dfad97.min.js"></script>
