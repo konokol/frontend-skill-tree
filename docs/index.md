@@ -45,7 +45,7 @@
 - React Native
 - Weex
 - Flutter
-- Kotlin Native与Kotlin MultiPlatform Mobile
+- KMP
 - 小程序，快应用
 - Hybrid应用
 - 其他跨平台技术原理（Qt等）
