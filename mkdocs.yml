@@ -79,13 +79,14 @@ nav:
     - AIDL: pages/android/1-basic/25-aidl.md
     - Android虚拟机: pages/android/1-basic/30-virtual-machine.md
   - 性能:
-    - 性能优化工具: pages/android/2-performance/00-tools.md
+    - 理论基础: pages/android/2-performance/00-perf.md
     - 启动优化: pages/android/2-performance/01-startup.md
     - 包大小: pages/android/2-performance/02-apksize.md
     - 图片优化: pages/android/2-performance/03-image.md
     - ANR: pages/android/2-performance/04-anr.md
     - crash: pages/android/2-performance/05-crash.md
     - 内存优化: pages/android/2-performance/06-memory.md
+    - 性能优化工具: pages/android/2-performance/09-tools.md
     - 热修复: pages/android/2-performance/10-hotfix.md
     - 插件化: pages/android/2-performance/11-plugins.md
     - 进程保活: pages/android/2-performance/21-keep-alive.md
