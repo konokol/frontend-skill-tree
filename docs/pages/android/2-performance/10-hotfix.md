@@ -61,4 +61,4 @@
 *参考*
 
 [Android热修复技术选型——三大流派解析](http://www.infoq.com/cn/articles/Android-hot-fix) 
-[](https://blog.csdn.net/idaretobe/article/details/114992807)
+[Android热修复技术原理详解](https://blog.csdn.net/idaretobe/article/details/114992807)

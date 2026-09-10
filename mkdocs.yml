@@ -2,7 +2,7 @@ site_name: 客户端知识图谱
 site_url: https://konokol.github.io/frontend-skill-tree/
 site_description: 客户端与大前端工程师技能树及知识图谱
 site_author: konokol
-copyright: Copyright &copy; 2024 konokol.
+copyright: Copyright &copy; 2026 konokol.
 nav:
 - 首页:
   - 概述: index.md
@@ -188,7 +188,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/konokol
     - icon: fontawesome/brands/zhihu
-      link: https://www.zhihu.com/people/konokol
+      link: https://www.zhihu.com/people/ivanjlee
     - icon: fontawesome/solid/envelope
       link: mailto:lijundut@foxmail.com
 repo_url: https://github.com/konokol/frontend-skill-tree

@@ -31,3 +31,13 @@ NPE、并发、资源类
 
 
 ## Native Crash
+
+### Native Crash的捕获方式
+
+
+
+
+*参考*
+
+[1] 腾讯端服务-yeconglu.[Android 平台 Native 代码的崩溃捕获机制及实现](https://mp.weixin.qq.com/s/g-WzYF3wWAljok1XjPoo7w).微信公众号.2017-07-06
+[2] 阿里巴巴中间件.[深度解析 Android 崩溃捕获原理及从崩溃到归因的闭环实践](https://zhuanlan.zhihu.com/p/1971535864921321988).知乎.2025-11-11
