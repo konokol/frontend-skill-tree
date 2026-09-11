@@ -52,9 +52,107 @@
 和62的解法相同，只需要记录上一步的最小值即可。
 
 <details>
-  <sumamry>动态规划</summary>
+  <summary>动态规划</summary>
 
   ```java
+  
+  ```
+
+</details>
+
+## [72. 编辑距离](https://leetcode.cn/problems/edit-distance/description)
+
+难度: ⭐️⭐️⭐️⭐️
+
+给你两个单词 `word1` 和 `word2，` 请返回将 `word1` 转换成 `word2` 所使用的最少操作数  。
+
+你可以对一个单词进行如下三种操作：
+
+- 插入一个字符
+- 删除一个字符
+- 替换一个字符
+ 
+
+**示例 1**：
+
+**输入**：word1 = "horse", word2 = "ros"  
+**输出**：3  
+**解释**：  
+horse -> rorse (将 'h' 替换为 'r')  
+rorse -> rose (删除 'r')  
+rose -> ros (删除 'e')  
+
+**示例 2**：
+
+**输入**：word1 = "intention", word2 = "execution"
+**输出**：5
+**解释**：  
+intention -> inention (删除 't')  
+inention -> enention (将 'i' 替换为 'e')  
+enention -> exention (将 'n' 替换为 'x')  
+exention -> exection (将 'n' 替换为 'c')  
+exection -> execution (插入 'u')  
+ 
+
+**提示**：
+
+- `0 <= word1.length, word2.length <= 500`
+- `word1` 和 `word2` 由小写英文字母组成
+
+**解法一** 动态规划
+
+对字符串 A 和字符串 B 编辑时等价的操作有 3 种：
+- A 删除一个字符 或 B 插入一个字符
+- A 插入一个字符 或 A 删除一个字符
+- A 变换一个字符 或 B 变换一个字符
+
+使用动态规划，定义数组 `dp[i][j]` 表示 A 的子串 A[0, i] 到 B 的子串 B[0, j] 的最小编辑距离，则 dp 的最后一个元素值即为此问题的解。
+
+注意到 `A[0]` 表示 A 长度为 0 的子串，即空串，到 B[0, j] 的编辑距离是 j，此时一直对插入即可，同理 `B[0]` 也是一样，因此可以初始化 dp 的第 0 行和第 0 列的值。
+
+对于 i > 0 且 j > 0 时，dp[i][j] 的取值可以从上一步计算出来：
+
+- `dp[i - i][j]` 表示 A[0, i - 1] 到 B[0, j] 的最小编辑距离，在 A 的末尾追加一个一个字符即得到 A[0,i] 到 B[0, j] 的最小编辑距离 `dp[i][j] = dp[i - 1][j] + 1`；
+- 同上，从 A[0, i] 到 B[0, j - 1] 的最小编辑距离，对 B 插入一个字符串，可以推导出来 `dp[i][j] = dp[i][j - 1] + 1`；
+- 一样的，`dp[i - 1][j - 1]`，A 和 B 都少一个字符串，分两种情况讨论：1）`A[i] == B[j]`，有`dp[i][j] = dp[i - 1][j - 1]`，不做变换；1）`A[i] != B[j]`，`dp[i][j] = dp[i - 1][j - 1] + 1`，变换一个字符；
+
+综合上面的三种情况，取最小值即可，可以得到状态转移方程：
+
+当 `A[i] == B[j]`：  
+`dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1])`；
+
+当 `A[i] != B[j]`：  
+`dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1)`；
+
+
+<details>
+    <suamary>动态规划</summary>
+
+  ```java
+    public int minDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        if (m * n == 0) {
+            return m + n;
+        }
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i < m + 1; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 0; j < n + 1; j++) {
+            dp[0][j] = j;
+        }
+        for (int i = 1; i < m + 1; i++) {
+            for (int j = 1; j < n + 1; j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1]) + 1);
+                } else {
+                    dp[i][j] = Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1])) + 1;
+                }
+            }
+        }
+        return dp[m][n];
+    }
   
   ```
 
