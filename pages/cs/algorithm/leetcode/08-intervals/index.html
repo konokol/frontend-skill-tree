@@ -3776,6 +3776,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#435" class="md-nav__link">
+    <span class="md-ellipsis">
+      435. 无重叠区间
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4116,6 +4125,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#435" class="md-nav__link">
+    <span class="md-ellipsis">
+      435. 无重叠区间
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4158,6 +4176,78 @@
 <a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">resultList</span><span class="p">.</span><span class="na">toArray</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="n">resultList</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">][]</span><span class="p">);</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="p">}</span>
 </code></pre></div>
+</details>
+
+<h2 id="435"><a href="https://leetcode.cn/problems/non-overlapping-intervals/description/">435. 无重叠区间</a></h2>
+<p>难度：⭐️⭐️⭐️</p>
+<p>给定一个区间的集合 <code>intervals</code> ，其中 <code>intervals[i] = [starti, endi]</code> 。返回 需要移除区间的最小数量，使剩余区间互不重叠 。</p>
+<p><strong>注意</strong> 只在一点上接触的区间是 <strong>不重叠的</strong>。例如 <code>[1, 2]</code> 和 <code>[2, 3]</code> 是不重叠的。</p>
+<p><strong>示例 1:</strong></p>
+<p><strong>输入:</strong> intervals = [[1,2],[2,3],[3,4],[1,3]]
+<strong>输出:</strong> 1
+<strong>解释:</strong> 移除 [1,3] 后，剩下的区间没有重叠。</p>
+<p><strong>示例 2:</strong></p>
+<p><strong>输入:</strong> intervals = [ [1,2], [1,2], [1,2] ]
+<strong>输出:</strong> 2
+<strong>解释:</strong> 你需要移除两个 [1,2] 来使剩下的区间没有重叠。</p>
+<p><strong>示例 3:</strong></p>
+<p><strong>输入:</strong> intervals = [ [1,2], [2,3] ]
+<strong>输出:</strong> 0
+<strong>解释:</strong> 你不需要移除任何区间，因为它们已经是无重叠的了。</p>
+<p><strong>提示:</strong></p>
+<ul>
+<li><code>1 &lt;= intervals.length &lt;= 105</code></li>
+<li><code>intervals[i].length == 2</code></li>
+<li><code>-5 * 104 &lt;= starti &lt; endi &lt;= 5 * 104</code></li>
+</ul>
+<p><strong>解法一</strong> 分组思想</p>
+<p>反向思考，题目中说移除最少的区间使得剩余的区间不重叠，可以转换成保留最多的区间并且区间都不重叠。
+解题过程
+先将这些区间按区间终点排序，按照排序的区间终点划线，则所有的区间可以被分成N组，每组会有 1~若干个区间，由于每一组的区间必定是重叠的（终点相同），要使选中的区间都不重叠，每组至多选一个值，分 2 种情况：
+当前分组中，至少存在一个区间，和上一组不重叠，选择任意一个满足条件的区间即可，例如下图中的第二组；
+当前分组中，所有区间都和上一组重叠了，则这一组的区间都不选，例如下图中的第三组；</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    第一组：
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>        ====== ✅
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>           ===
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>            == 
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>      ========
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    第二组：
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>          ========= ❌                  
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    =============== ❌
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                === ✅
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>                 ==
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    第三组：
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                 ====== ❌
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            =========== ❌
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                ...
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    第 N 组：
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>                          ========= ✅                 
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>              =====================
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>                                ===
+</code></pre></div>
+<p>遍历完所有的区间之后，每一组选中的区间记个数，就是可以保留的最大区间数了。</p>
+<p>那么，如何定义每一组呢？我们选定排序的区间的右值作为组的分割线，用right来标记当前遍历的组的右边界，初始值就是第一组的区间终点，即 intervals[0][1]。遍历过程中，找到满足条件的区间后，选中它（保留区间数加一），右边界移动到下一组。</p>
+<details>
+    <summary>分组</summary>
+
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">eraseOverlapIntervals</span><span class="p">(</span><span class="kt">int</span><span class="o">[][]</span><span class="w"> </span><span class="n">intervals</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">Arrays</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">intervals</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">intervals</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">]</span><span class="p">;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">keep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="w"> </span><span class="n">interval</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">intervals</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">interval</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">            </span><span class="n">keep</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">            </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">interval</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">intervals</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">keep</span><span class="p">;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">}</span>
+</code></pre></div>
+
 </details>
 
 
