@@ -728,6 +728,129 @@
   ```
 </details>
 
+## [450. 删除二叉搜索树中的节点](https://leetcode.cn/problems/delete-node-in-a-bst)
+
+难度：⭐️⭐️⭐️⭐️
+
+给定一个二叉搜索树的根节点 root 和一个值 key，删除二叉搜索树中的 key 对应的节点，并保证二叉搜索树的性质不变。返回二叉搜索树（有可能被更新）的根节点的引用。
+
+一般来说，删除节点可分为两个步骤：
+
+首先找到需要删除的节点；
+如果找到了，删除它。
+
+**解法一：** 递归
+
+当要删除的元素不在树中时，直接返回根节点。  
+当要删除的元素在树中，先找到待删除的节点，分三种情况讨论：
+- 要删除的节点是根节点，直接删除它；
+- 要删除的节点有一个子树为空，只需要把该节点替换成非空的子树即可完成删除；
+- 要删除的节点左右子树均非空时，需要找到一个结点，移动到要删除的节点的位置，为了让二叉树尽可能保持平衡，一般是找左子树的最大值或者右子树的最小值。
+
+使用递归解法时，先写递归结束的条件代码会更简洁。
+<details>
+  <summary>递归</summary>
+
+  ```java
+  public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val == key) {
+            if (root.left == null) {
+                return root.right;
+            }
+            if (root.right == null) {
+                return root.left;
+            }
+            TreeNode pre = root.left;
+            while (pre.right != null) {
+                pre = pre.right;
+            }
+            root.val = pre.val;
+            root.left = deleteNode(root.left, pre.val);
+            return root;
+        } else if (key < root.val) {
+             root.left = deleteNode(root.left, key);
+            return root;
+        } else {
+            root.right = deleteNode(root.right, key);
+            return root;
+        }
+        
+    }
+
+  ```
+</details>
+
+
+**解法二：** 迭代
+
+和递归的方法一样，只不过需要在迭代过程中记录访问到的节点的父节点，删除的时候也需要考虑到删除根节点或者非根节点。
+
+<details>
+  <summary>递归</summary>
+
+  ```java
+  public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode target = root;
+        TreeNode parent = null;
+        while (target != null && target.val != key) {
+            if (key < target.val) {
+                parent = target;
+                target = target.left;
+            } else if (key > target.val) {
+                parent = target;
+                target = target.right;
+            }
+        }
+        if (target == null) {
+            return root;
+        }
+
+        if (target.left == null || target.right == null) {
+            TreeNode child = null;
+            if (target.left == null) {
+                child = target.right;
+            }
+            if (target.right == null) {
+                child = target.left;
+            }
+
+            if (parent == null) {
+                // 删根节点
+                return child;    
+            } else {
+                if (parent.left == target) {
+                    parent.left = child;
+                } else if (parent.right == target) {
+                    parent.right = child;
+                }
+                return root;
+            }
+        } else {
+            // 找右子树的最小值
+            TreeNode successor = target.right;
+            TreeNode successorParent = target;
+            while (successor.left != null) {
+                successorParent = successor;
+                successor = successor.left;
+            }
+            target.val = successor.val;
+            if (successorParent.left == successor) {
+                successorParent.left = successor.right;
+            } else {
+                successorParent.right = successor.right;
+            }
+            return root;
+        }
+    }
+  ```
+</details>
+
 ## [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
 
 难度：⭐️⭐️
