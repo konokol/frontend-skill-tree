@@ -198,7 +198,8 @@
 
 <details>
   <summary> 双指针法 </summary>
-  ```Java
+  
+```Java
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
@@ -231,13 +232,3 @@
     }
   ```
 </details>
-
-## 数学
-
-[颠倒二进制位](https://leetcode.cn/problems/add-binary/description)
-
-颠倒给定的 32 位无符号整数的二进制位。
-
-**解法一**：循环
-
-使用循环，每次1位，左移然后按位与。

@@ -128,24 +128,25 @@ nav:
     - 敬请期待: pages/cs/os/none.md
   - 算法:
     - Leetcode常见题: 
-      - 数组/字符串: pages/cs/algorithm/leetcode/01-arrays.md
-      - 链表: pages/cs/algorithm/leetcode/02-linkedlist.md
-      - 哈希表: pages/cs/algorithm/leetcode/03-hash.md
+      - 数组/字符串: pages/cs/algorithm/leetcode/01-array&string.md
+      - 链表: pages/cs/algorithm/leetcode/02-linked-list.md
+      - 哈希表: pages/cs/algorithm/leetcode/03-hashmap.md
       - 栈: pages/cs/algorithm/leetcode/04-stack.md
       - 堆: pages/cs/algorithm/leetcode/05-heap.md
       - 二叉树: pages/cs/algorithm/leetcode/06-tree.md
       - 图论: pages/cs/algorithm/leetcode/07-graph.md
       - 区间: pages/cs/algorithm/leetcode/08-intervals.md
       - 矩阵: pages/cs/algorithm/leetcode/09-matrix.md
-      - 数学: pages/cs/algorithm/leetcode/10-mathematical.md
-      - 双指针: pages/cs/algorithm/leetcode/11-double-pointer.md
+      - 数学问题: pages/cs/algorithm/leetcode/10-math.md
+      - 双指针: pages/cs/algorithm/leetcode/11-two-pointers.md
       - 滑动窗口: pages/cs/algorithm/leetcode/12-sliding-window.md
       - 回溯: pages/cs/algorithm/leetcode/13-backtracking.md
-      - 分治: pages/cs/algorithm/leetcode/14-division.md
-      - 贪心: pages/cs/algorithm/leetcode/15-greedy.md
+      - 分治: pages/cs/algorithm/leetcode/14-divide&conquer.md
+      - 贪心算法: pages/cs/algorithm/leetcode/15-greedy.md
       - 动态规划: pages/cs/algorithm/leetcode/16-dynamic-programmings-i.md
       - 多维动态规划: pages/cs/algorithm/leetcode/17-dynamic-programmings-ii.md
-      - 排序: pages/cs/algorithm/leetcode/19-sort.md
+      - 位运算: pages/cs/algorithm/leetcode/18-bit-manipulation.md
+      - 排序算法: pages/cs/algorithm/leetcode/19-sort.md
       - 二分查找: pages/cs/algorithm/leetcode/20-binary.md
       - 技巧题: pages/cs/algorithm/leetcode/21-others.md
       - leetcode热题100: pages/cs/algorithm/leetcode.md
