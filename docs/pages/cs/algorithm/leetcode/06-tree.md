@@ -162,32 +162,39 @@
 
 *解法二** 迭代
 
-层次遍历，每次访问2个节点。
+层次遍历，每次访问2个节点。需要注意的是，层次遍历使用的队列用LinkedList，不要用ArrayDeque，因为ArrayDeque不允许元素为空。
 
 <details>
   <summary>递归</summary>
 
   ```java
-    public boolean isSymmetric(TreeNode root) {
-        return check(root, root);
-    }
-
-    private boolean check(TreeNode ll, TreeNode rr) {
+        public boolean isSymmetric(TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return true;
+        }
         Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(ll);
-        queue.offer(rr);
-        while(!queue.isEmpty()) {
-            TreeNode left = queue.poll();
-            TreeNode right = queue.poll();
-            if (left == null && right == null) {
-                continue;
-            } else if (left == null || right == null || left.val != right.val) {
-                return false;
+        queue.offer(root.left);
+        queue.offer(root.right);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode left = queue.poll();
+                TreeNode right = queue.poll();
+                if (left == null && right == null) {
+                    continue;
+                } else if (left != null && right != null) {
+                    if (left.val != right.val) {
+                        return false;
+                    } else {
+                        queue.offer(left.left);
+                        queue.offer(right.right);
+                        queue.offer(left.right);
+                        queue.offer(right.left);
+                    }
+                } else {
+                    return false;
+                }
             }
-            queue.offer(left.left);
-            queue.offer(right.right);
-            queue.offer(left.right);
-            queue.offer(right.left);
         }
         return true;
     }
