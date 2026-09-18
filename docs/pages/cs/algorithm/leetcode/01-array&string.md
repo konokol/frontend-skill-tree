@@ -1,5 +1,95 @@
 # 数组/字符串
 
+## [3.无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters)
+
+难度：⭐️⭐️
+
+给定一个字符串 `s` ，请你找出其中不含有重复字符的 **最长子串** 的长度。
+
+**示例 1:**
+
+>**输入:** s = "abcabcbb"  
+>**输出:** 3   
+>**解释:** 因为无重复字符的最长子串是 "abc"，所以其长度为 3。注意 "bca" 和 "cab" 也是正确答案。
+
+
+**示例 2:**
+
+
+>**输入:** s = "bbbbb"  
+>**输出:** 1  
+>**解释:** 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+
+**示例 3:**
+
+>**输入:** s = "pwwkew"  
+>**输出:** 3  
+>**解释:** 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+ 
+
+*提示：*
+
+- 0 <= s.length <= 10<sup>5</sup>
+- s 由英文字母、数字、符号和空格组成
+
+**解法一** 滑动窗口 + 哈希表
+
+使用左右两个指针记录滑动窗口的起始和终止位置，用一个HashSet记录字符是否出现过，出现过，左指针右移直到该字符移动到窗口外，否则右指针一直右移，同时计算最大子串的长度。
+
+**优化** 用HashMap记录每个字符第一次出现时的下标，遇到出现过的字符串时，直接更新左指针的位置。
+
+<details>
+<summary>滑动窗口</summary>
+
+```java
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int max = 0;
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (set.contains(c)) {
+                max = Math.max(max, end - start);
+                while (set.contains(c)) {
+                    set.remove(s.charAt(start++));
+                }
+                
+            }
+            set.add(c);
+            end++;
+        }
+        max = Math.max(max, end - start);
+        return max;
+    }
+```
+</details>
+
+
+<details>
+<summary>滑动窗口（优化版）</summary>
+
+```java
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int max = 0;
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                start = Math.max(map.get(c) + 1, start);
+            }
+            end = i;
+            map.put(c, i);
+            max = Math.max(max, end - start + 1);
+        }
+        return max;
+    }
+```
+</details>
+
 ## [27.移除数组中指定元素](https://leetcode.cn/problems/remove-element/description/)
 
 难度：⭐️
@@ -80,8 +170,6 @@
     }
   ```
 </details>
-
-
 
 ## [41.缺失的第一个正数](https://leetcode.cn/problems/first-missing-positive)
 
