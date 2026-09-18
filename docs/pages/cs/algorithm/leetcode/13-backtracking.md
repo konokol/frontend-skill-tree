@@ -1,5 +1,76 @@
 # 回溯
 
+## [39.组合总数](https://leetcode.cn/problems/combination-sum/description)
+
+难度：⭐️⭐️⭐️
+
+给你一个 **无重复元素** 的整数数组 `candidates` 和一个目标整数 `target` ，找出 `candidates` 中可以使数字和为目标数 `target` 的 所有 **不同组合** ，并以列表形式返回。你可以按 **任意顺序** 返回这些组合。
+
+`candidates` 中的 **同一个** 数字可以 **无限制重复被选取** 。如果至少一个数字的被选数量不同，则两种组合是不同的。 
+
+对于给定的输入，保证和为 `target` 的不同组合数少于 150 个。
+
+ 
+**示例 1：**
+
+>**输入：**candidates = [2,3,6,7], target = 7  
+**输出：**[[2,2,3],[7]]  
+**解释：**
+2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
+7 也是一个候选， 7 = 7 。
+仅有这两种组合。
+
+**示例 2：**
+
+>**输入:** candidates = [2,3,5], target = 8  
+**输出: **[[2,2,2,2],[2,3,3],[3,5]]  
+
+**示例 3：**
+
+>**输入:** candidates = [2], target = 1  
+**输出:** []
+ 
+
+**提示：**
+
+- 1 <= candidates.length <= 30
+- 2 <= candidates[i] <= 40
+- candidates 的所有元素 互不相同
+- 1 <= target <= 40
+
+**解法一** 回溯
+
+和全排列一样，使用回溯的经典写法，注意的是，选取的数字一样时算一种解法，所以递归的时候，从index + 1开始。
+
+<details>
+<summary>回溯</summary>
+
+```java
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        dfs(candidates, 0, new ArrayList<>(), ans, 0, target);
+        return ans;
+    }
+
+    private void dfs(int[] candidates, int index, List<Integer> cur, List<List<Integer>> ans, int sum, int target) {
+        if (sum > target) {
+            return;
+        } else if (sum == target) {
+            ans.add(new ArrayList<>(cur));
+        } else {
+            for (int i = index; i < candidates.length; i++) {
+                if (candidates[i] + sum <= target) {
+                    cur.add(candidates[i]);
+                    dfs(candidates, i, cur, ans, sum + candidates[i], target);
+                    cur.remove(cur.size() - 1);
+                }
+            }
+        }
+    }
+```
+
+</details>
+
 ## [46.全排列](https://leetcode.cn/problems/permutations/description)
 
 难度：⭐️⭐️⭐️⭐️

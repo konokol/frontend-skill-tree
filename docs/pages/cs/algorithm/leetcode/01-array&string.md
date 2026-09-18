@@ -102,6 +102,7 @@
 
 <details>
   <summary>暴力遍历</summary>
+  
   ```java
     public int removeElement(int[] nums, int val) {
         int k = 0;
@@ -120,12 +121,14 @@
   ```
 </details>
 
+
 **解法二** 快慢指针
 
 相等元素移动快指针，不同元素直接赋值。
 
 <details>
   <summary>快慢指针</summary>
+
   ```java
     public int removeElement(int[] nums, int val) {
         int slow = 0;
@@ -152,6 +155,7 @@
 
 <details>
   <summary>左右双指针</summary>
+  
   ```java
     public int removeElement(int[] nums, int val) {
         int left = 0;
