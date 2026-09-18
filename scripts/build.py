@@ -1,36 +1,28 @@
-# usr/bin/env python3
-# -*- codind:utf-8 -*-
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
 import functools
 from collections import OrderedDict
 from operator import index
 import os
 import math
-from venv import create
 import yaml
 
-ignore = ['assets', 'css', 'img', 'none.md', 'index.md']
-names = {
-    '1-Basic': '基础',
-    '2-Perf': '性能',
-    '3-Arch': '架构',
-    '4-Thirdpart': '三方框架',
-    '5-Framework': 'Framework',
-    'Internet': '网络',
-    'OS': '操作系统',
-    'CS-basic': '计算机基础',
-    'Algorithm': '算法',
-    'CS': 'CS理论基础',
-    'Java': 'Java基础',
-    'Kotlin': 'Kotlin基础',
-    'Cross-platform': '跨平台技术',
-    'tools': '工具与工程化',
-    'ref': '学习资料',
-    'home': '首页'
-}
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(script_dir)
+docs_dir = os.path.join(project_root, 'docs')
 
-orders = ['首页', 'Android', 'Java基础', 'Kotlin基础', '跨平台技术', 'CS理论基础', '关于', '学习资料']
+# 加载配置文件
+with open(os.path.join(script_dir, 'config.yaml'), 'r', encoding='utf-8') as f:
+    config = yaml.safe_load(f)
+
+names = config['names']
+orders = config['orders']
+
+ignore = ['assets', 'css', 'img', 'none.md', 'index.md']
 
 def read_docs(source, object_pairs_hook=OrderedDict):
+    source = os.path.join(project_root, source)
+
     class OrderedLoader(yaml.Loader):
         pass
 
@@ -42,18 +34,19 @@ def read_docs(source, object_pairs_hook=OrderedDict):
         yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
         _construct_mapping)
 
-    with open(source, 'r') as file:
+    with open(source, 'r', encoding='utf-8') as file:
         data = yaml.load(file, OrderedLoader)
     return data
 
 def mk_docs(content = ''):
 
     nav = list()
-    folders = os.listdir('docs')
+    docs_dir = os.path.join(project_root, 'docs')
+    folders = os.listdir(docs_dir)
     folders.sort()
     for file in folders:
         if file not in ignore:
-            doc = single_doc('./docs/' + file)
+            doc = single_doc(os.path.join(docs_dir, file))
             if doc is not None:
                 nav.append(doc)
 
@@ -74,14 +67,20 @@ def mk_docs(content = ''):
 def single_doc(file_path):
     if (os.path.isfile(file_path)):
         if os.path.basename(file_path) == 'none.md':
-            return {'敬请期待': os.path.relpath(file_path, './docs')}
-        with open(file_path, 'r', encoding='utf-8') as f:
-            for line in f.readlines():
-                if (line.startswith("#")):
-                    name = line[1:].strip()
-                    print('add file', name)
-                    return {name : os.path.relpath(file_path, './docs')}
-            return {os.path.basename(file_path).split('.')[0] : os.path.relpath(file_path, './docs')}
+            return {'敬请期待': os.path.relpath(file_path, docs_dir)}
+
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                for line in f.readlines():
+                    if (line.startswith("#")):
+                        name = line[1:].strip()
+                        print('add file', name)
+                        return {name : os.path.relpath(file_path, docs_dir)}
+                return {os.path.basename(file_path).split('.')[0] : os.path.relpath(file_path, docs_dir)}
+        except (UnicodeDecodeError, IOError) as e:
+            print(f"Error reading file {file_path}: {e}")
+            return None
+
     else:
         dirs = list()
         files = os.listdir(file_path)
@@ -91,14 +90,18 @@ def single_doc(file_path):
             if child is not None:
                 dirs.append(child)
         if not dirs:
-            with open(os.path.join(file_path, 'none.md'), 'w') as f:
-                child = single_doc(f.name)
-                if child is not None:
-                    dirs.append(child)
+            none_file = os.path.join(file_path, 'none.md')
+            if os.path.exists(none_file):
+                with open(none_file, 'r', encoding='utf-8') as f:
+                    for line in f.readlines():
+                        if (line.startswith("#")):
+                            name = line[1:].strip()
+                            return {'敬请期待': os.path.relpath(none_file, docs_dir)}
+                    return {'敬请期待': 'none.md'}
         name = os.path.basename(file_path)
         return {names[name] if name in names else name : dirs}
 
-def write_docs(target='mkdocs.yml', data = None, object_pairs_hook=OrderedDict,):
+def write_docs(target='mkdocs.yml', data = None, object_pairs_hook=OrderedDict):
     if data is not None:
         class OrderedDumper(yaml.Dumper):
             pass
@@ -109,10 +112,11 @@ def write_docs(target='mkdocs.yml', data = None, object_pairs_hook=OrderedDict,)
                 data.items())
 
         OrderedDumper.add_representer(object_pairs_hook, _dict_representer)
-    
-        if os.path.exists(target):
-            os.remove(target)
-        with open(target, 'w', encoding="utf-8") as file:
+
+        target_path = os.path.join(project_root, target)
+        if os.path.exists(target_path):
+            os.remove(target_path)
+        with open(target_path, 'w', encoding="utf-8") as file:
             yaml.dump(data, file, OrderedDumper, default_flow_style=False, allow_unicode=True)
 
 if __name__ == "__main__":

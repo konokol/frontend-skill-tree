@@ -1,0 +1,29 @@
+# 文档导航配置
+names:
+  '1-Basic': '基础'
+  '2-Perf': '性能'
+  '3-Arch': '架构'
+  '4-Thirdpart': '三方框架'
+  '5-Framework': 'Framework'
+  'Internet': '网络'
+  'OS': '操作系统'
+  'CS-basic': '计算机基础'
+  'Algorithm': '算法'
+  'CS': 'CS理论基础'
+  'Java': 'Java基础'
+  'Kotlin': 'Kotlin基础'
+  'Cross-platform': '跨平台技术'
+  'tools': '工具与工程化'
+  'ref': '学习资料'
+  'home': '首页'
+
+# 导航菜单顺序
+orders:
+  - '首页'
+  - 'Android'
+  - 'Java基础'
+  - 'Kotlin基础'
+  - '跨平台技术'
+  - 'CS理论基础'
+  - '关于'
+  - '学习资料'

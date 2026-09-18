@@ -406,6 +406,127 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 **解法二** 迭代
 
 
+## [141.环形链表I](https://leetcode.cn/problems/linked-list-cycle)
+
+给你一个链表的头节点 head ，判断链表中是否有环。
+
+如果链表中有某个节点，可以通过连续跟踪 `next` 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。**注意：pos 不作为参数进行传递**。仅仅是为了标识链表的实际情况。
+
+如果链表中存在环 ，则返回 `true` 。 否则，返回 `false` 。
+
+**示例 1：**
+
+![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png)
+
+>**输入：** head = [3,2,0,-4], pos = 1  
+>**输出：** true  
+>**解释：** 链表中有一个环，其尾部连接到第二个节点。
+
+**示例 2：**
+
+![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png)
+
+>**输入：** head = [1,2], pos = 0  
+>**输出：** true  
+>**解释：** 链表中有一个环，其尾部连接到第一个节点。
+
+示例 3：
+
+![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png)
+
+>**输入：** head = [1], pos = -1  
+>**输出：** false  
+>**解释：** 链表中没有环。
+ 
+
+**提示：**
+
+链表中节点的数目范围是 [0, 104]
+-105 <= Node.val <= 105
+pos 为 -1 或者链表中的一个 有效索引 。
+
+
+**解法一：** 哈希表
+
+把访问过的节点保存起来，指针一直往后走，当遇到存在一个结点被访问过时，就说明存在环。
+
+**解法二：** 快慢指针
+
+快慢指针都从头结点开始，快指针每次只访问一个节点，慢指针每次访问 2 个，两个节点相遇时，即说明有环。
+
+<details>
+    <summary>快慢指针</summary>
+
+```java
+public boolean hasCycle(ListNode head) {
+    ListNode slow = head;
+    ListNode fast = head;
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
+```
+</details>
+
+## [142.环形链表II](https://leetcode.cn/problems/linked-list-cycle-ii)
+
+给定一个链表的头节点  `head` ，返回链表开始入环的第一个节点。 *如果链表无环，则返回 null。*
+
+如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（**索引从 0 开始**）。如果 pos 是 -1，则在该链表中没有环。**注意：pos 不作为参数进行传递**，仅仅是为了标识链表的实际情况。
+
+**不允许修改** 链表。
+
+**解法一：** 哈希表
+
+把访问过的节点保存起来，指针一直往后走，当遇到存在一个结点被访问过时，就说明存在环，该节点即为已经访问过的节点。
+
+**解法二：** 快慢指针
+
+快慢指针都从**头结点**开始，快指针每次只访问一个节点，慢指针每次访问 2 个，两个节点相遇时，即说明有环。这个算法叫Floyd判圈算法。
+
+推导过程：
+```text
+head ──a──> 环入口 ──b──> 相遇点
+                ↑            │
+                └────c───────┘
+```
+设圈的长度为 L = b + c，相遇时：  
+- 慢指针走 `a + b` 
+- 快指针走 `a + b + nL`
+
+快指针走的总步数是慢指针的 2 倍，于是有：  
+`2(a + b) = a + b + nL` ==> `a + b = nL` ==> `a + b = n(b + c)` ==> `a = c + (n - 1)(b + c)` 即 `a = c + (n-1)L`，也就是说，当一个指针从头结点出发，另一个从相遇点出发，以同样的速度前进，最终一定是在环入口相遇。
+
+唯一需要注意的是，两个指标必须同时从头结点开始出发。
+
+<details>
+    <summary>快慢指针</summary>
+
+```java
+       public ListNode detectCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                fast = head;
+                while (slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return fast;
+            }
+        }
+        return null;
+    }
+```
+</details>
+
+
 ## [146.LRU缓存](https://leetcode.cn/problems/lru-cache/description)
 
 难度：⭐️⭐️⭐️
