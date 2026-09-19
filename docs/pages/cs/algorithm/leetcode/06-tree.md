@@ -683,30 +683,35 @@
   <summary>哈希表保存父节点</summary>
 
   ```java
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-         lowest(root, p , q);
-         return res;
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        Map<TreeNode, TreeNode> parents = new HashMap<>();
+        dfs(root, parents);
+        Set<TreeNode> pParents = new HashSet<>();
+        while (p != null) {
+            pParents.add(p);
+            p = parents.get(p);
+        }
+        while (q != null) {
+            if (pParents.contains(q)) {
+                return q;
+            } else {
+                q = parents.get(q);
+            }
+        }
+        return null;
     }
-    TreeNode res;
-    boolean flag = false;
 
-    private TreeNode lowest(TreeNode node, TreeNode p, TreeNode q) {
-        if (node == null || flag) return null;
-
-        TreeNode left = lowest(node.left, p, q);
-        TreeNode right = lowest(node.right, p, q);
-
-
-        if ((p == left && q == right) || (q == left && p == right)
-         || (p == left && node == q) || (p == right && node == q)
-         || (q == left && node == p) || (q == right && node == p)) {
-            flag = true;
-            res = node;
-         }
-        if (left == p || right == p) return p;
-        if (left == q || right == q) return q;
-
-        return node;
+    private void dfs(TreeNode node, Map<TreeNode, TreeNode> parents) {
+        if (node != null) {
+            if (node.left != null) {
+                dfs(node.left, parents);
+                parents.put(node.left, node);
+            }
+            if (node.right != null) {
+                dfs(node.right, parents);
+                parents.put(node.right, node);
+            }
+        }
     }
   ```
 </details>
