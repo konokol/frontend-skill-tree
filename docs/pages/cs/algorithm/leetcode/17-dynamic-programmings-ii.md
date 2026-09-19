@@ -24,6 +24,48 @@
 - 1 <= s.length <= 1000
 - s 仅由数字和英文字母组成
 
+**解法二** 动态规划
+
+动态规划的核心思想是把之前计算的结果缓存起来可以复用。本例中，用dp[i][j]来表明 i~j 之间的字符串是否是回文串，同时在遍历的过程中，判断子串是否是回文串并更新最大长度。对子串s[i, j]分情况讨论：
+- 子串长度为 1，是回文串，dp[i][j] = true；
+- 子串长度为 2，首尾字符相等就是回文串，dp[i][j] = s[i] == s[j]；
+- 子串长度超过 2，减掉首尾字符，根据dp[i + 1][j - 1]来判断，dp[i][j] = ch[i] == ch[j] && dp[i + 1][j - 1];
+
+注意，由于dp[i][j]依赖 dp[i+1][j-1]，所以下标 i 从大到小遍历，下标 j 从小到大遍历。
+
+<details>
+<summary>动态规划</summary>
+
+```java
+    public String longestPalindrome(String s) {
+        char[] ch = s.toCharArray();
+        boolean[][] dp = new boolean[ch.length][ch.length];
+        int max = 0;
+        int left = 0;
+        for (int i = ch.length - 1; i >= 0; i--) {
+            for (int j = i; j < ch.length; j++) {
+                int length = j - i + 1;
+                if (length == 1) {
+                    dp[i][j] = true;
+                } else if (length == 2) {
+                    dp[i][j] = ch[i] == ch[j];
+                } else {
+                    dp[i][j] = ch[i] == ch[j] && dp[i + 1][j - 1];
+                }
+                if (dp[i][j]) {
+                    if (length > max) {
+                        left = i;
+                        max = length;
+                    }
+                }
+            }
+        }
+        return s.substring(left, left + max);
+    }
+```
+
+</details>
+
 **解法二** 中心扩展法
 
 从每个位置开始，找到回文串，分两种情况，长度为奇数和偶数的。不必每次都取字符串的子串，只记录最大子串的左边界和字符串长度即可，最后在取一次substring。
