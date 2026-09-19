@@ -1,5 +1,71 @@
 # 多维动态规划
 
+## [5.最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring)
+
+难度：⭐️⭐️⭐️
+
+给你一个字符串 `s`，找到 `s` 中最长的 回文 子串。
+
+**示例 1：**
+
+>**输入：** s = "babad"  
+**输出：** "bab"  
+**解释：** "aba" 同样是符合题意的答案。
+
+
+**示例 2：**
+
+>**输入：** s = "cbbd"  
+**输出：** "bb"
+ 
+
+*提示：*
+
+- 1 <= s.length <= 1000
+- s 仅由数字和英文字母组成
+
+**解法二** 中心扩展法
+
+从每个位置开始，找到回文串，分两种情况，长度为奇数和偶数的。不必每次都取字符串的子串，只记录最大子串的左边界和字符串长度即可，最后在取一次substring。
+
+空间复杂度比动态规划低。
+
+<details>
+<summary>中心扩展法</summary>
+
+```java
+public String longestPalindrome(String s) {
+        int max = 0;
+        int left = 0;
+        char[] ch = s.toCharArray();
+        for (int i = 0; i < ch.length; i++) {
+            int[] odd = find(ch, i, i);
+            int[] even = find(ch, i, i + 1);
+            if (odd[1] - odd[0] + 1 > max) {
+                left = odd[0];
+                max = odd[1] - odd[0] + 1;
+            }
+            if (even[1] - even[0] + 1 > max) {
+                left = even[0];
+                max = even[1] - even[0] + 1;
+            }
+        }
+        return s.substring(left, left + max);
+    }
+
+    private int[] find(char[] s, int left, int right) {
+        while (left >= 0 && right <= s.length - 1 && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        return new int[]{left + 1, right - 1};
+    }
+```
+
+</details>
+
+
+
 ## [62. 不同路径](https://leetcode.cn/problems/unique-paths/description)
 
 难度：⭐️⭐️
