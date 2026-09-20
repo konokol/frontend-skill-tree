@@ -1,6 +1,6 @@
 # 堆
 
-## [215. 数组中的第K个最大元素](https://leetcode.cn/problems/kth-largest-element-in-an-array);
+## [215. 数组中的第K个最大元素](https://leetcode.cn/problems/kth-largest-element-in-an-array)
 
 难度：⭐️⭐️⭐️
 
@@ -54,6 +54,30 @@
 
 给你一个整数数组 `nums` 和一个整数 `k` ，请你返回其中出现频率前 `k` 高的元素。你可以按 **任意顺序** 返回答案。
 
+**示例 1：**
+
+>**输入：** nums = [1,1,1,2,2,3], k = 2  
+>**输出：** [1,2]
+
+**示例 2：**
+
+>**输入：**nums = [1], k = 1  
+>**输出：**[1]
+
+**示例 3：**
+
+>**输入：** nums = [1,2,1,2,1,2,3,1,3,2], k = 2  
+>**输出：** [1,2]
+
+
+**提示：**
+
+- 1 <= nums.length <= 10<sup>5</sup>
+- -104 <= nums[i] <= 104
+- k 的取值范围是 [1, 数组中不相同的元素的个数]
+- 题目数据保证答案唯一，换句话说，数组中前 k 个高频元素的集合是唯一的
+
+
 **解法一** 哈希表 + 优先级队列
 
 第一步：使用哈希表保存每个元素出现的次数  
@@ -65,35 +89,33 @@
 
   ```java
     public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int n : nums) {
-            map.put(n, map.getOrDefault(n, 0) + 1);
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int n: nums) {
+            freq.put(n, freq.getOrDefault(n, 0) + 1);
         }
-        Queue<int[]> queue = new PriorityQueue<>((int[] a, int[] b) -> {
-            return a[1] - b[1];
-        });
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            int num = entry.getKey();
-            int count = entry.getValue();
-            if (queue.size() < k) {
-                queue.offer(new int[] {num, count});
-            } else if (count > queue.peek()[1]) {
+        PriorityQueue<Map.Entry<Integer, Integer>> queue = new PriorityQueue<>(
+            (Map.Entry<Integer, Integer> e1, Map.Entry<Integer, Integer> e2) -> {
+                return Integer.compare(e1.getValue(), e2.getValue());
+            }
+        );
+        for (Map.Entry<Integer, Integer> entry: freq.entrySet()) {
+            queue.offer(entry);
+            if (queue.size() > k) {
                 queue.poll();
-                queue.offer(new int[] {num, count});
             }
         }
-        int[] ans = new int[k];
-        for (int i = k; i > 0; i--) {
-            ans[i - 1] = queue.poll()[0];
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++) {
+            result[i] = queue.poll().getKey();
         }
-        return ans;
+        return result;
     }
   ```
 </details>
 
 **解法二** 桶排序
 
-思路同解法一，只是第二步将优先级队列换成数组，用数组的下标作为数字出现的次数，保存成类似于哈希表的结构。
+思路同解法一，由于题目中数组元素最大值是10<sup>4</sup>，只是第二步将优先级队列换成数组，用数组的下标作为数字出现的次数，保存成类似于哈希表的结构。
 
 <details>
   <summary>桶排序</summary>
@@ -135,3 +157,5 @@
     }
   ```
 </details>
+
+*如果k的值比较小，使用优先级队列更合理，用桶排序尤其是频率差值较大的时候可能会存在较大的空间浪费。*
