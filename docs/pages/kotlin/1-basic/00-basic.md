@@ -1,4 +1,4 @@
-# Kotlin 入门
+# Kotlin 基础
 
 ## 变量
 
@@ -17,14 +17,14 @@ sum = count + sum // sum的值变为30
 
 - `const`，声明常量
 
-`const`关键字用于修饰val类型的变量，表明该'变量'是一个常量。只能修饰顶层属性和类属性，且值必须在编译期就确定，类型只能是String和基本类型。
+`const` 关键字用于修饰 val 类型的变量，表明该 **变量** 是一个常量。只能修饰顶层属性和类属性，且值必须在编译期就确定，类型只能是 String 和基本类型。
 
 总结：
 
-- `val`和`var`可以修饰顶层属性、类属性、局部变量
-- `val`修饰类属性，可以生成`getter`方法，`var`修饰类属性可以生成`getter`和`setter`方法。
-- 局部变量不会有`getter`和`setter`，`val`修饰局部变量相当于Java中的final
-- `const`只能修饰顶层属性和类属性，值必须在编译期确定，值的类型只能是String和final类型。
+- `val` 和`var` 可以修饰顶层属性、类属性、局部变量
+- `val` 修饰类属性，可以生成 `getter` 方法，`var` 修饰类属性可以生成 `getter` 和`setter` 方法。
+- 局部变量不会有 `getter` 和 `setter`，`val` 修饰局部变量相当于 Java 中的 final
+- `const` 只能修饰顶层属性和类属性，**值必须在编译期确定**，值的类型只能是 String 和final 类型。编译之后，`const` 修饰的变量都被内联替换了。
 
 **类型推断**
 
@@ -47,6 +47,13 @@ val name: String = null // 编译报错
 val name: String? = null
 ```
 
+## 基本数据类型
+
+Kotlin 不像 Java 一样，没有原始类型（primitive types），一切都是对象。但是编译器会优化编译产物，根据可空或者非空，编译成原始类型或者包装类型：
+
+- 可空类型被编译成包装类型，例如 `Int? --> Integer`
+- 非空类型被编译成原始类型，例如 `Int --> int`
+
 ## 常见操作符
 
 与Java中不一样的操作符
@@ -62,7 +69,7 @@ val name: String? = null
 
 **类型判断**
 
-`is`和`!is`可以用来做类型判断，相当于Java中的instanceof，用is判断了类型之后，在代码块中可以自动调用对应类型的方法，例如：
+`is` 和 `!is` 可以用来做类型判断，相当于 Java 中的 instanceof，用 is 判断了类型之后，在代码块中可以自动调用对应类型的方法，例如：
 
 ```kotlin
 if (obj is String) {
@@ -78,13 +85,13 @@ if (obj !is String) { // 与 !(obj is String) 相同
 
 **类型转换**
 
-`as`可以用来做类型转换，相当于Java中的强制类型转换。不安全的转换会在编译期报错。
+`as` 可以用来做类型转换，相当于 Java 中的强制类型转换。不安全的转换会在编译期报错。
 
 ```kotlin
 val x: String = y as String
 ```
 
-`as?`可以做安全的类型转换，当转换失败是返回null。
+`as?` 可以做安全的类型转换，当转换失败是返回 null 。
 
 ```kotlin
 val x: String? = y as? String
@@ -94,7 +101,7 @@ val x: String? = y as? String
 
 **if-else**
 
-常规用法和Java一样，但是可以Kotlin中的if-else可以用来当条件表达式，例如：
+常规用法和 Java 一样，但是可以 Kotlin 中的 if-else 可以用来当条件表达式，例如：
 
 ```kotlin
 val String message = if (code == 400) {
@@ -106,11 +113,11 @@ val String message = if (code == 400) {
 }
 ```
 
-Kotlin中没有Java中的三目运算符 ?:，类似的用法都可以用三元表达式来实现。
+Kotlin 中没有 Java 中的三目运算符 ?:，类似的用法都可以用三元表达式来实现。
 
 **when**
 
-当条件较多时，也可以用`when`关键字来做条件判断，示例：
+当条件较多时，也可以用 `when` 关键字来做条件判断，示例：
 
 ```kotlin
 var message: String
@@ -122,9 +129,22 @@ when {
 }
 ```
 
+`when` 可以带参数也可以不带参数，带参数时，when 的每个条件的返回值都是参数的类型，例如：
+
+```kotlin
+var message: String
+
+when (code) {
+  200 -> "ok"
+  400 -> "client error"
+  500 -> "server errro"
+  else -> "known error"
+}
+```
+
 ## 函数
 
-简单的函数声明可以省略{}，例如：
+简单的函数声明可以省略 {}，例如：
 
 ```kotlin
 fun sum(n : Int, m : Int) = n + m // 省略了花括号和返回值，因为可以根据类型推断出返回类型
@@ -158,7 +178,7 @@ fun advancedFunc(m: Int, mapper: (Int) -> String) : String{
 advancedFunc(10, { num -> "$num"})
 ```
 
-高阶函数的最后一个参数如果是匿名函数，可以把这个匿名函数放在调用的圆括号外面，gradle的kotlin DSL中有很多这种用法。例如上面的调用可以写成：
+高阶函数的最后一个参数如果是匿名函数，在调用时可以把这个匿名函数放在圆括号外面，gradle 的 kotlin DSL 中有很多这种用法。例如上面的调用可以写成：
 
 ```
 advancedFunc(10) { num ->
@@ -170,7 +190,7 @@ advancedFunc(10) { num ->
 
 ### 内联函数
 
-内联函数通过inline关键字修饰，会将调用函数的地方内联成函数的实现。内联函数会引入额外的代码，不过使用得当也能提升性能。
+内联函数通过 inline 关键字修饰，会将调用函数的地方内联成函数的实现。内联函数会引入额外的代码，不过使用得当也能提升性能。
 
 ```kotlin
 inline fun inlineFun(m: Int, mapper: (Int) -> String) : String {
@@ -178,7 +198,7 @@ inline fun inlineFun(m: Int, mapper: (Int) -> String) : String {
 }
 ```
 
-如果不希望传给函数的参数被内联，也可以用noinline参数修复函数参数。noinline关键字不能修饰函数，可以修饰函数参数。
+如果不希望传给函数的参数被内联，也可以用noinline参数修饰函数参数。noinline关键字不能修饰函数，可以修饰函数参数。
 
 ```kotlin
 inline fun inlineParams(m: Int, mapper: (Int) -> String, noinline reducer: (Int) -> Int): String {
@@ -241,13 +261,13 @@ println("with: age $age")
 run相当于是let和with的结合体，返回值也是**最后一行表达式**或**return语句**，使用时直接用`obj.run{...}`，作用域内可以省略对象名，直接调用方法或属性
 
 ```kotlin
-    val ret = chinese.run {
-        sayHello()
-        showGift()
-        // 返回bye
-        "bye"
-    }
-    println("run: $ret")
+val ret = chinese.run {
+    sayHello()
+    showGift()
+    // 返回bye
+    "bye"
+}
+println("run: $ret")
 ```
 
 **apply**
@@ -255,13 +275,13 @@ run相当于是let和with的结合体，返回值也是**最后一行表达式**
 apply相当于是also和with的结合体，返回值是**对象本身**。使用时直接用`obj.run{...}`，作用域内可以省略对象名，直接调用方法或属性
 
 ```kotlin
-    val person2 = chinese.apply {
-        sayHello()
-        showGift()
-        sayGoodbye()
-        // 返回chinese对象本身
-    }
-    println("apply: ${person2.javaClass}") // com.kotlin.classes.Chinese
+val person2 = chinese.apply {
+    sayHello()
+    showGift()
+    sayGoodbye()
+    // 返回chinese对象本身
+}
+println("apply: ${person2.javaClass}") // com.kotlin.classes.Chinese
 ```
 
 ![internal functions](../../../img/kotlin-internal-functions.png)
@@ -352,10 +372,11 @@ Java 15中新增了一个新的关键字sealed，和kotlin中的密封类用法�
 
 ### 委托
 
-
+----
 *参考*
 
-1. [学习 Kotlin 编程语言](https://developer.android.google.cn/kotlin/learn?hl=zh-cn)
-2. [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html)
-3. [巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238)
-4. [Get started with Kotlin](https://kotlinlang.org/docs/getting-started.html)
+[1] [学习 Kotlin 编程语言](https://developer.android.google.cn/kotlin/learn?hl=zh-cn).Android Developers  
+[2] [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html).Kotlin 官方文档 中文版  
+[3] Carson.Ho.[巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238).掘金.2020-02-26  
+[4] [Get started with Kotlin](https://kotlinlang.org/docs/getting-started.html)  
+[5] 阿正的梦工坊.[Kotlin 面试题全面解析：从基础到进阶](https://blog.csdn.net/shizheng_Li/article/details/161193265).CSDN.2026-05-18
