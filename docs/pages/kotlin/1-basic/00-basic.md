@@ -47,13 +47,6 @@ val name: String = null // 编译报错
 val name: String? = null
 ```
 
-## 基本数据类型
-
-Kotlin 不像 Java 一样，没有原始类型（primitive types），一切都是对象。但是编译器会优化编译产物，根据可空或者非空，编译成原始类型或者包装类型：
-
-- 可空类型被编译成包装类型，例如 `Int? --> Integer`
-- 非空类型被编译成原始类型，例如 `Int --> int`
-
 ## 常见操作符
 
 与Java中不一样的操作符
@@ -62,7 +55,7 @@ Kotlin 不像 Java 一样，没有原始类型（primitive types），一切都�
 - `?:` Elvis操作符，表明左值为空时，取右值，如 `val firstName = name?:'unknown'`，firstName的值是unknown
 - `?.` 安全调用，左值为空时，值也返回空，如 `val length = name?.length`，length的值也为null
 - `!!` 断言一个表达式非空，如果为空会抛异常
-- `==` 与 `!=` 值相等比较，等同于Java中的equals
+- `==` 与 `!=` 值相等比较，等同于Java中的equals，但是 == 是线程安全的，null == "abc" 不会报错
 - `===` 与 `!==` 引用比较，比较的是内存地址，等同于Java中的==
 - `$` 字符串模板中引用变量或表达式
 - `_` 在lambda或解构中代替未使用的参数
@@ -95,6 +88,46 @@ val x: String = y as String
 
 ```kotlin
 val x: String? = y as? String
+```
+
+
+## 数据类型
+
+### 基本的数据类型
+
+Kotlin 不像 Java 一样，没有原始类型（primitive types），一切都是对象。但是编译器会优化编译产物，根据可空或者非空，编译成原始类型或者包装类型：
+
+- 可空类型被编译成包装类型，例如 `Int? --> Integer`
+- 非空类型被编译成原始类型，例如 `Int --> int`
+
+### Unit、Any、Nothing
+
+- `Any` 所有非空类型的父类，类似于 Java 中的 Object;
+- `Nothing` 表示“永远不会返回，或者不存在的值”，不能被实例化，通常把一个函数的返回值设置为 Nothing 表明这个函数不会返回会抛异常。由于 Nothing 可以赋值给任意类型，也可以将它看做是任意类型的子类型。
+- `Unit` 表示“无意义的返回值”，但是Unit有一个实例
+
+```
+         Any          ← 所有非空类型的根类型
+        / | \
+     Int  String  ...
+       \  |  /
+       Nothing        ← 所有类型的子类型（底类型）
+
+         Any?         ← 所有类型的根类型（包括可空）
+        / | \
+     Int? String? ...
+       \  |  /
+       Nothing?       ← 唯一的值是 null
+```
+
+```kotlin
+// 抛一个异常
+fun fail(message: String): Nothing {
+    throw IllegalArgumentException(message)
+}
+
+val name: String = user.name ?: fail() // 赋值给String类型的变量
+val age: String = if user.age > 0 user.age else fail() // 赋值给Int类型的变量
 ```
 
 ## 条件语句
