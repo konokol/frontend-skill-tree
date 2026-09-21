@@ -302,6 +302,26 @@
   ```
 </details>
 
+**解法二** 递归
+
+递归结束的条件是只有一个节点，或者到链表的末尾。
+
+<details>
+  <summary>直接交换</summary>
+
+  ```java
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) {
+            return head
+        }
+        ListNode next = head.next
+        head.next = swapPairs(next.next)
+        next.next = head
+        return next
+    }
+  ```
+</details>
+
 ## [25.K个一组翻转链表](https://leetcode.cn/problems/reverse-nodes-in-k-group)
 
 难度：⭐️⭐️⭐️⭐️
