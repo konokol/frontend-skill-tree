@@ -27,8 +27,8 @@
 <details>
   <summary>中心扩展算法</summary>
 
-  ```java
-  public String longestPalindrome(String s) {
+ ```java
+    public String longestPalindrome(String s) {
          int start = 0;
          int end = 0;
          int max = 0;
@@ -355,7 +355,7 @@ dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`d
   ```
 </details>
 
-## [*279.完全平方数](https://leetcode.cn/problems/perfect-squares/description)
+## [279.完全平方数](https://leetcode.cn/problems/perfect-squares/description)
 
 难度：⭐️⭐️⭐️
 
@@ -385,7 +385,7 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
   ```
 </details>
 
-## [*300.最长增长子序列](https://leetcode.cn/problems/longest-increasing-subsequence/description)
+## [300.最长增长子序列](https://leetcode.cn/problems/longest-increasing-subsequence/description)
 
 难度：⭐️⭐️⭐️
 
@@ -470,7 +470,7 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
 
 **解法一** 动态规划
 
-用dp[i]表示`amount==i`的解，找到状态转移方程 `dp[i] = min(dp[i - coin[0]], ... , dp[i - coin[j]])`，注意特殊情况，dp[i]无解时，存-1
+用 dp[i] 表示 `amount==i` 的解，找到状态转移方程 `dp[i] = min(dp[i - coin[0]], ... , dp[i - coin[j]])`，注意特殊情况，dp[i] 无解时，存 -1
 
 <details>
   <summary>动态规划</summary>
@@ -500,6 +500,8 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
 </details>
 
 **解法二** 回溯
+
+当 amount 的值非常大时，回溯法会超时，不建议用此方法。
 
 
 ## [416.分割等和子集](https://leetcode.cn/problems/partition-equal-subset-sum/description)
