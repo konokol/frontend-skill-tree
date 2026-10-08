@@ -385,7 +385,7 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
   ```
 </details>
 
-## [300.最长增长子序列](https://leetcode.cn/problems/longest-increasing-subsequence/description)
+## [300.最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/description)
 
 难度：⭐️⭐️⭐️
 
