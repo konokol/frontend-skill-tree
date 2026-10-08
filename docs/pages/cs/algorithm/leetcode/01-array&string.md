@@ -363,9 +363,21 @@
 
 给定一个整数数组 `nums`，将数组中的元素向右轮转 `k` 个位置，其中 `k` 是非负数。
 
+**提示：**
+
+- 1 <= nums.length <= 105
+- -2<sup>31</sup> <= nums[i] <= 2<sup>31</sup> - 1
+- 0 <= k <= 105
+ 
+
+进阶：
+
+尽可能想出更多的解决方案，至少有 **三种** 不同的方法可以解决这个问题。
+
+
 **解法一** 循环
 
-下标每次走k步，直到走完n步。注意走到重复的位置时，往后多走一步，防止西循环。
+下标每次走 k 步，直到走完 n 步。注意走到重复的位置时，往后多走一步，防止死循环。
 
 <details>
   <summary>循环</summary>
@@ -388,6 +400,7 @@
             v = nextValue;
             p = next;
             if (p == start) {
+                // 防止死循环
                 start++;
                 p++;
                 v = nums[p];
@@ -401,6 +414,33 @@
 **解法二** 额外空间
 
 先申请额外的空间，把后面的元素保存上。
+
+**解法三** 三次反转
+
+先将数组整体反转，再将 [0, k] 区间内的元素反转，再将 [k, n] 区间内的元素反转，正好得到结果。这个是最简单的写法，面试中推荐这么写
+
+<details>
+  <summary>三次反转</summary>
+
+  ```java
+    public void rotate(int[] nums, int k) {
+        k = k % nums.length;
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.length - 1);
+    }
+
+    private void reverse(int[] nums, int start, int end) {
+        while(start < end) {
+            int t = nums[start];
+            nums[start] = nums[end];
+            nums[end] = t;
+            start++;
+            end--;
+        }
+    }
+  ```
+</details>
 
 ## [238. 除自身以外数组的乘积](https://leetcode.cn/problems/product-of-array-except-self)
 
@@ -480,6 +520,7 @@
 
 <details>
   <summary>2层遍历穷举法</summary>
+
   ```Java
   public int subarraySum(int[] nums, int k) {
         int ret = 0;
@@ -495,7 +536,6 @@
         return ret;
     }
   ```
-
 </details>
 
 
@@ -523,5 +563,4 @@
         return count;
     }
   ```
-
 </details>
