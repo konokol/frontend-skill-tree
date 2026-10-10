@@ -179,37 +179,37 @@ public String longestPalindrome(String s) {
 - 插入一个字符
 - 删除一个字符
 - 替换一个字符
- 
 
-**示例 1**：
+**示例 1**： 
 
-**输入**：word1 = "horse", word2 = "ros"  
-**输出**：3  
-**解释**：  
+> **输入**：word1 = "horse", word2 = "ros"  
+> **输出**：3  
+> **解释**：  
 horse -> rorse (将 'h' 替换为 'r')  
 rorse -> rose (删除 'r')  
 rose -> ros (删除 'e')  
 
 **示例 2**：
 
-**输入**：word1 = "intention", word2 = "execution"
-**输出**：5
-**解释**：  
+> **输入**：word1 = "intention", word2 = "execution"  
+> **输出**：5  
+> **解释**：  
 intention -> inention (删除 't')  
 inention -> enention (将 'i' 替换为 'e')  
 enention -> exention (将 'n' 替换为 'x')  
 exention -> exection (将 'n' 替换为 'c')  
 exection -> execution (插入 'u')  
  
-
 **提示**：
 
 - `0 <= word1.length, word2.length <= 500`
 - `word1` 和 `word2` 由小写英文字母组成
 
+
 **解法一** 动态规划
 
 对字符串 A 和字符串 B 编辑时等价的操作有 3 种：
+  
 - A 删除一个字符 或 B 插入一个字符
 - A 插入一个字符 或 A 删除一个字符
 - A 变换一个字符 或 B 变换一个字符
@@ -226,15 +226,14 @@ exection -> execution (插入 'u')
 
 综合上面的三种情况，取最小值即可，可以得到状态转移方程：
 
-当 `A[i] == B[j]`：  
-`dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1])`；
+当 `A[i] == B[j]`，直接回溯到上一个位置：  
+`dp[i][j] = dp[i - 1][j - 1]`；
 
-当 `A[i] != B[j]`：  
+当 `A[i] != B[j]`，取增、删、改的最小值：  
 `dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1)`；
 
-
 <details>
-    <suamary>动态规划</summary>
+    <summary>动态规划</summary>
 
   ```java
     public int minDistance(String word1, String word2) {
@@ -253,8 +252,10 @@ exection -> execution (插入 'u')
         for (int i = 1; i < m + 1; i++) {
             for (int j = 1; j < n + 1; j++) {
                 if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-                    dp[i][j] = Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1]) + 1);
+                    // 回溯上一个
+                    dp[i][j] = dp[i - 1][j - 1];
                 } else {
+                    // 增、删、改的最小值
                     dp[i][j] = Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1])) + 1;
                 }
             }
@@ -266,6 +267,49 @@ exection -> execution (插入 'u')
 
 </details>
 
+**解法二**：一维数组的动态规划
+
+在二维数组中，由于每次遍历的时候，只用到了左上、左、上 3 个元素，可以优化成一维数组。
+
+<details>
+  <summary>一维数组</summary>
+
+```java
+  public int minDistance(String word1, String word2) {
+    int m = word1.length();
+    int n = word2.length();
+    if (m * n == 0) {
+        return m + n;
+    }
+    
+    // 一维滚动数组：dp[j] 表示当前行第 j 列的值
+    // 在更新前，dp[j] 是上一行（i-1）第 j 列的值
+    int[] dp = new int[n + 1];
+    // 初始化第 0 行：空串转换成 word2 前 j 个字符需要 j 次插入
+    for (int j = 0; j <= n; j++) {
+        dp[j] = j;
+    }
+
+    for (int i = 1; i <= m; i++) {
+        int prev = dp[0];   // 保存左上角 dp[i-1][0]（即上一行第 0 列）
+        dp[0] = i;          // 当前行第 0 列：word1 前 i 个字符转成空串需要 i 次删除
+        for (int j = 1; j <= n; j++) {
+            int temp = dp[j];  // 保存上一行第 j 列 dp[i-1][j]（即“上”），因为马上要被覆盖
+            if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                dp[j] = prev;  // 字符相等，取左上角 dp[i-1][j-1]
+            } else {
+                // 否则取 左(dp[j-1])、上(temp)、左上(prev) 三者最小值 + 1
+                dp[j] = Math.min(Math.min(dp[j - 1], temp), prev) + 1;
+            }
+            prev = temp;  // 为下一个 j 准备左上角：原来的 dp[i-1][j]
+        }
+    }
+    return dp[n];
+}
+```
+</details>
+
+
 ## [1143.最长公共子序列](https://leetcode.cn/problems/longest-common-subsequence/description)
 
 难度：⭐️⭐️⭐️
@@ -274,8 +318,8 @@ exection -> execution (插入 'u')
 
 一个字符串的 **子序列** 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
 
-- 例如，`"ace"` 是 `"abcde"` 的子序列，但 `"aec"` 不是 `"abcde"` 的子序列。
-- 
+例如，`"ace"` 是 `"abcde"` 的子序列，但 `"aec"` 不是 `"abcde"` 的子序列。
+
 两个字符串的 **公共子序列** 是这两个字符串所共同拥有的子序列。
 
 **解法一** 动态规划
