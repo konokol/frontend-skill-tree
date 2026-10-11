@@ -514,6 +514,75 @@
   ```
 </details>
 
+## [215. 数组中第 K 个最大元素](https://leetcode.cn/problems/kth-largest-element-in-an-array)
+
+难度：⭐️⭐️⭐️
+
+给定整数数组 `nums` 和整数 `k`，请返回数组中第 `k` 个最大的元素。
+
+请注意，你需要找的是数组排序后的第 `k` 个最大的元素，而不是第 `k` 个不同的元素。
+
+你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。
+
+**示例 1:**
+
+> 输入: [3,2,1,5,6,4], k = 2  
+> 输出: 5
+
+**示例 2:**
+
+> 输入: [3,2,3,1,2,4,5,5,6], k = 4  
+> 输出: 4
+ 
+
+**提示：**
+
+- 1 <= k <= nums.length <= 10<sup>5</sup>
+- -10<sup>4</sup> <= nums[i] <= 10<sup>4</sup>
+
+**解法一：** 基于快排的选择方法
+
+快排过程中对子数组划分，只递归所在的那个区域。
+
+<details>
+  <summary>2层遍历穷举法</summary>
+
+  ```Java
+    public int findKthLargest(int[] nums, int k) {
+        quickSort(nums, 0, nums.length - 1, nums.length - k);
+        return nums[nums.length - k];
+    }
+
+    private int quickSort(int[] nums, int left, int right, int k) {
+        if (left == right) {
+            return nums[left];
+        }
+        int i = left - 1;
+        int j = right + 1;
+        int x = nums[left];
+        while (i < j) {
+            do {
+                i++;
+            } while(nums[i] < x);
+            do {
+                j--;
+            } while(nums[j] > x);
+
+            if (i < j) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
+        }
+        if (j < k) {
+            return quickSort(nums, j + 1, right, k);
+        } else {
+            return quickSort(nums, left, j, k);
+        }
+    }
+  ```
+</details>
+
 ## [238. 除自身以外数组的乘积](https://leetcode.cn/problems/product-of-array-except-self)
 
 难度：⭐️⭐️⭐️
