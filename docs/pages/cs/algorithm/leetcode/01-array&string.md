@@ -542,43 +542,45 @@
 
 **解法一：** 基于快排的选择方法
 
-快排过程中对子数组划分，只递归所在的那个区域。
+快排过程中对子数组划分，只递归所在的那个区域。在快速选择确定锚点时，如果数组本身是有序的，会增加很多次无用的选择，因此可以加上一个随机数来当做锚点。
 
 <details>
   <summary>2层遍历穷举法</summary>
 
   ```Java
+    private Random rand = new Random();
+    
     public int findKthLargest(int[] nums, int k) {
-        quickSort(nums, 0, nums.length - 1, nums.length - k);
-        return nums[nums.length - k];
+        int n = nums.length;
+        return quickSelect(nums, 0, n - 1, n - k);
     }
 
-    private int quickSort(int[] nums, int left, int right, int k) {
+    private int quickSelect(int[] nums, int left, int right, int k) {
         if (left == right) {
             return nums[left];
         }
         int i = left - 1;
         int j = right + 1;
+        int pos = left + rand.nextInt((right - left + 1));
+        swap(nums, left, pos);
         int x = nums[left];
         while (i < j) {
-            do {
-                i++;
-            } while(nums[i] < x);
-            do {
-                j--;
-            } while(nums[j] > x);
-
-            if (i < j) {
-                int temp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = temp;
-            }
+            do { i++; } while (nums[i] < x);
+            do { j--; } while (nums[j] > x);
+            if (i < j) swap(nums, i, j);
         }
-        if (j < k) {
-            return quickSort(nums, j + 1, right, k);
+        if (k <= j) {
+            return quickSelect(nums, left, j, k);
         } else {
-            return quickSort(nums, left, j, k);
+            return quickSelect(nums, j + 1, right, k);
         }
+        
+    }
+
+    private void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
     }
   ```
 </details>
