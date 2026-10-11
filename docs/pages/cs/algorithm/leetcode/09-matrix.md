@@ -70,14 +70,54 @@
 
 给你一个 `m` 行 `n` 列的矩阵 `matrix` ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
 
-**解法一** 按层遍历
+**提示：**
+
+- m == matrix.length
+- n == matrix[i].length
+- 1 <= m, n <= 10
+- -100 <= matrix[i][j] <= 100
+
+
+**解法一** 模拟
+用额外 m*n 的矩阵记录特定每个位置是否被访问过。题目没有要求不能修改原始矩阵，也可以直接修改原始矩阵。对于移动的方向，可以用一个二维数组来记录，可以简化写法。
+
+<details>
+<summary>直接访问</summary>
+
+```java
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> list = new ArrayList<>();
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] direction = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int index = 0;
+        int r = 0;
+        int c = 0;
+        while (list.size() < m * n) {
+            list.add(matrix[r][c]);
+            matrix[r][c] = -999;
+            int nextRow = r + direction[index][0];
+            int nextColumn = c + direction[index][1];
+            if (nextRow < 0 || nextRow >= m || nextColumn < 0 || nextColumn >= n || matrix[nextRow][nextColumn] == -999) {
+                // 换向
+                index = (index + 1) % 4;
+            }
+            r += direction[index][0];
+            c += direction[index][1];
+        }
+        return list;
+    }
+```
+</details>
+
+**解法二** 按层遍历
 
 记录上下左右边界，在循环中向4个方向移动。
 
 <details>
   <summary>循环按层遍历</summary>
   
-  ```java
+```java
   public List<Integer> spiralOrder(int[][] matrix) {
         int left = 0;
         int top = 0;
@@ -109,7 +149,7 @@
         }
         return list;
     }
-  ```
+```
 </details>
 
 ## [73. 矩阵置零](https://leetcode.cn/problems/set-matrix-zeroes)
