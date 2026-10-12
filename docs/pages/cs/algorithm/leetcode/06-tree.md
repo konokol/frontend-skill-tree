@@ -45,7 +45,7 @@
   ```java
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
+        LinkedList<TreeNode> stack = new LinkedList<>();
         while(!stack.isEmpty() || root != null) {
             while (root != null) {
                 stack.push(root);
@@ -58,6 +58,45 @@
         return res;
     }
   ```
+</details>
+
+**解法三**：Morris 遍历
+
+Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为空时，直接访问该节点；左子树非空时，找到左子树的最右节点，利用叶子节点的右节点临时保存输的结构，第一次遍历先进入左子树，第二次遍历进入右子树。
+
+<details>
+<summary>Morris 遍历</summary>
+
+```java
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        TreeNode p = root;
+        while (p != null) {
+            if (p.left == null) {
+                list.add(p.val);
+                p = p.right;
+            } else {
+                // 找到左子树的最右节点
+                TreeNode pre = p.left;
+                while (pre.right != null && pre.right != p) {
+                    pre = pre.right;
+                }
+
+                if (pre.right == null) {
+                    // 第一次遍历，进入左子树
+                    pre.right = p;
+                    p = p.left;
+                } else {
+                    // 第二次遍历，进入右子树
+                    list.add(p.val);
+                    pre.right = null;
+                    p = p.right;
+                }
+            }
+        }
+        return list;
+    }
+```
 </details>
 
 ## [98.验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree)

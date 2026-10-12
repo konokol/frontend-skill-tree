@@ -178,10 +178,11 @@
         int candidate = nums[0];
         int votes = 1;
         for (int i = 1; i < nums.length; i++) {
-            if (votes <= 0) {
+            if (votes < 1) {
                 candidate = nums[i];
                 votes++;
-            } else if (nums[i] == candidate) {
+            }
+            if (nums[i] == candidate) {
                 votes++;
             } else {
                 votes--;
