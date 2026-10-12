@@ -156,6 +156,8 @@
   ```
 </details>
 
+**解法二** 矩阵快速幂
+
 ## [118.杨辉三角](https://leetcode.cn/problems/pascals-triangle/description)
 
 难度：⭐️
