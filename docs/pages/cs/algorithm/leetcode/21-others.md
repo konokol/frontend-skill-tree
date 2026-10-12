@@ -69,7 +69,7 @@
 
 **解法一** 双指针
 
-左右指针分别指向头尾，遇到2移动到数组尾部，遇到0移动到数组头部。
+左右指针分别指向头尾，遇到 2 移动到数组尾部，遇到 0 移动到数组头部。
 
 <details>
   <summary>双指针</summary>
@@ -93,42 +93,84 @@
             }
         }
     }
+
+    // 另外一种简单的写法
+    public void sortColors(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        for (int i = 0; i <= right; i++) {
+            if (nums[i] == 0) {
+                swap(nums, left, i);
+                left++;
+            } else if (nums[i] == 2) {
+                swap(nums, i, right);
+                right--;
+                i--;
+            }
+        }
+    }
   ```
 </details>
 
-**解法二** 记录次数
+**解法二** 计数排序
 
-第一次循环计算每种颜色的数量，第二次循环根据数量分别设置值
+第一次循环计算每种颜色的数量，第二次循环根据数量分别设置值。
 
 <details>
   <summary>记录次数</summary>
 
   ```java
-  public void sortColors(int[] nums) {
-        int r = 0;
-        int w = 0;
-        int b = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) {
-                r++;
-            } else if (nums[i] == 1) {
-                w++;
-            } else {
-                b++;
-            }
+      public void sortColors(int[] nums) {
+        int red = 0;
+        int white = 0;
+        for (int n: nums) {
+            if (n == 0) red++;
+            if (n == 1) white++;
         }
-        int rw = r + w;
         for (int i = 0; i < nums.length; i++) {
-            if (i < r) {
+            if (i < red) {
                 nums[i] = 0;
-            } else if (i < rw) {
+            } else if (i < red + white) {
                 nums[i] = 1;
             } else {
                 nums[i] = 2;
             }
         }
     }
+  ```
+</details>
 
+**解法三** 荷兰国旗问题（三指针）
+
+使用三个指针 `left`、`right`、`cur`，一次遍历完成。
+
+<details>
+  <summary>记录次数</summary>
+
+  ```java
+    public void sortColors(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        int cur = 0;
+        while (cur <= right) {
+            if (nums[cur] == 0) {
+                swap(nums, cur, left);
+                cur++;
+                left++;
+            } else if (nums[cur] == 1) {
+                cur++;
+            } else {
+                swap(nums, right, cur);
+                right--;
+            }
+        }
+    }
+
+    private void swap(int[] nums, int x, int y) {
+        int t = nums[x];
+        nums[x] = nums[y];
+        nums[y] = t;
+    }
   ```
 </details>
 
