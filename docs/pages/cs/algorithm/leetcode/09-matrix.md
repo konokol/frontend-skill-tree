@@ -196,12 +196,36 @@
 
 编写一个高效的算法来搜索 `m x n` 矩阵 `matrix` 中的一个目标值 `target` 。该矩阵具有以下特性：
 
-每行的元素从左到右升序排列。
-每列的元素从上到下升序排列。
+- 每行的元素从左到右升序排列。
+- 每列的元素从上到下升序排列。
+
+**示例 1：**
+![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2020/11/25/searchgrid2.jpg)
+
+> 输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 5  
+> 输出：true  
+
+**示例 2：**
+![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2020/11/25/searchgrid.jpg)
+
+> 输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20  
+> 输出：false  
+ 
+
+**提示：**
+
+- m == matrix.length
+- n == matrix[i].length
+- 1 <= n, m <= 300
+- -10<sup>9</sup> <= matrix[i][j] <= <sup>9</sup>
+- 每行的所有元素从左到右升序排列
+- 每列的所有元素从上到下升序排列
+- -10<sup>9</sup> <= target <= 10<sup>9</sup>
+
 
 **解法一** Z字形遍历
 
-从右上或者左下开始遍历。
+从右上或者左下开始遍历。从左上或右下看，矩阵正好是一个二叉搜索树。
 
 <details>
   <summary>Z字形遍历</summary>
@@ -235,6 +259,10 @@
   ```java
     public boolean searchMatrix(int[][] matrix, int target) {
         for (int i = 0; i < matrix.length; i++) {
+            // 剪枝
+            if (target < matrix[i][0]) {
+                return false;
+            }
             if (binarySearch(matrix[i], target)) {
                 return true;
             }
