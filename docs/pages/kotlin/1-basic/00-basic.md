@@ -446,6 +446,22 @@ value class UserId(val id: Long)
 ```
 内联类(inline class)是 Kotlin 1.3 引入的实验性特性，在 1.5 之后修改成了值类(data class)，并要求使用 JvmInline 注解。内联类相当于是对类型做了一层包装，用来保证类型安全。比如 Android 中常用的单位dp、sp、px 都是 Float 类型，容易误传，可以使用内联内包装。
 
+内联类有一些要求：
+
+- 主构造函数只能有一个 `val` 属性
+- 不能有 `var` 属性
+- 可以实现接口，但不能继承其他类（除了 Any），也不能被其他类继承（是 final 的）
+- 可以有 `init` 块、方法、伴生对象
+
+原理：内联类编译之后会可能会变成基本类型，能够减少类型包装带来的开销。如果内联类有函数，会被编译成 final 类型的，同时在字节码中会加上后缀，因此如果要提供给 Java 调用，不要使用内联类。
+
+内联类典型的使用场景：Compose中大量使用dp、sp。协程内部用 value class 包装 CoroutineContext.Key，减少开销。
+
+```kotlin
+@JvmInline value class Dp(val value: Float)
+@JvmInline value class Sp(val value: Float)
+@JvmInline value class Px(val value: Float)
+```
 
 ### 伴生对象
 
