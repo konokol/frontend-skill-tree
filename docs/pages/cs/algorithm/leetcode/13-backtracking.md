@@ -204,27 +204,29 @@
 
 **解法一** 回溯
 
-构建dfs(cur,n) 参数表示当前位置是 cur，原序列总长度为 n，cur位置的元素可以选中或不选中，根据该条件递归。
+构建dfs(index, n) 参数表示当前位置是 index，原序列总长度为 index 位置的元素可以选中或不选中，根据该条件递归。
 
 <details>
   <summary>回溯</summary>
 
   ```java
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> output = new LinkedList<>();
-        backtrace(ans, output, nums, 0);
-        return ans;
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(nums, 0, new ArrayList<>(), result);
+        return result;
     }
 
-    private void backtrace(List<List<Integer>> ans, List<Integer> output, int[] nums, int index) {
+    private void dfs(int[] nums, int index, List<Integer> sub, List<List<Integer>> result) {
         if (index == nums.length) {
-            ans.add(new ArrayList<>(output));
+            result.add(new ArrayList<>(sub));
         } else {
-            output.add(nums[index]);
-            backtrace(ans, output, nums, index + 1);
-            output.remove(output.size() - 1);
-            backtrace(ans, output, nums, index + 1);
+            // 不选
+            dfs(nums, index + 1, sub, result);
+            
+            // 选
+            sub.add(nums[index]);
+            dfs(nums, index + 1, sub, result);
+            sub.remove(sub.size() - 1);
         }
     }
   ```
