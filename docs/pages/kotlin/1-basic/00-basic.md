@@ -394,12 +394,58 @@ Java 15中新增了一个新的关键字sealed，和kotlin中的密封类用法�
 
 数据类型通过`data`关键字修饰，编译器会自动生成`equals()`、`hashCode()`、`toString()`、`copy()`等方法。
 
+**嵌套类和内部类**
 
-**嵌套类**
+Kotlin 中的**嵌套类**默认不可以访问外部的成员变量，等同于 Java 中的静态内部类，但是可以访问外部类的伴生对象。  
+如需访问外部类的成员变量或方法，需要用**内部类**，加 `inner` 关键字修饰。
+
+```kotlin
+class Outer {
+    val outerProp = "outer"
+    companion object { val COMPANION = "companion" }
+
+    /**嵌套类**/
+    class Nested {
+        fun foo() {
+            // println(outerProp) // 编译错误：不能访问外部类实例成员
+            println(COMPANION)    // 可以访问伴生对象
+        }
+    }
+
+    /**内部类**/
+    inner class Inner {
+        fun foo() {
+            println(outerProp)          // 直接访问外部类成员
+            println(this@Outer.outerProp) // 显式引用
+        }
+    }
+}
+```
+
+匿名内部类用`object`表达式创建，会持有外部类的引用。如果不需要持有外部类的引用，要用 lambda 表达式。
+
+```kotlin
+button.setOnClickListener(object : View.OnClickListener {
+    override fun onClick(v: View?) {
+        // 如果是内部类，会持有外部类引用
+    }
+})
+
+button.setOnClickListener { v -> ... } // 不持有外部类的引用。
+```
 
 **枚举类**
 
+枚举类的每一个枚举值都是一个枚举类的实例，因此枚举值可以实现枚举类的抽象方法和接口。
+
 **内联类**
+
+```kotlin
+@JvmInline
+value class UserId(val id: Long)
+```
+内联类(inline class)是 Kotlin 1.3 引入的实验性特性，在 1.5 之后修改成了值类(data class)，并要求使用 JvmInline 注解。内联类相当于是对类型做了一层包装，用来保证类型安全。比如 Android 中常用的单位dp、sp、px 都是 Float 类型，容易误传，可以使用内联内包装。
+
 
 ### 伴生对象
 
@@ -412,4 +458,7 @@ Java 15中新增了一个新的关键字sealed，和kotlin中的密封类用法�
 [2] [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html).Kotlin 官方文档 中文版  
 [3] Carson.Ho.[巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238).掘金.2020-02-26  
 [4] [Get started with Kotlin](https://kotlinlang.org/docs/getting-started.html)  
-[5] 阿正的梦工坊.[Kotlin 面试题全面解析：从基础到进阶](https://blog.csdn.net/shizheng_Li/article/details/161193265).CSDN.2026-05-18
+[5] [嵌套类和内部类](https://book.kotlincn.net/text/nested-classes.html).Kotlin 官方文档 中文版  
+[6] [枚举类](https://book.kotlincn.net/text/enum-classes.html).Kotlin 官方文档 中文版  
+[7] [内联类](https://book.kotlincn.net/text/inline-classes.html).Kotlin 官方文档 中文版  
+[8] 阿正的梦工坊.[Kotlin 面试题全面解析：从基础到进阶](https://blog.csdn.net/shizheng_Li/article/details/161193265).CSDN.2026-05-18
