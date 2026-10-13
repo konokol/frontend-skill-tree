@@ -155,18 +155,23 @@ theme:
   language: zh
   name: material
   favicon: assets/book.png
+  font: false
   palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: 切换到亮色模式
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: teal
-      accent: deep orange
+      accent: blue
       toggle:
         icon: material/brightness-7
         name: 切换到暗色模式
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: teal
-      accent: deep orange
+      accent: blue
       toggle:
         icon: material/brightness-4
         name: 切换到亮色模式
@@ -201,6 +206,9 @@ markdown_extensions:
   - attr_list
   - pymdownx.highlight:
       anchor_linenums: true
+      linenums: true
+      stripnl: false
+      linenums_style: pymdownx-inline
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
