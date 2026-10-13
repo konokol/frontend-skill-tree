@@ -325,12 +325,47 @@
 
 难度：⭐️⭐️⭐️
 
-给你一个字符串 s，请你将 s 分割成一些 子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。
+给你一个字符串 `s`，请你将 `s` 分割成一些 **子串**，使每个子串都是 **回文串** 。返回 `s` 所有可能的分割方案。
 
 **解法一** 回溯 + 动态规划
 
 当搜索到第i位置时，s[0, i-1]位置的字符串已经被分成了回文串了，只需要找到下一个位置j，使得s[i, j]也是回文串。回文串用双指针时会有重复计算，使用动态规划，状态转移方程 fn(i, j) = fn(i + 1, j - 1) && s[i] == s[j]。i >= j时，子串长度 <= 1，固定位true。
 
+简单来说，就是通过回溯计算 `s` 的所有子串，如果是回文串就加到答案中，判断子串是否是回文串，用动态规划，有 2 种方法，一种是直接计算，另一种是根据奇偶从中心扩展。
+
 <details>
   <summary>回溯 + 动态规划</summary>
+
+  ```java
+      public List<List<String>> partition(String s) {
+        // dp
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        for (int i = s.length() -1; i >= 0; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = j - i < 3 || dp[i + 1][j - 1];
+                }
+            }
+        }
+
+        // dfs
+        List<List<String>> result = new ArrayList<>();
+        dfs(s, 0, dp, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void dfs(String s, int start, boolean[][] dp, List<String> path, List<List<String>> result) {
+        if (start == s.length()) {
+            result.add(new ArrayList<>(path));
+        } else {
+            for (int i = start; i < s.length(); i++) {
+                if (dp[start][i]) {
+                    path.add(s.substring(start, i + 1));
+                    dfs(s, i + 1, dp, path, result);
+                    path.remove(path.size() - 1);
+                }
+            }
+        }
+    }
+  ```
 </details>

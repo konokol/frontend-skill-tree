@@ -428,6 +428,8 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 
 ## [141.环形链表I](https://leetcode.cn/problems/linked-list-cycle)
 
+难度：⭐
+
 给你一个链表的头节点 head ，判断链表中是否有环。
 
 如果链表中有某个节点，可以通过连续跟踪 `next` 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。**注意：pos 不作为参数进行传递**。仅仅是为了标识链表的实际情况。
@@ -493,6 +495,8 @@ public boolean hasCycle(ListNode head) {
 
 ## [142.环形链表II](https://leetcode.cn/problems/linked-list-cycle-ii)
 
+难度：⭐⭐
+
 给定一个链表的头节点  `head` ，返回链表开始入环的第一个节点。 *如果链表无环，则返回 null。*
 
 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（**索引从 0 开始**）。如果 pos 是 -1，则在该链表中没有环。**注意：pos 不作为参数进行传递**，仅仅是为了标识链表的实际情况。
@@ -513,7 +517,8 @@ head ──a──> 环入口 ──b──> 相遇点
                 ↑            │
                 └────c───────┘
 ```
-设圈的长度为 L = b + c，相遇时：  
+设圈的长度为 L = b + c，相遇时：
+
 - 慢指针走 `a + b` 
 - 快指针走 `a + b + nL`
 
@@ -526,7 +531,7 @@ head ──a──> 环入口 ──b──> 相遇点
     <summary>快慢指针</summary>
 
 ```java
-       public ListNode detectCycle(ListNode head) {
+    public ListNode detectCycle(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
         while (fast != null && fast.next != null) {
