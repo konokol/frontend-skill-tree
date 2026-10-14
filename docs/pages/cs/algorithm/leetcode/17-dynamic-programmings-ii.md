@@ -354,3 +354,35 @@ exection -> execution (插入 'u')
     }
   ```
 </details>
+
+**解法二** 滚动数组
+
+由于动态规划遍历的过程中，只用到了前一次的值，和编辑距离类似，可以使用一维滚动数组优化空间复杂度。取较小的值作为数组长度，可以更省空间。
+
+```java
+    public int longestCommonSubsequence(String text1, String text2) {
+        if (text1.length() > text2.length()) {
+            return longestCommonSubsequence(text2, text1);
+        }
+        int m = text1.length();
+        int n = text2.length();
+        char[] c1 = text1.toCharArray();
+        char[] c2 = text2.toCharArray();
+        int[] dp = new int[n + 1];
+
+        for (int i = 1; i <= m; i++) {
+            int prev = 0;
+            for (int j = 1; j <= n; j++) {
+                int temp = dp[j];
+                if (c1[i - 1] == c2[j - 1]) {
+                    dp[j] = prev + 1;
+                } else {
+                    dp[j] = Math.max(dp[j], dp[j - 1]);
+                }
+                prev = temp;
+            }
+        }
+        return dp[n];
+    }
+```
+
