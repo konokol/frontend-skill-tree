@@ -44,6 +44,66 @@
   ```
 </details>
 
+---
+
+## [84. 柱状图中最大的矩形](https://leetcode.cn/problems/largest-rectangle-in-histogram)
+
+难度：⭐️⭐️⭐️⭐️
+
+给定 *n* 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+
+求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+**示例 1:**
+
+![](https://assets.leetcode.com/uploads/2021/01/04/histogram.jpg)
+
+> 输入：heights = [2,1,5,6,2,3]  
+> 输出：10  
+> 解释：最大的矩形为图中红色区域，面积为 10
+
+**示例 2：**
+
+![](https://assets.leetcode.com/uploads/2021/01/04/histogram-1.jpg)
+
+> 输入： heights = [2,4]  
+> 输出： 4  
+ 
+**提示：**
+
+- 1 <= heights.length <=10<sup>5</sup>
+- 0 <= heights[i] <= 10<sup>5</sup>
+
+**解法一** 单调栈
+
+核心思路是对于每一个高度 h，分别向左和向右扩展，找到比 h 小的第一个位置，此时就是以 h 为高可以围成的最大矩形。如果直接用双重层循环去找会超时，因此可以使用单调递增栈，记录递增的下标，遇到一个非递增的位置时结束本次查找。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)
+
+<details>
+    <summary>单调栈</summary>
+    
+```java
+    public int largestRectangleArea(int[] heights) {
+        Deque<Integer> deque = new ArrayDeque<>();
+        int max = 0;
+        for (int i = 0; i <= heights.length; i++) {
+            int h = (i == heights.length ? 0 : heights[i]);
+            while (!deque.isEmpty() && h < heights[deque.peek()]) {
+                int height = heights[deque.pop()];
+                int left = deque.isEmpty() ? -1 : deque.peek();
+                max = Math.max(max, height * (i - left - 1));
+            }
+            deque.push(i);
+        }
+        return max;
+    }
+```
+</details>
+
+---
+
 ## [155. 最小栈](https://leetcode.cn/problems/min-stack/description)
 
 难度：⭐️⭐️
@@ -114,6 +174,7 @@ class MinStack {
 
 **解法二** 使用原生的集合
 
+---
 
 ## [739. 每日温度](https://leetcode.cn/problems/daily-temperatures/description)
 

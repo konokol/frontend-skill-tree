@@ -286,7 +286,7 @@ dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`d
 
 ---
 
-## [198.打家劫舍](https://leetcode.cn/problems/house-robber/description)
+## [198.打家劫舍](https://leetcode.cn/problems/house-robber)
 
 难度：⭐⭐
 
