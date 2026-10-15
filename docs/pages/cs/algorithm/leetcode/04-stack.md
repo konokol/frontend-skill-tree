@@ -86,6 +86,40 @@
     
 ```java
     public int largestRectangleArea(int[] heights) {
+        int[] left = new int[heights.length];
+        int[] right = new int[heights.length];
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < heights.length; i++) {
+            while (!deque.isEmpty() && heights[i] <= heights[deque.peek()]) {
+                deque.pop();
+            }
+            left[i] = deque.isEmpty() ? -1 : deque.peek();
+            deque.push(i);
+        }
+        deque.clear();
+        for (int i = heights.length - 1; i >= 0; i--) {
+            while (!deque.isEmpty() && heights[i] <= heights[deque.peek()]) {
+                deque.pop();
+            }
+            right[i] = deque.isEmpty() ? heights.length : deque.peek();
+            deque.push(i);
+        }
+
+        int max = 0;
+        for (int i = 0; i < heights.length; i++) {
+            max = Math.max(max, heights[i] * (right[i] - left[i] - 1));
+        }
+        return max;
+    }
+```
+</details>
+
+<details>
+    <summary>单调栈 + 常数优化</summary>
+    
+```java
+    public int largestRectangleArea(int[] heights) {
         Deque<Integer> deque = new ArrayDeque<>();
         int max = 0;
         for (int i = 0; i <= heights.length; i++) {
