@@ -438,6 +438,8 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
   ```
 </details>
 
+---
+
 ## [114. 二叉树展开为链表](https://leetcode.cn/problems/flatten-binary-tree-to-linked-list)
 
 难度：⭐️⭐️
@@ -447,9 +449,34 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 - 展开后的单链表应该同样使用 `TreeNode` ，其中 `right` 子指针指向链表中下一个结点，而左子指针始终为 `null` 。
 - 展开后的单链表应该与二叉树 先序遍历 顺序相同。
 
+**示例 1：**
+
+![](https://assets.leetcode.com/uploads/2021/01/14/flaten.jpg)
+
+> 输入：root = [1,2,5,3,4,null,6]  
+> 输出：[1,null,2,null,3,null,4,null,5,null,6]  
+
+**示例 2：**
+
+> 输入：root = []  
+> 输出：[]  
+
+**示例 3：**
+
+> 输入：root = [0]  
+> 输出：[0]  
+
+**提示：**
+
+- 树中结点数在范围 [0, 2000] 内
+- -100 <= Node.val <= 100
+
 **解法一** 先序遍历
 
-使用栈，先序遍历二叉树。遍历过程中，对节点进行处理。
+使用栈，先序遍历二叉树。可以使用额外的占位节点作为链表的头，遍历过程中，入栈顺序要按照根、右、左。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)
 
 <details>
   <summary>非递归先序遍历</summary>
@@ -475,6 +502,71 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
                 stack.push(node.left);
             }
             p = p.right;
+        }
+    }
+  ```
+</details>
+
+**解法二** 递归保存顺序
+
+使用递归遍历， 保存节点到list中，再根据list构建列表。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)
+
+<details>
+  <summary>非递归先序遍历和展开同时进行</summary>
+
+  ```java
+    public void flatten(TreeNode root) {
+        List<TreeNode> list = new ArrayList<>();
+        inorder(root, list);
+        TreeNode p = new TreeNode();
+        for (TreeNode node: list) {
+            p.left = null;
+            p.right = node;
+            p = p.right;
+        }
+    }
+
+    public void inorder(TreeNode node, List<TreeNode> list) {
+        if (node != null) {
+            list.add(node);
+            inorder(node.left, list);
+            inorder(node.right, list);
+        }
+    }
+  ```
+</details>
+
+**解法三** Morris 遍历
+
+对于一个节点，如果其有左子树，找到左子树的最右节点（前驱节点），把右子树接到前驱节点的右子树上，再将左子树移动到右边。
+
+时间复杂度：O(n)  
+空间复杂度：O(1)
+
+<details>
+  <summary>Morris 遍历</summary>
+
+  ```java
+    public void flatten(TreeNode root) {
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.left != null) {
+                // 找到左子树的最右节点
+                TreeNode next = cur.left;
+                TreeNode prev = next;
+                while (prev.right != null) {
+                    prev = prev.right;
+                }
+                // 将当前右子树接到前驱节点的右子树上
+                prev.right = cur.right;
+                // 将左子树移到右边
+                cur.right = next;
+                cur.left = null;
+            }
+            cur = cur.right;
         }
     }
   ```
