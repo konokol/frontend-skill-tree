@@ -1,7 +1,5 @@
 # LeetCode常见算法题
 
-## 哈希表
-
 ### [128. 最长连续序列](https://leetcode.cn/problems/longest-consecutive-sequence)
 
 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
@@ -180,55 +178,6 @@
             }
         }
         return max;
-    }
-  ```
-</details>
-
-### [15. 三数之和](https://leetcode.cn/problems/3sum)  
-
-难度：⭐️⭐️⭐️
-
-给你一个整数数组 `nums` ，判断是否存在三元组 `[nums[i], nums[j], nums[k]]` 满足 `i != j`、`i != k` 且 `j != k` ，同时还满足 `nums[i] + nums[j] + nums[k] == 0` 。请你返回所有和为 `0` 且不重复的三元组。
-
-注意：答案中不可以包含重复的三元组。
-
-**解法一**：双指针
-
-先排序，从头遍历，跳过重复的元素，从第i个位置开始，将区间[i+1, nums.length - 1]内的问题转换成有序数组的两数之和问题。难点在于去重，找到满足条件的📚之后，左右都要跳过相同的数。
-
-<details>
-  <summary> 双指针法 </summary>
-  
-```Java
-    public List<List<Integer>> threeSum(int[] nums) {
-        Arrays.sort(nums);
-        List<List<Integer>> ans = new ArrayList<>();
-        for (int i = 0; i < nums.length - 2; i++) {
-            if (nums[i] > 0) continue;
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
-            int left = i + 1;
-            int right = nums.length - 1;
-            while (left < right) {
-                int sum = nums[left] + nums[right] + nums[i];
-                if (sum < 0) {
-                    left++;
-                } else if (sum > 0) {
-                    right--;
-                } else {
-                    List<Integer> arr = new ArrayList<>();
-                    arr.add(nums[i]);
-                    arr.add(nums[left]);
-                    arr.add(nums[right]);
-                    ans.add(arr);
-                    left++;
-                    right--;
-                    // 去重
-                    while (left < right && nums[left] == nums[left - 1]) left++;
-                    while (left < right && nums[right] == nums[right + 1]) right--;
-                }
-            }
-        }
-        return ans;
     }
   ```
 </details>
