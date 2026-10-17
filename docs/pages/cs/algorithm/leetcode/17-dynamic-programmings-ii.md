@@ -106,7 +106,7 @@ public String longestPalindrome(String s) {
 
 </details>
 
-
+---
 
 ## [62. 不同路径](https://leetcode.cn/problems/unique-paths/description)
 
@@ -120,32 +120,89 @@ public String longestPalindrome(String s) {
 
 ![](../../../../img/adxmsI-image.png)
 
+**示例 1：**
+
+> 输入：m = 3, n = 7  
+> 输出：28
+
+**示例 2：**
+
+> 输入：m = 3, n = 2  
+> 输出：3  
+> 解释：  
+> 从左上角开始，总共有 3 条路径可以到达右下角。  
+> 1. 向右 -> 向下 -> 向下  
+> 2. 向下 -> 向下 -> 向右  
+> 3. 向下 -> 向右 -> 向下  
+
+**示例 3：**
+
+> 输入：m = 7, n = 3  
+> 输出：28  
+
+**示例 4：**
+
+> 输入：m = 3, n = 3  
+> 输出：6  
+
+**提示：**
+
+- 1 <= m, n <= 100
+- 题目数据保证答案小于等于 2 * 10<sup>9</sup>
+
 **解法一** 动态规划
 
 由于只能向右和向下走，很容易找到状态转移方程 `dp[i][j] = dp[i - 1][j] + dp[i][j - 1]`，注意考虑边界情况。
+
+时间复杂度：O(mn)  
+空间复杂度：O(mn)
 
 <details>
   <summary>动态规划</summary>
 
   ```java
-      public int uniquePaths(int m, int n) {
+    public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];
-        dp[0][0] = 1;
-        for (int i = 1; i < m; i++) {
-            dp[i][0] = dp[i - 1][0];
-        }
-        for (int j = 1; j < n; j++) {
-            dp[0][j] = dp[0][j - 1];
-        }
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+                }
             }
         }
         return dp[m - 1][n - 1];
     }
   ```
 </details>
+
+也可以优化成滚动数组，用一维数组只记录当前列的值。
+
+时间复杂度：O(mn)    
+空间复杂度：O(mn)
+
+<details>
+  <summary>动态规划</summary>
+
+  ```java
+    public int uniquePaths(int m, int n) {
+        int[] dp = new int[n];
+        dp[0] = 1;
+        Arrays.fill(dp, 1);
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[j] += dp[j - 1];
+            }
+        }
+        return dp[n - 1];
+    }
+  ```
+</details>
+
+**方法二**：组合数学
+
+整个过程中，需要走 `m + n - 2` 步，其中向右走 `m - 1` 步，向下走 `n - 1` 步，可以直接用排列组合 $C^{n-1}_{m+n-2}$，值为 $\frac{(m+n-2)!}{(m-1)!(n-1)!}$
 
 ## [64.最小路径和](https://leetcode.cn/problems/minimum-path-sum/description)
 
