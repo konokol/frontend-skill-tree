@@ -204,6 +204,9 @@ public String longestPalindrome(String s) {
 
 整个过程中，需要走 `m + n - 2` 步，其中向右走 `m - 1` 步，向下走 `n - 1` 步，可以直接用排列组合 $C^{n-1}_{m+n-2}$，值为 $\frac{(m+n-2)!}{(m-1)!(n-1)!}$
 
+时间复杂度：O(m)  
+空间复杂度：O(1)  
+
 ## [64.最小路径和](https://leetcode.cn/problems/minimum-path-sum/description)
 
 给定一个包含非负整数的 `m x n` 网格 `grid` ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
