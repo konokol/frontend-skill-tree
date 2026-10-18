@@ -152,7 +152,10 @@
 - int top() 获取堆栈顶部的元素。
 - int getMin() 获取堆栈中的最小元素。
 
-**解法一** 使用数组
+**解法一** 数组
+
+时间复杂度：pop操作是O(n)，其他是O(1)  
+空间复杂度：O(n)
 
 <details>
   <summary>数组</summary>
@@ -207,6 +210,47 @@ class MinStack {
 </details>
 
 **解法二** 使用原生的集合
+
+使用一个额外的栈，每次 push 时都放当前栈中最小的元素。
+
+时间复杂度：O(1)
+空间复杂度：O(n)
+
+<details>
+  <summary>数组</summary>
+
+```java
+class MinStack {
+
+    private Deque<Integer> stack;
+    private Deque<Integer> minStack;
+
+    public MinStack() {
+        stack = new ArrayDeque<>();
+        minStack = new ArrayDeque<>();
+        minStack.push(Integer.MAX_VALUE);
+    }
+    
+    public void push(int value) {
+        stack.push(value);
+        minStack.push(Math.min(value, minStack.peek()));
+    }
+    
+    public void pop() {
+        stack.pop();
+        minStack.pop();
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+```
+</details>
 
 ---
 
