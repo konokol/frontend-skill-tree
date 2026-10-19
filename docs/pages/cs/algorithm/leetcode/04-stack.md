@@ -138,7 +138,7 @@
 
 ---
 
-## [155. 最小栈](https://leetcode.cn/problems/min-stack/description)
+## [155. 最小栈](https://leetcode.cn/problems/min-stack)
 
 难度：⭐️⭐️
 
@@ -152,7 +152,9 @@
 - int top() 获取堆栈顶部的元素。
 - int getMin() 获取堆栈中的最小元素。
 
-**解法一** 数组
+**解法一** 单数组
+
+使用一个数组，单独保存最小值，pop 和 push 时，重新计算最小值。
 
 时间复杂度：pop操作是O(n)，其他是O(1)  
 空间复杂度：O(n)
@@ -209,15 +211,96 @@ class MinStack {
 ```
 </details>
 
-**解法二** 使用原生的集合
+**解法二** 使用双栈
 
 使用一个额外的栈，每次 push 时都放当前栈中最小的元素。
 
-时间复杂度：O(1)
-空间复杂度：O(n)
+时间复杂度：O(1)  
+空间复杂度：O(n)  
 
 <details>
-  <summary>数组</summary>
+  <summary>双栈</summary>
+
+```java
+class MinStack {
+
+    private Deque<Integer> stack;
+    private Deque<Integer> minStack;
+
+    public MinStack() {
+        stack = new ArrayDeque<>();
+        minStack = new ArrayDeque<>();
+        minStack.push(Integer.MAX_VALUE);
+    }
+    
+    public void push(int value) {
+        stack.push(value);
+        minStack.push(Math.min(value, minStack.peek()));
+    }
+    
+    public void pop() {
+        stack.pop();
+        minStack.pop();
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+```
+</details>
+
+也可以不用 Deque，直接用基本的数组来实现，时间复杂度和空间复杂度一样。
+
+<details>
+  <summary>双数组</summary>
+
+```java
+class MinStack {
+
+    private Deque<Integer> stack;
+    private Deque<Integer> minStack;
+
+    public MinStack() {
+        stack = new ArrayDeque<>();
+        minStack = new ArrayDeque<>();
+        minStack.push(Integer.MAX_VALUE);
+    }
+    
+    public void push(int value) {
+        stack.push(value);
+        minStack.push(Math.min(value, minStack.peek()));
+    }
+    
+    public void pop() {
+        stack.pop();
+        minStack.pop();
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+```
+</details>
+
+**解法三** 链表
+
+时间复杂度：O(1)  
+空间复杂度：O(n)  
+
+使用链表，头结点表示栈顶，结点同时有值和最小值，每次入栈更新最小值。
+
+<details>
+  <summary>链表</summary>
 
 ```java
 class MinStack {
