@@ -228,6 +228,8 @@ public String longestPalindrome(String s) {
 
 </details>
 
+---
+
 ## [72. 编辑距离](https://leetcode.cn/problems/edit-distance/description)
 
 难度: ⭐️⭐️⭐️⭐️
@@ -290,7 +292,10 @@ exection -> execution (插入 'u')
 `dp[i][j] = dp[i - 1][j - 1]`；
 
 当 `A[i] != B[j]`，取增、删、改的最小值：  
-`dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1)`；
+`dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1)`。
+
+时间复杂度：O(mn)  
+空间复杂度：O(mn)
 
 <details>
     <summary>动态规划</summary>
@@ -330,6 +335,9 @@ exection -> execution (插入 'u')
 **解法二**：一维数组的动态规划
 
 在二维数组中，由于每次遍历的时候，只用到了左上、左、上 3 个元素，可以优化成一维数组。
+
+时间复杂度：O(mn)  
+空间复杂度：O(min(m, n))，交换参数不影响结果，可以用较小长度的一维数组，能节省一部分空间。
 
 <details>
   <summary>一维数组</summary>

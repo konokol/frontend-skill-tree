@@ -111,7 +111,9 @@
 
 **解法二** 深度优先遍历
 
-## [208. Trie数](https://leetcode.cn/problems/implement-trie-prefix-tree)
+---
+
+## [208. 实现 Trie (前缀树)](https://leetcode.cn/problems/implement-trie-prefix-tree)
 
 难度：⭐️⭐️⭐️
 
@@ -126,7 +128,7 @@
 
 **解法一** 字典树
 
-相当于一个26叉数，每一层代表单词中的一个字符，用isEnd表示是否到了单词的最后一个字母。
+相当于一个26叉树，每一层代表单词中的一个字符，用isEnd表示是否到了单词的最后一个字母。
 
 <details>
   <summary>字典树</summary>

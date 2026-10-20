@@ -1,12 +1,17 @@
 # 二叉树
 
+---
+
 ## [94. 二叉树的中序遍历](https://leetcode.cn/problems/binary-tree-inorder-traversal)
 
 难度：⭐️
 
-给定一个二叉树的根节点 root ，返回 它的 中序 遍历 。
+给定一个二叉树的根节点 `root` ，返回它的 **中序** 遍历。
 
 **解法一** 递归
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
 
 <details>
   <summary>递归</summary>
@@ -39,6 +44,9 @@
 
 使用栈，循环中将左子树一直入栈，直至叶子结点，访问叶子结点，中间结点，中间结点的右结点。
 
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
 <details>
   <summary>栈迭代</summary>
 
@@ -63,6 +71,9 @@
 **解法三**：Morris 遍历
 
 Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为空时，直接访问该节点；左子树非空时，找到左子树的最右节点，利用叶子节点的右节点临时保存输的结构，第一次遍历先进入左子树，第二次遍历进入右子树。
+
+时间复杂度：O(n)  
+空间复杂度：O(1)  
 
 <details>
 <summary>Morris 遍历</summary>
@@ -99,7 +110,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 ```
 </details>
 
-## [98.验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree)
+## [98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree)
 
 难度：⭐️⭐️
 
