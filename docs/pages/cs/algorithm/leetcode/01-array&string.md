@@ -489,6 +489,7 @@
   ```
 </details>
 
+---
 
 ## [189. 轮转数组](https://leetcode.cn/problems/rotate-array)
 
@@ -498,15 +499,13 @@
 
 **提示：**
 
-- 1 <= nums.length <= 105
+- 1 <= nums.length <= 10<sup></sup>
 - -2<sup>31</sup> <= nums[i] <= 2<sup>31</sup> - 1
 - 0 <= k <= 105
  
-
 进阶：
 
 尽可能想出更多的解决方案，至少有 **三种** 不同的方法可以解决这个问题。
-
 
 **解法一** 循环
 
