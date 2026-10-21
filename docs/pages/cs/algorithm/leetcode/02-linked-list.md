@@ -425,6 +425,7 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 
 **解法二** 迭代
 
+---
 
 ## [141.环形链表I](https://leetcode.cn/problems/linked-list-cycle)
 
@@ -463,18 +464,41 @@ random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如�
 
 **提示：**
 
-链表中节点的数目范围是 [0, 104]
--105 <= Node.val <= 105
-pos 为 -1 或者链表中的一个 有效索引 。
-
+- 链表中节点的数目范围是 [0, 104]
+- -10<sup>5</sup> <= Node.val <= 10<sup>5</sup>
+- pos 为 -1 或者链表中的一个 **有效索引** 。
 
 **解法一：** 哈希表
 
 把访问过的节点保存起来，指针一直往后走，当遇到存在一个结点被访问过时，就说明存在环。
 
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
+<details>
+    <summary>快慢指针</summary>
+
+```java
+    public boolean hasCycle(ListNode head) {
+        Set<ListNode> list = new HashSet<>();
+        while (head != null) {
+            if (list.contains(head)) {
+                return true;
+            }
+            list.add(head);
+            head = head.next;
+        }
+        return false;
+    }
+```
+</details>
+
 **解法二：** 快慢指针
 
-快慢指针都从头结点开始，快指针每次只访问一个节点，慢指针每次访问 2 个，两个节点相遇时，即说明有环。
+快慢指针都从头结点开始，快指针每次只访问一个节点，慢指针每次访问两个个，两个节点相遇时，即说明有环。
+
+时间复杂度：O(n)  
+空间复杂度：O(1)  
 
 <details>
     <summary>快慢指针</summary>
@@ -493,6 +517,15 @@ public boolean hasCycle(ListNode head) {
 ```
 </details>
 
+**解法三**：标记
+
+由于题目中规定了链表的值 -10<sup>5</sup> <= Node.val <= 10<sup>5</sup>，可以在遍历到每个节点之后，加一个固定的偏移，比如 200000，这样遍历过的节点 val 值都超过了 100000。
+
+时间复杂度：O(n)  
+空间复杂度：O(1) 
+
+---
+
 ## [142.环形链表II](https://leetcode.cn/problems/linked-list-cycle-ii)
 
 难度：⭐⭐
@@ -506,6 +539,27 @@ public boolean hasCycle(ListNode head) {
 **解法一：** 哈希表
 
 把访问过的节点保存起来，指针一直往后走，当遇到存在一个结点被访问过时，就说明存在环，该节点即为已经访问过的节点。
+
+时间复杂度：O(n)  
+空间复杂度：O(n) 
+
+<details>
+    <summary>哈希表</summary>
+
+```java
+    public ListNode detectCycle(ListNode head) {
+        Set<ListNode> set = new HashSet<>();
+        while (head != null) {
+            if (set.contains(head)) {
+                return head;
+            }
+            set.add(head);
+            head = head.next;
+        }
+        return null;
+    }
+```
+</details>
 
 **解法二：** 快慢指针
 
@@ -526,6 +580,9 @@ head ──a──> 环入口 ──b──> 相遇点
 `2(a + b) = a + b + nL` ==> `a + b = nL` ==> `a + b = n(b + c)` ==> `a = c + (n - 1)(b + c)` 即 `a = c + (n-1)L`，也就是说，当一个指针从头结点出发，另一个从相遇点出发，以同样的速度前进，最终一定是在环入口相遇。
 
 唯一需要注意的是，两个指标必须同时从头结点开始出发。
+
+时间复杂度：O(n)  
+空间复杂度：O(1) 
 
 <details>
     <summary>快慢指针</summary>
