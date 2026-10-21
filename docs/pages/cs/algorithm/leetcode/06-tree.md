@@ -1005,6 +1005,8 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
   ```
 </details>
 
+---
+
 ## [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
 
 难度：⭐️⭐️
@@ -1015,6 +1017,23 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 
 两节点之间路径的 **长度** 由它们之间边数表示。
 
+**示例 1：**
+![](https://assets.leetcode.com/uploads/2021/03/06/diamtree.jpg)
+
+> 输入：root = [1,2,3,4,5]  
+> 输出：3  
+> 解释：3 ，取路径 [4,2,1,3] 或 [5,2,1,3] 的长度。  
+
+**示例 2：**
+
+> 输入：root = [1,2]
+> 输出：1
+ 
+**提示：**
+
+- 树中节点数目在范围 [1, 10<sup>4</sup>] 内
+- -100 <= Node.val <= 100
+
 **解法一** 深度遍历
 
 递归解法计算二叉树的深度，取左子树和右子树的最大深度之和。由于可能不经过根节点，需要在遍历的过程中记录最大深度。
@@ -1023,11 +1042,11 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
   <summary>深度遍历</summary>
 
   ```java
-    private int ans;
+    private int d;
     public int diameterOfBinaryTree(TreeNode root) {
-        ans = 1;
+        d = 1;
         depth(root);
-        return ans - 1;
+        return d;
     }
 
     private int depth(TreeNode root) {
@@ -1036,7 +1055,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         }
         int left = depth(root.left);
         int right = depth(root.right);
-        ans = Math.max(ans, left + right + 1);
+        d = Math.max(d, left + right);
         return 1 + Math.max(left, right);
     }
   ```
