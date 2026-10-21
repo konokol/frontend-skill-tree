@@ -395,6 +395,8 @@ dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`d
   ```
 </details>
 
+---
+
 ## [279.完全平方数](https://leetcode.cn/problems/perfect-squares/description)
 
 难度：⭐️⭐️⭐️
@@ -403,9 +405,28 @@ dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`d
 
 完全平方数 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，`1`、`4`、`9` 和 `16` 都是完全平方数，而 `3` 和 `11` 不是。
 
+**示例 1：**
+
+> 输入：n = 12  
+> 输出：3   
+> 解释：12 = 4 + 4 + 4  
+
+**示例 2：**
+
+> 输入：n = 13   
+> 输出：2  
+> 解释：13 = 4 + 9  
+ 
+**提示：**
+
+- 1 <= n <= 10<sup>4</sup>
+
 **解法一**：动态规划
 
-f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历到√i，f[i]的最大值为i（1+1+...+1），遍历到位置j时，一定可以组成i的组合为 j * j + 1+1+...+1，因此状态转移方程为f[i] = min(j, f[i - j*j])
+f[i] 表示和为 i 的完全平方数的最小值，则计算 f[i] 需要从 1 遍历到$\sqrt{i}$，f[i] 的最大值为 i（1+1+...+1），遍历到位置 j 时，一定可以组成i的组合为 j * j + 1+1+...+1，因此状态转移方程为 `f[i] = min(j, f[i - j*j])`
+
+时间复杂度：O(nlogn)  
+空间复杂度：O(n)  
 
 <details>
   <summary>动态规划</summary>
@@ -424,6 +445,66 @@ f[i]表示和为i的完全平方数的最小值，则计算f[i]需要从1遍历�
     }
   ```
 </details>
+
+**解法二**：BFS
+
+可以将这些数字看成一棵树，n 是根节点，每一层减去一些完全平方数，当某一层减到 0 时，该层数就是要计算的结果。
+
+```text
+        12
+       / | \
+      /  |  \
+    11   8   3
+   /|\   |\
+  / | \  | \
+10  7  2 7  4
+ |  |       |
+ 9  6       0  ← 到达 0
+```
+
+时间复杂度：O(nlogn)  
+空间复杂度：O(n)  
+
+<details>
+  <summary>BFS</summary>
+
+  ```java
+    public int numSquares(int n) {
+        Deque<Integer> queue = new LinkedList<>();
+        int level = 0;
+        queue.offer(n);
+        Set<Integer> visited = new HashSet<>();
+        visited.add(n);
+        while (!queue.isEmpty()) {
+            level++;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                int value = queue.poll();
+                for (int j = 1; j * j <= value; j++) {
+                    int next = value - j*j;
+                    if (next == 0) {
+                        return level;
+                    }
+                    if (visited.add(next)) {
+                        queue.offer(next);
+                    }
+                }
+                
+            }
+        }
+        return level;
+    }
+  ```
+</details>
+
+**解法三**：四平方和定理
+
+拉格朗日四平方和定理：任何正整数都可以表示为至多 4 个完全平方数之和
+
+时间复杂度：O($\sqrt{n}$)  
+空间复杂度：O(1)  
+
+---
 
 ## [300.最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/description)
 
