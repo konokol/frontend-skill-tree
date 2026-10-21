@@ -397,7 +397,7 @@ dp[i]表示子串s[0, i]是否可以满足题设条件。状态转移方程为`d
 
 ---
 
-## [279.完全平方数](https://leetcode.cn/problems/perfect-squares/description)
+## [279.完全平方数](https://leetcode.cn/problems/perfect-squares)
 
 难度：⭐️⭐️⭐️
 
