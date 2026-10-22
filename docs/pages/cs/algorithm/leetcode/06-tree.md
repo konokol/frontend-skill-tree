@@ -70,7 +70,7 @@
 
 **解法三**：Morris 遍历
 
-Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为空时，直接访问该节点；左子树非空时，找到左子树的最右节点，利用叶子节点的右节点临时保存输的结构，第一次遍历先进入左子树，第二次遍历进入右子树。
+Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为空时，直接访问该节点；左子树非空时，找到左子树的最右节点，利用叶子节点的右节点临时保存树的结构，第一次遍历先进入左子树，第二次遍历进入右子树。
 
 时间复杂度：O(n)  
 空间复杂度：O(1)  
@@ -775,39 +775,178 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
   ```
 </details>
 
+---
+
 ## [230. 二叉搜索树中第 K 小的元素](https://leetcode.cn/problems/kth-smallest-element-in-a-bst)
 
 难度：⭐️⭐️
 
 给定一个二叉搜索树的根节点 `root` ，和一个整数 `k` ，请你设计一个算法查找其中第 `k` 小的元素（从 `1` 开始计数）。
 
-**解法一** 深度优先遍历
+**示例 1：**
+
+![](https://assets.leetcode.com/uploads/2021/01/28/kthtree1.jpg)
+
+> 输入：root = [3,1,4,null,2], k = 1  
+> 输出：1  
+
+**示例 2：**
+
+![](https://assets.leetcode.com/uploads/2021/01/28/kthtree2.jpg)
+
+> 输入：root = [5,3,6,2,4,null,null,1], k = 3  
+> 输出：3  
+
+**提示：**
+
+> 树中的节点数为 n 。
+> 1 <= k <= n <= 10<sup>4</sup>
+> 0 <= Node.val <= 10<sup>4</sup>   
+
+**解法一** 非递归中序遍历
+
+二叉搜索树，按照中序遍历，就是从小到大的顺序。
+
+时间复杂度：O(H + k)，最坏O(n)  
+空间复杂度：O(H)  
 
 <details>
-  <summary>深度优先遍历</summary>
+  <summary>非递归遍历（栈）</summary>
 
   ```java
     public int kthSmallest(TreeNode root, int k) {
         Deque<TreeNode> stack = new ArrayDeque<>();
+        int cnt = 0;
         TreeNode p = root;
-        int i = 0;
-        stack.push(p);
-        while (!stack.isEmpty()) {
-            while(p != null) {
+
+        while (p != null || !stack.isEmpty()) {
+            while (p != null) {
                 stack.push(p);
                 p = p.left;
             }
-            TreeNode node = stack.pop();
-            i++;
-            if (i == k) {
-                return node.val;
+            p = stack.pop();
+            cnt++;
+            if (cnt == k) {
+                return p.val;
             }
-            p = node.right;
+            p = p.right;
         }
         return -1;
     }
   ```
 </details>
+
+**解法二：**递归中序遍历
+
+时间复杂度：O(H + k)，最坏O(n)  
+空间复杂度：O(H)  
+
+<details>
+  <summary>非递归遍历（栈）</summary>
+
+  ```java
+  class Solution {
+    private TreeNode result;
+    private int index;
+    public int kthSmallest(TreeNode root, int k) {
+        
+        visit(root, k);
+        return result.val;
+    }
+
+    private void visit(TreeNode node, int k) {
+        if (node == null) {
+            return;
+        }
+        visit(node.left, k);
+        index++;
+        if (index == k) {
+            result = node;
+            return;
+        }
+        visit(node.right, k);
+    }
+  }
+  ```
+</details>
+
+**解法三**：Morris 遍历
+
+Morris 遍历的思路：
+
+- 左子树为空时直接访问当前节点；
+- 左子树非空时，先找到左子树的最右节点(前驱节点)
+  - 前驱节点的右子树为空，则将当前节点右子树放在前驱节点的右子树上，进入左子树
+  - 前驱节点的右子树非空，访问当前节点，同时将右子树置空，进入当前节点的右子树；
+
+时间复杂度：O(n)  
+空间复杂度：O(1)
+
+<details>
+  <summary>非递归遍历（栈）</summary>
+
+  ```java
+  class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        // Morris
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.left == null) {
+                if (--k == 0) {
+                    return cur.val;
+                }
+                cur = cur.right;
+            } else {
+                TreeNode pre = cur.left;
+                while (pre.right != null && pre.right != cur) {
+                    pre = pre.right;
+                }
+                if (pre.right == null) {
+                    pre.right = cur;
+                    cur = cur.left;
+                } else {
+                    pre.right = null;
+                    if (--k == 0) {
+                        return cur.val;
+                    }
+                    cur = cur.right;
+                }
+            }
+        }
+        return -1;
+    }
+  }
+  ```
+</details>
+
+**解法四：** 计算子树的大小
+
+递归计算子树大小，判断第 K 个元素落在左子树、当前节点、右子树上。如果需要频繁查询，可以给子树大小加一个缓存，避免递归重复计算。
+
+时间复杂度：O(H)  
+空间复杂度：O(H)  
+
+<details>
+  <summary>递归计算子树大小</summary>
+
+  ```java
+ class Solution {
+    public int kthSmallest(TreeNode node, int k) {
+        if (node == null) return -1;
+        int left = size(node.left);
+        if (left + 1 == k) return node.val;
+        if (left >= k) return kthSmallest(node.left, k);
+        return kthSmallest(node.right, k - left - 1);
+    }
+
+    private int size(TreeNode node) {
+        return node == null ? 0 : 1 + size(node.left) + size(node.right);
+    }
+}
+  ```
+</details>
+
+---
 
 ## [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree)
 

@@ -8,7 +8,6 @@
 
 使用哈希表实现重复元素滤重，遍历哈希表，当值n+1也在哈希表中时，说明是连续的，开始循环，直到找到不在哈希表中的元素，即为当前元素。
 
-
 <details>
   <summary>哈希表去重法</summary>
   ```java
@@ -152,16 +151,15 @@
 
 说明：你不能倾斜容器。
 
-![例子](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg "aaa")
+![例子](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg)
 
 **解法一**：双指针  
 
 左右指针像中间靠拢，取 最小高度 * 指针差值 为当次的最大面积。
 
 <details>
-  <summary>
-    左右双指针
-  </summary>
+  <summary>左右双指针</summary>
+
   ```Java
     public int maxArea(int[] height) {
         int max = 0;
