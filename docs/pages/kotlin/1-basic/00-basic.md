@@ -552,6 +552,70 @@ println(User.MAX_AGE)
 
 ### 委托
 
+#### 属性委托
+
+将属性的赋值委托给另一个方法，Kotlin 内置了一些默认的委托。
+
+**1、延迟初始化 by lazy**
+
+通过 `by lazy` 实现，当第一次读变量时，执行 lazy 代码块中的代码。
+
+```kotlin
+    val lazyVal: String by lazy {
+        println("lazy init")
+        "msg"
+    }
+
+    println(lazyVal)
+    println(lazyVal)
+```
+
+lazy 还可以有一个线程安全参数：
+
+- LazyThreadSafetyMode.SYNCHRONIZED 同步初始化，使用锁保证线程安全，代码块只会执行一次
+- LazyThreadSafetyMode.PUBLICATION 并发场景下，代码块可能执行多次，最终只会保留一个值
+- LazyThreadSafetyMode.NONE 无锁
+
+```kotlin
+    val lazyValue by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        println("synchronized lazy init")
+        "lazy msg"
+    }
+```
+
+**2. 变量值可观测 by Delegates.observable**
+
+属性变化时可以收到一个回调
+
+```kotlin
+var name: String by Delegates.observable("init") { property, old, new ->
+    println("${property.name}: $old -> $new")
+}
+
+name = "Alice" // name: init -> Alice
+```
+
+**3. 条件赋值 by Delegates.vetoble**
+
+可以在代码块中对赋值做拦截
+
+```kotlin
+var age: Int by Delegates.vetoable(0) { _, old, new ->
+    new >= 0 // 负数拒绝赋值
+}
+```
+
+**4. 可空变量空值检查 by Delegates.notNull**
+
+当可空变量是空值时，读变量值会抛一个异常
+
+```
+var name: String by Delegates.notNull()
+// println(name) // 抛 IllegalStateException
+```
+
+除了内置
+
 ----
 *参考*
 
