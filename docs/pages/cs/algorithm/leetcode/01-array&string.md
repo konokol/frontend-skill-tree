@@ -709,6 +709,8 @@
   ```
 </details>
 
+---
+
 ## [560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k)
 
 难度：⭐️⭐️⭐️
@@ -720,6 +722,9 @@
 **解法一** 穷举
 
 2层遍历，穷举所有的组合。
+
+时间复杂度：O(n<sup>2</sup>)  
+空间复杂度：O(1)  
 
 <details>
   <summary>2层遍历穷举法</summary>
@@ -741,10 +746,12 @@
   ```
 </details>
 
-
-**解法二** 哈希表  
+**解法二** 哈希表 + 前缀和  
 
 使用哈希表，key为前缀和，value为该前缀和的数量。遍历时，同时记录前缀和为某个值的数量。
+
+时间复杂度：O(n)
+空间复杂度：O(n)  
 
 <details>
   <summary>哈希表记录前缀和</summary>

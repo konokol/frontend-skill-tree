@@ -1,5 +1,7 @@
 # 哈希表
 
+--- 
+
 ## [49.字母异位词分组](https://leetcode.cn/problems/group-anagrams)
 
 给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。字母异位词 是由重新排列源单词的所有字母得到的一个新单词。 
@@ -17,34 +19,27 @@
   <summary>哈希表</summary>
 
   ```java
+  class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<String, List<String>> map = new LinkedHashMap<>();
-        for (String str : strs) {
-            String key = genKey(str);
-            List<String> list = map.get(key);
-            if (list == null) {
-                list = new LinkedList<>();
+        Map<String, List<String>> result = new HashMap<>();
+        for (String str: strs) {
+            String key = getKey(str);
+            if (result.containsKey(key)) {
+                result.get(key).add(str);
+            } else {
+                List<String> arr = new ArrayList<>();
+                arr.add(str);
+                result.put(key, arr);
             }
-            list.add(str);
-            map.put(key, list);
         }
-        return new ArrayList<>(map.values());
+        return new ArrayList<>(result.values());
     }
 
-    private int[] dict = new int[26];
-    private String genKey(String str) {
-        Arrays.fill(dict, 0);
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            dict[c - 'a']++;
-        }
-        StringBuilder builder = new StringBuilder();
-        for(int i = 0; i < dict.length; i++) {
-            if (dict[i] > 0) {
-                builder.append('a' + i).append(dict[i]);
-            }
-        }
-        return builder.toString();
+    private String getKey(String str) {
+        char[] ch = str.toCharArray();
+        Arrays.sort(ch);
+        return new String(ch);
     }
-  ```
+   }
+   ```
 </details>
