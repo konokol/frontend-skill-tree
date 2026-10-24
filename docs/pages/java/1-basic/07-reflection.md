@@ -30,4 +30,5 @@ Java中在运行时动态获取类的信息和动态调用对象方法的机制�
 - 开放性，反射可以调用任何API，破坏了封装性，使得任意私有的API都能对外暴露。
 
 *参考*  
+
 [Trail: The Reflection API](https://docs.oracle.com/javase/tutorial/reflect/TOC.html)

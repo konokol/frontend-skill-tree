@@ -15,6 +15,9 @@
 
 使用哈希表，key是重排序的后的单词，值是字母异位词分组的List。
 
+时间复杂度：O(nklogk)  
+空间复杂度：O(nk)
+
 <details>
   <summary>哈希表</summary>
 

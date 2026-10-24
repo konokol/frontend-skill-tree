@@ -1,4 +1,4 @@
-# Java中的四种引用
+# 引用
 
 ## 强引用(StrongReference)
 
@@ -23,6 +23,7 @@
 虚引用无法直接访问到引用的对象，get()方法始终返回null。和弱引用一样，虚引用被回收时会被加入到其关联的ReferenceQueue中。
 
 一般虚引用来感知对象被垃圾回收，实现方法是创建虚引用时，传入一个ReferenceQueue，监听到队列非空即发生了垃圾回收。
+
 ```java
 public PhantomReference(T referent, ReferenceQueue<? super T> q) {
     super(referent, q);
@@ -31,5 +32,6 @@ public PhantomReference(T referent, ReferenceQueue<? super T> q) {
 
 NIO中使用了虚引用来管理堆外内存。
 
-*参考*
+*参考*  
+
 1、[Java中的四种引用类型](http://www.cnblogs.com/linghu-java/p/5691804.html)
