@@ -319,7 +319,7 @@ println("apply: ${person2.javaClass}") // com.kotlin.classes.Chinese
 
 ![internal functions](../../../img/kotlin-internal-functions.png)
 
-## 类
+## 类和对象
 
 ### 类的构造
 
@@ -550,11 +550,13 @@ println(User.MAX_AGE)
 - 单例
 - 替代 Java 中的静态内部类
 
-### 委托
+## 委托
 
 委托通过 by 关键字来实现。
 
-#### 属性委托
+### 属性委托
+
+#### 类的属性委托
 
 在类中，可以将一个属性的 setter 和 getter 委托给另一个属性，委托的属性可以是：
 
@@ -598,7 +600,7 @@ fun main() {
 
 ```
 
-#### 标准委托
+#### 内置标准委托
 
 将属性的赋值委托给另一个方法，Kotlin 内置了一些默认的委托。
 
@@ -694,6 +696,31 @@ class SimpleDelegate<T>(private var value: T) {
 }
 
 ```
+
+### 类委托
+
+类委托就是将一个类要实现的方法委托给另一个类实现。
+
+```
+interface Base {
+    fun print()
+}
+
+class BaseImpl(val x: Int) : Base {
+    override fun print() { 
+        print(x) 
+    }
+}
+
+class Derived(b: Base) : Base by b
+
+fun main() {
+    val base = BaseImpl(10)
+    Derived(base).print()
+}
+```
+
+在当前类中增加 override 方法之后，会覆盖委托中的实现。
 
 ----
 
