@@ -73,7 +73,7 @@
 
 ---
 
-## [46.全排列](https://leetcode.cn/problems/permutations/description)
+## [46.全排列](https://leetcode.cn/problems/permutations)
 
 难度：⭐️⭐️⭐️⭐️
 
