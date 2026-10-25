@@ -71,6 +71,8 @@
 
 </details>
 
+---
+
 ## [46.全排列](https://leetcode.cn/problems/permutations/description)
 
 难度：⭐️⭐️⭐️⭐️
@@ -79,7 +81,12 @@
 
 **解法一** 回溯
 
-定义递归函数 backtrack(first,output) 表示从左往右填到第 first 个位置，当前排列为 output。first左边是已经填充的数，右边是未填充的。小技巧，用元素交换的方式来做标记数组。
+定义递归函数 dfs(first,output) 表示从左往右填到第 first 个位置，当前排列为 output。first左边是已经填充的数，右边是未填充的。小技巧，用元素交换的方式来做标记数组。
+
+核心思想是交换位置。也可以用一个数组标记哪些元素使用过。
+
+时间复杂度：O(n×n!)  
+空间复杂度：O(n)
 
 <details>
   <summary>回溯</summary>
@@ -92,17 +99,17 @@
         for (int num : nums) {
             output.add(num);
         }
-        backtrace(nums.length, output, 0);
+        dfs(nums.length, output, 0);
         return ans;
     }
 
-    private void backtrace(int n, List<Integer> output, int first) {
+    private void dfs(int n, List<Integer> output, int first) {
         if (first == n) {
             ans.add(new ArrayList<>(output));
         }
         for (int i = first; i < n; i++) {
             Collections.swap(output, first, i);
-            backtrace(n, output, first + 1);
+            dfs(n, output, first + 1);
             Collections.swap(output, first, i);
         }
     }
