@@ -62,24 +62,6 @@ advancedFunc(10) { num ->
 
 高阶函数会有一些运行时上的开销，因为函数是一个对象，在函数的实现中，会访问局部变量，因此在内存占用和虚拟调用都会有一定的开销。
 
-## 内联函数
-
-内联函数通过 inline 关键字修饰，会将调用函数的地方内联成函数的实现。内联函数会引入额外的代码，不过使用得当也能提升性能。
-
-```kotlin
-inline fun inlineFun(m: Int, mapper: (Int) -> String) : String {
-    return mapper.invoke(m)
-}
-```
-
-如果不希望传给函数的参数被内联，也可以用noinline参数修饰函数参数。noinline关键字不能修饰函数，可以修饰函数参数。
-
-```kotlin
-inline fun inlineParams(m: Int, mapper: (Int) -> String, noinline reducer: (Int) -> Int): String {
-    return mapper.invoke(reducer.invoke(m))
-}
-```
-
 ## Kotlin内置的常见高阶函数
 
 **let**
@@ -159,6 +141,44 @@ println("apply: ${person2.javaClass}") // com.kotlin.classes.Chinese
 ```
 
 ![internal functions](../../../img/kotlin-internal-functions.png)
+
+
+## 内联函数
+
+内联函数通过 inline 关键字修饰，会将调用函数的地方内联成函数的实现。内联函数会引入额外的代码，不过使用得当也能提升性能。
+
+```kotlin
+inline fun inlineFun(m: Int, mapper: (Int) -> String) : String {
+    return mapper.invoke(m)
+}
+```
+
+如果不希望传给函数的参数被内联，也可以用noinline参数修饰函数参数。noinline关键字不能修饰函数，可以修饰函数参数。
+
+```kotlin
+inline fun inlineParams(m: Int, mapper: (Int) -> String, noinline reducer: (Int) -> Int): String {
+    return mapper.invoke(reducer.invoke(m))
+}
+```
+
+## 扩展函数
+
+扩展函数指在不修改原类的基础上，对类添加新的函数。
+
+```
+// fun 类名.函数名(参数): 返回值 {}
+fun ReceiverType.functionName(): ReturnType {
+  // this 指向扩展的类
+}
+```
+
+扩展函数的原理是生成一个静态方法，第一个参数是被扩展类的实例。
+
+扩展函数的特定：
+
+- 不能被重写，因为它是静态的方法
+- 成员函数优先级更高，如果类中有同名的函数，调用时会类的成员函数会覆盖扩展函数
+- 不能访问私有属性和方法，因为只是对类进行包装，并不会改变可见性
 
 *参考：*
 
