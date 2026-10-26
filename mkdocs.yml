@@ -54,8 +54,8 @@ nav:
     - 函数: pages/kotlin/1-basic/01-function.md
     - 类和对象: pages/kotlin/1-basic/02-class-objects.md
     - 委托: pages/kotlin/1-basic/03-delegate.md
-    - 常见的Kotlin模式: pages/kotlin/00-basic/10-common-patterns.md
-    - 编码风格: pages/kotlin/00-basic/11-style-guide.md
+    - 常见的Kotlin模式: pages/kotlin/1-basic/10-common-patterns.md
+    - 编码风格: pages/kotlin/1-basic/11-style-guide.md
   - 进阶:
     - 协程: pages/kotlin/2-coroutines/0-coroutines.md
     - Flow: pages/kotlin/3-flow/0-flow.md
@@ -117,7 +117,12 @@ nav:
     - apk的安装: pages/android/6-tools/02-apk-install.md
     
 - 跨平台技术:
-  - 敬请期待: pages/cross-platform/none.md
+  - Flutter:
+    - 敬请期待: pages/cross-platform/flutter/none.md
+  - ReactNative:
+    - 敬请期待: pages/cross-platform/react-native/none.md
+  - 微信小程序:
+    - 敬请期待: pages/cross-platform/miniprogram/none.md
 
 - 大前端:
    - 前端常见知识点: pages/frontend/basic/index.md
