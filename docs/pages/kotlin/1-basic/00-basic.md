@@ -130,6 +130,26 @@ val name: String = user.name ?: fail() // 赋值给String类型的变量
 val age: String = if user.age > 0 user.age else fail() // 赋值给Int类型的变量
 ```
 
+## 类型转换 as 和 as?
+
+as 是非安全的类型转换，等同于 Java 中的 `()`，转换失败会抛异常。
+
+```kotlin
+val aaa = "aaa"
+
+val bbb = aaa as String
+val ccc = aaa as Int // ❌ 会抛出ClassCastException
+```
+
+as? 是安全的类型转换，当转换失败会返回 null。
+
+```kotlin
+val aaa = "aaa"
+
+val ddd = aaa as? String
+val eee = aaa as? Int // ✅ eee 的值会是 null
+```
+
 ## 条件语句
 
 **if-else**
