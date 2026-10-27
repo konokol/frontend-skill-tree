@@ -54,6 +54,7 @@ nav:
     - 函数: pages/kotlin/1-basic/01-function.md
     - 类和对象: pages/kotlin/1-basic/02-class-objects.md
     - 委托: pages/kotlin/1-basic/03-delegate.md
+    - 空安全: pages/kotlin/1-basic/09-null-safety.md
     - 编码风格: pages/kotlin/1-basic/11-style-guide.md
   - 进阶:
     - 协程: pages/kotlin/2-coroutines/0-coroutines.md
