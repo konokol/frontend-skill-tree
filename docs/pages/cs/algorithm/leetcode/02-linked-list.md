@@ -799,3 +799,62 @@ head ──a──> 环入口 ──b──> 相遇点
     }
     ```
 </details>
+
+---
+
+## [234. 回文链表](https://leetcode.cn/problems/palindrome-linked-list)
+
+难度：⭐️⭐️
+
+给你一个单链表的头节点 head ，请你判断该链表是否为回文链表。如果是，返回 true ；否则，返回 false 。
+
+**示例** 1：
+
+![](https://assets.leetcode.com/uploads/2021/03/03/pal1linked-list.jpg)
+
+> 输入：head = [1,2,2,1]  
+> 输出：true  
+
+**示例 2：**
+
+
+> 输入：head = [1,2]  
+> 输出：false  
+ 
+
+**提示：**
+
+- 链表中节点数目在范围[1, 10<sup>5</sup>] 内
+- 0 <= Node.val <= 9
+
+**解法一**：复制到数组后双指针
+
+先遍历一遍，把节点存到 list 中，然后用双指针分别指向头尾，向中间遍历。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)
+
+<details>
+    <summary>集合 + 双指针</summary>
+
+    ```java
+    public boolean isPalindrome(ListNode head) {
+        List<ListNode> list = new ArrayList<>();
+        ListNode p = head;
+        while(p != null) {
+            list.add(p);
+            p = p.next;
+        }
+        int left = 0;
+        int right = list.size() - 1;
+        while(left < right) {
+            if (list.get(left).val != list.get(right).val) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+    ```
+</details>
