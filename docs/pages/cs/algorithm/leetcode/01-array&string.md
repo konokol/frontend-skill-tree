@@ -318,7 +318,10 @@
 
 **解法一** 哈希表
 
-空间复杂度为O(n)，用哈希表将数组中的元素存起来。for循环，当哈希表中不存在该元素时，下标的n+1位置就是缺失的第一个正数，如果循环完了每个元素都在哈希表中，结果就是数组的长度加1.
+空间复杂度为O(n)，用哈希表将数组中的元素存起来。for循环，当哈希表中不存在该元素时，下标的 n+1 位置就是缺失的第一个正数，如果循环完了每个元素都在哈希表中，结果就是数组的长度加1.
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
 
 <details>
   <summary>哈希表(空间复杂度不满足题目要求)</summary>
@@ -339,12 +342,21 @@
   ```
 </details>
 
-**解法二** 原地哈希
+**解法二** 标记法
+
+三次遍历：
+
+1. 先剔除所有的负数
+2. 对于在区间内的正数，把其下标位置的数改成负数
+3. 第一个没被改的数字就是缺失的正数
 
 ![图解](../../../../img/first_missing_positive.png)
 
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
 <details>
-  <summary>原地哈希</summary>
+  <summary>标记法</summary>
 
   ```java
   public int firstMissingPositive(int[] nums) {
@@ -372,6 +384,38 @@
         return n + 1;
     }
   ```
+</details>
+
+**解法三** 原地哈希
+
+对于长度为 n 的数组，缺失的第一个正数一定在 [1, n+1] 范围内。正确的位置上，nums[i] = i + 1，第一次遍历时，对其进行交换。第二次遍历时，遇到的第一个 nums[i] != i + 1 的值就是正确的值。
+
+时间复杂度：O(n)  
+空间复杂度：O(1)  
+
+<details>
+  <summary>标记法</summary>
+
+```java
+  class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; ++i) {
+            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
+                int temp = nums[nums[i] - 1];
+                nums[nums[i] - 1] = nums[i];
+                nums[i] = temp;
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+        return n + 1;
+    }
+}
+```
 </details>
 
 ## [76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring)

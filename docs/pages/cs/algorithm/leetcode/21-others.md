@@ -174,6 +174,8 @@
   ```
 </details>
 
+---
+
 ## [136.只出现一次的数字](https://leetcode.cn/problems/single-number)
 
 难度：⭐️
@@ -199,6 +201,8 @@
     }
   ```
 </details>
+
+---
 
 ## [169.多数元素](https://leetcode.cn/problems/majority-element)
 
