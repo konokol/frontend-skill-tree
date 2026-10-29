@@ -41,7 +41,7 @@
 空间复杂度：O(1)  
 
 <details>
-  <summary>动态规划</summary>
+  <summary>双指针</summary>
 
 ```java
 class Solution {

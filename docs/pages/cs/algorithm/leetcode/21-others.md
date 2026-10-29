@@ -145,7 +145,7 @@
 使用三个指针 `left`、`right`、`cur`，一次遍历完成。
 
 <details>
-  <summary>记录次数</summary>
+  <summary>三指针</summary>
 
   ```java
     public void sortColors(int[] nums) {
