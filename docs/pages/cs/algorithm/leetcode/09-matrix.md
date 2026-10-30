@@ -190,6 +190,136 @@
   ```
 </details>
 
+---
+
+## [74.搜索二维矩阵](https://leetcode.cn/problems/search-a-2d-matrix)
+
+难度：⭐️⭐️⭐️
+
+给你一个满足下述两条属性的 `m x n` 整数矩阵：
+
+每行中的整数从左到右按非严格递增顺序排列。
+每行的第一个整数大于前一行的最后一个整数。
+给你一个整数 `target` ，如果 `target` 在矩阵中，返回 `true` ；否则，返回 `false` 。
+
+你必须编写一个时间复杂度为 `O(log(m * n))` 的解决方案。
+
+**示例 1：**
+
+![](https://assets.leetcode.com/uploads/2020/10/05/mat.jpg)
+
+> 输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3  
+> 输出：true  
+
+**示例 2：**
+
+![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2020/11/25/mat2.jpg)
+
+> 输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13  
+> 输出：false  
+ 
+**提示：**
+
+- m == matrix.length
+- n == matrix[i].length
+- 1 <= m, n <= 100
+- -10<sup>4</sup> <= matrix[i][j], target <= 10<sup>4</sup>
+ 
+**解法一** 2 次二分查找
+
+第一次在第 0 列中从上到下搜索，找到第一个小于 target 的行，第二次在找到的行中搜索。注意的是，第一次二分查找边界需要向上取整。
+
+时间复杂度：O(log(mn))  
+空间复杂度：O(1)
+
+<details>
+  <summary>2次二分查找</summary>
+
+```java
+  class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        if (target < matrix[0][0] || target > matrix[m -1][n - 1]) {
+            return false;
+        }
+        int start = 0;
+        int end = m - 1;
+        int row = 0;
+        while (start < end) {
+            int mid = start + (end - start + 1) / 2;
+            if (matrix[mid][0] == target) {
+                return true;
+            } else if (target < matrix[mid][0]){
+                end = mid - 1;
+            } else {
+                start = mid;
+            }
+        }
+        row = start;
+        start = 0;
+        end = n - 1;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (target == matrix[row][mid]) {
+                return true;
+            } else if (target < matrix[row][mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return false;
+    }
+}
+```
+</details>
+
+**解法二** 一次二分查找
+
+由于每一行的行首元素大于上一行的行尾元素，因此按行遍历，就可以得到一个长度为 m*n 的有序数组，直接使用二分查找，取中间位置时，恢复成坐标即可。
+
+时间复杂度：O(log(mn))  
+空间复杂度：O(1)
+
+<details>
+  <summary>1次二分查找</summary>
+
+```java
+  class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int start = 0;
+        int end = m * n - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            int row = mid / n;
+            int col = mid % n;
+            if (target == matrix[row][col]) {
+                return true;
+            } else if (target < matrix[row][col]) {
+                end = mid - 1;
+            } else {
+                start  = mid + 1;
+            }
+        }
+        return false;
+    }
+}
+```
+</details>
+
+**解法三** 二叉搜索树
+
+从右上角或者左上角看，矩阵是一个二叉搜索树，直接按二叉搜索树查找即可。 *这种解法的时间复杂度不符合题目要求。*
+
+时间复杂度：O(mn)  
+空间复杂度：O(1)   
+
+---
+
 ## [240.搜索二维矩阵](https://leetcode.cn/problems/search-a-2d-matrix-ii)
 
 难度：⭐️⭐️
