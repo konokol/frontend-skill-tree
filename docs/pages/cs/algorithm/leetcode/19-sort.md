@@ -194,6 +194,8 @@
   ```
 </details>
 
+---
+
 ## [153.寻找旋转排序数组中的最小值](https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array)
 
 难度：⭐️⭐️⭐️
@@ -209,7 +211,10 @@
 
 **解法一** 二分查找
 
-二分查找，右侧有序则向左搜索。
+旋转数组后，可以分成 2 段有序，第二段的第一个元素就是最小值。 用右侧的元素比较，中间元素比最右侧元素大时，第二段一定在右侧。
+
+时间复杂度：O(logn)  
+空间复杂度：O(1)  
 
 <details>
   <summary>二分查找</summary>
@@ -220,10 +225,10 @@
         int right = nums.length - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] < nums[right]) {
-                right = mid;
-            } else {
+            if (nums[mid] > nums[right]) {
                 left = mid + 1;
+            } else {
+                right = mid;
             }
         }
         return nums[left];
