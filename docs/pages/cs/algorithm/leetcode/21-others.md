@@ -14,11 +14,48 @@
 而 `arr = [3,2,1]` 的下一个排列是 `[1,2,3]` ，因为 `[3,2,1]` 不存在一个字典序更大的排列。
 给你一个整数数组 `nums` ，找出 `nums` 的下一个排列。
 
-必须 原地 修改，只允许使用额外常数空间。
+必须 **原地** 修改，只允许使用额外常数空间。
+
+**示例 1：**
+
+> 输入：nums = [1,2,3]  
+> 输出：[1,3,2]  
+
+**示例 2：**
+
+> 输入：nums = [3,2,1]  
+> 输出：[1,2,3]  
+
+**示例 3：**
+
+> 输入：nums = [1,1,5]  
+> 输出：[1,5,1]  
+ 
+**提示：**
+
+- 1 <= nums.length <= 100
+- 0 <= nums[i] <= 100
 
 **解法一** 两遍扫描
 
-从后往前搜索，找到第一个降序序列，第二遍搜索，找到比顶点前一个元素小的元素，交换，将剩下的元素反转。
+从后往前搜索，找到第一个降序序列(顶点 i + 1)，第二遍搜索，倒序找到比顶点前一个元素小的元素交换，从 i 到数组末尾是降序的，将剩下的元素反转。
+
+以 `1 4 6 5 4 3 2 1` 为例：
+
+```text
+y
+6 |         ○
+5 |             ○
+4 |     ○           ○
+3 |                     ○
+2 |                         ○
+1 | ○                          ○
+  ---------------------------------------- x
+    0   1   2   3   4   5   6   7
+```
+
+时间复杂度：O(n)  
+空间复杂度：O(1)  
 
 <details>
   <summary>两遍扫描</summary>
@@ -26,10 +63,13 @@
   ```java
     public void nextPermutation(int[] nums) {
         // 1 4 6 5 4 3 2 1
+
+        // 找到顶点元素的前一个元素 i
         int i = nums.length - 2;
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
+        // 找到比 num[i] 更小的元素，反转
         if (i >= 0) {
             int j = nums.length - 1;
             while (j >= 0 && nums[i] >= nums[j]) {
@@ -37,15 +77,8 @@
             }
             swap(nums, i, j);
         }
-        reverse(nums, i + 1);
-    }
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
-    private void reverse(int[] nums, int i) {
-        int left = i;
+        // 反转剩下的元素
+        int left = i + 1;
         int right = nums.length - 1;
         while (left < right) {
             swap(nums, left, right);
@@ -53,9 +86,17 @@
             right--;
         }
     }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
   ```
 
 </details>
+
+---
 
 ## [75.颜色分类](https://leetcode.cn/problems/sort-colors/description)
 
