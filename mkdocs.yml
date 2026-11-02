@@ -64,7 +64,7 @@ nav:
 - Android:
   - Android知识树: pages/android/index.md
   - 新特性: 
-    - Android L~O: pages/android/0-new-feature/l~o.md
+    - Android L~O: pages/android/0-new-feature/l~p.md
   - 基础:
     - Activity: pages/android/1-basic/01-activity.md
     - Service: pages/android/1-basic/02-service.md
