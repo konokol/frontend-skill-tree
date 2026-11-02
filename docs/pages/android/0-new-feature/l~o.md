@@ -2,7 +2,8 @@
 
 ## Android 5.0(Lollipop)
 
-[Android 5.0 行为变更](https://developer.android.com/about/versions/android-5.0-changes.html?hl=zh-cn#BehaviorNotifications)
+[Android 5.0 行为变更](https://developer.android.com/about/versions/lollipop/android-5.0-changes.html?hl=zh-cn)
+[Android 5.0 行为变更-中文](https://developer.android.google.cn/about/versions/lollipop/android-5.0-changes?hl=zh-cn)
 
 1. Android Runtime (ART)替代了Dalvik
 2. 通知行为变更
@@ -24,6 +25,7 @@
 ## Android 6.0(Mushroom)
 
 [Android 6.0行为变更](https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html)
+[Android 6.0行为变更-中文](https://developer.android.google.cn/about/versions/marshmallow/android-6.0-changes.html)
 
 1. 运行时权限
 2. 低电耗模式和应用待机模式
@@ -45,6 +47,7 @@
 
 ## Andorid 7.0(Nougat)
 [Android 7.0 开发者版本](https://developer.android.com/about/versions/nougat/android-7.0-changes.html)
+[Android 7.0 开发者版本-中文](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html)
 
 1. 电池和内存，移除了一些隐式广播
 2. 权限更改，私有文件的安全性，分享私有文件内容的推荐方法是使用 FileProvider。DownloadManager 不再按文件名分享私人存储的文件。Android 框架执行的 StrictMode API 政策禁止在您的应用外部公开 file:// URI。
