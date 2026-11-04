@@ -81,15 +81,20 @@ if (obj !is String) { // 与 !(obj is String) 相同
 `as` 可以用来做类型转换，相当于 Java 中的强制类型转换。不安全的转换会在编译期报错。
 
 ```kotlin
+val y = "a"
 val x: String = y as String
+
+val n = y as Int // ❌ 会抛出ClassCastException
 ```
 
 `as?` 可以做安全的类型转换，当转换失败是返回 null 。
 
 ```kotlin
+val y = "a"
 val x: String? = y as? String
-```
 
+val n = y as? Int // ✅ n 的值会是 null
+```
 
 ## 数据类型
 
@@ -130,26 +135,6 @@ val name: String = user.name ?: fail() // 赋值给String类型的变量
 val age: String = if user.age > 0 user.age else fail() // 赋值给Int类型的变量
 ```
 
-## 类型转换 as 和 as?
-
-as 是非安全的类型转换，等同于 Java 中的 `()`，转换失败会抛异常。
-
-```kotlin
-val aaa = "aaa"
-
-val bbb = aaa as String
-val ccc = aaa as Int // ❌ 会抛出ClassCastException
-```
-
-as? 是安全的类型转换，当转换失败会返回 null。
-
-```kotlin
-val aaa = "aaa"
-
-val ddd = aaa as? String
-val eee = aaa as? Int // ✅ eee 的值会是 null
-```
-
 ## 条件语句
 
 **if-else**
@@ -166,7 +151,7 @@ val String message = if (code == 400) {
 }
 ```
 
-Kotlin 中没有 Java 中的三目运算符 ?:，类似的用法都可以用三元表达式来实现。
+Kotlin 中没有 Java 中的三目运算符 `condition ? x : y`，类似的用法都可以用三元表达式来实现。
 
 **when**
 
