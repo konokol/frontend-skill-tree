@@ -1,4 +1,4 @@
-site_name: 客户端知识图谱
+site_name: 大前端知识图谱
 site_url: https://konokol.github.io/frontend-skill-tree/
 site_description: 客户端与大前端工程师技能树及知识图谱
 site_author: konokol
@@ -33,7 +33,7 @@ nav:
   - 集合:  
     - Java的集合框架: pages/java/3-collections/01-collections.md
     - Android特有的集合: pages/java/3-collections/10-android-collections.md
-  - I&O:
+  - I/O:
     - 序列化: pages/java/4-io/01-serialization.md
   - 设计模式: 
     - 设计模式: pages/java/6-design-pattern/00-design-pattern.md
@@ -63,8 +63,6 @@ nav:
 
 - Android:
   - Android知识树: pages/android/index.md
-  - 新特性: 
-    - Android L~O: pages/android/0-new-feature/l~p.md
   - 基础:
     - Activity: pages/android/1-basic/01-activity.md
     - Service: pages/android/1-basic/02-service.md
@@ -115,8 +113,11 @@ nav:
     - Android打包: pages/android/6-tools/00-tools.md
     - 打包流程: pages/android/6-tools/01-apk-build.md
     - apk的安装: pages/android/6-tools/02-apk-install.md
+  - 新特性: 
+    - Android L~O: pages/android/99-new-feature/l~p.md
     
 - 跨平台技术:
+  - 概述: pages/cross-platform/index.md
   - Flutter:
     - 敬请期待: pages/cross-platform/flutter/none.md
   - ReactNative:
@@ -128,6 +129,7 @@ nav:
    - 前端常见知识点: pages/frontend/basic/index.md
 
 - CS理论基础:
+  - 概述: pages/cs/index.md
   - 计算机基础:
     - 敬请期待: pages/cs/cs-basic/none.md
   - 网络:
