@@ -243,24 +243,60 @@
 
 长度为n的数组，一共可以组成2^n个子数组，对于每一位数字，比特位是1认为使用该元素，0认为不使用。
 
+---
+
 ## [79.单词搜索](https://leetcode.cn/problems/word-search/description)
 
-难度：⭐️⭐️⭐️
+难度：⭐️⭐️⭐️⭐️
 
 给定一个 `m x n` 二维字符网格 `board` 和一个字符串单词 `word` 。如果 `word` 存在于网格中，返回 `true` ；否则，返回 `false` 。
 
 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
 
-示例 1：
+**示例 1：**
 
-![word](../../../../img/word2.jpg)
+![eg.1](https://assets.leetcode.com/uploads/2020/11/04/word2.jpg)
 
-输入：board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
-输出：true
+> 输入：board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"  
+> 输出：true  
+
+**示例 2：**
+
+![eg.2](https://assets.leetcode.com/uploads/2020/11/04/word-1.jpg)
+
+> 输入：board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = "SEE"  
+> 输出：true  
+
+**示例 3：**
+
+![eg.3](https://assets.leetcode.com/uploads/2020/10/15/word3.jpg)
+
+> 输入：board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = "ABCB"  
+> 输出：false  
+ 
+提示：
+
+- m == board.length
+- n = board[i].length
+- 1 <= m, n <= 6
+- 1 <= word.length <= 15
+- board 和 word 仅由大小写英文字母组成
+
+进阶：你可以使用搜索剪枝的技术来优化解决方案，使其在 `board` 更大的情况下可以更快解决问题？
+
 
 **解法一** 回溯
 
-类似图的遍历，找到匹配的首字母后，向上下左右4个方向搜索，用额外的数组记录当前位置是否被搜索过，然后递归调用。
+类似图的层序遍历，找到匹配的首字母后，向上下左右4个方向搜索，用额外的数组记录当前位置是否被搜索过，然后递归调用。
+
+时间复杂度：O(mn·3<sup>L</sup>)，L 为 word 的长度  
+空间复杂度：O(mn)  
+
+优化：
+
+1. 原地标记，visited 数组可以改成原地标记，遍历前把位置改成特殊字符，比如 `#`，遍历后恢复，空间复杂度可以减到 O(1)
+2. 字符频率剪枝，先遍历一遍 board 和 word，统计每个字符出现的频率，如果 board 中存在字符的频率比 word 更低，一定无解，直接返回
+3. 字符串改成CharArray，也能优化一部分时间
 
 <details>
   <summary>回溯</summary>
@@ -275,11 +311,9 @@
         char c = word.charAt(0);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (board[i][j] == c) {
-                    boolean found = find(board, i, j, word, 0);
-                    if (found) {
-                        return true;
-                    }
+                boolean found = find(board, i, j, word, 0);
+                if (found) {
+                    return true;
                 }
             }
         }
@@ -329,6 +363,8 @@
     }
   ```
 </details>
+
+---
 
 ## [131. 分割回文串](https://leetcode.cn/problems/palindrome-partitioning/description)
 
