@@ -2,15 +2,15 @@
 
 ## Java基础(P0)
 
-1. Java中==和equals的区别，hashCode什么作用？  
-2. Object类的equal和hashCode方法为什么需要一起重写？  
+1. [Java 中 == 和 equals 的区别，hashCode 什么作用?](){ title="== 基本类型比较值，引用类型比较地址；equals默认比较地址，大部分类重写比较值；hashCode返回对象地址提高哈希表查询效率" }  
+2. Object 类的 equal 和 hashCode 方法为什么需要一起重写？  
 3. int和Integer的区别？缓存池  
 4. Java多态的理解？  
 5. Java中多态的底层实现机制是什么？  
 6. String、StringBuffer、StringBuilder的区别？  
 7. String为什么不可变？  
 8. 什么是内部类、内部类的作用
-9. 为什么Java中匿名内部类只能访问final修饰的外部变量？    
+9.  为什么Java中匿名内部类只能访问final修饰的外部变量？    
 10. 抽象类和接口的区别、应用场景  
 11. 泛型中extends和super的区别  
 12. 静态属性、方法能否被重写  

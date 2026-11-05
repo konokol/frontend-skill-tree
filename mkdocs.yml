@@ -193,6 +193,7 @@ theme:
     - navigation.tabs.sticky
     - content.code.copy
     - content.code.annotate
+    - content.tooltips
 plugins:
   - search:
       lang:
@@ -214,6 +215,7 @@ edit_uri: ''
 markdown_extensions:
   - def_list
   - attr_list
+  - md_in_html
   - pymdownx.highlight:
       anchor_linenums: true
       linenums: true

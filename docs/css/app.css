@@ -56,3 +56,28 @@ img {
 .md-typeset .admonition code {
   font-size: inherit !important;
 }
+
+/* 调整 Material Content Tooltips 样式 */
+[role="tooltip"] > .md-tooltip2__inner {
+  width: fit-content;
+  max-width: min(450px, calc(100vw - 32px));
+  padding: 8px 12px;
+  font-size: 0.7rem;
+  font-weight: normal;
+  line-height: 1.6;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  color: var(--md-typeset-color);
+  background-color: var(--md-code-bg-color);
+  border: 1px solid var(--md-accent-fg-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.md-tooltip2--top::before {
+  border-top-color: var(--md-code-bg-color);
+}
+
+.md-tooltip2--bottom::before {
+  border-bottom-color: var(--md-code-bg-color);
+}
