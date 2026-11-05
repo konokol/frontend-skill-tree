@@ -116,7 +116,7 @@
   ```
 </details>
 
-## [51.N皇后](https://leetcode.cn/problems/n-queens/description/)
+## [51.N皇后](https://leetcode.cn/problems/n-queens)
 
 难度：⭐️⭐️⭐️⭐️
 
@@ -128,22 +128,33 @@
 
 每一种解法包含一个不同的 `n` 皇后问题 的棋子放置方案，该方案中 `'Q'` 和 `'.'` 分别代表了皇后和空位。
 
-示例 1：
+**示例 1：**
 
 ![N皇后](../../../../img/queens.jpg)
 
-输入：n = 4
-输出：[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
-解释：如上图所示，4 皇后问题存在两个不同的解法。
+> 输入：n = 4  
+> 输出：[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]  
+> 解释：如上图所示，4 皇后问题存在两个不同的解法。  
 
+**示例 2：**
+
+> 输入：n = 1  
+> 输出：[["Q"]]  
+
+**提示：**
+
+- 1 <= n <= 9
 
 **解法一** 回溯法 + 数组
 
 要求行、列、同一斜线上不可以有棋子，用3个数组columns、diagonals0、diagonals1分别表示列中、主对角线方向、副对角线方向是否有值。
 按行扫描，从第0行开始，尝试在0~n的位置放置棋子，当3个数组都不包含当前位置时，说明该位置是可以放置棋子的，放置棋子，并进入下一行。
 
+时间复杂度：O(n)  
+空间复杂度：O(1)  
+
 <details>
-  <summary>数组</summary>
+  <summary>集合</summary>
 
   ```java
   class Solution {
@@ -199,7 +210,55 @@
   ```
 </details>
 
-3个数组的空间复杂度较高，也可以使用int值结合位运算来保存列和对角线上是否出现的元素。
+3 个集合会产生拆装箱的行为，耗时比较多，也可以改成 `boolean[]`，arr[i] == true 表示第 i 个位置填充的是棋子。注意对角线数组的长度是 2n - 1.
+
+<details>
+  <summary>数组</summary>
+
+```java
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> result = new ArrayList<>();
+        int[] queues = new int[n];
+        Arrays.fill(queues, -1);
+        dfs(queues, 0, new boolean[n], new boolean[2 * n - 1], new boolean[2 * n - 1], result);
+        return result;
+    }
+
+    private void dfs(int[] queues, int rowIndex, boolean[] column, boolean[] diag0, boolean[] diag1, List<List<String>> result) {
+        if (rowIndex == queues.length) {
+            List<String> list = new ArrayList<>(queues.length);
+            for (int i = 0; i < queues.length; i++) {
+                char[] row = new char[queues.length];
+                Arrays.fill(row, '.');
+                row[queues[i]] = 'Q';
+                list.add(new String(row));
+            }
+            result.add(list);
+        } else {
+            for (int i = 0; i < queues.length; i++) {
+                int d0 = rowIndex + i;
+                int d1 = rowIndex - i + queues.length - 1;
+                if (column[i] || diag0[d0] || diag1[d1]) {
+                    continue;
+                }
+                queues[rowIndex] = i;
+                column[i] = true;
+                diag0[d0] = true;
+                diag1[d1] = true;
+                dfs(queues, rowIndex + 1, column, diag0, diag1, result);
+                queues[rowIndex] = -1;
+                column[i] = false;
+                diag0[d0] = false;
+                diag1[d1] = false;
+            }
+        }
+    }
+}  
+```
+</details>
+
+还可以使用int值结合位运算来保存列和对角线上是否出现的元素。
 
 ## [78.子集](https://leetcode.cn/problems/subsets/)
 
