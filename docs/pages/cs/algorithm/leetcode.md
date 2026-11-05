@@ -1,48 +1,5 @@
 # LeetCode常见算法题
 
-### [128. 最长连续序列](https://leetcode.cn/problems/longest-consecutive-sequence)
-
-给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
-
-**方法一**：哈希表
-
-使用哈希表实现重复元素滤重，遍历哈希表，当值n+1也在哈希表中时，说明是连续的，开始循环，直到找到不在哈希表中的元素，即为当前元素。
-
-<details>
-  <summary>哈希表去重法</summary>
-  ```java
-  public int longestConsecutive(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        // 先去重
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < nums.length; i++) {
-            set.add(nums[i]);
-        }
-        int max = 1;
-        for (Integer num : set) {
-            // 不连续，从最小开始往上数
-            if (!set.contains(num - 1)) {
-                int curMax = 1;
-                int it = num;
-                while (set.contains(it + 1)) {
-                    curMax++;
-                    it++;
-                }
-                max = Math.max(max, curMax);
-            }
-        }
-        return max;
-    }
-  ```
-</details>
-
-
-**方法二**：排序
-
-对数组排序，循环记录当次连续的长度。注意当相邻元素相等时，不计长度。
-
 ### [205. 同构字符串](https://leetcode.cn/problems/isomorphic-strings)
 
 给定两个字符串 `s` 和 `t` ，判断它们是否是同构的。  
