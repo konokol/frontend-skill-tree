@@ -306,3 +306,50 @@ class Solution {
 ```
 </details>
 
+---
+
+
+### [205. 同构字符串](https://leetcode.cn/problems/isomorphic-strings)
+
+难度：⭐️
+
+给定两个字符串 `s` 和 `t` ，判断它们是否是同构的。  
+如果 `s` 中的字符可以按某种映射关系替换得到 `t` ，那么这两个字符串是同构的。  
+每个出现的字符都应当映射到另一个字符，同时不改变字符的顺序。不同字符不能映射到同一个字符上，相同字符只能映射到同一个字符上，字符可以映射到自己本身。 
+
+**解法** 哈希表  
+使用 2 个 Hash 表分别存 s->t 和 t-s 的映射，遍历检查正反都能映射上。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
+<details>
+<summary>快慢指针</summary>
+
+```java
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        Map<Character, Character> s2t = new HashMap<>();
+        Map<Character, Character> t2s = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char sc = s.charAt(i);
+            char tc = t.charAt(i);
+            if ((s2t.containsKey(sc) && s2t.get(sc) != tc)) {
+                return false;
+            }
+            if (t2s.containsKey(tc) && t2s.get(tc) != sc) {
+                return false;
+            }
+            s2t.put(sc, tc);
+            t2s.put(tc, sc);
+        }
+
+        return true;
+    }
+}
+```
+</details>
+
