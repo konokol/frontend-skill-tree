@@ -1173,13 +1173,13 @@ Morris 遍历的思路：
 
 **解法一** 中序遍历
 
-中序遍历二叉搜索树，序列一定是升序的，所以只需要记录遍历的前一个节点即可。 
+中序遍历二叉搜索树，序列一定是升序的，所以只需要记录遍历的前一个节点即可。 注意对根节点单独处理
 
 二叉搜索树遍历有3种方法：  
 
-- 递归，先遍历左子树，读当前节点，再次遍历右节点。注意对根节点单独处理。
-- 栈，先将左子树全入栈，读当前节点，再将右节点入栈。
-- Morris 遍历，
+- 递归，先遍历左子树，读当前节点，再次遍历右节点。时间和空间复杂度都是 O(n)
+- 栈，先将左子树全入栈，读当前节点，再将右节点入栈。时间和空间复杂度都是 O(n)
+- Morris 遍历，左子树为空直接访问，左子树非空时，先找到左子树的最右侧叶子节点，将当前节点挂在右子树上，并进入当前节点的左子树，第二趟进入右子树。时间复杂度都是 O(n)，空间复杂度是 O(1)
 
 <details>
 <summary>中序遍历-递归</summary>
@@ -1234,6 +1234,47 @@ class Solution {
                 pre = p.val;
             }
             p = p.right;
+        }
+        return min;
+    }
+}
+```
+</details>
+
+<details>
+<summary>中序遍历-Morris</summary>
+
+```java
+class Solution {
+    public int getMinimumDifference(TreeNode root) {
+        int min = Integer.MAX_VALUE;
+        int preVal = -1;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.left == null) {
+                if (preVal != -1) {
+                    min = Math.min(cur.val - preVal, min);
+                }
+                preVal = cur.val;
+                cur = cur.right;
+            } else {
+                TreeNode pre = cur.left;
+                while (pre.right != null && pre.right != cur) {
+                    pre = pre.right;
+                }
+                if (pre.right == null) {
+                    pre.right = cur;
+                    cur = cur.left;
+                } else {
+                    if (preVal != -1) {
+                        min = Math.min(cur.val - preVal, min);
+                    }
+                    preVal = cur.val;
+                    cur = cur.right;
+                    pre.right = null;
+
+                }
+            }
         }
         return min;
     }
