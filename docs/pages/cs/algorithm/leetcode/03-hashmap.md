@@ -192,7 +192,7 @@ class Solution {
 
 ---
 
-### [202. 快乐数](https://leetcode.cn/problems/happy-number)
+## [202. 快乐数](https://leetcode.cn/problems/happy-number)
 
 难度：⭐⭐
 
@@ -308,8 +308,7 @@ class Solution {
 
 ---
 
-
-### [205. 同构字符串](https://leetcode.cn/problems/isomorphic-strings)
+## [205. 同构字符串](https://leetcode.cn/problems/isomorphic-strings)
 
 难度：⭐️
 
@@ -353,3 +352,68 @@ class Solution {
 ```
 </details>
 
+---
+
+### [242. 有效的字母异位词](https://leetcode.cn/problems/valid-anagram)
+
+难度：⭐️
+
+给定两个字符串 `s` 和 `t` ，编写一个函数来判断 `t` 是否是 `s` 的 字母异位词。字母异位词是通过重新排列不同单词或短语的字母而形成的单词或短语，并使用所有原字母一次。
+
+**示例 1:**
+
+> 输入: s = "anagram", t = "nagaram"  
+> 输出: true  
+
+**示例 2:**
+
+> 输入: s = "rat", t = "car"  
+> 输出: false  
+ 
+
+**提示:**
+
+- 1 <= s.length, t.length <= 5 * 10<sup>4</sup>
+- s 和 t 仅包含小写字母
+
+进阶: 如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+
+**解法一** 哈希表  
+使用哈希表，key是字符，value是字符出现的次数。2次遍历，第一次向哈希表中插值，第二次从哈希表中删值。哈表表如果被清空，说明字符串是字母异位词。由于题目中只包含小写字母，可以用 `int[26]` 来当哈希表。
+
+如果扩展到 Unicode 字符集，可以用 `HashMap` 存。
+
+时间复杂度：O(n)  
+空间复杂度：O(S)，S 为字符集的大小
+
+<details>
+<summary>快慢指针</summary>
+
+```java
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] map = new int[26];
+        for (char c: s.toCharArray()) {
+            map[c - 'a']++;
+        }
+        for (char c: t.toCharArray()) {
+            map[c - 'a']--;
+            if (map[c - 'a'] < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+</details>
+
+**解法二** 排序
+
+先对字符串排序，按序排的字符一样，说明字符串是字母异位词。
+
+时间复杂度：O(nlogn)  
+空间复杂度：O(logn)  
