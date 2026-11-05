@@ -159,7 +159,6 @@ nav:
       - 排序算法: pages/cs/algorithm/leetcode/19-sort.md
       - 二分查找: pages/cs/algorithm/leetcode/20-binary.md
       - 技巧题: pages/cs/algorithm/leetcode/21-others.md
-      - leetcode热题100: pages/cs/algorithm/leetcode.md
 
 theme:
   language: zh
