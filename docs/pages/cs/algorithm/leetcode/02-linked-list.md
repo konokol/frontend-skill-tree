@@ -546,7 +546,7 @@ class Solution {
 空间复杂度：O(n)  
 
 <details>
-    <summary>快慢指针</summary>
+<summary>快慢指针</summary>
 
 ```java
     public boolean hasCycle(ListNode head) {
