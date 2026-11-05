@@ -323,7 +323,7 @@ class Solution {
 空间复杂度：O(n)  
 
 <details>
-<summary>快慢指针</summary>
+<summary>哈希表</summary>
 
 ```java
 class Solution {
@@ -387,7 +387,7 @@ class Solution {
 空间复杂度：O(S)，S 为字符集的大小
 
 <details>
-<summary>快慢指针</summary>
+<summary>哈希表</summary>
 
 ```java
 class Solution {
@@ -467,7 +467,7 @@ class Solution {
 
 
 <details>
-<summary>快慢指针</summary>
+<summary>哈希表</summary>
 
 ```java
 class Solution {

@@ -1146,6 +1146,103 @@ Morris 遍历的思路：
 
 ---
 
+## [530. 二叉搜索树的最小绝对差](https://leetcode.cn/problems/minimum-absolute-difference-in-bst)
+
+难度：⭐⭐
+
+给你一个二叉搜索树的根节点 `root` ，返回 树中任意两不同节点值之间的最小差值。差值是一个正数，其数值等于两值之差的绝对值。
+
+**示例 1：**
+
+![](https://assets.leetcode.com/uploads/2021/02/05/bst1.jpg)
+
+> 输入：root = [4,2,6,1,3]  
+> 输出：1  
+
+**示例 2：**
+
+![](https://assets.leetcode.com/uploads/2021/02/05/bst2.jpg)
+
+> 输入：root = [1,0,48,null,null,12,49]  
+> 输出：1  
+
+**提示：**
+
+- 树中节点的数目范围是 [2, 10<sup>4</sup>]
+- 0 <= Node.val <= 10<sup>4</sup>
+
+**解法一** 中序遍历
+
+中序遍历二叉搜索树，序列一定是升序的，所以只需要记录遍历的前一个节点即可。 
+
+二叉搜索树遍历有3种方法：  
+
+- 递归，先遍历左子树，读当前节点，再次遍历右节点。注意对根节点单独处理。
+- 栈，先将左子树全入栈，读当前节点，再将右节点入栈。
+- Morris 遍历，
+
+<details>
+<summary>中序遍历-递归</summary>
+
+```java
+class Solution {
+    private int pre = -1;
+    private int min = Integer.MAX_VALUE;
+
+    public int getMinimumDifference(TreeNode root) {
+        dfs(root);
+        return min;
+    }
+
+    private void dfs(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        dfs(node.left);
+        if (pre < 0) {
+            pre = node.val;
+        } else {
+            min = Math.min(min, node.val - pre);
+            pre = node.val;
+        }
+        dfs(node.right);
+    }
+}
+```
+</details>
+
+<details>
+<summary>中序遍历-栈</summary>
+
+```java
+class Solution {
+    public int getMinimumDifference(TreeNode root) {
+        int min = Integer.MAX_VALUE;
+        int pre = -1;
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode p = root;
+        while (p != null || !stack.isEmpty()) {
+            while (p != null) {
+                stack.push(p);
+                p = p.left;
+            }
+            p = stack.pop();
+            if (pre < 0) {
+                pre = p.val;
+            } else {
+                min = Math.min(p.val - pre, min);
+                pre = p.val;
+            }
+            p = p.right;
+        }
+        return min;
+    }
+}
+```
+</details>
+
+---
+
 ## [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
 
 难度：⭐️⭐️
