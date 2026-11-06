@@ -2,10 +2,10 @@
 
 ## 变量
 
-**变量声明**
+**变量声明**  
 
-- `val`，赋值后不可改变变量的值，和Java中的final修饰的变量相似
-- `var`，赋值后可以改变值
+- `val`，赋值后不可改变值，和Java中的final修饰的变量相似。但是如果变量时对象，对象内部的属性还是可以改变的
+- `var`，赋值后可以再次赋值
 
 ```kotlin
 val count: Int = 10
@@ -24,7 +24,7 @@ sum = count + sum // sum的值变为30
 - `val` 和`var` 可以修饰顶层属性、类属性、局部变量
 - `val` 修饰类属性，可以生成 `getter` 方法，`var` 修饰类属性可以生成 `getter` 和`setter` 方法。
 - 局部变量不会有 `getter` 和 `setter`，`val` 修饰局部变量相当于 Java 中的 final
-- `const` 只能修饰顶层属性和类属性，**值必须在编译期确定**，值的类型只能是 String 和final 类型。编译之后，`const` 修饰的变量都被内联替换了。
+- `const` 只能修饰顶层属性和类属性，**值必须在编译期确定**，值的类型只能是 String 和 final 类型。编译之后，`const` 修饰的变量都被内联替换了。
 
 **类型推断**
 
@@ -41,7 +41,7 @@ name.inc() // 编译报错，String没有inc()方法
 
 Kotlin中，默认类型是非空的，给非空类型变量赋值会编译错误。如果期望变量时可空的，需要在类型后加上`?`
 
-```
+```kotlin
 val name: String = null // 编译报错
 
 val name: String? = null
