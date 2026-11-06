@@ -126,6 +126,94 @@
 
 **解法二** 栈
 
+---
+
+## [53. 最大子数组和](https://leetcode.cn/problems/maximum-subarray)
+
+难度：⭐️⭐️⭐️
+
+给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+子数组是数组中的一个连续部分。
+
+
+**示例 1：**
+
+> 输入：nums = [-2,1,-3,4,-1,2,1,-5,4]  
+> 输出：6   
+> 解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。 
+
+**示例 2：**
+
+> 输入：nums = [1]  
+> 输出：1   
+
+**示例 3：**
+
+> 输入：nums = [5,4,-1,7,8]  
+> 输出：23  
+ 
+**提示：**
+
+- 1 <= nums.length <= 10<sup>5</sup>
+- -10<sup>4</sup> <= nums[i] <= 10<sup>4</sup>
+
+**解法一** 动态规划
+
+定义状态 `int[] dp`，`dp[i]` 表示 以位置 i 结尾的子数组的最大和。遍历到位置 i 时，有两种情况：
+
+- 扩展上一个子数组得到更大的和，则 `dp[i] = dp[i - 1] + nums[i]`
+- 扩展上一个子数组造成和更小，则重新开始，`dp[i] = nums[i]`
+
+取上述两种情况的最大值，并在遍历过程中实时更新最大值。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
+<details>
+<summary>动态规划</summary>
+  
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        int max = dp[0];
+        for (int i = 1; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
+            max = Math.max(dp[i], max);
+        }
+        return max;
+    }
+}   
+```
+</details>
+
+由于 `dp` 只用到了上一个元素，所以也可以只用一个变量保存上一次的结果。
+
+时间复杂度：O(n)  
+空间复杂度：O(1)  
+
+<details>
+<summary>动态规划</summary>
+  
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int pre = 0;
+        for (int n: nums) {
+            pre = Math.max(pre + n, n);
+            max = Math.max(pre, max);
+        }
+        return max;
+    }
+} 
+```
+</details>
+
+---
+
 ## [70. 爬楼梯](https://leetcode.cn/problems/climbing-stairs)
 
 难度：⭐️
