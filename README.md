@@ -8,57 +8,57 @@
 
 - [大前端知识图谱](#大前端知识图谱)
   - [目录](#目录)
-  - [ Java基础](#-java基础)
-  - [ Android基础](#-android基础)
-  - [ Kotlin基础](#-kotlin基础)
+  - [Java基础](#java基础)
+  - [Android基础](#android基础)
+  - [Kotlin基础](#kotlin基础)
   - [前端基础](#前端基础)
   - [CS基础](#cs基础)
   - [跨平台](#跨平台)
-  - [AI](#AI)
+  - [AI](#ai)
   - [其他](#其他)
   - [学习资料](#学习资料)
 
-## <img src="./assets/ic-java.png" width="20px"/> Java基础
+## <img src="./assets/ic-java.png" width="20px"/>Java基础
 
-- [基础](/docs/pages/java/1-basic/)
-- [并发](/docs/pages/java/2-concurrent/)
-- [集合](/docs/pages/java/3-collections/)
-- [I/O](/docs/pages/java/4-io/)
-- [JVM](/docs/pages/java/5-jvm/)
-- [设计模式](/docs/pages/java/6-design-pattern/)
-- [新特性](/docs/pages/java/99-new-features/)
+- [基础](docs/pages/java/1-basic/)
+- [并发](docs/pages/java/2-concurrent/)
+- [集合](docs/pages/java/3-collections/)
+- [I/O](docs/pages/java/4-io/)
+- [JVM](docs/pages/java/5-jvm/)
+- [设计模式](docs/pages/java/6-design-pattern/)
+- [新特性](docs/pages/java/99-new-features/)
 
-## <img src="./assets/ic-android.png" width="20px"/> Android基础
+## <img src="./assets/ic-android.png" width="20px"/>Android基础
 
-- [版本新特性](/docs/pages/android/0-new-feature/)
-- [基础](/docs/pages/android/1-basic/)
-- [性能](/docs/pages/android/2-performance/)
-- [架构](/docs/pages/android/3-arch/)
-- [开源框架](/docs/pages/android/4-thirdpart/)
-- [Framework](/docs/pages/android/5-framework/)
-- [工程与工具](/docs/pages/android/6-tools/)
+- [版本新特性](docs/pages/android/99-new-feature/l~p.md)
+- [基础](docs/pages/android/1-basic/)
+- [性能](docs/pages/android/2-performance/)
+- [架构](docs/pages/android/3-arch/)
+- [开源框架](docs/pages/android/4-thirdpart/)
+- [Framework](docs/pages/android/5-framework/)
+- [工程与工具](docs/pages/android/6-tools/)
 
-## <img src="./assets/kotlin-logo.png" width="20px" styles="margin-top:20px"/> Kotlin基础
+## <img src="./assets/kotlin-logo.png" width="20px" styles="margin-top:20px"/>Kotlin基础
 
-- [基础入门与常见模式](/docs/pages/kotlin/1-basic/00-basic.md)
-- [协程 (Coroutines)](/docs/pages/kotlin/2-coroutines/0-coroutines.md)
-- [Flow 响应式数据流](/docs/pages/kotlin/3-flow/0-flow.md)
-- [Parcelize 序列化](/docs/pages/kotlin/4-parcelize/0-parcelize.md)
+- [基础](docs/pages/kotlin/1-basic/00-basic.md)
+- [协程 (Coroutines)](docs/pages/kotlin/2-coroutines/0-coroutines.md)
+- [Flow 响应式数据流](docs/pages/kotlin/3-flow/0-flow.md)
+- [Parcelize 序列化](docs/pages/kotlin/4-parcelize/0-parcelize.md)
 
 ## 前端基础
 
-- [前端常见知识点](/docs/pages/frontend/basic/index.md)
+- [前端常见知识点](docs/pages/frontend/basic/index.md)
 
 ## CS基础
 
-- [计算机基础](/docs/pages/cs/cs-basic/none.md)
-- [操作系统](/docs/pages/cs/os/none.md)
-- [网络 (HTTP/HTTPS)](/docs/pages/cs/internet/HTTP.md)
-- [算法与数据结构 (LeetCode)](/docs/pages/cs/algorithm/leetcode.md)
+- [计算机基础](docs/pages/cs/cs-basic/none.md)
+- [操作系统](docs/pages/cs/os/none.md)
+- [网络 (HTTP/HTTPS)](docs/pages/cs/internet/HTTP.md)
+- [算法与数据结构 (LeetCode)](docs/pages/cs/algorithm/leetcode/)
 
 ## 跨平台
 
-- [跨平台技术](/docs/pages/cross-platform/none.md)
+- [跨平台技术](docs/pages/cross-platform/index.md)
 
 ## AI
 
@@ -73,7 +73,7 @@
 - [w3school Java中文](https://www.w3cschool.cn/java/)
 - [ReactiveX](https://reactivex.io/)
 - [Kotlin 语言中文站](https://www.kotlincn.net/)
-- [Kotlin官网](https://kotlinlang.org/)
+- [Kotlin 官网](https://kotlinlang.org/)
 - [Flutter - Beautiful native apps in record time](https://flutter.dev/)
-- [Flutter中文网](https://flutterchina.club/)
+- [Flutter中文网](https://flutter.cn/)
 - [React Native · A framework for building native apps using React](https://reactnative.dev/)

@@ -10,7 +10,7 @@
 6. String、StringBuffer、StringBuilder的区别？  
 7. String为什么不可变？  
 8. 什么是内部类、内部类的作用
-9.  为什么Java中匿名内部类只能访问final修饰的外部变量？    
+9. 为什么Java中匿名内部类只能访问final修饰的外部变量？  
 10. 抽象类和接口的区别、应用场景  
 11. 泛型中extends和super的区别  
 12. 静态属性、方法能否被重写  
