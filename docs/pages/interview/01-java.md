@@ -2,7 +2,7 @@
 
 ## Java基础(P0)
 
-1. [Java 中 == 和 equals 的区别，hashCode 什么作用?](){ title="== 基本类型比较值，引用类型比较地址；equals默认比较地址，大部分类重写比较值；hashCode返回对象地址提高哈希表查询效率" }  
+1. Java 中 == 和 equals 的区别，hashCode 什么作用？[💡][java-equals]
 2. Object 类的 equal 和 hashCode 方法为什么需要一起重写？  
 3. int和Integer的区别？缓存池  
 4. Java多态的理解？  
@@ -25,6 +25,8 @@
 21. Enumeration和Iterator的区别？  
 22. 常见的编码方式有哪些？  
 23. UTF-8编码一个中文占几个字节，int型占几个字节？  
+
+[java-equals]: . "== 基本类型比较值，引用类型比较地址；equals默认比较地址，大部分类重写比较值；hashCode返回对象地址提高哈希表查询效率"
 
 ## 集合框架(P0)
 
@@ -52,24 +54,24 @@
 9. ThreadLocal 原理？  
 10. 线程池的核心参数？  
 11. 线程池的工作原理？  
-13. 线程池的拒接策略有哪些？  
-14. JDK 中默认的几种线程池？  
-15. ThreadPoolExecutor 如何设置核心线程数？
-16. wait和sleep的区别  
-17. 谈谈wait和notify关键字的理解  
-18. AtomicInteger 原理？
-19. CAS 缺点？
-20. AQS 是什么？
-21. 常见的锁，应用场景
-22. ReentrantLock 公平锁和非公平锁区别？
-23. CountDownLatch 和 CyclicBarrier 区别？
-24. 如何控制某个方法允许并发访问线程的个数？Semaphore
-25. 如何让多个线程串行执行？
+12. 线程池的拒接策略有哪些？  
+13. JDK 中默认的几种线程池？  
+14. ThreadPoolExecutor 如何设置核心线程数？
+15. wait和sleep的区别  
+16. 谈谈wait和notify关键字的理解  
+17. AtomicInteger 原理？
+18. CAS 缺点？
+19. AQS 是什么？
+20. 常见的锁，应用场景
+21. ReentrantLock 公平锁和非公平锁区别？
+22. CountDownLatch 和 CyclicBarrier 区别？
+23. 如何控制某个方法允许并发访问线程的个数？Semaphore
+24. 如何让多个线程串行执行？
 
 ## 异常、泛型(P0)、反射、注解
 
 1. Error 和 Exception 区别？  
-2. Java 中的异常体系？ 
+2. Java 中的异常体系？  
 3. 受检异常和非受检异常？  
 4. try-with-resources 作用？  
 5. 泛型擦除是什么？  
@@ -80,6 +82,7 @@
 10. 注解保留策略？
 
 ## IO (P1)
+
 1. BIO、NIO、AIO 区别？
 2. NIO 三大核心？
 3. select、poll、epoll 区别？
@@ -90,18 +93,18 @@
 1. JVM 的内存分区?  
 2. 堆和栈区别?  
 3. 对象创建过程？  
-5. 引用类型？
-6. 垃圾回收算法？  
-7. 如何判断对象可回收？  
-8. 垃圾收集器有哪些？  
-9. CMS 和 G1 区别？
-10. 类加载机制？  
-11. 双亲委派模型？  
-12. 打破双亲委派场景？  
-13. 内存泄漏和内存溢出区别？  
-14. 常见 OOM 场景？  
-15. JVM 调优参数？
-16. 静态代理和动态代理的区别，什么场景使用？   
+4. 引用类型？
+5. 垃圾回收算法？  
+6. 如何判断对象可回收？  
+7. 垃圾收集器有哪些？  
+8. CMS 和 G1 区别？
+9. 类加载机制？  
+10. 双亲委派模型？  
+11. 打破双亲委派场景？  
+12. 内存泄漏和内存溢出区别？  
+13. 常见 OOM 场景？  
+14. JVM 调优参数？
+15. 静态代理和动态代理的区别，什么场景使用？  
 
 ## Java 8 新特性 (P1)
 
