@@ -12,12 +12,10 @@
 **输出：** "bab"  
 **解释：** "aba" 同样是符合题意的答案。
 
-
 **示例 2：**
 
 >**输入：** s = "cbbd"  
 **输出：** "bb"
- 
 
 *提示：*
 
@@ -26,12 +24,13 @@
 
 **解法二** 动态规划
 
-动态规划的核心思想是把之前计算的结果缓存起来可以复用。本例中，用dp[i][j]来表明 i~j 之间的字符串是否是回文串，同时在遍历的过程中，判断子串是否是回文串并更新最大长度。对子串s[i, j]分情况讨论：
-- 子串长度为 1，是回文串，dp[i][j] = true；
-- 子串长度为 2，首尾字符相等就是回文串，dp[i][j] = s[i] == s[j]；
-- 子串长度超过 2，减掉首尾字符，根据dp[i + 1][j - 1]来判断，dp[i][j] = ch[i] == ch[j] && dp[i + 1][j - 1];
+动态规划的核心思想是把之前计算的结果缓存起来可以复用。本例中，用 `dp[i][j]` 来表明 i~j 之间的字符串是否是回文串，同时在遍历的过程中，判断子串是否是回文串并更新最大长度。对子串 `s[i, j]` 分情况讨论：
 
-注意，由于dp[i][j]依赖 dp[i+1][j-1]，所以下标 i 从大到小遍历，下标 j 从小到大遍历。
+- 子串长度为 1，是回文串，`dp[i][j] = true`；
+- 子串长度为 2，首尾字符相等就是回文串，`dp[i][j] = s[i] == s[j]`；
+- 子串长度超过 2，减掉首尾字符，根据 `dp[i + 1][j - 1]` 来判断，`dp[i][j] = ch[i] == ch[j] && dp[i + 1][j - 1]`;
+
+注意，由于 `dp[i][j]` 依赖 `dp[i+1][j-1]`，所以下标 i 从大到小遍历，下标 j 从小到大遍历。
 
 <details>
 <summary>动态规划</summary>
@@ -76,7 +75,8 @@
 <summary>中心扩展法</summary>
 
 ```java
-public String longestPalindrome(String s) {
+class Solution{
+    public String longestPalindrome(String s) {
         int max = 0;
         int left = 0;
         char[] ch = s.toCharArray();
@@ -102,6 +102,7 @@ public String longestPalindrome(String s) {
         }
         return new int[]{left + 1, right - 1};
     }
+}
 ```
 
 </details>
@@ -118,9 +119,9 @@ public String longestPalindrome(String s) {
 
 问总共有多少条不同的路径？
 
-![](../../../../img/adxmsI-image.png)
-
 **示例 1：**
+
+![img](../../../../img/adxmsI-image.png)
 
 > 输入：m = 3, n = 7  
 > 输出：28
@@ -131,6 +132,7 @@ public String longestPalindrome(String s) {
 > 输出：3  
 > 解释：  
 > 从左上角开始，总共有 3 条路径可以到达右下角。  
+>
 > 1. 向右 -> 向下 -> 向下  
 > 2. 向下 -> 向下 -> 向右  
 > 3. 向下 -> 向右 -> 向下  
@@ -160,7 +162,8 @@ public String longestPalindrome(String s) {
 <details>
   <summary>动态规划</summary>
 
-  ```java
+```java
+class Solution {
     public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];
         for (int i = 0; i < m; i++) {
@@ -174,18 +177,20 @@ public String longestPalindrome(String s) {
         }
         return dp[m - 1][n - 1];
     }
-  ```
+}
+```
+
 </details>
 
 也可以优化成滚动数组，用一维数组只记录当前列的值。
 
-时间复杂度：O(mn)    
+时间复杂度：O(mn)  
 空间复杂度：O(mn)
 
 <details>
-  <summary>动态规划</summary>
+<summary>动态规划</summary>
 
-  ```java
+```java
     public int uniquePaths(int m, int n) {
         int[] dp = new int[n];
         dp[0] = 1;
@@ -197,7 +202,8 @@ public String longestPalindrome(String s) {
         }
         return dp[n - 1];
     }
-  ```
+```
+
 </details>
 
 **方法二**：组合数学
@@ -222,14 +228,14 @@ public String longestPalindrome(String s) {
 [](../../../../img/minpath.jpg)
 
 > 输入：grid = [[1,3,1],[1,5,1],[4,2,1]]  
-> 输出：7   
-> 解释：因为路径 1→3→1→1→1 的总和最小。 
+> 输出：7  
+> 解释：因为路径 1→3→1→1→1 的总和最小。  
 
 **示例 2：**
 
 > 输入：grid = [[1,2,3],[4,5,6]]  
 > 输出：12  
- 
+
 **提示：**
 
 - m == grid.length
@@ -271,6 +277,7 @@ class Solution {
     }
 }
 ```
+
 </details>
 
 也可以优化成滚动数组，将空间复杂度优化到 O(n)
@@ -309,6 +316,7 @@ class Solution {
     }
 }
 ```
+
 </details>
 
 ---
@@ -325,7 +333,7 @@ class Solution {
 - 删除一个字符
 - 替换一个字符
 
-**示例 1**： 
+**示例 1**：
 
 > **输入**：word1 = "horse", word2 = "ros"  
 > **输出**：3  
@@ -344,12 +352,11 @@ inention -> enention (将 'i' 替换为 'e')
 enention -> exention (将 'n' 替换为 'x')  
 exention -> exection (将 'n' 替换为 'c')  
 exection -> execution (插入 'u')  
- 
+
 **提示**：
 
 - `0 <= word1.length, word2.length <= 500`
 - `word1` 和 `word2` 由小写英文字母组成
-
 
 **解法一** 动态规划
 
@@ -363,9 +370,9 @@ exection -> execution (插入 'u')
 
 注意到 `A[0]` 表示 A 长度为 0 的子串，即空串，到 B[0, j] 的编辑距离是 j，此时一直对插入即可，同理 `B[0]` 也是一样，因此可以初始化 dp 的第 0 行和第 0 列的值。
 
-对于 i > 0 且 j > 0 时，dp[i][j] 的取值可以从上一步计算出来：
+对于 i > 0 且 j > 0 时，`dp[i][j]` 的取值可以从上一步计算出来：
 
-- `dp[i - i][j]` 表示 A[0, i - 1] 到 B[0, j] 的最小编辑距离，在 A 的末尾追加一个一个字符即得到 A[0,i] 到 B[0, j] 的最小编辑距离 `dp[i][j] = dp[i - 1][j] + 1`；
+- `dp[i - i][j]` 表示 A[0, i - 1] 到 B[0, j] 的最小编辑距离，在 A 的末尾追加一个字符即得到 A[0,i] 到 B[0, j] 的最小编辑距离 `dp[i][j] = dp[i - 1][j] + 1`；
 - 同上，从 A[0, i] 到 B[0, j - 1] 的最小编辑距离，对 B 插入一个字符串，可以推导出来 `dp[i][j] = dp[i][j - 1] + 1`；
 - 一样的，`dp[i - 1][j - 1]`，A 和 B 都少一个字符串，分两种情况讨论：1）`A[i] == B[j]`，有`dp[i][j] = dp[i - 1][j - 1]`，不做变换；1）`A[i] != B[j]`，`dp[i][j] = dp[i - 1][j - 1] + 1`，变换一个字符；
 
@@ -458,6 +465,7 @@ exection -> execution (插入 'u')
     return dp[n];
 }
 ```
+
 </details>
 
 ## [1143.最长公共子序列](https://leetcode.cn/problems/longest-common-subsequence/description)
@@ -503,6 +511,7 @@ exection -> execution (插入 'u')
         return f[n][m];
     }
   ```
+
 </details>
 
 **解法二** 滚动数组

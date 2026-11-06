@@ -3,3 +3,8 @@ MD013:
     heading_line_length: 100
     code_block_line_length: 160
     tables: false
+MD033:
+    allowed_elements:
+        - details
+        - summary
+        - sup
