@@ -26,7 +26,7 @@ sum = count + sum // sum的值变为30
 - 局部变量不会有 `getter` 和 `setter`，`val` 修饰局部变量相当于 Java 中的 final
 - `const` 只能修饰顶层属性和类属性，**值必须在编译期确定**，值的类型只能是 String 和 final 类型。编译之后，`const` 修饰的变量都被内联替换了。
 
-**类型推断**
+**类型推断**  
 
 声明变量时同时赋值，即使不显式声明变量的类型，编译器也可以推断出变量的类型。
 
@@ -37,7 +37,7 @@ val name = 'Tom' // String
 name.inc() // 编译报错，String没有inc()方法
 ```
 
-**空安全**
+**空安全**  
 
 Kotlin中，默认类型是非空的，给非空类型变量赋值会编译错误。如果期望变量时可空的，需要在类型后加上`?`
 
@@ -60,7 +60,7 @@ val name: String? = null
 - `$` 字符串模板中引用变量或表达式
 - `_` 在lambda或解构中代替未使用的参数
 
-**类型判断**
+**类型判断**  
 
 `is` 和 `!is` 可以用来做类型判断，相当于 Java 中的 instanceof，用 is 判断了类型之后，在代码块中可以自动调用对应类型的方法，例如：
 
@@ -76,7 +76,7 @@ if (obj !is String) { // 与 !(obj is String) 相同
 }
 ```
 
-**类型转换**
+**类型转换**  
 
 `as` 可以用来做类型转换，相当于 Java 中的强制类型转换。不安全的转换会在编译期报错。
 
@@ -137,7 +137,7 @@ val age: String = if user.age > 0 user.age else fail() // 赋值给Int类型的�
 
 ## 条件语句
 
-**if-else**
+**if-else**  
 
 常规用法和 Java 一样，但是可以 Kotlin 中的 if-else 可以用来当条件表达式，例如：
 
@@ -147,13 +147,13 @@ val String message = if (code == 400) {
 } else if (code == 500) {
   "server error"
 } else {
-  "known error
+  "known error"
 }
 ```
 
 Kotlin 中没有 Java 中的三目运算符 `condition ? x : y`，类似的用法都可以用三元表达式来实现。
 
-**when**
+**when**  
 
 当条件较多时，也可以用 `when` 关键字来做条件判断，示例：
 
@@ -182,7 +182,7 @@ when (code) {
 
 ----
 
-*参考*
+*参考*  
 
 [1] [学习 Kotlin 编程语言](https://developer.android.google.cn/kotlin/learn?hl=zh-cn).Android Developers  
 [2] [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html).Kotlin 官方文档 中文版  

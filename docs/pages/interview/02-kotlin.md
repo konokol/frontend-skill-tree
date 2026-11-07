@@ -89,42 +89,42 @@
 
 ## 协程 Coroutine
 
-1. Kotlin 协程是什么？基本使用方式有哪些？  
-2. Kotlin 中的协程和线程的区别？  
-3. Kotlin 的协程是基于什么实现的？是语言层面的语法糖还是库层实现？  
-4. 协程和线程使用场景？  
-5. 如何取消协程？ `Job.cancel()` 的原理是什么？
-6. `NonCancellable` 作用？
-7. 协程取消是协作式的吗？
-8. 如何将协程切换到主线程？协程是怎么在多线程间切换上下文的？  
-9. Kotlin 协程的核心概念有哪些？
-10. CoroutineDispatcher 有哪些常用实现？它们适合什么场景？  
-11. 什么是 `CoroutineContext`？你是否自定义过上下文元素？  
-12. 协程作用域 `CoroutineScope`是什么？为什么建议在适当作用域中启动协程？  
-13. `supervisorScope` 和 `coroutineScope` 的区别？  
-14. 什么是 `ViewModelScope`？为何要使用它？  
-15. 什么是挂起函数（suspend function）？它和普通函数的本质区别是什么？  
-16. `suspend` 修饰函数能否独立调用？  
-17. 挂起函数执行过程中如果不检查取消，会发生什么？如何改进？  
-18. `suspend` 原理是什么？
-19. 协程是如何实现挂起和恢复的？底层原理知道多少？  
-20. 协程和线程、线程池之间的关系？是如何调度执行的？  
-21. 如何优雅地做协程任务的并发控制？  
-22. `launch`、`async`、`runBlocking` 有什么区别？使用场景？
-23. 如何用 `async` 并发执行两个耗时任务，并收集它们的结果？  
-24. `runBlocking` 在 Android 中能否用？什么时候用它是合理的？  
-25. `async`、`await`、`join`的区别是什么？  
-26. 什么是 `SupervisorJob`？与普通 `Job` 有何区别？何时用它？  
-27. Job、Deferred区别是什么？  
-28. `withContext` 和 `launch` 的区别？ 用法场景如何区分？  
-29. 怎么写一个能自动超时的协程操作？你用过 `withTimeout()` 吗？  
-30. `withTimeout` 和 `withTimeoutOrNull` 区别？
-31. `Mutex` 和 `synchronized` 区别？
-32. `Channel` 和 `Flow` 区别？
-33. 如何处理协程中的异常？协程中的异常是如何传播的？如何捕获？
-34. 如何在 Android 中优雅处理协程异常？
-35. `CoroutineExceptionHandler` 是如何工作的？在哪些场景有效？
-36. 什么是结构化并发（Structured Concurrency）？有什么优点？
+1. Kotlin 中的协程是什么？基本使用方式有哪些？  
+2. Kotlin 中的协程和线程的区别？
+3. Kotlin 协程的核心概念有哪些？  
+4. 什么是结构化并发（Structured Concurrency）？有什么优点？
+5. Kotlin 的协程是基于什么实现的？是语言层面的语法糖还是库层实现？  
+6. 协程和线程使用场景？  
+7. 如何取消协程？ `Job.cancel()` 的原理是什么？
+8. `NonCancellable` 作用？
+9. 协程取消是协作式的吗？
+10. 如何将协程切换到主线程？协程是怎么在多线程间切换上下文的？  
+11. CoroutineDispatcher 有哪些常用实现？它们适合什么场景？  
+12. 什么是 `CoroutineContext`？你是否自定义过上下文元素？  
+13. 协程作用域 `CoroutineScope`是什么？为什么建议在适当作用域中启动协程？  
+14. `supervisorScope` 和 `coroutineScope` 的区别？  
+15. 什么是 `ViewModelScope`？为何要使用它？  
+16. 什么是挂起函数（suspend function）？它和普通函数的本质区别是什么？  
+17. `suspend` 修饰函数能否独立调用？  
+18. 挂起函数执行过程中如果不检查取消，会发生什么？如何改进？  
+19. `suspend` 原理是什么？
+20. 协程是如何实现挂起和恢复的？底层原理知道多少？  
+21. 协程和线程、线程池之间的关系？是如何调度执行的？  
+22. 如何优雅地做协程任务的并发控制？  
+23. `launch`、`async`、`runBlocking` 有什么区别？使用场景？
+24. 如何用 `async` 并发执行两个耗时任务，并收集它们的结果？  
+25. `runBlocking` 在 Android 中能否用？什么时候用它是合理的？  
+26. `async`、`await`、`join`的区别是什么？  
+27. 什么是 `SupervisorJob`？与普通 `Job` 有何区别？何时用它？  
+28. Job、Deferred区别是什么？  
+29. `withContext` 和 `launch` 的区别？ 用法场景如何区分？  
+30. 怎么写一个能自动超时的协程操作？你用过 `withTimeout()` 吗？  
+31. `withTimeout` 和 `withTimeoutOrNull` 区别？
+32. `Mutex` 和 `synchronized` 区别？
+33. `Channel` 和 `Flow` 区别？
+34. 如何处理协程中的异常？协程中的异常是如何传播的？如何捕获？
+35. 如何在 Android 中优雅处理协程异常？
+36. `CoroutineExceptionHandler` 是如何工作的？在哪些场景有效？
 37. `isActive()`、`ensureActive()`、`yield()` 这些函数你用过吗？各自作用？  
 38. 你在项目中是如何使用协程的？是否与 `ViewModel`、`LiveData`、`Flow` 结合使用？  
 39. `viewModelScope` 和 `lifecycleScope` 分别是什么？为何推荐使用它们？  
