@@ -10,25 +10,22 @@
 
 **示例 1:**
 
->**输入:** s = "abcabcbb"  
->**输出:** 3   
->**解释:** 因为无重复字符的最长子串是 "abc"，所以其长度为 3。注意 "bca" 和 "cab" 也是正确答案。
-
+> 输入: s = "abcabcbb"  
+> 输出: 3  
+> 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。注意 "bca" 和 "cab" 也是正确答案。
 
 **示例 2:**
 
-
->**输入:** s = "bbbbb"  
->**输出:** 1  
->**解释:** 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+> 输入: s = "bbbbb"  
+> 输出: 1  
+> 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
 
 **示例 3:**
 
->**输入:** s = "pwwkew"  
->**输出:** 3  
->**解释:** 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
-     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
- 
+> 输入: s = "pwwkew"  
+> 输出: 3  
+> 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+> 请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
 
 *提示：*
 
@@ -66,8 +63,8 @@
         return max;
     }
 ```
-</details>
 
+</details>
 
 <details>
 <summary>滑动窗口（优化版）</summary>
@@ -90,10 +87,10 @@
         return max;
     }
 ```
+
 </details>
 
 ---
-
 
 ## [15. 三数之和](https://leetcode.cn/problems/3sum)  
 
@@ -149,7 +146,10 @@
         return ans;
     }
   ```
+
 </details>
+
+---
 
 ## [27.移除数组中指定元素](https://leetcode.cn/problems/remove-element/description/)
 
@@ -180,8 +180,8 @@
         return nums.length - k;
     }
   ```
-</details>
 
+</details>
 
 **解法二** 快慢指针
 
@@ -208,6 +208,7 @@
         return k;
     }
   ```
+
 </details>
 
 **解法三** 双指针
@@ -234,6 +235,7 @@
         return k;
     }
   ```
+
 </details>
 
 ## [33. 搜索旋转排序数组](https://leetcode.cn/problems/search-in-rotated-sorted-array)
@@ -247,7 +249,6 @@
 给你 **旋转后** 的数组 `nums` 和一个整数 `target` ，如果 `nums` 中存在这个目标值 `target` ，则返回它的下标，否则返回 `-1` 。
 
 你必须设计一个时间复杂度为 `O(log n)` 的算法解决此问题。
-
 
 **示例 1：**
 
@@ -306,6 +307,7 @@
         return -1;
     }
 ```
+
 </details>
 
 ## [41.缺失的第一个正数](https://leetcode.cn/problems/first-missing-positive)
@@ -340,6 +342,7 @@
         return nums.length + 1;
     }
   ```
+
 </details>
 
 **解法二** 标记法
@@ -384,6 +387,7 @@
         return n + 1;
     }
   ```
+
 </details>
 
 **解法三** 原地哈希
@@ -416,6 +420,7 @@
     }
 }
 ```
+
 </details>
 
 ## [76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring)
@@ -479,8 +484,10 @@
         return true;
     }
   ```
+
 </details>
 
+---
 
 ## [88.合并2个有序数组](https://leetcode.cn/problems/merge-sorted-array/description)
 
@@ -492,7 +499,7 @@
 
 **注意**：最终，合并后数组不应由函数返回，而是存储在数组 `nums1` 中。为了应对这种情况，`nums1` 的初始长度为 `m + n`，其中前 `m` 个元素表示应合并的元素，后 `n` 个元素为 `0` `，应忽略。nums2` 的长度为 `n` 。
 
-**解法一**  排序法 
+**解法一** 排序法
 
 第一次遍历把元素都移到num1的末尾，直接调用Arrays.sort(nums)排序。
 
@@ -508,7 +515,7 @@
   ```
 </details>
 
-**解法二**  双指针
+**解法二** 双指针
 
 双指针，倒序遍历，每次将较大的放入数组中
 
@@ -531,6 +538,7 @@
         }
     }
   ```
+
 </details>
 
 ---
@@ -546,7 +554,7 @@
 - 1 <= nums.length <= 10<sup></sup>
 - -2<sup>31</sup> <= nums[i] <= 2<sup>31</sup> - 1
 - 0 <= k <= 105
- 
+
 进阶：
 
 尽可能想出更多的解决方案，至少有 **三种** 不同的方法可以解决这个问题。
@@ -585,6 +593,7 @@
         }
     }
   ```
+
 </details>
 
 **解法二** 额外空间
@@ -616,7 +625,10 @@
         }
     }
   ```
+
 </details>
+
+---
 
 ## [215. 数组中第 K 个最大元素](https://leetcode.cn/problems/kth-largest-element-in-an-array)
 
@@ -637,7 +649,6 @@
 
 > 输入: [3,2,3,1,2,4,5,5,6], k = 4  
 > 输出: 4
- 
 
 **提示：**
 
@@ -687,7 +698,10 @@
         nums[y] = temp;
     }
   ```
+
 </details>
+
+---
 
 ## [238. 除自身以外数组的乘积](https://leetcode.cn/problems/product-of-array-except-self)
 
@@ -726,6 +740,7 @@
         return result;
     }
   ```
+
 </details>
 
 **解法二** 优化的左右乘积列表
@@ -751,6 +766,7 @@
         return result;
     }
   ```
+
 </details>
 
 ---
@@ -762,6 +778,22 @@
 给你一个整数数组 nums 和一个整数 k ，请你统计并返回 该数组中和为 k 的子数组的个数 。
 
 子数组是数组中元素的连续非空序列。
+
+**示例 1：**
+
+> 输入：nums = [1,1,1], k = 2  
+> 输出：2  
+
+**示例 2：**
+
+> 输入：nums = [1,2,3], k = 3  
+> 输出：2  
+
+**提示：**
+
+- 1 <= nums.length <= 2 * 10<sup>4</sup>
+- -1000 <= nums[i] <= 1000
+- -10<sup>7</sup> <= k <= 10<sup>7</sup>
 
 **解法一** 穷举
 
@@ -788,9 +820,10 @@
         return ret;
     }
   ```
+
 </details>
 
-**解法二** 哈希表 + 前缀和  
+**解法二** 哈希表+前缀和  
 
 使用哈希表，key为前缀和，value为该前缀和的数量。遍历时，同时记录前缀和为某个值的数量。
 
@@ -817,4 +850,5 @@
         return count;
     }
   ```
+
 </details>

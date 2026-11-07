@@ -263,7 +263,7 @@ class Solution {
 空间复杂度：O(n)
 
 <details>
-  <summary>数组</summary>
+<summary>数组</summary>
 
 ```java
 class MinStack {
@@ -312,6 +312,7 @@ class MinStack {
     }
 }
 ```
+
 </details>
 
 **解法二** 使用双栈
@@ -355,6 +356,7 @@ class MinStack {
     }
 }
 ```
+
 </details>
 
 也可以不用 Deque，直接用基本的数组来实现，时间复杂度和空间复杂度一样。
@@ -365,34 +367,36 @@ class MinStack {
 ```java
 class MinStack {
 
-    private Deque<Integer> stack;
-    private Deque<Integer> minStack;
+    private int[] elements;
+    private int[] mins;
+    private int top = -1;
+    private int capcity = 30000;
 
     public MinStack() {
-        stack = new ArrayDeque<>();
-        minStack = new ArrayDeque<>();
-        minStack.push(Integer.MAX_VALUE);
+        elements = new int[capcity];
+        mins = new int[capcity];
     }
     
     public void push(int value) {
-        stack.push(value);
-        minStack.push(Math.min(value, minStack.peek()));
+        top++;
+        elements[top] = value;
+        mins[top] = top == 0 ? value : Math.min(mins[top - 1], value);
     }
     
     public void pop() {
-        stack.pop();
-        minStack.pop();
+        top--;
     }
     
     public int top() {
-        return stack.peek();
+        return elements[top];
     }
     
     public int getMin() {
-        return minStack.peek();
+        return mins[top];
     }
 }
 ```
+
 </details>
 
 **解法三** 链表
@@ -408,34 +412,47 @@ class MinStack {
 ```java
 class MinStack {
 
-    private Deque<Integer> stack;
-    private Deque<Integer> minStack;
+    class Node {
+        private int val;
+        private int min;
+        private Node next;
+
+        Node(int val, int min) {
+            this.val = val;
+            this.min = min;
+        }
+    }
+
+    private Node head;
 
     public MinStack() {
-        stack = new ArrayDeque<>();
-        minStack = new ArrayDeque<>();
-        minStack.push(Integer.MAX_VALUE);
+        head = null;
     }
     
     public void push(int value) {
-        stack.push(value);
-        minStack.push(Math.min(value, minStack.peek()));
+        if (head == null) {
+            head = new Node(value, value);
+        } else {
+            Node top = new Node(value, Math.min(value, head.min));
+            top.next = head;
+            head = top;
+        }
     }
     
     public void pop() {
-        stack.pop();
-        minStack.pop();
+        head = head.next;
     }
     
     public int top() {
-        return stack.peek();
+        return head.val;
     }
     
     public int getMin() {
-        return minStack.peek();
+        return head.min;
     }
 }
 ```
+
 </details>
 
 ---
