@@ -538,7 +538,51 @@ class Solution {
 }
 ```
 
-</details>  
+</details>
+
+**解法二** 递归
+
+全局记录当前遍历到哪个位置，遇到 `[` 时递归后面的字符串。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
+<details>
+  <summary>双栈</summary>
+
+```java
+class Solution {
+    private int index = 0;
+    public String decodeString(String s) {
+        return decode(s).toString();
+    }
+
+    public StringBuilder decode(String s) {
+        StringBuilder builder = new StringBuilder();
+        int count = 0;
+        while (index < s.length()) {
+            char c = s.charAt(index);
+            if (Character.isDigit(c)) {
+                count = count * 10 + (c - '0');
+                index++;
+            } else if (c == '[') {
+                index++;
+                builder.repeat(decode(s), count);
+                count = 0;
+            } else if (c == ']') {
+                index++;
+                return builder;
+            } else {
+                builder.append(c);
+                index++;
+            }
+        }
+        return builder;
+    }
+}
+```
+
+</details>
 
 ---
 
