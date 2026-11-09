@@ -1,5 +1,71 @@
 # 回溯
 
+---
+
+## [22.括号生成](https://leetcode.cn/problems/generate-parentheses)
+
+难度：⭐️⭐️⭐️
+
+数字 `n` 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 **有效的** 括号组合。
+
+**示例 1：**
+
+> 输入：n = 3  
+> 输出：["((()))","(()())","(())()","()(())","()()()"]  
+
+**示例 2：**
+
+> 输入：n = 1  
+> 输出：["()"]  
+
+**提示：**
+
+- 1 <= n <= 8
+
+**解法一** 回溯
+
+回溯时用 `open` 和 `close` 记录左右括号的数量，右括号数量达到n之后，得到一个解，左括号数量没到 n 时追加左括号，右括号数量比左括号少时，追加右括号。
+
+时间复杂度：O(4^n / √n)  
+空间复杂度：O(n)
+
+<details>
+<summary>回溯</summary>
+
+```java
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<>();
+        dfs(n, 0, 0, new StringBuilder(), list);
+        return list;
+    }
+
+    private void dfs(int n, int open, int close, StringBuilder builder, List<String> list) {
+        if (close == n) {
+            list.add(builder.toString());
+            return;
+        }
+
+        if (open < n) {
+            builder.append('(');
+            dfs(n, open + 1, close, builder, list);
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        if (close < open) {
+            builder.append(')');
+            dfs(n, open, close + 1, builder, list);
+            builder.deleteCharAt(builder.length() - 1);
+        }
+    }
+}
+```
+
+</details>
+
+**解法二** 按长度递归
+
+递归到 `n=1` 时，是终止条件，返回 `()`，否则，在字符串 1~n-1 之间，逐个字符插入括号。时间复杂度和回溯一样，但是因为没有记忆化，实际比回溯慢一些。
+
 ## [39.组合总数](https://leetcode.cn/problems/combination-sum/description)
 
 难度：⭐️⭐️⭐️
