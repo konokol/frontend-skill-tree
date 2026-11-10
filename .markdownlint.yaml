@@ -8,3 +8,5 @@ MD033:
         - details
         - summary
         - sup
+MD007:
+      indent: 4
