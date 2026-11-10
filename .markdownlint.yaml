@@ -10,3 +10,5 @@ MD033:
         - sup
 MD007:
       indent: 4
+MD060:
+      style: any

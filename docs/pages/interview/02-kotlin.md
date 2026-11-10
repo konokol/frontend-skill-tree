@@ -5,9 +5,9 @@
 1. Kotlin 与 Java 的主要语法差异有哪些？[💡][kotlin-syntax]  
 2. Kotlin 中有哪些基础类型，和 Java 有何不同？[💡][kotlin-data-type]  
 3. `val` 和 `var` 有什么区别？[💡][kotlin-var-val]  
-4. `const val` 和 `val` 区别?  
-5. Kotlin 如何处理可空类型？  
-6. Kotlin 空安全实现原理?  
+4. `const val` 和 `val` 区别？[💡][kotlin-const-val]  
+5. Kotlin 如何处理可空类型？[💡][kotlin-null-safety]  
+6. Kotlin 空安全实现原理？[💡][kotlin-null-safety-principle]  
 7. `is` 和 `as` 用来做什么？
 8. `!!` 和 `?.` 区别？
 9. `?:`(Elvis操作符) 的作用？
@@ -41,6 +41,9 @@
 [kotlin-syntax]: . "1. 无分号、变量空安全、类型推断、没有static(伴生对象替代)、when 表达式&#10; 2. 方法默认public、类默认不可继承、内部类不持有外部类引用&#10; 3. 高阶函数、扩展函数、委托、类扩展函数、类型别名&#10; 4. 数据类、密封类、枚举类&#10; 5.*本质是语法糖，编译成class和 Java 完全互通"
 [kotlin-data-type]: . "1、Byte/Short/Int/Long/Float/Double/Boolean/Char&#10; 2、编译后映射基本类型，可空/泛型映射包装类型&#10; 3. *语法相同，自动拆装箱"
 [kotlin-var-val]: . "var可变，val不可变；初始化差异； *val非常量，对象仍然可变"
+[kotlin-const-val]: . "const val是编译期常量，只能在顶层或类属性，会内联，val可以有自定义的getter"
+[kotlin-null-safety]: . "编译期检查，T?和T，?. ?: !! requireNotNull()/checkNotNull() 类型转换as/as? 扩展函数 平台类型T!和Java互操作"
+[kotlin-null-safety-principle]: . "注解、函数入口处Intrinsics检查、?.等操作符变成条件判断、*平台类型不校验"
 
 ## 类、对象、委托(P0)
 

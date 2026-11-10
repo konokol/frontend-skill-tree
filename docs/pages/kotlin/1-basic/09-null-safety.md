@@ -15,19 +15,19 @@ var name: String? = "Alice" // 可空类型
 
 变量需要初始化的时候，可以用 `lateinit` 和 `by lazy`，用法上有些差异
 
-| 特性     | `lateinit`  | `by lazy` |
-|---------|--------------|-----------|
-| 适用类型  |  非空引用类型 | 任意       |
-| 可变性   |   `var`      | `val`     |
-| 初始化   |  手动         | 首次访问   |
-| 线程安全 |   否          | 可配置     |
-| 可重置   |        否     |  否 |
+| 特性 | `lateinit` | `by lazy` |
+| ---- | --------- | --------- |
+| 适用类型 | 非空引用类型 | 任意 |
+| 可变性 | `var` | `val` |
+| 初始化 | 手动 | 首次访问 |
+| 线程安全 | 否 | 可配置 |
+| 可重置 | 否 | 否 |
 
-## 安全调用操作符 ?.
+## 安全调用操作符 ?
 
 如果调用的对象是 null，返回值也是 null，用来简化 if else 的调用。尤其在链式调用中，任何一个对象是 null，返回结果都是null。
 
-## Elvis 操作符 ?:
+## Elvis 操作符 ?
 
 类似于 js 中的 `||` ，当左边的值为空时，返回右边的值或者执行右边的表达式。也可以与 `return`、`throw`结合起来用。
 
@@ -38,7 +38,7 @@ fun process(name: String?) {
 }
 ```
 
-## 非空断言 !!
+## 非空断言
 
 断言一个表达式非空，如果为空会抛 KotlinNullPointerException 异常。
 
@@ -95,7 +95,7 @@ name?.also { println("name: $it") }
 ```
 
 ## when表达式
- 
+
 when 表达式可以直接判断 null，而不是像 Java 中的 switch 一样抛出异常。
 
 ```kotlin
@@ -120,6 +120,7 @@ fun process(name: String?) {
     }
 }
 ```
+
 支持：
 
 - if (x != null)
@@ -145,6 +146,7 @@ fun process(name: String?) {
 ```kotlin
 fun <T> List<T>.firstOrNull(): T? = if (isEmpty()) null else this[0]
 ```
+
 泛型中的 `T` 默认非空，`T?` 是可空。
 
 ## 反射中的空安全
@@ -156,6 +158,16 @@ val nullableClass = String::class.createType(nullable = true)
 println(nullableClass.isMarkedNullable) // true
 ```
 
-**参考**
+## 空安全的实现原理
+
+生成字节码之后：
+
+- 非空类型会生成 `@NotNull` 注解，可空类型会生成 `Nullable`注解
+- 在函数入口，插入 `Intrinsics.checkNotNullParameter` 对非空类型参数检查，如果违规传入，直接抛空指针
+- ?. ?: 操作符生成 if-else 语句，!! 直接检查后抛异常，as? 先判断类型
+- 对于 Java 中没标注的类型，没有做强制校验
+
+**参考**  
 
 1. [空安全](https://book.kotlincn.net/text/null-safety.html).Kotlin 官方文档 中文版
+2. 全能杰哥.[Kotlin刨根问底(一)：你真的了解Kotlin中的空安全吗？](https://developer.aliyun.com/article/915498#1).阿里云 开发者社区. 2022-5-11
