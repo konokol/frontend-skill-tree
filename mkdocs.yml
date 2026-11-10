@@ -137,6 +137,7 @@ nav:
   - 操作系统:
     - 敬请期待: pages/cs/os/none.md
   - 算法:
+    - 数据结构: pages/cs/algorithm/data-structure/index.md
     - Leetcode常见题: 
       - 数组/字符串: pages/cs/algorithm/leetcode/01-array&string.md
       - 链表: pages/cs/algorithm/leetcode/02-linked-list.md
