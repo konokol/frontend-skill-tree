@@ -629,6 +629,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
   ```
 </details>
 
+---
 
 ## [199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view)
 
@@ -636,9 +637,39 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 
 给定一个二叉树的 根节点 `root`，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
 
+**示例 1：**
+
+> 输入：root = [1,2,3,null,5,null,4]  
+> 输出：[1,3,4]  
+> 解释： ![1](https://assets.leetcode.com/uploads/2024/11/24/tmpd5jn43fs-1.png)
+
+**示例 2：**
+
+> 输入：root = [1,2,3,4,null,null,null,5]  
+> 输出：[1,3,4,5]  
+> 解释：![2](https://assets.leetcode.com/uploads/2024/11/24/tmpkpe40xeh-1.png)
+
+**示例 3：**
+
+> 输入：root = [1,null,3]
+> 输出：[1,3]
+
+**示例 4：**
+
+> 输入：root = []  
+> 输出：[]  
+
+**提示:**
+
+- 二叉树的节点个数的范围是 [0,100]
+- -100 <= Node.val <= 100
+
 **解法一** 非递归深度优先
 
 深度优先前序遍历，使用哈希表保存遍历到的每一层的深度和第一个访问到的节点。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
 
 <details>
   <summary>哈希表 + 深度优先</summary>
@@ -672,14 +703,18 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return new ArrayList<>(map.values());
     }
   ```
+
 </details>
 
 **解法二** 层次遍历
 
 层次遍历，每一层的最后一个节点即为最右侧节点。
 
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
 <details>
-  <summary>哈希表 + 深度优先</summary>
+  <summary>层序遍历</summary>
 
   ```java
     public List<Integer> rightSideView(TreeNode root) {
@@ -707,12 +742,53 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return list;
     }
   ```
+
 </details>
 
 **解法三** 递归 + 深度遍历
 
 递归遍历的过程中，记录层数。
 
+<details>
+<summary>递归</summary>
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        dfs(root, 0, list);
+        return list;
+    }
+
+    private void dfs(TreeNode node, int depth, List<Integer> list) {
+        if (node == null) {
+            return;
+        }
+        if (depth == list.size()) {
+            list.add(node.val);
+        }
+        dfs(node.right, depth + 1, list);
+        dfs(node.left, depth + 1, list);
+    }
+}    
+```
+
+</details>
 
 ## [226. 翻转二叉树](https://leetcode.cn/problems/invert-binary-tree)
 
@@ -785,7 +861,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 
 **示例 1：**
 
-![](https://assets.leetcode.com/uploads/2021/01/28/kthtree1.jpg)
+![1](https://assets.leetcode.com/uploads/2021/01/28/kthtree1.jpg)
 
 > 输入：root = [3,1,4,null,2], k = 1  
 > 输出：1  
