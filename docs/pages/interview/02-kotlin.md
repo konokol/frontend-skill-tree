@@ -8,15 +8,15 @@
 4. `const val` 和 `val` 区别？[💡][kotlin-const-val]  
 5. Kotlin 如何处理可空类型？[💡][kotlin-null-safety]  
 6. Kotlin 空安全实现原理？[💡][kotlin-null-safety-principle]  
-7. `is` 和 `as` 用来做什么？
-8. `!!` 和 `?.` 区别？
-9. `?:`(Elvis操作符) 的作用？
-10. 平台类型 `T!` 是什么？  
-11. `lateinit` 和 `by lazy` 区别？  
-12. `==` 和 `===` 区别？  
-13. `Nothing`、`Unit`、`Any` 区别？
-14. `Nothing?` 有什么用？
-15. Kotlin 如何写字符串模板？  
+7. `is` 和 `as` 用来做什么？[💡][kotlin-is-as]
+8. `!!` 和 `?.` 区别？[💡][kotlin-nullable-if]
+9. `?:`(Elvis操作符) 的作用？[💡][kotlin-elvis]
+10. 平台类型 `T!` 是什么？[💡][kotlin-platform-type]  
+11. `lateinit` 和 `by lazy` 区别？[💡][kotlin-lazy-lateinit]  
+12. `==` 和 `===` 区别？[💡][kotlin-equals]  
+13. `Nothing`、`Unit`、`Any` 区别？[💡][kotlin-nothing-unit-any]  
+14. `Nothing?` 有什么用？[💡][kotlin-nullable-nothing]  
+15. Kotlin 如何写字符串模板？[💡][kotlin-string-template]  
 16. Kotlin 数组和集合有什么区别？  
 17. Kotlin 如何对集合进行函数式操作？  
 18. Kotlin 的类型系统支持关系类型吗？  
@@ -44,6 +44,15 @@
 [kotlin-const-val]: . "const val是编译期常量，只能在顶层或类属性，会内联，val可以有自定义的getter"
 [kotlin-null-safety]: . "编译期检查，T?和T，?. ?: !! requireNotNull()/checkNotNull() 类型转换as/as? 扩展函数 平台类型T!和Java互操作"
 [kotlin-null-safety-principle]: . "注解、函数入口处Intrinsics检查、?.等操作符变成条件判断、*平台类型不校验"
+[kotlin-is-as]: . "is类型检查，as类型转换。&#10;is可以做自动类型推断*"
+[kotlin-nullable-if]: . "!!是断言抛异常、?.安全调用"
+[kotlin-elvis]: . "左值null返回右值，否则返回左值"
+[kotlin-platform-type]: . "Java 中的类型在 Kotlin 中未知，Kotlin中可空非空都有可能。Kotlin中空指针主要来源"
+[kotlin-lazy-lateinit]: . "lateinit用于var，非空属性，延迟手动赋值&#10; by lazy是属性委托，在第一次被使用时执行代码块，可指定线程安全模式"
+[kotlin-equals]: . "==是值比较等同于 Java 的equals&#10;===是引用比较，等同于 Java 的=="
+[kotlin-nothing-unit-any]: . "Nothing：任意类型的子类型，无法实例化，常用于函数标记异常&#10;Unit 类似于 Java 中的void，表示函数无返回值，全局单例&#10; Any：所有非空类型的父类，类似于 Java 的 Object 类"
+[kotlin-nullable-nothing]: . "表示值只能是null的类型"
+[kotlin-string-template]: . "用$符号，${name}"
 
 ## 类、对象、委托(P0)
 
@@ -180,60 +189,100 @@
 ## 集合与标准函数（P1）
 
 1. Sequence 和 Iterable 区别？  
-  - Iterable 立即求值生成中间集合；Sequence 惰性逐元素。
+
+- Iterable 立即求值生成中间集合；Sequence 惰性逐元素。
+
 2. fold 和 reduce 区别？  
-  - fold 有初始值；reduce 无初始值，空集合抛异常。
+
+- fold 有初始值；reduce 无初始值，空集合抛异常。
+
 3. associate 和 associateBy 区别？  
-  - associate 自定义键值对；associateBy 指定 key，value 是元素本身。
+
+- associate 自定义键值对；associateBy 指定 key，value 是元素本身。
+
 4. groupBy 返回什么？  
-  - Map<K, List<T>>，按 key 分组。
+
+- Map<K, List<T>>，按 key 分组。
+
 5. let/run/with/apply/also 速记？  
-  - let it 返回；run this 返回；with this 返回；apply this 自身；also it 自身。
+
+- let it 返回；run this 返回；with this 返回；apply this 自身；also it 自身。
 
 ## Java 互操作（P1）
 
 1. Kotlin 调 Java 平台类型风险？
-  - 可空性未知，当非空用可能 NPE。  
+
+- 可空性未知，当非空用可能 NPE。  
+
 1. Java 调 Kotlin 非空参数传 null？
-  - 编译通过，运行时抛 NPE（Intrinsics.checkNotNullParameter）。  
+
+- 编译通过，运行时抛 NPE（Intrinsics.checkNotNullParameter）。  
+
 1. Kotlin 可空性如何传给 Java？
    - 生成 @Nullable/@NotNull 注解，Java IDE 可见但不强制。  
 2. @JvmOverloads 作用？
-  - 默认参数生成重载方法，方便 Java 调用。
+
+- 默认参数生成重载方法，方便 Java 调用。
+
 1. @Throws 作用？
-  - 声明受检异常，Java 强制捕获。
+
+- 声明受检异常，Java 强制捕获。
+
 1. @JvmName 作用？
-  - 修改生成的类名、方法名、getter/setter 名。
+
+- 修改生成的类名、方法名、getter/setter 名。
+
 1. @JvmSuppressWildcards 作用？
-  - 抑制泛型通配符生成。
+
+- 抑制泛型通配符生成。
+
 1. fun interface 作用？
-  - 让 Kotlin 接口支持 SAM 转换，Java 可用 lambda。
+
+- 让 Kotlin 接口支持 SAM 转换，Java 可用 lambda。
 
 ## 反射、KSP、编译期（P2）
 
 1. Kotlin 反射和 Java 反射区别？
-  - Kotlin 反射需 kotlin-reflect，支持可空性、默认参数；性能更低。
+
+- Kotlin 反射需 kotlin-reflect，支持可空性、默认参数；性能更低。
+
 1. KSP 和 KAPT 区别？
-  - KSP 直接分析 Kotlin 不生成存根，快 2-5 倍；KAPT 生成 Java 存根。
+
+- KSP 直接分析 Kotlin 不生成存根，快 2-5 倍；KAPT 生成 Java 存根。
+
 1. K2 编译器是什么？
-  - Kotlin 2.0 新编译器，前端重写，性能更好。
+
+- Kotlin 2.0 新编译器，前端重写，性能更好。
+
 1. value class 编译后字节码？
-  - 多数场景内联为底层类型，方法名修饰。
+
+- 多数场景内联为底层类型，方法名修饰。
+
 1. inline 函数字节码？
-  - 函数体展开到调用处，lambda 内联，无对象分配。
+
+- 函数体展开到调用处，lambda 内联，无对象分配。
 
 ## Compose (P1)
 
 1. 声明式 UI 和命令式区别？
-  - 声明式描述状态对应 UI，状态变化重组；命令式手动更新 View。
+
+- 声明式描述状态对应 UI，状态变化重组；命令式手动更新 View。
+
 1. 重组是什么？
-  - 状态变化时重新执行 Composable，只更新变化部分。
+
+- 状态变化时重新执行 Composable，只更新变化部分。
+
 1. remember 和 rememberSaveable 区别？
-  - remember 配置变更丢失；rememberSaveable 保存到 Bundle 恢复。
+
+- remember 配置变更丢失；rememberSaveable 保存到 Bundle 恢复。
+
 1. derivedStateOf 作用？
-  - 从其他状态派生，减少重组。
+
+- 从其他状态派生，减少重组。
+
 1. LaunchedEffect、DisposableEffect、SideEffect 区别？
-  - LaunchedEffect 启动协程 key 变化重启；DisposableEffect 清理；SideEffect 每次重组后执行。
+
+- LaunchedEffect 启动协程 key 变化重启；DisposableEffect 清理；SideEffect 每次重组后执行。
 
 ## 手写代码
 

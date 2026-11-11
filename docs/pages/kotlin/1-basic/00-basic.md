@@ -37,6 +37,16 @@ val name = 'Tom' // String
 name.inc() // 编译报错，String没有inc()方法
 ```
 
+**延迟初始化**  
+
+`lateinit` 用于非空类型的 var 变量延迟赋值，在使用的时候需要手动赋值，否则抛异常。只能用在引用类型上，不能在基本类型上用。可以通过 property.isInitialized 来判断是否初始化过。
+
+`by lazy` 是一种属性委托，第一次访问时自动执行代码块内代码，可以指定线程安全的模式。
+
+- LazyThreadSafetyMode.SYNCHRONIZED 同步初始化，使用锁保证线程安全，代码块只会执行一次
+- LazyThreadSafetyMode.PUBLICATION 并发场景下，代码块可能执行多次，多个线程都可以执行，最终只会保留第一次的值
+- LazyThreadSafetyMode.NONE 无锁
+
 **空安全**  
 
 Kotlin中，默认类型是非空的，给非空类型变量赋值会编译错误。如果期望变量时可空的，需要在类型后加上`?`
@@ -55,8 +65,8 @@ val name: String? = null
 - `?:` Elvis操作符，表明左值为空时，取右值，如 `val firstName = name?:'unknown'`，firstName的值是unknown
 - `?.` 安全调用，左值为空时，值也返回空，如 `val length = name?.length`，length的值也为null
 - `!!` 断言一个表达式非空，如果为空会抛异常
-- `==` 与 `!=` 值相等比较，等同于Java中的equals，但是 == 是线程安全的，null == "abc" 不会报错
-- `===` 与 `!==` 引用比较，比较的是内存地址，等同于Java中的==
+- `==` 与 `!=` 值相等比较，等同于 Java 中的equals，但是 == 是线程安全的，null == "abc" 不会报错
+- `===` 与 `!==` 引用比较，比较的是内存地址，等同于 Java中的 ==
 - `$` 字符串模板中引用变量或表达式
 - `_` 在lambda或解构中代替未使用的参数
 
@@ -96,6 +106,19 @@ val x: String? = y as? String
 val n = y as? Int // ✅ n 的值会是 null
 ```
 
+**类型判断**  
+
+`is` 用来做类型判断，相当于 Java 中的 instanceof. 通过 is 判断之后，代码块内部可以直接当做目标类型来使用，不需要再类型转换。 Java 16 之后和也不用类型转换。
+
+```kotlin
+var a: Any? = "a"
+if (a is String) {
+  val c: Char = a.first()
+} else if (a is Int) {
+  a.countOneBits()
+}
+```
+
 ## 数据类型
 
 ### 基本的数据类型
@@ -108,10 +131,15 @@ Kotlin 不像 Java 一样，没有原始类型（primitive types），一切都�
 ### Unit、Any、Nothing
 
 - `Any` 所有非空类型的父类，类似于 Java 中的 Object;
-- `Nothing` 表示“永远不会返回，或者不存在的值”，不能被实例化，通常把一个函数的返回值设置为 Nothing 表明这个函数不会返回会抛异常。由于 Nothing 可以赋值给任意类型，也可以将它看做是任意类型的子类型。
-- `Unit` 表示“无意义的返回值”，但是Unit有一个实例
+- `Nothing` 表示“永远不会返回，或者不存在的值”，不能被实例化，通常把一个函数的返回值设置为 Nothing 表明这个函数不会返回会抛异常。由于 Nothing 可以赋值给任意类型，也可以将它看做是任意类型的子类型。Nothing 的构造函数是私有的无法创建出任何实例。Nothing 的常见使用场景：
+    - 配合 ?: 进行空安全解包，如 `val validName: String = name ?: throw IllegalArgumentException("姓名不能为空")`
+    - 函数的返回值，表示函数一定会抛异常
+    - 作为泛型参数，密封类中表示无状态子类，如 `Result<Nothing>`、`Loading`、`Error`，可赋给任意 `Result<T>`，保证协变类型安全。
+    - when表达式的兜底
+    - Nothing? 表示值只能是 null 的类型，可以用作函数的返回值、泛型占位
+- `Unit` 表示“无意义的返回值”，类似于Java中的void，Unit只有一个全局单例对象
 
-```
+```text
          Any          ← 所有非空类型的根类型
         / | \
      Int  String  ...
@@ -132,7 +160,7 @@ fun fail(message: String): Nothing {
 }
 
 val name: String = user.name ?: fail() // 赋值给String类型的变量
-val age: String = if user.age > 0 user.age else fail() // 赋值给Int类型的变量
+val age: String = if (user.age > 0) user.age else fail() // 赋值给Int类型的变量
 ```
 
 ## 条件语句

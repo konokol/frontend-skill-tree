@@ -12,7 +12,7 @@
 - 同一个类实例中的其他属性
 - 另一个类中的其他属性
   
-把属性委托给别的属性时，需要加 :: 限定符实现。这种用法在对属性废弃非常有用。 
+把属性委托给别的属性时，需要加 :: 限定符实现。这种用法在对属性废弃非常有用。
 
 ```kotlin
 var topLevelInt: Int = 0
@@ -52,7 +52,7 @@ fun main() {
 
 将属性的赋值委托给另一个方法，Kotlin 内置了一些默认的委托。
 
-**1、延迟属性 by lazy**
+**1、延迟属性 by lazy**  
 
 通过 `by lazy` 实现，当第一次读变量时，执行 lazy 代码块中的代码。
 
@@ -69,7 +69,7 @@ fun main() {
 lazy 还可以有一个线程安全参数：
 
 - LazyThreadSafetyMode.SYNCHRONIZED 同步初始化，使用锁保证线程安全，代码块只会执行一次
-- LazyThreadSafetyMode.PUBLICATION 并发场景下，代码块可能执行多次，最终只会保留一个值
+- LazyThreadSafetyMode.PUBLICATION 并发场景下，代码块可能执行多次，多个线程都可以执行，最终只会保留第一次的值
 - LazyThreadSafetyMode.NONE 无锁
 
 ```kotlin
@@ -79,7 +79,7 @@ lazy 还可以有一个线程安全参数：
     }
 ```
 
-**2. 可观测属性 by Delegates.observable**
+**2. 可观测属性 by Delegates.observable**  
 
 属性变化时可以收到一个回调
 
@@ -91,7 +91,7 @@ var name: String by Delegates.observable("init") { property, old, new ->
 name = "Alice" // name: init -> Alice
 ```
 
-**3. 条件赋值属性 by Delegates.vetoble**
+**3. 条件赋值属性 by Delegates.vetoble**  
 
 可以在代码块中对赋值做拦截
 
@@ -101,11 +101,11 @@ var age: Int by Delegates.vetoable(0) { _, old, new ->
 }
 ```
 
-**4. 可空变量空值检查 by Delegates.notNull**
+**4. 可空变量空值检查 by Delegates.notNull**  
 
 当可空变量是空值时，读变量值会抛一个异常
 
-```
+```kotlin
 var name: String by Delegates.notNull()
 // println(name) // 抛 IllegalStateException
 ```
@@ -149,7 +149,7 @@ class SimpleDelegate<T>(private var value: T) {
 
 类委托就是将一个类要实现的方法委托给另一个类实现。
 
-```
+```kotlin
 interface Base {
     fun print()
 }
@@ -170,8 +170,8 @@ fun main() {
 
 在当前类中增加 override 方法之后，会覆盖委托中的实现。
 
---- 
+---
 
-**参考**
+**参考**  
 
 [1] [属性委托](https://book.kotlincn.net/text/delegated-properties.html).Kotlin 官方文档 中文版  
