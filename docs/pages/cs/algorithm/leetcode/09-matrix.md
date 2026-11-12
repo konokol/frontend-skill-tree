@@ -29,12 +29,12 @@
         }
     }
   ```
+
 </details>
 
 **解法二** 翻转
 
 先水平翻转，再沿主对角线翻转。
-
 
 <details>
   <summary>两次翻转</summary>
@@ -61,8 +61,8 @@
         }
     }
   ```
-</details>
 
+</details>
 
 ## [54.螺旋矩阵](https://leetcode.cn/problems/spiral-matrix)
 
@@ -76,7 +76,6 @@
 - n == matrix[i].length
 - 1 <= m, n <= 10
 - -100 <= matrix[i][j] <= 100
-
 
 **解法一** 模拟
 用额外 m*n 的矩阵记录特定每个位置是否被访问过。题目没有要求不能修改原始矩阵，也可以直接修改原始矩阵。对于移动的方向，可以用一个二维数组来记录，可以简化写法。
@@ -108,6 +107,7 @@
         return list;
     }
 ```
+
 </details>
 
 **解法二** 按层遍历
@@ -150,7 +150,10 @@
         return list;
     }
 ```
+
 </details>
+
+---
 
 ## [73. 矩阵置零](https://leetcode.cn/problems/set-matrix-zeroes)
 
@@ -158,38 +161,127 @@
 
 给定一个 `m x n` 的矩阵，如果一个元素为 `0` ，则将其所在行和列的所有元素都设为 `0` 。请使用 原地 算法。
 
+**示例 1：**
+
+![1](https://assets.leetcode.com/uploads/2020/08/17/mat1.jpg)
+
+> 输入：matrix = [[1,1,1],[1,0,1],[1,1,1]]  
+> 输出：[[1,0,1],[0,0,0],[1,0,1]]  
+
+**示例 2：**
+
+![2](https://assets.leetcode.com/uploads/2020/08/17/mat2.jpg)
+
+> 输入：matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]  
+> 输出：[[0,0,0,0],[0,4,5,0],[0,3,1,0]]  
+
+**提示：**
+
+- m == matrix.length
+- n == matrix[0].length
+- 1 <= m, n <= 200
+- -2<sup>31</sup> <= matrix[i][j] <= 2<sup>31</sup> - 1
+
+进阶：
+
+一个直观的解决方案是使用  O(mn) 的额外空间，但这并不是一个好的解决方案。
+一个简单的改进方案是使用 O(m + n) 的额外空间，但这仍然不是最好的解决方案。
+你能想出一个仅使用常量空间的解决方案吗？
+
 **解法一** 标记数组
 
-用 2 个数组，分别记录行和列的数组中是否有 0，第一次遍历填充标记数组，第二次遍历，对矩阵中元素置零。
+用两个个数组，分别记录行和列的数组中是否有 0，第一次遍历填充标记数组，第二次遍历，对矩阵中元素置零。
+
+时间复杂度：O(mn)  
+空间复杂度：O(m+n)  
 
 <details>
-  <summary>标记数组</summary>
+<summary>标记数组</summary>
 
-  ```java
+```java
+class Solution {
     public void setZeroes(int[][] matrix) {
-        int row = matrix.length;
-        int col = matrix[0].length;
-        boolean[] r = new boolean[row];
-        boolean[] c = new boolean[col];
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
+        boolean[] row = new boolean[matrix.length];
+        boolean[] col = new boolean[matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
                 if (matrix[i][j] == 0) {
-                    r[i] = true;
-                    c[j] = true;
+                    row[i] = true;
+                    col[j] = true;
                 }
             }
         }
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if (r[i] || c[j]) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (row[i] || col[j]) {
                     matrix[i][j] = 0;
                 }
             }
         }
     }
-  ```
+}
+```
+
 </details>
 
+**解法二** 标记变量
+
+基于解法一，利用第 0 行和第 0 列，同时用额外两个变量标记之前第 0 行和第 0 列是否本来就有 0
+
+时间复杂度：O(mn)  
+空间复杂度：O(1)  
+
+<details>
+<summary>标记变量</summary>
+
+```java
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        boolean row0 = false;
+        boolean col0 = false;
+
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i][0] == 0) {
+                col0 = true;
+                break;
+            }
+        }
+        for (int j = 0; j < matrix[0].length; j++) {
+            if (matrix[0][j] == 0) {
+                row0 = true;
+                break;
+            }
+        }
+        for (int i = 1; i < matrix.length; i++) {
+            for (int j = 1; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
+                }
+            }
+        }
+        for (int i = 1; i < matrix.length; i++) {
+            for (int j = 1; j < matrix[0].length; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        if (col0) {
+            for (int i = 0; i < matrix.length; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+        if (row0) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[0][j] = 0;
+            }
+        }
+    }
+}
+```
+
+</details>
 ---
 
 ## [74.搜索二维矩阵](https://leetcode.cn/problems/search-a-2d-matrix)
@@ -217,14 +309,14 @@
 
 > 输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13  
 > 输出：false  
- 
+
 **提示：**
 
 - m == matrix.length
 - n == matrix[i].length
 - 1 <= m, n <= 100
 - -10<sup>4</sup> <= matrix[i][j], target <= 10<sup>4</sup>
- 
+
 **解法一** 2 次二分查找
 
 第一次在第 0 列中从上到下搜索，找到第一个小于 target 的行，第二次在找到的行中搜索。注意的是，第一次二分查找边界需要向上取整。
@@ -273,6 +365,7 @@
     }
 }
 ```
+
 </details>
 
 **解法二** 一次二分查找
@@ -309,6 +402,7 @@
     }
 }
 ```
+
 </details>
 
 **解法三** 二叉搜索树
@@ -316,7 +410,7 @@
 从右上角或者左上角看，矩阵是一个二叉搜索树，直接按二叉搜索树查找即可。 *这种解法的时间复杂度不符合题目要求。*
 
 时间复杂度：O(mn)  
-空间复杂度：O(1)   
+空间复杂度：O(1)
 
 ---
 
@@ -340,7 +434,6 @@
 
 > 输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20  
 > 输出：false  
- 
 
 **提示：**
 
@@ -351,7 +444,6 @@
 - 每行的所有元素从左到右升序排列
 - 每列的所有元素从上到下升序排列
 - -10<sup>9</sup> <= target <= 10<sup>9</sup>
-
 
 **解法一** Z字形遍历
 
@@ -377,6 +469,7 @@
         return false;
     }
   ```
+
 </details>
 
 **解法二** 按行二分查找
@@ -416,8 +509,8 @@
         return false;
     }
   ```
-</details>
 
+</details>
 
 ## [289.生命游戏](https://leetcode.cn/problems/game-of-life)
 
@@ -468,6 +561,7 @@
 **解法二**：增加状态
 
 由于之前的细胞只有 0 和 1 两种状态，一轮遍历的过程中如果直接改值，会导致丢失原始状态，无法保证“同时”，因此额外引入 2 个状态，共 4 个状态：
+
 - -1，表示活细胞死亡，即 1 --> 0
 - 0，死细胞状态不变
 - 1，活细胞状态不变
@@ -528,4 +622,5 @@
         }
     }
 ```
+
 </details>
