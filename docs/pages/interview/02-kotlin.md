@@ -17,9 +17,9 @@
 13. `Nothing`、`Unit`、`Any` 区别？[💡][kotlin-nothing-unit-any]  
 14. `Nothing?` 有什么用？[💡][kotlin-nullable-nothing]  
 15. Kotlin 如何写字符串模板？[💡][kotlin-string-template]  
-16. Kotlin 数组和集合有什么区别？  
-17. Kotlin 如何对集合进行函数式操作？  
-18. Kotlin 的类型系统支持关系类型吗？  
+16. Kotlin 数组和集合有什么区别？[💡][kotlin-array-list]  
+17. Kotlin 如何对集合进行函数式操作？[💡][kotlin-collection]  
+18. Kotlin 的类型系统支持关系类型吗？[💡][kotlin-type-relation]  
 19. Kotlin 中的关键字 inline / crossinline / noinline 有什么用？
 20. Kotlin 中什么是高阶函数？  
 21. Kotlin 中如何定义 Lambda 表达式？  
@@ -53,6 +53,9 @@
 [kotlin-nothing-unit-any]: . "Nothing：任意类型的子类型，无法实例化，常用于函数标记异常&#10;Unit 类似于 Java 中的void，表示函数无返回值，全局单例&#10; Any：所有非空类型的父类，类似于 Java 的 Object 类"
 [kotlin-nullable-nothing]: . "表示值只能是null的类型"
 [kotlin-string-template]: . "用$符号，${name}"
+[kotlin-array-list]: . "数组定长、对应Java原生数组，基本类型&#10;集合分可变和不可变、可变集合可扩容、通常装箱、只读集合编译后仍然是可变"
+[kotlin-collection]: . "map、flatMap、filter、forEach、fold、reduce、groupBy、sortedBy、associate"
+[kotlin-type-relation]: . "不支持类似于TS中的 String|Number，但是支持泛型的型变"
 
 ## 类、对象、委托(P0)
 

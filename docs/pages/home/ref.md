@@ -8,6 +8,7 @@
 - [ReactiveX](https://reactivex.io/)
 - [Kotlin 语言中文站](https://www.kotlincn.net/)
 - [Kotlin 官网](https://kotlinlang.org/)
+- [Kotlin 文档](https://openaidoc.org/kotlin/home)
 - [Flutter 开发者官网](https://flutter.dev/)
 - [Flutter 中文网](https://flutterchina.club/)
 - [React Native 官网](https://reactnative.dev/)
