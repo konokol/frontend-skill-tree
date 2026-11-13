@@ -7,7 +7,7 @@
 
 Kotlin 中类实例化不需要使用 new 关键字。
 
-**构造函数**
+**构造函数**  
 
 类有一个主构造函数，和多个次构造函数。当主构造函数没有修饰符时，可以省略constructor关键字。
 
@@ -33,7 +33,7 @@ Kotlin 中类默认都是不可继承的(抽象类除外)，如需继承，需�
 
 ### 特殊的类
 
-**密封类**
+**密封类**  
 
 密封类通过 `sealed` 关键字修饰，所有直接继承自密封类的子类都必须在**编译期**确定。1.5 之前，密封类只能定义在同一个文件中，1.5 之后放宽了限制，密封类的子类可以定义在相同包的任意文件中，但是超出对应包之后，还是会编译失败。1.5 中还引入了密封接口，用法类似。
 
@@ -71,7 +71,7 @@ Java 15 中新增了一个新的关键字 `sealed`，和 Kotlin 中的密封类�
 - 对类型安全有诉求：状态管理、复杂逻辑处理等场景，可以用when表达式，枚举出所有的场景，保重不出现意料之外的类型。
 - 封闭API：例如开发SDK时，只期望对外暴露有限的接口
 
-**数据类**
+**数据类**  
 
 数据类型通过 `data` 关键字修饰，编译器会自动生成 `equals()`、`hashCode()`、`toString()`、`copy()`、`componentN` 等方法。
 
@@ -79,7 +79,7 @@ Java 15 中新增了一个新的关键字 `sealed`，和 Kotlin 中的密封类�
 data class User(val name: String, var age: Int)
 ```
 
-**嵌套类和内部类**
+**嵌套类和内部类**  
 
 Kotlin 中的**嵌套类**默认不可以访问外部的成员变量，等同于 Java 中的静态内部类，但是可以访问外部类的伴生对象。  
 如需访问外部类的成员变量或方法，需要用**内部类**，加 `inner` 关键字修饰。
@@ -100,7 +100,7 @@ class Outer {
     /**内部类**/
     inner class Inner {
         fun foo() {
-            println(outerProp)          // 直接访问外部类成员
+            println(outerProp)            // 直接访问外部类成员
             println(this@Outer.outerProp) // 显式引用
         }
     }
@@ -119,16 +119,17 @@ button.setOnClickListener(object : View.OnClickListener {
 button.setOnClickListener { v -> ... } // 不持有外部类的引用。
 ```
 
-**枚举类**
+**枚举类**  
 
 枚举类的每一个枚举值都是一个枚举类的实例，因此枚举值可以实现枚举类的抽象方法和接口。
 
-**内联类**
+**内联类**  
 
 ```kotlin
 @JvmInline
 value class UserId(val id: Long)
 ```
+
 内联类(inline class)是 Kotlin 1.3 引入的实验性特性，在 1.5 之后修改成了值类(data class)，并要求使用 JvmInline 注解。内联类相当于是对类型做了一层包装，用来保证类型安全。比如 Android 中常用的单位dp、sp、px 都是 Float 类型，容易误传，可以使用内联内包装。
 
 内联类有一些要求：
@@ -232,9 +233,9 @@ println(User.MAX_AGE)
 - 单例
 - 替代 Java 中的静态内部类
 
---- 
+---
 
-**参考**
+**参考**  
 
 [1] [嵌套类和内部类](https://book.kotlincn.net/text/nested-classes.html).Kotlin 官方文档 中文版  
 [2] [枚举类](https://book.kotlincn.net/text/enum-classes.html).Kotlin 官方文档 中文版  
