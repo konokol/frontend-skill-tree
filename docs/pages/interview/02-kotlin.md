@@ -30,13 +30,13 @@
 26. 什么是尾递归优化（tailrec）？[💡][kotlin-tailrec]  
 27. Kotlin 如何支持函数类型声明？[💡][kotlin-function-type-declaration]
 28. Kotlin 函数默认参数和命名参数如何使用？[💡][kotlin-function-default-params]  
-29. Kotlin 如何调用 Java 代码？[💡][kotlin-call-java]  
-30. Java 如何调用 Kotlin？有哪些限制？  
-31. Kotlin 如何处理 Java 的 `null` 值？  
-32. Kotlin 如何兼容 Java 的 `SAM` 接口？  
-33. Kotlin 中的 `@JvmStatic`、`@JvmField`、`@JvmOverloads` `const val` 有什么作用？  
-34. 如何使用 Kotlin 写工具类供 Java 调用？
-35. Kotlin 写的 API 对 Java 开发者的友好建议？  
+29. Kotlin 如何调用 Java 代码？[💡][kotlin-calls-java]  
+30. Java 如何调用 Kotlin？有哪些限制？[💡][kotlin-called-from-java]  
+31. Kotlin 如何处理 Java 的 `null` 值？[💡][kotlin-java-null]  
+32. Kotlin 如何兼容 Java 的 `SAM` 接口？[💡][kotlin-java-sam]  
+33. Kotlin 中的 `@JvmStatic`、`@JvmField`、`@JvmOverloads` 有什么作用？[💡][kotlin-java-annotation]  
+34. 如何使用 Kotlin 写工具类供 Java 调用？[💡][kotlin-java-utils]
+35. Kotlin 写的 API 对 Java 开发者的友好建议？[💡][kotlin-java-api]  
 
 [kotlin-syntax]: . "1. 无分号、变量空安全、类型推断、没有static(伴生对象替代)、when 表达式&#10; 2. 方法默认public、类默认不可继承、内部类不持有外部类引用&#10; 3. 高阶函数、扩展函数、委托、类扩展函数、类型别名&#10; 4. 数据类、密封类、枚举类&#10; 5.*本质是语法糖，编译成class和 Java 完全互通"
 [kotlin-data-type]: . "1、Byte/Short/Int/Long/Float/Double/Boolean/Char&#10; 2、编译后映射基本类型，可空/泛型映射包装类型&#10; 3. *语法相同，自动拆装箱"
@@ -66,7 +66,13 @@
 [kotlin-tailrec]: . "递归语句在最后，编译器优化成循环，*仅限直接尾递归"
 [kotlin-function-type-declaration]: . "普通函数、匿名函数、可空函数类型、带接受者函数类型、挂起函数类型、高阶返回类型"
 [kotlin-function-default-params]: . "fun foo(x: Int = 0, y: Int = 100)，使用 foo(b = 10)"
-[kotlin-call-java]: . "直接调用，注意平台类型"  
+[kotlin-calls-java]: . "字节码层面100%兼容，注意：平台类型的空安全、集合的可变性、主动捕获异常、关键字冲突、符合SAM替换成lambda、属性前缀setter/getter、运算符重载"
+[kotlin-called-from-java]: . "默认参数、伴生对象、类属性补全、顶层成员、异常处理、数组类型、异常加注解。内联函数带reified参数无法调用"
+[kotlin-java-null]: . "平台类型 T!，用可空类型接收"
+[kotlin-java-sam]: . "Java接口，在Kotlin中用lambda；Kotlin接口用fun interface"
+[kotlin-java-annotation]: . "@JvmStatic: 伴生对象生成静态方法&#10;@JvmField: 不生成getter/setter&#10;@JvmOverloads:函数默认值重载"
+[kotlin-java-utils]: . "object 或者 companion object + @JvmStatic、顶层函数用@JvmName、避免暴露 value class和默认参数"
+[kotlin-java-api]: . "伴生对象@JvmStatic、函数默认参数@JvmOverloads、异常@Throw、函数别名@JvmName&#10;避免value class、默认参数、内联函数、顶层函数直接暴露"
 
 ## 类、对象、委托(P0)
 
@@ -202,57 +208,35 @@
 
 ## 集合与标准函数（P1）
 
-1. Sequence 和 Iterable 区别？  
+1. Sequence 和 Iterable 区别？[💡][kotlin-sequence-iterable]  
+2. fold 和 reduce 区别？[💡][kotlin-fold-reduce]  
+3. associate 和 associateBy 区别？[💡][kotlin-associate]  
+4. groupBy 返回什么？[💡][kotlin-group-by]  
 
-- Iterable 立即求值生成中间集合；Sequence 惰性逐元素。
-
-2. fold 和 reduce 区别？  
-
-- fold 有初始值；reduce 无初始值，空集合抛异常。
-
-3. associate 和 associateBy 区别？  
-
-- associate 自定义键值对；associateBy 指定 key，value 是元素本身。
-
-4. groupBy 返回什么？  
-
-- Map<K, List<T>>，按 key 分组。
-
-5. let/run/with/apply/also 速记？  
-
-- let it 返回；run this 返回；with this 返回；apply this 自身；also it 自身。
+[kotlin-sequence-iterable]: . "Sequence是惰性求值，Iterable 是每一步都生成中间集合"
+[kotlin-fold-reduce]: . "fold有初始值，reduce无初始值，空集合会抛异常"
+[kotlin-associate]: . "associate 自定义键值对；associateBy 指定 key，value 是元素本身"
+[kotlin-group-by]: . "Map<K, List<T>>，按 key 分组。"
 
 ## Java 互操作（P1）
 
-1. Kotlin 调 Java 平台类型风险？
+1. Kotlin 调 Java 平台类型风险？[💡][kotlin-platform-type-risk]  
+2. Java 调 Kotlin 非空参数传 null？[💡][kotlin-java-call-null]  
+3. Kotlin 可空性如何传给 Java？[💡][kotlin-parse-nullable-to-java]
+4. @JvmOverloads 作用？[💡][kotlin-jvm-overloads-annotation]
+5. @Throws 作用？[💡][kotlin-jvm-throws-annotation]
+6. @JvmName 作用？[💡][kotlin-javmname-annotation]  
+7. @JvmSuppressWildcards 作用？[💡][kotlin-jvm-supress-wildcards-annotation]  
+8. `fun interface` 作用？[灯泡][kotlin-fun-interface]  
 
-- 可空性未知，当非空用可能 NPE。  
-
-1. Java 调 Kotlin 非空参数传 null？
-
-- 编译通过，运行时抛 NPE（Intrinsics.checkNotNullParameter）。  
-
-1. Kotlin 可空性如何传给 Java？
-   - 生成 @Nullable/@NotNull 注解，Java IDE 可见但不强制。  
-2. @JvmOverloads 作用？
-
-- 默认参数生成重载方法，方便 Java 调用。
-
-1. @Throws 作用？
-
-- 声明受检异常，Java 强制捕获。
-
-1. @JvmName 作用？
-
-- 修改生成的类名、方法名、getter/setter 名。
-
-1. @JvmSuppressWildcards 作用？
-
-- 抑制泛型通配符生成。
-
-1. fun interface 作用？
-
-- 让 Kotlin 接口支持 SAM 转换，Java 可用 lambda。
+[kotlin-platform-type-risk]: . "可空性未知，当非空用可能 NPE。"
+[kotlin-java-call-null]: . "编译通过，运行时抛异常 Intrinsics.checkNotNullParameter()"
+[kotlin-parse-nullable-to-java]: . "生成 @Nullable/@NotNull 注解，Java IDE 可见但不强制。"
+[kotlin-jvm-overloads-annotation]: . "默认参数生成重载方法，方便 Java 调用。"
+[kotlin-jvm-throws-annotation]: . "Kotlin函数没有throws，声明受检异常，Java 强制捕获。"
+[kotlin-javmname-annotation]: . "修改生成的类名、方法名、getter/setter 名。"
+[kotlin-jvm-supress-wildcards-annotation]: . "抑制泛型通配符生成。"
+[kotlin-fun-interface]: . "让 Kotlin 接口支持 SAM 转换，Java 可用 lambda。"
 
 ## 反射、KSP、编译期（P2）
 
