@@ -20,17 +20,17 @@
 16. Kotlin 数组和集合有什么区别？[💡][kotlin-array-list]  
 17. Kotlin 如何对集合进行函数式操作？[💡][kotlin-collection]  
 18. Kotlin 的类型系统支持关系类型吗？[💡][kotlin-type-relation]  
-19. Kotlin 中的关键字 inline / crossinline / noinline 有什么用？
-20. Kotlin 中什么是高阶函数？  
-21. Kotlin 中如何定义 Lambda 表达式？  
-22. Kotlin 中的匿名函数与 Lambda 有什么区别？  
-23. Kotlin 的闭包特性是什么？  
-24. Kotlin 中的 `with`、`let`、`apply`、`run`、`also` 有何区别？  
-25. `takeIf` 和 `takeUnless` 的作用是什么？  
-26. 什么是尾递归优化（tailrec）？  
-27. Kotlin 如何支持函数类型声明？  
-28. Kotlin 函数默认参数和命名参数如何使用？  
-29. Kotlin 如何调用 Java 代码？  
+19. Kotlin 中的关键字 inline / crossinline / noinline 有什么用？[💡][kotlin-function-inline]
+20. Kotlin 中什么是高阶函数？[💡][kotlin-advanced-function]  
+21. Kotlin 中如何定义 Lambda 表达式？[💡][kotlin-lambda]  
+22. Kotlin 中的匿名函数与 Lambda 有什么区别？[💡][kotlin-anonymous-function]  
+23. Kotlin 的闭包特性是什么？[💡][kotlin-closure]  
+24. Kotlin 中的 `with`、`let`、`apply`、`run`、`also` 有何区别？[💡][kotlin-internal-function]  
+25. `takeIf` 和 `takeUnless` 的作用是什么？[💡][kotlin-take]  
+26. 什么是尾递归优化（tailrec）？[💡][kotlin-tailrec]  
+27. Kotlin 如何支持函数类型声明？[💡][kotlin-function-type-declaration]
+28. Kotlin 函数默认参数和命名参数如何使用？[💡][kotlin-function-default-params]  
+29. Kotlin 如何调用 Java 代码？[💡][kotlin-call-java]  
 30. Java 如何调用 Kotlin？有哪些限制？  
 31. Kotlin 如何处理 Java 的 `null` 值？  
 32. Kotlin 如何兼容 Java 的 `SAM` 接口？  
@@ -56,6 +56,17 @@
 [kotlin-array-list]: . "数组定长、对应Java原生数组，基本类型&#10;集合分可变和不可变、可变集合可扩容、通常装箱、只读集合编译后仍然是可变"
 [kotlin-collection]: . "map、flatMap、filter、forEach、fold、reduce、groupBy、sortedBy、associate"
 [kotlin-type-relation]: . "不支持类似于TS中的 String|Number，但是支持泛型的型变"
+[kotlin-function-inline]: . "inline，内联函数，只能修饰函数，支持reified保留泛型，*会暴漏私有成员，编译期有限制&#10;noinline，只能修饰lambda参数，禁用内联&#10;crossinline，禁止非局部返回"
+[kotlin-advanced-function]: . "函数参数或返回值是函数的函数"
+[kotlin-lambda]: . "{n: Int -> n + 1}"
+[kotlin-anonymous-function]: . "写法差异，lambda不能指定返回值类型，只能用带标签的return，匿名函数不能拖尾，单参数不能简写"
+[kotlin-closure]: . "lambda或匿名函数类访问修改外部变量，Java 不能修改。&#10;原理：Ref包装实现跨栈修改&#10; 核心特性：非捕获生成单例、捕获型生成 Function 对象，内联消除中间对象&#10;隐患：内存泄漏、线程安全"
+[kotlin-internal-function]: . "let: it，返回最后一行&#10;also: it，本身;&#10;with: 多一个参数，this，最后一行&#10;run:this，返回最后一行；&#10;apply: this，返回本身"
+[kotlin-take]: . "takeIf正取，takeUnless反取"
+[kotlin-tailrec]: . "递归语句在最后，编译器优化成循环，*仅限直接尾递归"
+[kotlin-function-type-declaration]: . "普通函数、匿名函数、可空函数类型、带接受者函数类型、挂起函数类型、高阶返回类型"
+[kotlin-function-default-params]: . "fun foo(x: Int = 0, y: Int = 100)，使用 foo(b = 10)"
+[kotlin-call-java]: . "直接调用，注意平台类型"  
 
 ## 类、对象、委托(P0)
 

@@ -24,6 +24,18 @@ var name.also {
 }
 ```
 
+Kotlin 中的函数参数可以带默认值，如果多个参数都带默认值，调用时可以通过命名参数对特定参数传值。
+
+```kotlin
+fun foo(x: Int = 0, y: Int = 100): Int {
+ ...
+}
+
+// 调用时可以只传一个参数
+
+foo(y = 10)
+```
+
 ## 匿名函数
 
 匿名函数没有函数名，可以将其赋值给变量，变量的类型为 `(参数类型, 参数类型) -> 返回值类型`，调用的时候加上括号，例如：
@@ -38,6 +50,39 @@ val multi: (Double, Double) -> Double = { x, y ->
 multi(2.0, 3.0)
 val mm = multi
 mm(2.0, 3.0)
+```
+
+**进阶用法**  
+
+可空函数类型（Nullable Function Type），指函数本身可以为空，注意要把函数声明整体用()包起来。
+
+```kotlin
+var callback: (() -> Unit)? = null
+callback?.invoke() // 安全调用必须使用 ?.invoke()
+
+```
+
+带接收者的函数类型（Function Type with Receiver），函数内部可以直接用 this 访问接受者
+
+```kotlin
+val repeatText: String.(Int) -> String = { times -> this.repeat(times) }
+val result = "Hi".repeatText(3) // 输出: HiHiHi
+```
+
+挂起函数类型（Suspend Function Type），加 suspend 关键字修饰，表示只能在协程或者另一个挂起函数中调用。
+
+```kotlin
+val foo: suspend (String) -> Int = { str -> str.toInt() }
+
+suspend fun fetch() {
+  foo("3")
+}
+```
+
+高阶返回类型（返回函数的函数），返回值也是函数
+
+```kotlin
+val foo: (Int) -> (Int) -> Unit = { num -> { n -> println(n) }}
 ```
 
 ## 高阶函数
