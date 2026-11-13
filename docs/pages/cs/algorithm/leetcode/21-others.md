@@ -1,5 +1,7 @@
 # 技巧题
 
+---
+
 ## [31. 下一个排列](https://leetcode.cn/problems/next-permutation)
 
 难度：⭐️⭐️⭐️
@@ -53,11 +55,11 @@ y
   ---------------------------------------- x
     0   1   2   3   4   5   6   7
 ```
+
 一句话记忆:
 
 找上坡 → 找稍大 → 交换 → 反转右侧。  
 折线图上就是：找到最后一个上升的起点，用右边比它稍大的数替换，再把右边从降序翻成升序。  
-
 
 时间复杂度：O(n)  
 空间复杂度：O(1)  
@@ -156,6 +158,7 @@ y
         }
     }
   ```
+
 </details>
 
 **解法二** 计数排序
@@ -184,6 +187,7 @@ y
         }
     }
   ```
+
 </details>
 
 **解法三** 荷兰国旗问题（三指针）
@@ -218,6 +222,7 @@ y
         nums[y] = t;
     }
   ```
+
 </details>
 
 ---
@@ -246,6 +251,7 @@ y
         return ans;
     }
   ```
+
 </details>
 
 ---
@@ -260,19 +266,22 @@ y
 
 **解法一** Boyer-Moore 投票算法
 
-遍历数组，对每个数字进行投票，与自身数字相同的，票数+1，否则票数-1，票数归零后重新选择数字。则众数得到的票数一定>0。
+遍历数组，对每个数字进行投票，与自身数字相同的，票数+1，否则票数-1，票数归零后重新选择数字，则众数得到的票数一定>0。注意需要先根据票数选候选人。
+
+时间复杂度：O(n)  
+空间复杂度：O(1)  
 
 <details>
-  <summary>投票算法</summary>
+    <summary>投票算法</summary>
 
-  ```java
+```java
+class Solution{
     public int majorityElement(int[] nums) {
         int candidate = nums[0];
-        int votes = 1;
+        int votes = 0;
         for (int i = 1; i < nums.length; i++) {
-            if (votes < 1) {
+            if (votes < 1) { // 先根据票数选候选人
                 candidate = nums[i];
-                votes++;
             }
             if (nums[i] == candidate) {
                 votes++;
@@ -282,17 +291,23 @@ y
         }
         return candidate;
     }
-  ```
+}
+```
+
 </details>
 
 **解法二** 哈希表
 
 对每个数字计数，取value最大的数。
 
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
 <details>
   <summary>哈希表</summary>
 
-  ```java
+```java
+class Solution{
    public int majorityElement(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
@@ -305,32 +320,43 @@ y
         }
         return -1;
     }
-  ```
+}
+```
+
 </details>
 
 **解法三** 排序
 
 对数组进行排序，排序后，最中间的位置一定是众数。
 
+时间复杂度：O(nlogn)  
+空间复杂度：O(1)  
+
 <details>
   <summary>排序</summary>
 
-  ```java
+```java
+class Solution{
     public int majorityElement(int[] nums) {
         Arrays.sort(nums);
         return nums[nums.length / 2];
     }
-  ```
+}
+```
 </details>
 
 **解法四** 分治递归
 
 将数组分成两半，分别求两边的众数，两边众数相同时，结果即为该值；否则计算刚刚算出来的2个数组中的众数的数量，取数量更多的数组。递归该过程，当数组只有一个元素时，递归结束。
 
+时间复杂度：O(nlogn)  
+空间复杂度：O(logn)  
+
 <details>
   <summary>排序</summary>
 
-  ```java
+```java
+class Solution{
     public int majorityElement(int[] nums) {
         return majority(nums, 0, nums.length);
     }
@@ -364,7 +390,9 @@ y
         }
         return count;
     }
-  ```
+}
+```
+
 </details>
 
 ## [287.寻找重复数](https://leetcode.cn/problems/find-the-duplicate-number)
