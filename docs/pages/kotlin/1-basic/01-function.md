@@ -152,6 +152,15 @@ inline fun inlineFun(m: Int, mapper: (Int) -> String) : String {
 }
 ```
 
+*注意*  
+
+使用内联函数有一个隐患，会暴露私有成员。比如，A 类有一个内联函数访问了 A 的私有属性，B 类的普通函数直接调用 A 的内联函数，在内联的地方，相当于在 B 中直接访问了 A 的私有属性，直接编译是编译不过的。
+
+为了解决这个问题，编译器在编译会做一些处理：
+
+- 访问当前类的私有属性，编译器会生成桥接方法，B 调用 A 时，访问 A 的私有属性实际是调用的私有方法
+- 顶层私有成员禁止直接访问，编译期会强制要求把私有的属性公开，加@PublishApi internal
+
 **`reified`保留泛型**
 
 由于内联函数会在调用处被展开，所以内联函数中的泛型参数中有一个特殊的关键字 `reified`，可以在运行时获取泛型的真实类型，其原理是在编译期函数展开时，直接把泛型替换成真实类型。一个典型的用法：
@@ -216,6 +225,120 @@ fun ReceiverType.functionName(): ReturnType {
 - 成员函数优先级更高，如果类中有同名的函数，调用时会类的成员函数会覆盖扩展函数
 - 不能访问私有属性和方法，因为只是对类进行包装，并不会改变可见性
 
+## lambda 表达式
+
+Kotlin 中的 Lambda 表达式本质上是一个可以作为值传递的匿名函数。整体用 {} 包裹，参数不加()，不直接写return。
+
+基本用法：
+
+```kotlin
+// 完整写法：{ 参数1: 类型, 参数2: 类型 -> 函数体 }
+val sum: (Int, Int) -> Int = { x: Int, y: Int ->
+    println("正在计算 $x + $y")
+    x + y // 最后一行直接作为返回值
+}
+
+// 调用方式
+val result = sum(3, 5) // 结果为 8
+```
+
+lambda 常见的简化原则：
+
+- 省略参数类型，能推断出类型的参数不显示声明类型
+- 单参数用it，只有一个参数，可以用it
+- 拖尾 Lambda（Trailing Lambda），函数最后一个参数时lambda，把{}放到()外面
+- 省略空括号，函数只有一个lambda 参数，函数本身的()也可以省略
+
+```kotlin
+val list = listOf(1, 2, 3, 4)
+
+// 1. 完整原始调用
+list.filter({ item: Int -> item > 2 })
+
+// 2. 省略参数类型（类型推导）
+list.filter({ item -> item > 2 })
+
+// 3. 单参数使用默认名称 it
+list.filter({ it > 2 })
+
+// 4. 拖尾 Lambda（移到括号外）
+list.filter() { it > 2 }
+
+// 5. 最终最简写法（省略空括号）
+list.filter { it > 2 }
+
+```
+
+常见的特殊写法：
+
+- 无参数的lambda，省略箭头，直接写函数体
+
+```kotlin
+val sayHello = { println("Hello Kotlin") }
+```
+
+- 未使用的参数，使用`_`代替
+
+```kotlin
+map.forEach { _, value -> println(value) }
+```
+
+- 带标签的返回，不能直接返回，返回本次直接结果需要用标签
+
+```kotlin
+list.forEach {
+    if (it == 2) return@forEach // 相当于普通循环中的 continue
+    println(it)
+}
+```
+
+- 解构声明，lambda参数是对象，可以直接解构
+
+```kotlin
+val pairs = listOf(1 to "A", 2 to "B")
+pairs.forEach { (number, letter) -> println("$number -> $letter") }
+```
+
+## 闭包
+
+Kotlin 中的闭包（Closure）指的是一个函数（如 Lambda 表达式、匿名函数或局部函数）能够捕获并访问其外部作用域中声明的变量和参数，即使外部函数已经执行结束，这些被捕获的变量依然可以在闭包内部被读取或修改。
+
+Kotlin 闭包的核心特性是可以修改外部的变量。而 Java 只能修改 final 类型的变量。
+
+```kotlin
+fun counter(): () -> Int {
+    var count = 0 // 外部可变局部变量
+    // 返回的 Lambda 捕获了 count
+    return {
+        count++   // 直接修改外部变量的值
+        count
+    }
+}
+
+val next = counter()
+println(next()) // 输出: 1
+println(next()) // 输出: 2（即使 counter() 早已执行完，count 状态依然保留）
+```
+
+**实现原理**  
+
+JVM 本身不提供跨栈帧修改变量的能力，Kotlin 通过 Ref 包装实现了这一特性，外部函数和闭包函数持有的实际都是这个变量的 Ref 引用，Ref 对象本身是在堆上，修改属性实际修改的 `ref.element`，从而可以实现跨栈修改。
+
+只读变量(val)：编译器会将变量值作为构造函数的参数传入到 Function 实例中。
+可变变量(var)：会通过 Ref 包装，比如 Int 类型用 `Ref$IntRef`，引用类型用 `Ref$ObjectRef`
+
+底层特性：
+
+- 非捕获闭包生成单例，如果一个 lambda 没有引用外部变量，编译器会将其优化成全局单例
+- 捕获闭包生成 Function 对象，如果一个 lambda 引用了外部的变量，每次执行到该 lambda 定义的地方，都会在堆上生成一个 Function引用
+- 使用 inline 消除闭包对象开销，内联函数会把 lambda 的中的代码块直接拷到调用的地方，从而消除了闭包的内存开销
+
+**潜在风险**  
+
+内存泄漏：闭包会隐式持有外部类的引用，应当避免持有长生命周期的引用
+
+多线程并发：被捕获的 var 变量被 Ref 包装后没有同步锁，要想保证线程安全，需要在用 AtomicInteger 等原子类或者加锁。
+
 *参考：*
 
-[1] Carson.Ho.[巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238).掘金.2020-02-26  
+[1] Carson.Ho.[巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238).掘金.2020-02-26
