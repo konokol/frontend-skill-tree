@@ -1,5 +1,7 @@
 # 矩阵
 
+---
+
 ## [48.旋转图像](https://leetcode.cn/problems/rotate-image)
 
 难度：⭐️⭐️⭐️
@@ -8,9 +10,33 @@
 
 你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
 
+示例 1：
+
+![1](https://assets.leetcode.com/uploads/2020/08/28/mat1.jpg)
+
+> 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]  
+> 输出：[[7,4,1],[8,5,2],[9,6,3]]  
+
+**示例 2：**
+
+![2](https://assets.leetcode.com/uploads/2020/08/28/mat2.jpg)
+> 输入：matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]  
+> 输出：[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]  
+
+**提示：**
+
+- `n == matrix.length == matrix[i].length`
+- `1 <= n <= 20`
+- `-1000 <= matrix[i][j] <= 1000`
+
 **解法一** 原地旋转
 
 顺时针循环，每次将4个位置的值轮换。为了防止旋转之后恢复原状，只需要遍历1/2。
+
+![原地旋转](https://pic.leetcode.cn/1638557961-AVzCQb-ccw-01-07.001.png?x-oss-process=image%2Fformat%2Cwebp)
+
+时间复杂度：O(n<sup>2</sup>)  
+空间复杂度：O(1)  
 
 <details>
   <summary>原地旋转</summary>
@@ -35,6 +61,9 @@
 **解法二** 翻转
 
 先水平翻转，再沿主对角线翻转。
+
+时间复杂度：O(n<sup>2</sup>)  
+空间复杂度：O(1)  
 
 <details>
   <summary>两次翻转</summary>
@@ -63,6 +92,8 @@
   ```
 
 </details>
+
+---
 
 ## [54.螺旋矩阵](https://leetcode.cn/problems/spiral-matrix)
 
