@@ -1,6 +1,7 @@
 # 链表
 
---- 
+---
+
 ## [2. 两数相加](https://leetcode.cn/problems/add-two-numbers)
 
 难度：⭐️
@@ -21,14 +22,13 @@
 
 **示例 2：**
 
-> 输入：l1 = [0], l2 = [0]    
+> 输入：l1 = [0], l2 = [0]
 > 输出：[0]  
 
 **示例 3：**
 
 > 输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]  
 > 输出：[8,9,9,9,0,0,0,1]  
- 
 
 **提示：**
 
@@ -72,14 +72,14 @@
         return head.next;
     }
   ```
-</details>
 
+</details>
 
 ## [21. 合并两个有序链表](https://leetcode.cn/problems/merge-two-sorted-lists/description/)
 
 难度：⭐️
 
-将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
 
 **解法一** 迭代
 
@@ -198,6 +198,7 @@
         return dummy.next;
     }
   ```
+
 </details>
 
 **解法二** 分治
@@ -253,6 +254,7 @@
         return dummy.next;
     }
   ```
+
 </details>
 
 **解法三** 优先级队列
@@ -285,8 +287,8 @@
         return head.next;
     }
   ```
-</details>
 
+</details>
 
 ## [24.两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs)
 
@@ -323,6 +325,7 @@
         return dummy.next;
     }
   ```
+
 </details>
 
 **解法二** 递归
@@ -343,6 +346,7 @@
         return next
     }
   ```
+
 </details>
 
 ## [25.K个一组翻转链表](https://leetcode.cn/problems/reverse-nodes-in-k-group)
@@ -399,9 +403,10 @@ k 是一个正整数，它的值小于或等于链表的长度。如果节点总
         return new ListNode[]{tail, head};
     }
   ```
+
 </details>
 
---- 
+---
 
 ## [138.随机链表的复制](https://leetcode.cn/problems/copy-list-with-random-pointer)
 
@@ -449,6 +454,7 @@ k 是一个正整数，它的值小于或等于链表的长度。如果节点总
         return copy;
     }
   ```
+
 </details>
 
 **解法二** 哈希表 + 非递归
@@ -485,6 +491,7 @@ class Solution {
     }
 }
 ```
+
 </details>
 
 **解法三** 迭代
@@ -530,7 +537,6 @@ class Solution {
 >**输入：** head = [1], pos = -1  
 >**输出：** false  
 >**解释：** 链表中没有环。
- 
 
 **提示：**
 
@@ -561,6 +567,7 @@ class Solution {
         return false;
     }
 ```
+
 </details>
 
 **解法二：** 快慢指针
@@ -585,6 +592,7 @@ public boolean hasCycle(ListNode head) {
     return false;
 }
 ```
+
 </details>
 
 **解法三**：标记
@@ -592,7 +600,7 @@ public boolean hasCycle(ListNode head) {
 由于题目中规定了链表的值 -10<sup>5</sup> <= Node.val <= 10<sup>5</sup>，可以在遍历到每个节点之后，加一个固定的偏移，比如 200000，这样遍历过的节点 val 值都超过了 100000。
 
 时间复杂度：O(n)  
-空间复杂度：O(1) 
+空间复杂度：O(1)
 
 ---
 
@@ -611,7 +619,7 @@ public boolean hasCycle(ListNode head) {
 把访问过的节点保存起来，指针一直往后走，当遇到存在一个结点被访问过时，就说明存在环，该节点即为已经访问过的节点。
 
 时间复杂度：O(n)  
-空间复杂度：O(n) 
+空间复杂度：O(n)  
 
 <details>
     <summary>哈希表</summary>
@@ -629,6 +637,7 @@ public boolean hasCycle(ListNode head) {
         return null;
     }
 ```
+
 </details>
 
 **解法二：** 快慢指针
@@ -636,14 +645,16 @@ public boolean hasCycle(ListNode head) {
 快慢指针都从**头结点**开始，快指针每次只访问一个节点，慢指针每次访问 2 个，两个节点相遇时，即说明有环。这个算法叫Floyd判圈算法。
 
 推导过程：
+
 ```text
 head ──a──> 环入口 ──b──> 相遇点
                 ↑            │
                 └────c───────┘
 ```
+
 设圈的长度为 L = b + c，相遇时：
 
-- 慢指针走 `a + b` 
+- 慢指针走 `a + b`  
 - 快指针走 `a + b + nL`
 
 快指针走的总步数是慢指针的 2 倍，于是有：  
@@ -652,7 +663,7 @@ head ──a──> 环入口 ──b──> 相遇点
 唯一需要注意的是，两个指标必须同时从头结点开始出发。
 
 时间复杂度：O(n)  
-空间复杂度：O(1) 
+空间复杂度：O(1)  
 
 <details>
     <summary>快慢指针</summary>
@@ -676,8 +687,10 @@ head ──a──> 环入口 ──b──> 相遇点
         return null;
     }
 ```
+
 </details>
 
+---
 
 ## [146.LRU缓存](https://leetcode.cn/problems/lru-cache/description)
 
@@ -694,7 +707,9 @@ head ──a──> 环入口 ──b──> 相遇点
 
 **解法一** 双向链表 + 哈希表
 
-使用双向链表记录LRU中的节点的顺序，使用哈希表保持插入的值，移除节点时用双向列表可以保证时间复杂度为O(1).
+使用双向链表记录 LRU 中的节点的顺序，使用哈希表保存插入的值，移除节点时用双向列表可以保证时间复杂度为O(1).
+
+小技巧：使用额外的节点作为头结点和尾节点，不需要进行额外的判空处理。把 removeNode、addToFirst、moveToFirst 封装成函数，能简化很多操作。
 
 <details>
  <summary>双向链表 + 哈希表</summary>
@@ -780,10 +795,12 @@ head ──a──> 环入口 ──b──> 相遇点
         removeNode(node);
         return node;
     }
-
 }
  ```
+
 </details>
+
+进阶写法，如果要求线程安全，最简单的是加 synchronized，但是锁的粒度较大，也可以通过重入锁。
 
 ## [160.相交链表](https://leetcode.cn/problems/intersection-of-two-linked-lists/description)
 
@@ -825,6 +842,7 @@ head ──a──> 环入口 ──b──> 相遇点
         return null;
     }
 ```
+
 </details>
 
 **解法二** 双指针
@@ -864,10 +882,8 @@ head ──a──> 环入口 ──b──> 相遇点
 
 **示例 2：**
 
-
 > 输入：head = [1,2]  
 > 输出：false  
- 
 
 **提示：**
 
