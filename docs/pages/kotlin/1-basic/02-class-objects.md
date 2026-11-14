@@ -35,7 +35,7 @@ Kotlin 中类默认都是不可继承的(抽象类除外)，如需继承，需�
 
 **密封类**  
 
-密封类通过 `sealed` 关键字修饰，所有直接继承自密封类的子类都必须在**编译期**确定。1.5 之前，密封类只能定义在同一个文件中，1.5 之后放宽了限制，密封类的子类可以定义在相同包的任意文件中，但是超出对应包之后，还是会编译失败。1.5 中还引入了密封接口，用法类似。
+密封类通过 `sealed` 关键字修饰，所有直接继承自密封类的子类都必须在**编译期**确定。1.5 之前，密封类只能定义在同一个文件中，1.5 之后放宽了限制，密封类的子类可以定义在**相同包**的任意文件中，但是超出对应包之后，还是会编译失败。1.5 中还引入了密封接口，用法类似。
 
 ```kotlin
 // SealedClass.kt
@@ -67,17 +67,23 @@ Java 15 中新增了一个新的关键字 `sealed`，和 Kotlin 中的密封类�
 
 密封类的使用场景：
 
-- 只想要有限的继承：想要在编译期知道全部的类型。
+- 只想要有限的继承：想要在编译期知道全部的类型，比如网络请求结果、UI 状态、业务状态等。
 - 对类型安全有诉求：状态管理、复杂逻辑处理等场景，可以用when表达式，枚举出所有的场景，保重不出现意料之外的类型。
 - 封闭API：例如开发SDK时，只期望对外暴露有限的接口
 
 **数据类**  
 
-数据类型通过 `data` 关键字修饰，编译器会自动生成 `equals()`、`hashCode()`、`toString()`、`copy()`、`componentN` 等方法。
+数据类型通过 `data` 关键字修饰，编译器会自动生成 `equals()`、`hashCode()`、`toString()`、`copy()`、`componentN` 等方法，但是仅主构造函数中的属性会自动生成方法。
 
 ```kotlin
 data class User(val name: String, var age: Int)
 ```
+
+数据类要求：
+
+- 主构造函数必须至少有一个 val/var 修饰的属性
+- 主构造所有的属性必须用 val/var 修饰
+- 不能是abstact、open、sealed、inner
 
 **嵌套类和内部类**  
 
@@ -101,7 +107,7 @@ class Outer {
     inner class Inner {
         fun foo() {
             println(outerProp)            // 直接访问外部类成员
-            println(this@Outer.outerProp) // 显式引用
+            //println(this@Outer.outerProp) // 显式引用
         }
     }
 }
@@ -223,7 +229,7 @@ println(User.MAX_AGE)
 
 伴生对象用 `companion` 关键字声明，相当于 Java 中静态内部类。每个类只能有一个伴生对象。
 
-伴生对象的方法或属性用 `@JvmStatic、@JvmField、const val` 修饰之后，可以通过外部类的类名直接访问。
+伴生对象的方法或属性用 `@JvmStatic`、`@JvmField`、`const val` 修饰之后，可以通过外部类的类名直接访问。
 
 伴生对象的常见使用场景：
 

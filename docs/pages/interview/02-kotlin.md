@@ -76,15 +76,15 @@
 
 ## 类、对象、委托(P0)
 
-1. Kotlin 中类的默认修饰符是什么？  
-2. Kotlin 支持多类继承吗？  
-3. Kotlin 如何实现方法重写？  
-4. Kotlin 是否支持方法重载（函数重载）？  
-5. Kotlin 中如何定义抽象类和接口？  
-6. 什么是 `data class`？
-7. `data class`编译后能自动生成什么方法？
-8. `data class` 有什么要求？  
-9. 什么是 `sealed class`？适合什么场景？  
+1. Kotlin 中类的默认修饰符是什么？[💡][kotlin-class-access]  
+2. Kotlin 支持多类继承吗？[💡][kotlin-inherit]  
+3. Kotlin 如何实现方法重写？[💡][kotlin-override]  
+4. Kotlin 是否支持方法重载（函数重载）？[💡][kotlin-overload]  
+5. Kotlin 中如何定义抽象类和接口？[💡][kotlin-abstact-class-interface]  
+6. 什么是 `data class`？[💡][kotlin-data-class]
+7. `data class`编译后能自动生成什么方法？[💡][kotlin-data-class-method]
+8. `data class` 有什么要求？[💡][kotlin-data-class-require]  
+9. 什么是 `sealed class`？适合什么场景？[💡] [kotlin-sealed-class] 
 10. `data object` 和 `object` 区别？
 11. `object` 声明和对象表达式区别？
 12. 伴生对象(`companion object`)有什么用？  
@@ -104,6 +104,16 @@
 26. 密封类和枚举区别？  
 27. 密封接口和密封类选择？
 28. Java 的枚举与 Kotlin 的 `enum class`、`sealed class` 有何差异？  
+
+[kotlin-class-access]: . "默认public，还有internal、protected、private，internal是模块可见，但是有个例外是test能访问main"
+[kotlin-inherit]: . "和 Java 一样，类仅支持单继承，支持实现多个接口。接口可以继承多个接口。"
+[kotlin-override]: . "open类，方法前加override（强制），加 final 禁止子类重写。属性也可以重写"
+[kotlin-overload]: . "方法名相同，参数不同"
+[kotlin-abstact-class-interface]: . "abstrace class 和 interface，抽象类不加open子类可以继承，接口可以有默认实现"
+[kotlin-data-class]: . "数据类，主构造函数中声明的属性自动生成equals/hashCode/copy/toString/componentN方法"
+[kotlin-data-class-method]: . "equals/hashCode/copy/toString/componentN，仅主构造函数中声明的属性生成"
+[kotlin-data-class-require]: . "主构造函数至少有一个属性，全部是val/var，不能abstract/open/innner/sealed"
+[kotlin-sealed-class]: . "密封类，所有的子类必须在编译期确定且在同一个包内。适用有限状态：网络请求结果状态、UI 状态、when枚举"
 
 ## 扩展、内联、泛型（P0/P1）
 
