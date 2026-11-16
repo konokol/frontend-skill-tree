@@ -145,6 +145,28 @@ class SimpleDelegate<T>(private var value: T) {
 
 ```
 
+### provideDelegate
+
+provideDelegate 是 Kotlin 属性委托中的一个拦截器操作符（operator fun provideDelegate），它的核心作用是：在“创建并绑定委托对象”的那一刻（类初始化阶段）介入，让你有机会根据属性的元数据（如属性名、注解）动态校验规则，或动态创建、配置并返回最终的委托实例。
+
+**原理**  
+
+对于属性委托 `val myProp by DelegateFactory()` ，如果 DelegateFactory 定义了 `operator fun provideDelegate(thisRef: T, prop: KProperty<*>): ReadOnlyProperty<T, V>`，编译器在底层会将其展开为类似如下的逻辑：
+
+```kotlin
+// 编译器生成的等效逻辑：
+private val myProp$delegate = DelegateFactory().provideDelegate(this, ::myProp)
+val myProp: Type
+    get() = myProp$delegate.getValue(this, ::myProp)
+```
+
+`provideDelegate` 在宿主对象实例化（属性初始化）时就会立刻执行，并且它能直接拿到宿主对象（thisRef）和属性的反射元数据（prop: KProperty<*>）。
+
+**应用场景**  
+
+1. 动态自动获取属性名
+2. 对象创建时进行规则校验（Fail-Fast）
+
 ## 类委托
 
 类委托就是将一个类要实现的方法委托给另一个类实现。
@@ -169,6 +191,57 @@ fun main() {
 ```
 
 在当前类中增加 override 方法之后，会覆盖委托中的实现。
+
+类委托的实现原理是在生成的字节码中创建一个隐藏的private final字段来保存委托对象，调用方法时，如果没有加 override，调用委托对象的方法。
+
+比如代码：
+
+```kotlin
+interface Printer {
+    fun printMessage(msg: String)
+    fun printLine()
+}
+
+class ConsolePrinter : Printer {
+    override fun printMessage(msg: String) = println(msg)
+    override fun printLine() = println("----")
+}
+
+// 使用 by 关键字将 Printer 接口委托给 p 实例
+class EnhancedPrinter(p: Printer) : Printer by p {
+    // 自己重写其中一个方法
+    override fun printMessage(msg: String) {
+        println("前缀: $msg")
+    }
+}
+
+```
+
+生成的字节码：
+
+```java
+public final class EnhancedPrinter implements Printer {
+    // 1. 编译器自动生成的隐藏字段（命名通常为 $$delegate_0）
+    private final Printer $$delegate_0;
+
+    public EnhancedPrinter(@NotNull Printer p) {
+        super();
+        this.$$delegate_0 = p; // 2. 在构造函数中保存传入的委托实例
+    }
+
+    // 3. 开发者手动重写的方法：保留开发者自己的实现
+    @Override
+    public void printMessage(@NotNull String msg) {
+        System.out.println("前缀: " + msg);
+    }
+
+    // 4. 开发者未重写的方法：编译器自动生成转发调用，直接委托给 $$delegate_0
+    @Override
+    public void printLine() {
+        this.$$delegate_0.printLine();
+    }
+}
+```
 
 ---
 

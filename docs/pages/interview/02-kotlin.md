@@ -95,15 +95,15 @@
 17. `value class` 是什么？[💡][kotlin-value-class]  
 18. `value class` 何时装箱？[💡][kotlin-value-class-boxed]  
 19. `typealias` 和 `value class` 区别？[💡][kotlin-typealias]
-20. Kotlin 支持委托机制吗？
-21. 属性委托需要实现什么？  
-22. `by lazy` 线程安全模式有哪几种？  
-23. `observable` 和 `vetoable` 区别？
-24. `provideDelegate` 作用？  
-25. 类委托底层实现原理？  
-26. 密封类和枚举区别？  
-27. 密封接口和密封类选择？
-28. Java 的枚举与 Kotlin 的 `enum class`、`sealed class` 有何差异？  
+20. Kotlin 支持委托机制吗？[💡][kotlin-delegate]
+21. 属性委托需要实现什么？[💡][kotlin-props-delegate]  
+22. `by lazy` 线程安全模式有哪几种？[💡][kotlin-by-lazy-thread-safe]  
+23. `observable` 和 `vetoable` 区别？[💡][kotlin-observable-vetoable]
+24. `provideDelegate` 作用？[💡][kotlin-provide-delegate]  
+25. 类委托底层实现原理？[💡][kotlin-class-delegate]  
+26. 密封类和枚举区别？[💡][kotlin-sealed-enum-class]  
+27. 密封接口和密封类选择？[💡][kotlin-sealed-interface-class]  
+28. Java 的枚举与 Kotlin 的 `enum class`、`sealed class` 有何差异？[💡][kotlin-sealed-enum-class-diff]  
 
 [kotlin-class-access]: . "默认public，还有internal、protected、private，internal是模块可见，但是有个例外是test能访问main"
 [kotlin-inherit]: . "和 Java 一样，类仅支持单继承，支持实现多个接口。接口可以继承多个接口。"
@@ -123,7 +123,16 @@
 [kotlin-outer-class]: . "直接访问，冲突时使用this@Outer访问外部类"
 [kotlin-value-class]: . "内联类，对基本类型进行封装，多数场景编译成基本类型，避免装箱保证类型安全，*可以init校验、可以实现接口"
 [kotlin-value-class-boxed]: . "可空、泛型、接口引用、数组元素、反射"
-[kotlin-typealias]: . ""
+[kotlin-typealias]: . "typealias只是编译期别名，无类型安全检查&#10;value class是真实的类名，会有类型检查; 有init和其他方法，可以封装业务规则与行为"
+[kotlin-delegate]: . "属性委托和类委托"
+[kotlin-props-delegate]: . "val实现 getValue，var实现 getValue 和 setValue；可实现 `ReadWriteProperty`"
+[kotlin-by-lazy-thread-safe]: . "SYNCHRONIZED 线程安全&#10; PUBLICATION，使用 CAS 可多次初始化，仅第一次有效&#10; NONE，无锁"
+[kotlin-observable-vetoable]: . "observable 可观察属性，vetoable 返回 false 可以阻止赋值"
+[kotlin-provide-delegate]: . "属性声明时就校验的逻辑，早于getValue和setValue，*用来做属性名校验、注入等"
+[kotlin-class-delegate]: . "字节码生成private final的字段保存委托对象，如果没有重写，转发接口方法"
+[kotlin-sealed-enum-class]: . "枚举类每个值都是单例&#10;密封类子类可带不同数据，`when` 穷举，更加灵活"
+[kotlin-sealed-interface-class]: . "需多继承用接口，需构造器状态用类"
+[kotlin-sealed-enum-class-diff]: . "Java 枚举可带方法和字段，Kotlin `enum class` 类似；密封类 Java 没有类似的实现，Java 15 加了 sealed 关键字和密封类类似"
 
 ## 扩展、内联、泛型（P0/P1）
 
