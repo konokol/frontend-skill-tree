@@ -84,17 +84,17 @@
 6. 什么是 `data class`？[💡][kotlin-data-class]
 7. `data class`编译后能自动生成什么方法？[💡][kotlin-data-class-method]
 8. `data class` 有什么要求？[💡][kotlin-data-class-require]  
-9. 什么是 `sealed class`？适合什么场景？[💡] [kotlin-sealed-class] 
-10. `data object` 和 `object` 区别？
-11. `object` 声明和对象表达式区别？
-12. 伴生对象(`companion object`)有什么用？  
-13. Kotlin 如何定义单例？  
-14. Kotlin 中是否支持内部类？  
-15. 嵌套类和内部类有什么区别？  
-16. `inner class` 如何访问外部类？
-17. `value class` 是什么？  
-18. `value class` 何时装箱？  
-19. `typealias` 和 `value class` 区别？
+9. 什么是 `sealed class`？适合什么场景？[💡][kotlin-sealed-class]  
+10. `data object` 和 `object` 区别？[💡][kotlin-data-object]
+11. `object` 对象声明和对象表达式区别？[💡][kotlin-object-expresssion]
+12. 伴生对象(`companion object`)有什么用？[💡][kotlin-companion-object]  
+13. Kotlin 如何定义单例？[💡][kotlin-singleton]  
+14. Kotlin 中是否支持内部类？[💡][kotlin-inner-class]  
+15. 嵌套类和内部类有什么区别？[💡][kotlin-nested-class]  
+16. `inner class` 如何访问外部类？[💡][kotlin-outer-class]
+17. `value class` 是什么？[💡][kotlin-value-class]  
+18. `value class` 何时装箱？[💡][kotlin-value-class-boxed]  
+19. `typealias` 和 `value class` 区别？[💡][kotlin-typealias]
 20. Kotlin 支持委托机制吗？
 21. 属性委托需要实现什么？  
 22. `by lazy` 线程安全模式有哪几种？  
@@ -114,6 +114,16 @@
 [kotlin-data-class-method]: . "equals/hashCode/copy/toString/componentN，仅主构造函数中声明的属性生成"
 [kotlin-data-class-require]: . "主构造函数至少有一个属性，全部是val/var，不能abstract/open/innner/sealed"
 [kotlin-sealed-class]: . "密封类，所有的子类必须在编译期确定且在同一个包内。适用有限状态：网络请求结果状态、UI 状态、when枚举"
+[kotlin-data-object]: . "data object 会生成equals/hashCode/toString"
+[kotlin-object-expresssion]: . "对象声明是单例，对象表达式每调用一次就生成一个对象，*对象表达式有闭包，对象声明没有"
+[kotlin-companion-object]: . "提单Java的static，成员可以通过类名访问，单例的，*每个类最多有一个"
+[kotlin-singleton]: . "object Singleton，相当于静态内部类"
+[kotlin-inner-class]: . "增加inner关键字，持有外部引用，使用this@Outer访问外部类"
+[kotlin-nested-class]: . "嵌套类：静态，不持有外部引用&#10;内部类：inner 关键字，持有外部引用"
+[kotlin-outer-class]: . "直接访问，冲突时使用this@Outer访问外部类"
+[kotlin-value-class]: . "内联类，对基本类型进行封装，多数场景编译成基本类型，避免装箱保证类型安全，*可以init校验、可以实现接口"
+[kotlin-value-class-boxed]: . "可空、泛型、接口引用、数组元素、反射"
+[kotlin-typealias]: . ""
 
 ## 扩展、内联、泛型（P0/P1）
 
