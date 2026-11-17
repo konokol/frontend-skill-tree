@@ -243,8 +243,8 @@ public final class EnhancedPrinter implements Printer {
 }
 ```
 
----
+----
 
-**参考**  
+*参考*  
 
-[1] [属性委托](https://book.kotlincn.net/text/delegated-properties.html).Kotlin 官方文档 中文版  
+[1] Kotlin 中文文档. [属性委托](https://book.kotlincn.net/text/delegated-properties.html). Accessed 2026-11-17.  

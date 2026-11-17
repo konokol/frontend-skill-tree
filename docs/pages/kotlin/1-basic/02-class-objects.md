@@ -239,10 +239,10 @@ println(User.MAX_AGE)
 - 单例
 - 替代 Java 中的静态内部类
 
----
+----
 
-**参考**  
+*参考*  
 
-[1] [嵌套类和内部类](https://book.kotlincn.net/text/nested-classes.html).Kotlin 官方文档 中文版  
-[2] [枚举类](https://book.kotlincn.net/text/enum-classes.html).Kotlin 官方文档 中文版  
-[3] [内联类](https://book.kotlincn.net/text/inline-classes.html).Kotlin 官方文档 中文版  
+[1] Kotlin 中文文档. [嵌套类和内部类](https://book.kotlincn.net/text/nested-classes.html). Accessed 2026-11-17.  
+[2] Kotlin 中文文档. [枚举类](https://book.kotlincn.net/text/enum-classes.html). Accessed 2026-11-17.  
+[3] Kotlin 中文文档. [内联类](https://book.kotlincn.net/text/inline-classes.html). Accessed 2026-11-17.  

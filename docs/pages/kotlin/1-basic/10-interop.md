@@ -146,6 +146,8 @@ JVM 字节码里没有模块可见的概念，生成的 internal 成员还是 pu
 
 基本类型的数组在 Kotlin 中都有特定的类，比如 `int[] --> IntArray`，`char[] --> CharArray`。如果直接使用 `Array<Int>`，对应的是包装类型，如果对性能敏感，需要注意。
 
-**参考**  
+----
 
-1.[Kotlin-Java 互操作指南](https://developer.android.google.cn/kotlin/interop?hl=zh-cn). Android Developer
+*参考*  
+
+[1] Android Developers. [Kotlin-Java 互操作指南](https://developer.android.google.cn/kotlin/interop?hl=zh-cn). Accessed 2026-11-17.  

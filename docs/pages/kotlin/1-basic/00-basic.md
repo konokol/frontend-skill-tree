@@ -212,7 +212,7 @@ when (code) {
 
 *参考*  
 
-[1] [学习 Kotlin 编程语言](https://developer.android.google.cn/kotlin/learn?hl=zh-cn).Android Developers  
-[2] [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html).Kotlin 官方文档 中文版  
-[4] [Get started with Kotlin](https://kotlinlang.org/docs/getting-started.html)  
-[5] 阿正的梦工坊.[Kotlin 面试题全面解析：从基础到进阶](https://blog.csdn.net/shizheng_Li/article/details/161193265).CSDN.2026-05-18
+[1] Android Developers. [学习 Kotlin 编程语言](https://developer.android.google.cn/kotlin/learn?hl=zh-cn). Accessed 2026-11-17.  
+[2] Kotlin 中文文档. [关键字与操作符](https://book.kotlincn.net/text/keyword-reference.html). Accessed 2026-11-17.  
+[3] JetBrains. [Get started with Kotlin](https://kotlinlang.org/docs/getting-started.html). Accessed 2026-11-17.  
+[4] 阿正的梦工坊. [Kotlin 面试题全面解析：从基础到进阶](https://blog.csdn.net/shizheng_Li/article/details/161193265). CSDN, 2026.  

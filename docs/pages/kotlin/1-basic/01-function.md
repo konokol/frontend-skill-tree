@@ -384,6 +384,8 @@ JVM 本身不提供跨栈帧修改变量的能力，Kotlin 通过 Ref 包装实�
 
 多线程并发：被捕获的 var 变量被 Ref 包装后没有同步锁，要想保证线程安全，需要在用 AtomicInteger 等原子类或者加锁。
 
-*参考：*
+----
 
-[1] Carson.Ho.[巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238).掘金.2020-02-26
+*参考*  
+
+[1] Carson.Ho. [巧用Kotlin：内置函数let、also、with、run、apply大大提高你的开发效率！](https://cloud.tencent.com/developer/article/1591238). 腾讯云开发者社区, 2020.  

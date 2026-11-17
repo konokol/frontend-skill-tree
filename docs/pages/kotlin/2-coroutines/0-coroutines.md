@@ -30,9 +30,11 @@ Kotlin 协程的挂起和恢复，是通过编译期的 CPS 转换（Continuatio
 
 ## 协程的取消与超时
 
----
+----
 
 *参考*  
 
-1. [Android 上的协程](https://developer.android.google.cn/kotlin/coroutines?hl=zh-cn).Android Developer
-2. [协程指南](https://book.kotlincn.net/text/coroutines-guide.html).Kotlin 官方文档 中文版
+[1] Android Developers. [Android 上的协程](https://developer.android.google.cn/kotlin/coroutines?hl=zh-cn). Accessed 2026-11-17.  
+[2] Kotlin 中文文档. [协程指南](https://book.kotlincn.net/text/coroutines-guide.html). Accessed 2026-11-17.  
+[3] Open AIDoc. [协程指南](https://openaidoc.org/kotlin/coroutines-guide). Accessed 2026-11-17.  
+[4] 灰色飘零. [深入浅出Kotlin协程：核心原理与线程的本质区别](https://www.cnblogs.com/renhui/articles/13433301.html). 博客园, 2020.  

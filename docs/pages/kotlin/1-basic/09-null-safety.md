@@ -167,7 +167,9 @@ println(nullableClass.isMarkedNullable) // true
 - ?. ?: 操作符生成 if-else 语句，!! 直接检查后抛异常，as? 先判断类型
 - 对于 Java 中没标注的类型，没有做强制校验
 
-**参考**  
+----
 
-1. [空安全](https://book.kotlincn.net/text/null-safety.html).Kotlin 官方文档 中文版
-2. 全能杰哥.[Kotlin刨根问底(一)：你真的了解Kotlin中的空安全吗？](https://developer.aliyun.com/article/915498#1).阿里云 开发者社区. 2022-5-11
+*参考*  
+
+[1] Kotlin 中文文档. [空安全](https://book.kotlincn.net/text/null-safety.html). Accessed 2026-11-17.  
+[2] 全能杰哥. [Kotlin刨根问底(一)：你真的了解Kotlin中的空安全吗？（下）](https://developer.aliyun.com/article/915498#1). 阿里云开发者社区, 2022.  
