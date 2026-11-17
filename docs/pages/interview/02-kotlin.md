@@ -177,8 +177,8 @@
 25. `runBlocking` 在 Android 中能否用？什么时候用它是合理的？  
 26. `async`、`await`、`join`的区别是什么？  
 27. 什么是 `SupervisorJob`？与普通 `Job` 有何区别？何时用它？  
-28. Job、Deferred区别是什么？  
-29. `withContext` 和 `launch` 的区别？ 用法场景如何区分？  
+28. `Job`、`Deferred` 区别是什么？  
+29. `withContext` 和 `launch` 的区别？用法场景如何区分？  
 30. 怎么写一个能自动超时的协程操作？你用过 `withTimeout()` 吗？  
 31. `withTimeout` 和 `withTimeoutOrNull` 区别？
 32. `Mutex` 和 `synchronized` 区别？

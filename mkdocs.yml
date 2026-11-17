@@ -59,7 +59,15 @@ nav:
     - 和Java互操作性: pages/kotlin/1-basic/10-interop.md
     - 编码风格: pages/kotlin/1-basic/11-style-guide.md
   - 进阶:
-    - 协程: pages/kotlin/2-coroutines/0-coroutines.md
+    - 协程: 
+      - 协程基础: pages/kotlin/2-coroutines/0-coroutine-basic.md
+      - 核心概念: pages/kotlin/2-coroutines/1-coroutine-core.md
+      - 挂起函数: pages/kotlin/2-coroutines/2-suspend-function.md
+      - 取消与超时: pages/kotlin/2-coroutines/3-cancel-timeout.md
+      - 异常处理: pages/kotlin/2-coroutines/4-exception.md
+      - 通信: pages/kotlin/2-coroutines/5-channel.md
+      - 协程进阶与源码: pages/kotlin/2-coroutines/6-coroutine-advance.md
+      - 最佳实践: pages/kotlin/2-coroutines/9-best-practice.md
     - Flow: pages/kotlin/3-flow/0-flow.md
     - 序列化: pages/kotlin/4-parcelize/0-parcelize.md
 
