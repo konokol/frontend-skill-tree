@@ -75,6 +75,8 @@
 
 </details>
 
+---
+
 ## [21. 合并两个有序链表](https://leetcode.cn/problems/merge-two-sorted-lists/description/)
 
 难度：⭐️
@@ -87,7 +89,8 @@
 
 <details>
     <summary>迭代</summary>
-    ```java
+
+```java
     public ListNode mergeTwoLists1(ListNode list1, ListNode list2) {
         if (list1 == null) {
             return list2;
@@ -116,7 +119,8 @@
         }
         return dummy.next;
     }
-    ```
+```
+
 </details>
 
 **解法二** 递归
@@ -124,8 +128,9 @@
 比较头结点，较小的节点的next作为一个子链表，递归和另一个链表比，返回较小节点。其中一个节点为空时，返回另一个节点，递归中止。
 
 <details>
-    <summary>递归放</summary>
-    ```java
+    <summary>递归</summary>
+
+```java
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         if (list1 == null) {
             return list2;
@@ -141,8 +146,11 @@
             return list2;
         }
     }
-    ```
+```
+
 </details>
+
+---
 
 ## [23.合并 K 个升序链表](https://leetcode.cn/problems/merge-k-sorted-lists)
 
@@ -203,12 +211,12 @@
 
 **解法二** 分治
 
-将数组分成2部分，头尾排序，递归调用。
+将数组分成两部分，头尾排序，递归调用。
 
 <details>
   <summary>分治</summary>
 
-  ```java
+```java
     public ListNode mergeKLists(ListNode[] lists) {
         return merge(lists, 0, lists.length - 1);
     }
@@ -253,7 +261,7 @@
         }
         return dummy.next;
     }
-  ```
+```
 
 </details>
 
@@ -289,6 +297,8 @@
   ```
 
 </details>
+
+---
 
 ## [24.两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs)
 
@@ -349,24 +359,52 @@
 
 </details>
 
+---
+
 ## [25.K个一组翻转链表](https://leetcode.cn/problems/reverse-nodes-in-k-group)
 
 难度：⭐️⭐️⭐️⭐️
 
-给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。
+给你链表的头节点 `head` ，每 `k` 个节点一组进行翻转，请你返回修改后的链表。
 
-k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
+`k` 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 `k` 的整数倍，那么请将最后剩余的节点保持原有顺序。
 
 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+
+**示例 1：**
+
+![1](https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg)
+
+> 输入：head = [1,2,3,4,5], k = 2  
+> 输出：[2,1,4,3,5]  
+
+**示例 2：**
+
+![2](https://assets.leetcode.com/uploads/2020/10/03/reverse_ex2.jpg)
+
+> 输入：head = [1,2,3,4,5], k = 3  
+> 输出：[3,2,1,4,5]  
+
+**提示：**
+
+- 链表中的节点数目为 n
+- 1 <= k <= n <= 5000
+- 0 <= Node.val <= 1000
 
 **解法一** 模拟
 
 本题细节较多，核心思路是找到需要翻转的序列，对该序列的链表进行翻转。
 
+技巧：对原链表放一个 `dummy` 节点占位。找到区间的 `head` 和 `tail` 进行反转，返回反转后的新头结点和尾节点。
+
+时间复杂度：O(n)  
+空间复杂度：O(1)  
+
 <details>
   <summary>模拟</summary>
 
-  ```java
+```java
+class Solution{
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode(-1);
         ListNode pre = dummy;
@@ -402,7 +440,61 @@ k 是一个正整数，它的值小于或等于链表的长度。如果节点总
         }
         return new ListNode[]{tail, head};
     }
-  ```
+}
+```
+
+</details>
+
+上面的解法中，找到需要反转的区间后，把区间的头尾节点传到 `reverse(head, tail)`，没有把原链表断开，也临时把区间断开，能节省一个参数。
+
+<details>
+  <summary>模拟</summary>
+
+```java
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+
+        ListNode pre = dummy;
+        ListNode start = head;
+        ListNode end = pre;
+
+        while (end.next != null) {
+            end = pre;
+            for (int i = 0; i < k; i++) {
+                end = end.next;
+                if (end == null) {
+                    break;
+                }
+            }
+            if (end == null) break;
+
+            // start --> end
+            ListNode next = end.next;
+            end.next = null;
+            pre.next = reverse(start);
+            start.next = next;
+            
+            pre = start;
+            start = start.next;
+        }
+        return dummy.next;
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode pre = null;
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+}
+```
 
 </details>
 
@@ -516,7 +608,7 @@ class Solution {
 
 **示例 1：**
 
-![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png)
+![1](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png)
 
 >**输入：** head = [3,2,0,-4], pos = 1  
 >**输出：** true  
@@ -524,7 +616,7 @@ class Solution {
 
 **示例 2：**
 
-![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png)
+![2](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png)
 
 >**输入：** head = [1,2], pos = 0  
 >**输出：** true  
@@ -532,7 +624,7 @@ class Solution {
 
 示例 3：
 
-![](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png)
+![3](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png)
 
 >**输入：** head = [1], pos = -1  
 >**输出：** false  
@@ -802,6 +894,8 @@ head ──a──> 环入口 ──b──> 相遇点
 
 进阶写法，如果要求线程安全，最简单的是加 synchronized，但是锁的粒度较大，也可以通过重入锁。
 
+---
+
 ## [160.相交链表](https://leetcode.cn/problems/intersection-of-two-linked-lists/description)
 
 难度：⭐️
@@ -814,15 +908,16 @@ head ──a──> 环入口 ──b──> 相遇点
 
 题目数据 保证 整个链式结构中不存在环。
 
-**解法一** Hash集合
+**解法一** 哈希表
 
 先一次遍历，将其中一个链表的值放在Set中存起来，再遍历另一个链表，结点在Set中存在，则说明相交。
 
 <details>
 
-<summary>Hash集合</summary>
+<summary>哈希表</summary>
 
 ```java
+class Solution{
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         Set<ListNode> set = new HashSet<>();
         ListNode pa = new ListNode();
@@ -841,6 +936,7 @@ head ──a──> 环入口 ──b──> 相遇点
         }
         return null;
     }
+}
 ```
 
 </details>
@@ -852,7 +948,8 @@ head ──a──> 环入口 ──b──> 相遇点
 <details>
     <summary>双指针</summary>
 
-    ```java
+```java
+class Solution{
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         ListNode pa = headA;
         ListNode pb = headB;
@@ -862,7 +959,9 @@ head ──a──> 环入口 ──b──> 相遇点
         }
         return pa;
     }
-    ```
+}
+```
+
 </details>
 
 ---
@@ -875,7 +974,7 @@ head ──a──> 环入口 ──b──> 相遇点
 
 **示例** 1：
 
-![](https://assets.leetcode.com/uploads/2021/03/03/pal1linked-list.jpg)
+![1](https://assets.leetcode.com/uploads/2021/03/03/pal1linked-list.jpg)
 
 > 输入：head = [1,2,2,1]  
 > 输出：true  
@@ -900,7 +999,8 @@ head ──a──> 环入口 ──b──> 相遇点
 <details>
     <summary>集合 + 双指针</summary>
 
-    ```java
+```java
+class Solution {
     public boolean isPalindrome(ListNode head) {
         List<ListNode> list = new ArrayList<>();
         ListNode p = head;
@@ -919,5 +1019,7 @@ head ──a──> 环入口 ──b──> 相遇点
         }
         return true;
     }
-    ```
+}
+```
+
 </details>
