@@ -39,6 +39,7 @@
         return max;
     }
   ```
+
 </details>
 
 ---
@@ -68,7 +69,7 @@
 > 输入: s = "a", t = "aa"  
 > 输出: ""  
 > 解释: t 中两个字符 'a' 均应包含在 s 的子串中，因此没有符合条件的子字符串，返回空字符串。
- 
+
 **提示：**
 
 - m == s.length
@@ -136,13 +137,14 @@ class Solution {
     }
 }
 ```
+
 </details>
 
 **解法二：**滑动窗口 + 数组
 
 解法一中，每移动一个字符都需要计算整个集合是否匹配，这部分可以优化成常数级。用一个 `int[]` 来记录字符的频率，同时统计 `t` 中字符种类，用一个变量表示共有多少个字符已经满足了条件，滑动窗口中，对于遍历到的字符，如果是 `t` 中的字符，把频次增加。当所有的字符都满足频次后，尝试缩小滑动窗口的左边界。
 
-*这个解法中，也可以直接基于解法一，用哈希表存字符频率，但是由于存在装箱的开销，实际执行的时间不如数组*
+*这个解法中，也可以直接基于解法一，用哈希表存字符频率，但是由于存在装箱的开销，实际执行的时间不如数组*  
 
 时间复杂度：O(n + m)  
 空间复杂度：O(m + C)，C 是字符集的大小
@@ -199,11 +201,12 @@ class Solution {
     }
 }
 ```
+
 </details>
 
 ---
 
-## [239. 滑动窗口最大值](https://leetcode.cn/problems/sliding-window-maximum) 
+## [239. 滑动窗口最大值](https://leetcode.cn/problems/sliding-window-maximum)
 
 难度：⭐️⭐️⭐️⭐️
 
@@ -238,6 +241,7 @@ class Solution {
         return result;
     }
   ```
+
 </details>
 
 ---
@@ -255,7 +259,7 @@ class Solution {
 <details>
   <summary>滑动窗口</summary>
 
-  ```java 
+  ```java
         public List<Integer> findAnagrams(String s, String p) {
             List<Integer> result = new ArrayList<>();
             if (s.length() < p.length()) {
