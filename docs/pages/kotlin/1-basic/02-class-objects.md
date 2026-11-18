@@ -27,6 +27,10 @@ class Person(val name: String) {
 }
 ```
 
+**init 代码块**  
+
+**属性与幕后字段**  
+
 ### 可见性
 
 Kotlin 中类默认都是不可继承的(抽象类除外)，如需继承，需要加 `open` 关键字。
