@@ -11,16 +11,19 @@
 - 常见控件、组件的用法
 - 消息、事件、窗口、绘制等原理与源码
 - 工程架构相关
-- jetpack和compose
+- Jetpack
+- Compose
 - 系统源码
 - 性能优化
 - 常见第三方库使用、原理与源码
-- Android虚拟机
+- Android 虚拟机
 - 工程构建工具相关
+
+[📚知识点速查](/frontend-skill-tree/pages/interview/03-android)
 
 ## Java基础
 
-虽然Java已经不是Android开发的首选语言，但是Android离不开Java，只要Android framework中还有Java代码存在，作为Android开发者就必须掌握Java相关知识，包括：
+虽然 Java 已经不是 Android 开发的首选语言，但是 Android 离不开 Java，只要 Android framework 中还有 Java 代码存在，作为 Android 开发者就必须掌握 Java 相关知识，包括：
 
 - 基本知识点
 - 注解、范型、反射、异常、IO等
@@ -29,6 +32,8 @@
 - Java新版本的特性
 - Java虚拟机相关
 - AOP技术等
+
+[📚知识点速查](/frontend-skill-tree/pages/interview/01-java)
 
 ## Kotlin基础
 
@@ -39,19 +44,21 @@ Kotlin 是 Android 开发的官方语言，对于 Kotlin 需要掌握的技术�
 - 类、对象与委托（P0）
 - 函数、Lambda 与作用域函数（P0）
 - 泛型与型变（P1）
-- 扩展、内联与编译期优化（P1）
+- 扩展函数、内联与编译期优化（P1）
 - 反射、注解与代码生成（P1）
 - DSL 与类型安全构建器（P1）
 - 协程（P0）
 - Flow（P0）
 - 并发与线程安全（P1）
 
-**进阶**
+**进阶**  
 
 - 编译、字节码与 K2（P2）
-- Kotlin 多平台与 Compose（P2）
+- KMP 与 CMP（P2）
 - Android 集成（P0）
 - Kotlin 编译器插件（KSP / IR）
+
+[📚知识点速查](/frontend-skill-tree/pages/interview/02-kotlin)
 
 ## 跨平台技术
 

@@ -134,7 +134,7 @@
 [kotlin-sealed-interface-class]: . "需多继承用接口，需构造器状态用类"
 [kotlin-sealed-enum-class-diff]: . "Java 枚举可带方法和字段，Kotlin `enum class` 类似；密封类 Java 没有类似的实现，Java 15 加了 sealed 关键字和密封类类似"
 
-## 扩展、内联、泛型（P0/P1）
+## 扩展、内联、泛型(P0)
 
 1. 扩展函数原理？  
 2. 扩展函数能访问私有成员吗？  
@@ -148,7 +148,7 @@
 10. `MutableList` 型变？  
 11. 泛型擦除是什么？  
 
-## 协程 Coroutine
+## 协程 Coroutine(P0)
 
 1. Kotlin 中的协程是什么？基本使用方式有哪些？  
 2. Kotlin 中的协程和线程的区别？
@@ -252,11 +252,11 @@
 1. Kotlin 调 Java 平台类型风险？[💡][kotlin-platform-type-risk]  
 2. Java 调 Kotlin 非空参数传 null？[💡][kotlin-java-call-null]  
 3. Kotlin 可空性如何传给 Java？[💡][kotlin-parse-nullable-to-java]
-4. @JvmOverloads 作用？[💡][kotlin-jvm-overloads-annotation]
-5. @Throws 作用？[💡][kotlin-jvm-throws-annotation]
-6. @JvmName 作用？[💡][kotlin-javmname-annotation]  
-7. @JvmSuppressWildcards 作用？[💡][kotlin-jvm-supress-wildcards-annotation]  
-8. `fun interface` 作用？[灯泡][kotlin-fun-interface]  
+4. `@JvmOverloads` 作用？[💡][kotlin-jvm-overloads-annotation]
+5. `@Throws` 作用？[💡][kotlin-jvm-throws-annotation]
+6. `@JvmName` 作用？[💡][kotlin-javmname-annotation]  
+7. `@JvmSuppressWildcards` 作用？[💡][kotlin-jvm-supress-wildcards-annotation]  
+8. `fun interface` 作用？[💡][kotlin-fun-interface]  
 
 [kotlin-platform-type-risk]: . "可空性未知，当非空用可能 NPE。"
 [kotlin-java-call-null]: . "编译通过，运行时抛异常 Intrinsics.checkNotNullParameter()"

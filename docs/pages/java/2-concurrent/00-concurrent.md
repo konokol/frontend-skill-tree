@@ -36,6 +36,10 @@ Java并发编程中涉及的概念包括多线程、线程池、同步、锁、�
 - 独享锁、共享锁
 - 无锁、偏向锁、轻量级锁、重量级锁
 
+## CPU 缓存与内存屏障
+
+## Happens-Before
+
 ## 线程安全
 
 当多个先程访问一个对象时，如果不用考虑这些线程在运行时环境下的调度和交替执行，也不需要进行额外的同步，或者在调用方进行任何其他的协调操作，调用这个对象的行为都可以获得正确的结果，那这个对象就是线程安全的。
@@ -46,5 +50,7 @@ Java并发编程中涉及的概念包括多线程、线程池、同步、锁、�
 - **非阻塞同步**，CAS，AtomicInteger，ABA
 - **无同步**，栈封闭，ThreadLocal,可重入代码(Reentrant Code)
 
-*参考*
+## CAS 与 Unsafe
+
+*参考*  
 [Java并发知识体系详解](https://www.pdai.tech/md/java/thread/java-thread-x-overview.html)
