@@ -896,6 +896,102 @@ head ──a──> 环入口 ──b──> 相遇点
 
 ---
 
+## [148.排序链表](https://leetcode.cn/problems/sort-list)
+
+难度：⭐️⭐️⭐️
+
+给你链表的头结点 `head` ，请将其按 **升序** 排列并返回 **排序后的链表** 。
+
+**示例 1：**
+
+![1](https://assets.leetcode.com/uploads/2020/09/14/sort_list_1.jpg)
+
+> 输入：head = [4,2,1,3]  
+> 输出：[1,2,3,4]  
+
+**示例 2：**
+
+![2](https://assets.leetcode.com/uploads/2020/09/14/sort_list_2.jpg)
+
+> 输入：head = [-1,5,3,4,0]  
+> 输出：[-1,0,3,4,5]  
+
+**示例 3：**
+
+> 输入：head = []  
+> 输出：[]  
+
+**提示：**
+
+- 链表中节点的数目在范围 [0, 5 * 10<sup>4</sup>] 内
+- -10<sup>5</sup> <= Node.val <= 10<sup>5</sup>
+
+进阶：你可以在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
+
+**解法一** 转数组
+
+链表排序的难点在于不能找到前序节点。所以转成数组排序。
+
+**解法二** 归并排序
+
+先用快慢指针找到链表的中点，将链表断成 2 条链表，分别对两条链表进行排序，然后再用合并两个有序链表的解法来合并左右两边的两条链表。
+
+时间复杂度：O(nlogn)  
+空间复杂度：O(logn)，空间复杂度来自于递归
+
+<details>
+<summary>递归</summary>
+
+```java
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode mid = slow.next;
+        slow.next = null;
+        ListNode left = sortList(head);
+        ListNode right = sortList(mid);
+        return merge(left, right);
+    }
+
+    private ListNode merge(ListNode l1, ListNode l2) {
+        ListNode pre = null;
+        ListNode p = null;
+        while (l1 != null && l2 != null) {
+            ListNode next = null;
+            if (l1.val < l2.val) {
+                next = l1;
+                l1 = l1.next;
+            } else {
+                next = l2;
+                l2 = l2.next;
+            }
+            if (p == null) {
+                pre = next;
+                p = next;
+            } else {
+                p.next = next;
+                p = next;
+            }
+        }
+        p.next = (l1 != null ? l1 : l2);
+        return pre;
+    }
+}
+
+```
+
+</details>
+
+---
+
 ## [160.相交链表](https://leetcode.cn/problems/intersection-of-two-linked-lists/description)
 
 难度：⭐️
