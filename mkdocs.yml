@@ -28,7 +28,6 @@ nav:
     - volatile: pages/java/2-concurrent/04-volatile.md
     - final: pages/java/2-concurrent/05-final.md
     - 锁: pages/java/2-concurrent/06-lock.md
-    - 内存模型: pages/java/2-concurrent/07-java-memory-model.md
     - ThreadLocal: pages/java/2-concurrent/08-thread-local.md
   - 集合:  
     - Java的集合框架: pages/java/3-collections/01-collections.md
@@ -41,7 +40,7 @@ nav:
     - 结构型模式: pages/java/6-design-pattern/02-structural-pattern.md
     - 行为型模式: pages/java/6-design-pattern/03-behavioral-pattern.md
   - JVM:
-    - 内存模型: pages/java/2-concurrent/07-java-memory-model.md
+    - 内存模型: pages/java/5-jvm/00-java-memory-model.md
     - 类加载: pages/java/5-jvm/01-classload.md
     - 垃圾回收(GC): pages/java/5-jvm/02-gc.md
   - Java各版本新特性:
