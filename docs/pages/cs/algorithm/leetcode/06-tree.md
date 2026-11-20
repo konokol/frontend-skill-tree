@@ -14,9 +14,11 @@
 空间复杂度：O(n)  
 
 <details>
-  <summary>递归</summary>
+    <summary>递归</summary>
   
-  ```java
+```java
+class Solution {
+
   public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         traversal(res, root);
@@ -35,10 +37,10 @@
             traversal(list, root.right);
         }
     }
-  ```
+}
+```
 
 </details>
-
 
 **解法二** 迭代
 
@@ -48,9 +50,10 @@
 空间复杂度：O(n)  
 
 <details>
-  <summary>栈迭代</summary>
+    <summary>栈迭代</summary>
 
-  ```java
+```java
+class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         LinkedList<TreeNode> stack = new LinkedList<>();
@@ -65,7 +68,9 @@
         }
         return res;
     }
-  ```
+}
+```
+
 </details>
 
 **解法三**：Morris 遍历
@@ -79,6 +84,8 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 <summary>Morris 遍历</summary>
 
 ```java
+class Solution {
+
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
         TreeNode p = root;
@@ -107,7 +114,9 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         }
         return list;
     }
+}
 ```
+
 </details>
 
 ## [98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree)
@@ -168,6 +177,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return Math.max(max, value);
     }
   ```
+
 </details>
 
 <details>
@@ -175,9 +185,12 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 
   ```java
   ```
+
 </details>
 
 **解法二** 中序遍历
+
+---
 
 ## [101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/description)
 
@@ -208,6 +221,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
     }
 
   ```
+
 </details>
 
 *解法二** 迭代
@@ -249,7 +263,10 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return true;
     }
   ```
+
 </details>
+
+---
 
 ## [102. 二叉树的层次遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal)
 
@@ -295,6 +312,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 
 </details>
 
+---
 
 ## [104. 二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree)
 
@@ -314,6 +332,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
       return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
   ```
+
 </details>
 
 **解法二** 广度优先
@@ -347,7 +366,10 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return depth;
     }
   ```
+
 </details>
+
+---
 
 ## [105. 从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal)
 
@@ -384,6 +406,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return root;
     }
   ```
+
 </details>
 
 也可以使用哈希表保存下标，避免每次循环找根节点的index
@@ -416,7 +439,10 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return root;
     }
   ```
+
 </details>
+
+---
 
 ## [108. 有序数组转二叉搜索树](https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree)
 
@@ -447,6 +473,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return root;
     }
   ```
+
 </details>
 
 ---
@@ -462,7 +489,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 
 **示例 1：**
 
-![](https://assets.leetcode.com/uploads/2021/01/14/flaten.jpg)
+![1](https://assets.leetcode.com/uploads/2021/01/14/flaten.jpg)
 
 > 输入：root = [1,2,5,3,4,null,6]  
 > 输出：[1,null,2,null,3,null,4,null,5,null,6]  
@@ -516,6 +543,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         }
     }
   ```
+
 </details>
 
 **解法二** 递归保存顺序
@@ -548,6 +576,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         }
     }
   ```
+
 </details>
 
 **解法三** Morris 遍历
@@ -581,7 +610,10 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         }
     }
   ```
+
 </details>
+
+---
 
 ## [124. 二叉树中的最大路径和](https://leetcode.cn/problems/binary-tree-maximum-path-sum)
 
@@ -627,6 +659,7 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
         return root.val + Math.max(left, right);
     }
   ```
+
 </details>
 
 ---
@@ -753,21 +786,6 @@ Morris 遍历的核心思想是建立线索树。遍历过程中，左子树为�
 <summary>递归</summary>
 
 ```java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> list = new ArrayList<>();
@@ -790,18 +808,48 @@ class Solution {
 
 </details>
 
+---
+
 ## [226. 翻转二叉树](https://leetcode.cn/problems/invert-binary-tree)
 
 难度：⭐️
 
 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
 
+**示例 1：**
+
+![2](https://assets.leetcode.com/uploads/2021/03/14/invert1-tree.jpg)
+
+> 输入：root = [4,2,7,1,3,6,9]  
+> 输出：[4,7,2,9,6,3,1]  
+
+**示例 2：**
+
+![2](https://assets.leetcode.com/uploads/2021/03/14/invert2-tree.jpg)
+
+> 输入：root = [2,1,3]  
+> 输出：[2,3,1]  
+
+**示例 3：**
+
+> 输入：root = []  
+> 输出：[]  
+
+**提示：**
+
+- 树中节点数目范围在 [0, 100] 内
+- -100 <= Node.val <= 100
+
 **方法一** 递归
 
-<details>
-  <summary>递归</summary>
+时间复杂度：O(n)  
+空间复杂度：O(n)
 
-  ```java
+<details>
+<summary>递归</summary>
+
+```java
+class Solution {
     public TreeNode invertTree(TreeNode root) {
         if (root == null) {
             return root;
@@ -812,12 +860,17 @@ class Solution {
         root.right = right;
         return root;
     }
-  ```
+}
+```
+
 </details>
 
 **解法二** 广度优先遍历
 
 层次遍历。仍然使用队列，遍历每一层的每个节点时，将每个节点的左右节点交换。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
 
 <details>
   <summary>层次遍历</summary>
@@ -849,6 +902,7 @@ class Solution {
         return root;
    }
   ```
+
 </details>
 
 ---
@@ -868,7 +922,7 @@ class Solution {
 
 **示例 2：**
 
-![](https://assets.leetcode.com/uploads/2021/01/28/kthtree2.jpg)
+![2](https://assets.leetcode.com/uploads/2021/01/28/kthtree2.jpg)
 
 > 输入：root = [5,3,6,2,4,null,null,1], k = 3  
 > 输出：3  
@@ -877,7 +931,7 @@ class Solution {
 
 > 树中的节点数为 n 。
 > 1 <= k <= n <= 10<sup>4</sup>
-> 0 <= Node.val <= 10<sup>4</sup>   
+> 0 <= Node.val <= 10<sup>4</sup>  
 
 **解法一** 非递归中序遍历
 
@@ -910,6 +964,7 @@ class Solution {
         return -1;
     }
   ```
+
 </details>
 
 **解法二：**递归中序遍历
@@ -944,6 +999,7 @@ class Solution {
     }
   }
   ```
+
 </details>
 
 **解法三**：Morris 遍历
@@ -952,11 +1008,11 @@ Morris 遍历的思路：
 
 - 左子树为空时直接访问当前节点；
 - 左子树非空时，先找到左子树的最右节点(前驱节点)
-  - 前驱节点的右子树为空，则将当前节点右子树放在前驱节点的右子树上，进入左子树
-  - 前驱节点的右子树非空，访问当前节点，同时将右子树置空，进入当前节点的右子树；
+    - 前驱节点的右子树为空，则将当前节点右子树放在前驱节点的右子树上，进入左子树
+    - 前驱节点的右子树非空，访问当前节点，同时将右子树置空，进入当前节点的右子树；
 
 时间复杂度：O(n)  
-空间复杂度：O(1)
+空间复杂度：O(1)  
 
 <details>
   <summary>非递归遍历（栈）</summary>
@@ -993,6 +1049,7 @@ Morris 遍历的思路：
     }
   }
   ```
+
 </details>
 
 **解法四：** 计算子树的大小
@@ -1020,6 +1077,7 @@ Morris 遍历的思路：
     }
 }
   ```
+
 </details>
 
 ---
@@ -1071,6 +1129,7 @@ Morris 遍历的思路：
         }
     }
   ```
+
 </details>
 
 **解法二** 递归
@@ -1095,7 +1154,10 @@ Morris 遍历的思路：
         return right;
     }
   ```
+
 </details>
+
+---
 
 ## [450. 删除二叉搜索树中的节点](https://leetcode.cn/problems/delete-node-in-a-bst)
 
@@ -1112,6 +1174,7 @@ Morris 遍历的思路：
 
 当要删除的元素不在树中时，直接返回根节点。  
 当要删除的元素在树中，先找到待删除的节点，分三种情况讨论：
+
 - 要删除的节点是根节点，直接删除它；
 - 要删除的节点有一个子树为空，只需要把该节点替换成非空的子树即可完成删除；
 - 要删除的节点左右子树均非空时，需要找到一个结点，移动到要删除的节点的位置，为了让二叉树尽可能保持平衡，一般是找左子树的最大值或者右子树的最小值。
@@ -1150,8 +1213,8 @@ Morris 遍历的思路：
     }
 
   ```
-</details>
 
+</details>
 
 **解法二：** 迭代
 
@@ -1218,6 +1281,7 @@ Morris 遍历的思路：
         }
     }
   ```
+
 </details>
 
 ---
@@ -1230,14 +1294,14 @@ Morris 遍历的思路：
 
 **示例 1：**
 
-![](https://assets.leetcode.com/uploads/2021/02/05/bst1.jpg)
+![1](https://assets.leetcode.com/uploads/2021/02/05/bst1.jpg)
 
 > 输入：root = [4,2,6,1,3]  
 > 输出：1  
 
 **示例 2：**
 
-![](https://assets.leetcode.com/uploads/2021/02/05/bst2.jpg)
+![2](https://assets.leetcode.com/uploads/2021/02/05/bst2.jpg)
 
 > 输入：root = [1,0,48,null,null,12,49]  
 > 输出：1  
@@ -1285,6 +1349,7 @@ class Solution {
     }
 }
 ```
+
 </details>
 
 <details>
@@ -1315,6 +1380,7 @@ class Solution {
     }
 }
 ```
+
 </details>
 
 <details>
@@ -1356,6 +1422,7 @@ class Solution {
     }
 }
 ```
+
 </details>
 
 ---
@@ -1371,7 +1438,7 @@ class Solution {
 两节点之间路径的 **长度** 由它们之间边数表示。
 
 **示例 1：**
-![](https://assets.leetcode.com/uploads/2021/03/06/diamtree.jpg)
+![1](https://assets.leetcode.com/uploads/2021/03/06/diamtree.jpg)
 
 > 输入：root = [1,2,3,4,5]  
 > 输出：3  
@@ -1381,7 +1448,7 @@ class Solution {
 
 > 输入：root = [1,2]
 > 输出：1
- 
+
 **提示：**
 
 - 树中节点数目在范围 [1, 10<sup>4</sup>] 内
@@ -1414,4 +1481,3 @@ class Solution {
   ```
 
 </details>
-
