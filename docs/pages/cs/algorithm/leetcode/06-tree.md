@@ -274,14 +274,44 @@ class Solution {
 
 给你二叉树的根节点 `root` ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。
 
+**示例 1：**
+
+![1](https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg)
+
+>输入：root = [3,9,20,null,null,15,7]  
+> 输出：[[3],[9,20],[15,7]]  
+
+**示例 2：**
+
+> 输入：root = [1]  
+> 输出：[[1]]  
+
+**示例 3：**
+
+> 输入：root = []  
+> 输出：[]  
+
+**提示：**
+
+- 树中节点数目在范围 `[0, 2000]` 内
+- `-1000 <= Node.val <= 1000`
+
 **方法一** 队列
 
 使用队列，第一层循环条件是队列非空，每次进入循环时，队列中恰好是当前层的元素，记录其位置n，遍历队列中n个元素之后，当前层刚好遍历结束。
 
+*💡：队列用 LinkedList 会比 ArrayDeque 效率更高*  
+
+时间复杂度：O(n)  
+空间复杂度：O(n)
+
 <details>
   <summary>广度优先层次遍历</summary>
 
-  ```java
+```java
+
+class Solution {
+
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> list = new ArrayList<>();
         if (root == null) {
@@ -302,13 +332,48 @@ class Solution {
                     queue.add(node.right);
                 }
             }
-            if (!layer.isEmpty()) {
-                list.add(layer);
-            }
         }
         return list;
     }
+}
   ```
+
+</details>
+
+**解法二** 递归
+
+递归的时候，把 level 放到参数中，如果 level 的值和结果一样，说明刚刚访问到这一层，创建一个新的 list 来放当前层的数据。
+
+<details>
+
+<summary>递归</summary>
+
+```java
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        bfs(root, 0, list);
+        return list;
+    }
+
+    private void bfs(TreeNode node, int level, List<List<Integer>> list) {
+        if (node == null) {
+            return;
+        }
+        if (level == list.size()) {
+            list.add(new ArrayList<>());
+        }
+        List<Integer> levelList = list.get(level);
+        levelList.add(node.val);
+        if (node.left != null) {
+            bfs(node.left, level + 1, list);
+        }
+        if (node.right != null) {
+            bfs(node.right, level + 1, list);
+        }
+    }
+}
+```
 
 </details>
 
