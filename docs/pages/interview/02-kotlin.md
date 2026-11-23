@@ -178,27 +178,28 @@
 26. `async`、`await`、`join`的区别是什么？  
 27. 什么是 `SupervisorJob`？与普通 `Job` 有何区别？何时用它？  
 28. `Job`、`Deferred` 区别是什么？  
-29. `withContext` 和 `launch` 的区别？用法场景如何区分？  
-30. 怎么写一个能自动超时的协程操作？你用过 `withTimeout()` 吗？  
-31. `withTimeout` 和 `withTimeoutOrNull` 区别？
-32. `Mutex` 和 `synchronized` 区别？
-33. `Channel` 和 `Flow` 区别？
-34. 如何处理协程中的异常？协程中的异常是如何传播的？如何捕获？
-35. 如何在 Android 中优雅处理协程异常？
-36. `CoroutineExceptionHandler` 是如何工作的？在哪些场景有效？
-37. `isActive()`、`ensureActive()`、`yield()` 这些函数你用过吗？各自作用？  
-38. 你在项目中是如何使用协程的？是否与 `ViewModel`、`LiveData`、`Flow` 结合使用？  
-39. `viewModelScope` 和 `lifecycleScope` 分别是什么？为何推荐使用它们？  
-40. 你用过 `LiveData` + `Coroutine` 的组合吗？如何处理生命周期？  
-41. 协程在 `Activity` 被销毁后仍在运行，会发生什么问题？如何避免？  
-42. 你有一个网络请求 + 本地缓存的场景，怎么用协程实现？需要考虑并发和取消。  
-43. 启动多个协程，如果其中某个失败，其他协程怎么办？如何控制它们的取消策略？  
-44. 协程为什么可能导致内存泄漏？你遇到过吗？  
-45. 为什么说协程虽然轻量，但不是免费线程？过度使用有什么风险？  
-46. 协程在 Android 中的常见坑有哪些？
-47. Kotlin 的协程如何从 Java 调用？
-48. 如何在 Activity / Fragment 中感知协程生命周期？
-49. Kotlin 协程 + Retrofit 请求方式是怎样的？  
+29. `Job` 底层是怎么实现轻量和线程安全？
+30. `withContext` 和 `launch` 的区别？用法场景如何区分？  
+31. 怎么写一个能自动超时的协程操作？你用过 `withTimeout()` 吗？  
+32. `withTimeout` 和 `withTimeoutOrNull` 区别？
+33. `Mutex` 和 `synchronized` 区别？
+34. `Channel` 和 `Flow` 区别？
+35. 如何处理协程中的异常？协程中的异常是如何传播的？如何捕获？
+36. 如何在 Android 中优雅处理协程异常？
+37. `CoroutineExceptionHandler` 是如何工作的？在哪些场景有效？
+38. `isActive()`、`ensureActive()`、`yield()` 这些函数你用过吗？各自作用？  
+39. 你在项目中是如何使用协程的？是否与 `ViewModel`、`LiveData`、`Flow` 结合使用？  
+40. `viewModelScope` 和 `lifecycleScope` 分别是什么？为何推荐使用它们？  
+41. 你用过 `LiveData` + `Coroutine` 的组合吗？如何处理生命周期？  
+42. 协程在 `Activity` 被销毁后仍在运行，会发生什么问题？如何避免？  
+43. 你有一个网络请求 + 本地缓存的场景，怎么用协程实现？需要考虑并发和取消。  
+44. 启动多个协程，如果其中某个失败，其他协程怎么办？如何控制它们的取消策略？  
+45. 协程为什么可能导致内存泄漏？你遇到过吗？  
+46. 为什么说协程虽然轻量，但不是免费线程？过度使用有什么风险？  
+47. 协程在 Android 中的常见坑有哪些？
+48. Kotlin 的协程如何从 Java 调用？
+49. 如何在 Activity / Fragment 中感知协程生命周期？
+50. Kotlin 协程 + Retrofit 请求方式是怎样的？  
 
 ## Flow（P0）
 
