@@ -420,6 +420,39 @@ public open class JobSupport(active: Boolean) : Job, ChildJob, ParentJob {
 
 ## 协程调度器（Dispatcher）
 
+协程调度器决定协程最终在哪个线程上运行。所有的协程调度器都继承 `CoroutineDispatcher`，它负责在协程挂起或恢复时拦截 Continuation，并将其分发到指定线程上执行。
+
+`CoroutineDispatcher` 实现了标准库的 `ContinuationInterceptor` 接口，在上下文中取调度器可以用 `context[ContinuationInterceptor]`。
+
+### 四大标准调度器
+
+| 调度器 | 底层线程/线程池机制 | 适用场景 |
+| --- | --- | --- |
+| `Dispatchers.Main` | 绑定平台 UI 主线程（Android 中通过主线程 `Handler` 投递消息；JVM 桌面端需引入对应 UI 库） | 刷新 UI、处理用户交互事件、调用必须在主线程运行的轻量操作 |
+| `Dispatchers.IO` | 弹性伸缩线程池（默认上限为 64 个线程或 CPU 核心数中的较大值，支持 `limitedParallelism` 隔离） | I/O 密集型任务：网络请求、数据库读写、本地文件 I/O 等长时间等待外部响应的操作 |
+| `Dispatchers.Default` | 固定大小的共享后台线程池（线程数等于 CPU 核心数，至少为 2） | CPU 密集型计算：大型 JSON 解析、图片像素处理、复杂列表排序或加解密算法 |
+| `Dispatchers.Unconfined` | 不限制线程：直接在调用者当前线程启动，但挂起恢复后会在触发恢复的线程继续执行 | 仅用于极少数无需固定线程的轻量级测试或特殊框架底层，日常业务开发严禁使用 |
+
+### 工作机制
+
+**线程切换**  
+
+CoroutineDispatcher 实现了标准库的 ContinuationInterceptor 接口，核心方法是 interceptContinuation(continuation)。
+
+每次协程从挂起点准备恢复执行时，调度器都会把原始的 Continuation 包装成一个代理对象 DispatchedContinuation。
+
+当异步结果回来调用 resumeWith() 时，DispatchedContinuation 不会直接在当前回调线程执行后续状态机代码，而是调用调度器的 dispatch(context, block) 方法，把这段恢复任务（Runnable）投递（post / execute）到目标线程或线程池的队列中，从而悄无声息地完成了线程切换。
+
+**共享线程池**  
+
+在 kotlinx.coroutine 1.6+ 之后，`Dispatcher.IO` 和 `Dispatcher.Default` 底层共享一个弹性调度线程池 `DefaultScheduler`。二者的区别仅在于并发度的限制，Default 最多只有 CPU 核数个线程来跑，IO 最多可以有 64 个线程。
+
+共享之后，当协程在 Default 和 IO 之间切换，实际只在逻辑上进行 “CPU限制” 到 “IO 限制”的切换，实际代码的执行还是在同一个线程上，能减少线程切换的开销。
+
+**withContext切换线程的原理**  
+
+withContext 是一个挂起函数，它用当前的协程的 context 结合参数中的 context，取出二者的拦截器对比。如果调度器一致，直接在当前线程执行。如果不一致，创建一个 DispatchedCoroutine，利用新调度器的 dispatch() 方法把代码块放到目标线程池执行，同时向当前线程返回 COROUTINE_SUSPENDED 释放原线程。当代码块执行完毕后，恢复外层 Continuation.interrecpted() 方法时，外层的 Continuation 包着原调度器的拦截器，调用 resumeWith 的时候会触发原调度器的 dispatch() 方法，切回到原线程。
+
 ---
 
 *参考*  
@@ -427,3 +460,4 @@ public open class JobSupport(active: Boolean) : Job, ChildJob, ParentJob {
 [1] Android Developers. [Android 上的协程](https://developer.android.google.cn/kotlin/coroutines?hl=zh-cn). Accessed 2026-11-17.  
 [2] Kotlin 中文文档. [协程指南](https://book.kotlincn.net/text/coroutines-guide.html). Accessed 2026-11-17.  
 [3] Open AIDoc. [协程指南](https://openaidoc.org/kotlin/coroutines-guide). Accessed 2026-11-17.  
+[4] Open AIDoc. [协程上下文与调度器](https://openaidoc.org/kotlin/coroutine-context-and-dispatchers#dispatchers-and-threads).  Accessed 2026-11-23.  
