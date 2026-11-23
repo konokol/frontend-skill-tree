@@ -104,7 +104,7 @@ public fun <T> CoroutineScope.async(
 协程作用域是追踪和管理协程生命周期的容器，是结构化并发在代码层面的体现。Kotlin 中的协程必须在某个作用域（CoroutineScope）内启动，从而保证
 了每个协程都有明确的生命周期归属。
 
-### 协程作用域的核心原则（结构化并发的体现）
+### 核心原则（结构化并发的体现）
 
 在作用域内或者协程内部启动子协程时，他们会形成树形结构，遵循核心原则：
 
@@ -294,6 +294,129 @@ public fun <T> ThreadLocal<T>.asContextElement(value: T = get()): ThreadContextE
 `asContextElement` 只追踪 CoroutineContext 传入的值，如果在协程内部调用 threadLocal.set("B") 方法，值并不会被同步回来，正确做法是用 `withContext(userThreadLocal.asContextElement("B"))` 来更新上下文元素。
 
 ## Job
+
+Job 是用来管理协程生命周期的，也是结构化并发树形结构中的核心节点。使用 launch 和 async 启动协程都会返回一个 Job 对象（async 返回的 `Deferred<T>` 也是Job的子类）。
+
+```kotlin
+public interface Job : CoroutineContext.Element {
+    public val children: Sequence<Job>
+    public val parent: Job?
+    public val isActive: Boolean
+    public val isCompleted: Boolean
+    public val isCancelled: Boolean
+    public fun start(): Boolean
+    public fun cancel(cause: CancellationException? = null)
+    public suspend fun join()
+    public fun invokeOnCompletion(handler: CompletionHandler): DisposableHandle
+}
+```
+
+### Job的核心操作
+
+**启动协程`start()`**
+
+启动协程，懒加载的协程不会立即开始调度，调用 **job.start()** 之后会开始调度。
+
+**取消协程 `cancel()/cancelAndJoin()`**
+
+`cancel()` 是取消协程，并抛出 CancellationException 异常。
+
+`cancelAndJoin()` 取消并等待完成，等价于 `cancel()` + `join()`。
+
+**等待 `join()/joinAll()/await()`**
+
+`join()` 挂起等待 Job 完成，不返回结果。如果 Job 已经取消，直接返回，不抛异常。
+
+`joinAll(vararg jobs: Job)` 等待多个 Job 完成，等价于逐个 `join()`
+
+`await()` Deferred 的方法，会返回结果，如果有异常会抛异常。
+
+**完成回调 `invokeOnCompletion { cause -> ... }: DisposableHandle`**
+
+Job 完成时会调用，回调参数中 cause 为 null 表示正常结束，CancellationException 表示被取消，其他的是异常。返回 DisposableHandle，'handle.dispose()'可以取消回调。
+
+invokeOnCompletion 经常用来做资源清理、日志记录，或者监听协程的状态。
+
+### Job 的状态机
+
+一个 Job 在生命周期中会经过六个状态，通过 `isActive`、`isCompleted`、`isCancelled` 三个状态标记。
+
+| 状态 | 触发条件 | `isActive` | `isCompleted` | `isCancelled` |
+| --- | --- | --- | --- | --- |
+| `New`（新建） | 使用 `CoroutineStart.LAZY` 创建，尚未调用 `start()` 或 `join()` | `false` | `false` | `false` |
+| `Active`（活跃） | 默认创建后立即进入，或 `New` 状态调用 `start()` 后 | `true` | `false` | `false` |
+| `Completing`（完成中） | 自身代码已执行完毕，但正在等待名下子协程全部完成 | `true` | `false` | `false` |
+| `Cancelling`（取消中） | 调用了 `cancel()` 或抛出未捕获异常，正在执行 `finally` 清理和取消子协程 | `false` | `false` | `true` |
+| `Cancelled`（已取消） | 取消清理工作及所有子协程均已结束（最终态） | `false` | `true` | `true` |
+| `Complete`（已完成） | 自身代码与所有子协程均正常执行结束（最终态） | `false` | `true` | `false` |
+
+在 Completing（等子协程）期间，isActive 依然为 true；一旦触发取消进入 Cancelling，isActive 会立刻变为 false，而 isCancelled 立刻变为 true。
+
+### 几种不同的 Job
+
+**普通 Job**  
+
+通过 `CoroutineScope.launch` 创建，无法返回结果，发生异常时立即向上抛出，父 Job 接受到异常后立即取消自己，同时连带也会取消异常 Job 的兄弟 Job。
+
+**`Differed<T>`**  
+
+继承自 Job，多了await方法。通过 `CoroutineScope.async` 方法创建，调用 `differed.await()` 获取结果。发生异常时不会立即抛出，会在调用`await()` 时才抛出。
+
+```kotlin
+// Job：不关心结果
+val job = scope.launch { doWork() }
+
+// Deferred：需要结果
+val deferred = scope.async { fetchData() }
+val result = deferred.await()
+```
+
+**SupervisorJob**  
+
+```kotlin
+public fun SupervisorJob(parent: Job? = null): CompletableJob
+```
+
+和普通 Job 的区别是，发生异常时，不会向上继续传递异常影响到兄弟 Job，仅终止当前 Job。
+
+```kotlin
+public class SupervisorJobImpl(parent: Job?) : JobImpl(parent) {
+    override fun childFailed(child: Job, cause: Throwable) = false // 直接返回 false 不取消自己，也告诉子协程当前未处理取消
+}
+```
+
+### Job 的底层实现
+
+Job 的核心实现是 JobSupport，本质上是一个基于 CAS 的无锁状态机，状态都存在 `_state` 字段中。
+
+``` kotlin
+public open class JobSupport(active: Boolean) : Job, ChildJob, ParentJob {
+    // 状态机：用 _state 字段保存状态
+    private val _state = atomic<Any?>(if (active) EMPTY_ACTIVE else EMPTY_NEW)
+}
+```
+
+关键实现机制：
+
+**状态转换**  
+
+协程状态变更时，内部都会开启一个 `loopOnState` 的自旋循环，读取当前的 `_state`，计算目标状态，通过 CAS 原子替换 `_state`。
+
+```kotlin
+    private inline fun loopOnState(block: (Any?) -> Unit): Nothing {
+        while (true) {
+            block(state)
+        }
+    }
+```
+
+**父子关联**  
+
+建立关联：子协程启动时，会在父 Job 的 `NodeList` 中插入一个 `ChildHandleNode`，同时子协程持有 `parentHandle`。
+
+向下取消：父 Job 调用 `cancel()`时，遍历自己的 `NodeList`，通知所有的 `ChildHandleNode` 调用 `childJob.parentCancelled(parentJob)`。
+
+向上处理异常：子 Job 发生异常时，通过 `parentHandler` 回调父 Job 的 `onChildCanceled(cause)`
 
 ## 协程调度器（Dispatcher）
 
