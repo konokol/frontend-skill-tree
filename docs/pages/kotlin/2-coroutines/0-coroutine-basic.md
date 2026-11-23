@@ -54,7 +54,7 @@ fun main() = runBlocking {
 
 ### 启动协程--三个核心的构建器
 
-启动协程通过协程构建器（Coroutine Builders），kotlinx.coroutines 包中有三个核心构建器 `launch`、`async`、`runBlocking`。此外在 Channel 通信模型中还有一个 `produce` 构建器。
+协程构建器（Coroutine Builders）用来启动协程，kotlinx.coroutines 包中有三个核心构建器 `launch`、`async`、`runBlocking`。此外在 Channel 通信模型中还有一个 `produce` 构建器。
 
 **1. CoroutineScope.launch**  
 
@@ -85,8 +85,6 @@ viewModelScope.launch {
 }
 ```
 
-async 函数有一个 start 参数 `async(start = CoroutineStart.LAZY) { ... }）`，可以实现 “懒启动”，协程不会立即启动，直到调用 `await()` 或者 `start()` 时才会真实启动。
-
 **3. runBlocking**  
 
 runBlocking 启动一个新协程并阻塞当前的物理线程，直到内部的子协程都执行完。runBlocking 返回代码块的最后一行。
@@ -101,15 +99,6 @@ fun testFetchUser() = runBlocking {
     assertEquals("Alice", user.name)
 }
 ```
-
-**协程的启动模式**  
-
-使用 `launch` 和 `async` 启动协程时，都可以用 start 参数来控制协程的调度方式。CoroutineStart 有四种启动模式：
-
-- **CoroutineStart.DEFAULT（默认）** 立即根据调度器安排执行，如果在开启执行前已经调用了 `cancel()`，则直接进入取消状态。
-- **CoroutineStart.LAZY（懒加载）** 创建后处理新建状态，直到调用 `job.start()`、`job.join()`、`deferred.async()`才会开始执行。
-- **CoroutineStart.ATOMIC（原子启动）** 立即执行，和默认模式不同的是，在执行到第一个挂起点之前不能被取消，保证初始化代码块一定能执行。
-- **CoroutineStart.UNDISPATCHED（无调度启动）** 立即在当前线程上执行协程块中的代码，遇到第一个挂起点之后才切换到指定的 Diaptcher（Dispatch.Main.immediate思想类似，可以减少一次handle.post()调度）。
 
 ### 在挂起函数内部启动协程
 
@@ -134,21 +123,11 @@ suspend fun loadAllData() = coroutineScope {
 
 当执行到 `withContext` 时，当前协程会挂起并释放原线程的控制权，等 `withContext` 中的代码块执行完之后，最后一行是它的返回值，会自动恢复原线程继续往下走。
 
-用一个表格来总结：
-
-| 构建器 | 所属包层级 | 返回值类型 | 是否阻塞当前线程 | 异常处理机制 | 核心适用场景 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **`launch`** | `kotlinx.coroutines` | `Job` | 否（异步非阻塞） | 立即向父协程传播（未捕获会直接导致崩溃） | 不需要返回结果的“发射后不管”任务（如更新 UI、写日志）。 |
-| **`async`** | `kotlinx.coroutines` | `Deferred<T>` | 否（异步非阻塞） | 暂存在 `Deferred` 中，调用 `await()` 时抛出（同时也会向上传播） | 需要获取异步结果，或多个独立接口并发聚合。 |
-| **`runBlocking`** | `kotlinx.coroutines` | `T`（闭包最后一行结果） | **是（阻塞当前物理线程）** | 直接向外部调用线程抛出 | **仅限单元测试**或 `main` 函数入口，**严禁在 Android 主线程使用**。 |
-| **`produce`** | `kotlinx.coroutines.channels` | `ReceiveChannel<E>` | 否（异步非阻塞） | 异常会关闭通道，消费者读取时抛出 | 生产者-消费者通信模型（现代开发中大多已被 `Flow` 替代）。 |
-| **`withContext`** | **挂起函数** (`kotlinx.coroutines`) | `T`（直接返回最后一行结果） | 否（**串行**非阻塞挂起） | 直接在当前调用栈向上抛出（可用常规 `try-catch` 捕获） | **单任务的线程切换**（如在主线程中切到 `Dispatchers.IO` 执行耗时操作后切回）。 |
-
 ## 结构化并发（Structured Concurrency）
 
 结构化并发是一种现代化的并发编程范式，它要求并发代码也要像结构化代码块一样，必须有明确的入口和出口。
 
-结构化并发是协程的核心设计思想之一，它要求协程必须在作用域（CoroutineScope）中启动，作用域负责管理其中所有字写成的生命周期。Kotlin 协程的结构化并发中中有四大核心原则：
+结构化并发是协程的核心设计思想之一，它要求协程必须在作用域（CoroutineScope）中启动，作用域负责管理其中所有子协程的生命周期。Kotlin 协程的结构化并发中中有四大核心原则：
 
 - 作用域边界约束，协程不能凭空创建，必须在作用域中启动。
 - 父等子原则，父协程执行完自己的代码之后会挂起，必须等待所有的子协程结束才真正结束。
