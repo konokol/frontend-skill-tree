@@ -3,10 +3,10 @@
 Kotlin 中的协程的本质是一套依靠编译器（CPS 与状态机）和上层官方的协程库（kotlinx.coroutines）实现的轻量级并发框架。解决了传统异步编程中的三个痛点问题：
 
 - **可读性** 通过挂起/恢复机制消除了回调地狱，用写同步代码的方式写异步代码；
-- **安全性** 通过结构化并发将异步任务绑定到特定的生命周期作用域内，父子任务联动，从机制上消除了异步失控导致的内存泄漏和状态错乱；
+- **安全性** 通过结构化并发将异步任务绑定到特定的生命周期作用域内，父子任务联动，从机制上消除了异步失控导致的内存泄漏和状态错乱问题；
 - **高性能** 协程挂起时并不会阻塞底层操作系统的线程，通过少量的线程池就能完成大量的并发任务，从而减少了线程创建、销毁、上下文切换带来的性能开销。
 
-基于这些价值，Kotlin 协程在日常使用和底层实现中主要包含六大核心概念：挂起函数、协程构建器、协程作用域、协程上下文、协程调度器、Job。
+基于这些价值，Kotlin 协程在日常使用和底层实现中主要包含六大核心概念：挂起函数、协程构建器、协程作用域、协程上下文、Job、协程调度器。
 
 ## 挂起函数（suspend）
 
@@ -20,7 +20,7 @@ suspend fun foo(url: String): Result {
 
 **非阻塞式暂停**  
 
-挂起函数的特点是能在挂起点（比如 withContext 调用的网络请求、delay等）处暂停并且释放当前线程的控制权，不阻塞当前线程，当异步结果就绪之后，在挂起点处恢复。
+挂起函数的特点是能在挂起点（比如 withContext 调用的网络请求、delay等）处暂停并且释放当前线程的控制权，不阻塞当前线程，当异步结果就绪之后，从挂起点处恢复。
 
 **调用限制**  
 
@@ -33,7 +33,8 @@ suspend fun fetchDocs() {
 }
 
 fun checkConnect() {
-    val result = get("https://developer.android.com") // ❌ 编译错误 Suspend function 'fun checkConnect()' can only be called from a coroutine or another suspend function.
+    // ❌ 编译错误 suspend function 'fun checkConnect()' can only be called from a coroutine or another suspend function.
+    val result = get("https://developer.android.com") 
 }
 
 suspend fun get(url: String) = withContext(Dispatchers.IO) {
@@ -43,15 +44,15 @@ suspend fun get(url: String) = withContext(Dispatchers.IO) {
 
 **挂起/恢复的工作流程**  
 
-挂起（Suspend）：当遇到耗时操作时，当前协程的局部状态（局部变量、执行进度）会被保存下来，函数提前返回（返回一个特殊标记 COROUTINE_SUSPENDED），释放底层资源。
+**挂起（Suspend）**：当遇到耗时操作时，当前协程的局部状态（局部变量、执行进度）会被保存下来，函数提前返回（返回一个特殊标记 COROUTINE_SUSPENDED），释放底层资源。
 
-恢复（Resume）：当后台耗时操作（如 I/O 线程的网络请求）完成后，系统会通过回调触发恢复逻辑，将协程重新调度回指定线程，带着返回结果从上次暂停的下一行代码继续往下执行。
+**恢复（Resume）**：当后台耗时操作（如 I/O 线程的网络请求）完成后，系统会通过回调触发恢复逻辑，将协程重新调度回指定线程，带着返回结果从上次暂停的下一行代码继续往下执行。
 
 ## 协程构建器（Coroutine Builders）
 
 协程构建器是用来创建和启动协程的函数，通常协程构建器是 `CoroutineScope` 的扩展函数，常见的协程构建器有 `CoroutineScope.launch`、`CoroutineScope.async`、`runBlocking`。
 
-还有一个 `withContext`，尽管它不是协程构建器，也经常放在一起讲，它是一个挂起函数，不会启动新的协程，仅用来。
+还有一个 `withContext`，尽管它不是协程构建器，也经常放在一起讲，它是一个挂起函数，不会启动新的协程，仅用来切换线程。
 
 | 构建器 | 所属包层级 | 返回值类型 | 是否阻塞当前线程 | 异常处理机制 | 核心适用场景 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -61,6 +62,8 @@ suspend fun get(url: String) = withContext(Dispatchers.IO) {
 | **`withContext`** | **挂起函数** (`kotlinx.coroutines`) | `T`（直接返回最后一行结果） | 否（**串行**非阻塞挂起） | 直接在当前调用栈向上抛出（可用常规 `try-catch` 捕获） | **单任务的线程切换**（如在主线程中切到 `Dispatchers.IO` 执行耗时操作后切回）。 |
 
 **协程的启动模式**  
+
+`CoroutineScope.launch` 的实现：
 
 ```kotlin
 public fun CoroutineScope.launch(
@@ -77,6 +80,8 @@ public fun CoroutineScope.launch(
 }
 ```
 
+`CoroutineScope.async` 的实现：
+
 ```kotlin
 public fun <T> CoroutineScope.async(
     context: CoroutineContext = EmptyCoroutineContext,
@@ -92,26 +97,25 @@ public fun <T> CoroutineScope.async(
 }
 ```
 
-`CoroutineScope.launch` 和 `CoroutineScope.async` 函数有一个 start 参数，使用 `launch` 和 `async` 启动协程时，都可以用 start 参数来控制协程的调度方式。CoroutineStart 有四种启动模式：
+`CoroutineScope.launch()` 和 `CoroutineScope.async()` 函数有一个 start 参数，使用 `launch` 和 `async` 启动协程时，都可以用 start 参数来控制协程的调度方式。CoroutineStart 有四种启动模式：
 
 - **CoroutineStart.DEFAULT（默认）** 立即根据调度器安排执行，如果在开启执行前已经调用了 `cancel()`，则直接进入取消状态。
-- **CoroutineStart.LAZY（懒加载）** 创建后处于新建状态，直到调用 `job.start()`、`job.join()`、`deferred.async()`才会开始执行。• 如果连续调用两个惰性 `async` 再分别 `await()`，就会退化成串行执行。
+- **CoroutineStart.LAZY（懒加载）** 创建后处于新建状态，直到调用 `job.start()`、`job.join()`、`deferred.async()`才会开始执行。如果连续调用两个懒加载 `async()` 再分别 `await()`，就会退化成串行执行。
 - **CoroutineStart.ATOMIC（原子启动）** 立即执行，和默认模式不同的是，在执行到第一个挂起点之前不能被取消，保证初始化代码块一定能执行。
-- **CoroutineStart.UNDISPATCHED（无调度启动）** 立即在当前线程上执行协程块中的代码，遇到第一个挂起点之后才切换到指定的 Diaptcher（Dispatch.Main.immediate思想类似，可以减少一次handle.post()调度）。
+- **CoroutineStart.UNDISPATCHED（无调度启动）** 立即在当前线程上执行协程块中的代码，遇到第一个挂起点之后才切换到指定的 Diaptcher（Dispatcher.Main.immediate 思想类似，可以减少一次 `handle.post()` 调度。
 
 ## 协程作用域（CoroutineScope）
 
-协程作用域是追踪和管理协程生命周期的容器，是结构化并发在代码层面的体现。Kotlin 中的协程必须在某个作用域（CoroutineScope）内启动，从而保证
-了每个协程都有明确的生命周期归属。
+协程作用域是追踪和管理协程生命周期的容器，是结构化并发在代码层面的体现。Kotlin 中的协程必须在某个作用域（CoroutineScope）内启动，从而保证了每个协程都有明确的生命周期归属。
 
 ### 核心原则（结构化并发的体现）
 
 在作用域内或者协程内部启动子协程时，他们会形成树形结构，遵循核心原则：
 
-- **上下文继承**，子协程会继承父协程的所有上下文，同时创建新的 Job 挂载到父协程上；
-- **父等子**，父作用域内的代码执行完之后，会等待子协程全部执行完再结束父协程
-- **取消向下传递**，调用 `scope.cancel()` 取消父作用域之后，该作用域下的所有子协程都会被取消
-- **异常向上传递**，默认行为中，子协程出现异常没有处理，会传递给父作用域，父作用域取消自身，从而取消父作用域内的所有子协程
+- **上下文继承** 子协程会继承父协程的所有上下文，同时创建新的 Job 挂载到父协程上；
+- **父等子** 父作用域内的代码执行完之后，会等待子协程全部执行完再结束父协程；
+- **取消向下传递** 调用 `scope.cancel()` 取消父作用域之后，该作用域下的所有子协程都会被取消；
+- **异常向上传递** 默认行为中，子协程出现异常没有处理，会传递给父作用域，父作用域取消自身，从而取消父作用域内的所有子协程。
 
 ### 作用域的构成
 
@@ -121,7 +125,7 @@ public interface CoroutineScope {
 }
 ```
 
-CoroutineScope 是一个接口，持有一个上下文对象。协程作用域本身不执行代码，但是它持有生命周期管理器（Job）、调度器（Dispatchers）、协程名（CoroutineName）、异常处理器（CoroutineExceptionHandler），这些都是协程上下文。
+CoroutineScope 是一个接口，持有一个上下文对象。协程作用域本身不执行代码，但是它持有生命周期管理器（Job）、调度器（Dispatchers）、协程名称（CoroutineName）、异常处理器（CoroutineExceptionHandler），这些都是协程上下文。
 
 ```kotlin
 CoroutineScope(
@@ -136,7 +140,7 @@ CoroutineScope(
 
 **父子作用域的树形结构是如何构成的？**
 
-在启动子协程（比如调用 launch）时，从当前的上下文中取出 Job 作为父 Job，新协程的 Job 会添加到父协程的 children 列表中，从而形成 Job 树。
+在启动子协程（比如调用 launch）时，从当前的上下文中取出 Job 作为子协程的 parent，新协程的 Job 会添加到父协程的 children 列表中，从而形成 Job 树。
 
 取消的时候，也跟根据这个父子 Job 树来管理协程。
 
@@ -168,7 +172,7 @@ suspend fun load() = coroutineScope {
 }
 ```
 
-用于在挂起函数中启动子协程，非阻塞式，等待子协程完成之后，当前函数才会返回。差异点是 `coroutineScope` 出现未处理异常时会取消所有协程，`supervisorScope` 出现异常时不会影响到兄弟协程。
+用于在挂起函数中启动子协程，非阻塞式，等待子协程完成之后，当前函数才会返回。二者的差异点是 `coroutineScope` 出现未处理异常时会取消所有协程，`supervisorScope` 出现异常时不会影响到兄弟协程。
 
 `supervisorScope` 适用于页面多个独立模块并发加载，其中一个模块失败不影响别的模块。
 
@@ -204,9 +208,9 @@ public interface CoroutineContext {
 ### 常见的上下文元素
 
 - **Job** 管理协程，控制协程的启动、等待、取消，并维系结构化并发的父子层级树。
-- **Dispatcher** 调度器，决定协程在哪个线程上运行
-- **CoroutineName** 协程名，常用来打日志或者调试
-- **CoroutineExceptionHandle** 异常处理器，用来处理根协程未捕获异常
+- **Dispatcher** 调度器，决定协程在哪个线程上运行。
+- **CoroutineName** 协程名，常用来打日志或者调试。
+- **CoroutineExceptionHandle** 异常处理器，用来处理根协程未捕获异常。
 
 ### 底层实现
 
@@ -273,14 +277,14 @@ fun startRequest(scope: CoroutineScope) {
 
 1. 全局 Loading/弹窗 的状态控制，比如同一个请求，第一次进页面需要展示loading，下拉刷新的时候展示刷新，如果用参数控制，需要把参数一层层传递。通过自定义上下文就能让简化函数调用，`LoadingConfigContext(val showLoading: Boolean, val cancelable: Boolean)`。
 2. 端到端链路监控，比如某一个业务流程很长，可以在入口地方自定义一个上下文记录上来源等信息，`UserActionContext(actionId = UUID, sourcePage = "HomeBanner")`，可以很方便把整条链路串联起来。
-3. 统一的错误信息提示与降级策略，比如在网络请求失败时，有的场景下弹Toast、有的不需要提示，可以结合自定义的 CoroutineExceptionHandler，定义自定义的上下文 `ErrorPolicyContext(val silent: Boolean, val customErrorHandler: ((Throwable) -> Unit)?)`，在请求中捕获异常时直接从上下文中获取错误处理策略。
+3. 统一的错误信息提示与降级策略，比如在网络请求失败时，有的场景下弹Toast、有的不需要提示，可以结合自定义的 CoroutineExceptionHandler，自定义的上下文 `ErrorPolicyContext(val silent: Boolean, val customErrorHandler: ((Throwable) -> Unit)?)`，在请求中捕获异常时直接从上下文中获取错误处理策略。
 
 ### 进阶用法（跨线程绑定 TheadLocal）
 
-ThreadLocal 的设计本身是为了做线程隔离，但是在协程中，由于协程可能在不同线程中执行，可能会出现状态丢失或状态错乱的问题。
+ThreadLocal 的设计本身是为了做线程隔离，但是在协程中，由于协程可能在不同线程中执行，会出现状态丢失或状态错乱的问题。
 
-1. 状态丢失，线程 A 设置了 threadLocal.set("AAA")，在协程中通过 `withContext(Dispatcher.IO)` 切到了线程 B，则在线程 B 中获取 threadLocal.get() 值为 null。
-2. 状态错乱，线程 A 设置了 threadLocal.set("AAA")，挂起后线程被复用去执行别的任务，在其他任务中可能获取到残留的状态。
+- **状态丢失** 线程 A 调用 `threadLocal.set("AAA")` 设置值，在协程中通过 `withContext(Dispatcher.IO)` 切到了线程 B，则在线程 B 中获取 `threadLocal.get()` 值为 null。
+- **状态错乱** 线程 A 调用 `threadLocal.set("AAA")` 设置值，挂起后线程被复用去执行别的任务，在其他任务中可能获取到残留的状态。
 
 为了解决这个问题，可以用扩展函数 `ThreadLocal<T>.asContextElement`，返回一个 ThreadLocalElement 对象，里面有 `updateThreadContext(context: CoroutineContext)` 和 `restoreThreadContext(context: CoroutineContext, oldState: T)`。当协程在当前线程执行完一段代码、即将挂起或切换走时，框架自动调用这两个方法，用来更新和恢复值。
 
