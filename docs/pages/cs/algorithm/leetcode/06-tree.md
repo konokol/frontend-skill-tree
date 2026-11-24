@@ -438,78 +438,154 @@ class Solution {
 
 ## [105. 从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal)
 
-难度：⭐️⭐️⭐️⭐️
+难度：⭐️⭐️⭐️
 
 给定两个整数数组 `preorder` 和 `inorder` ，其中 `preorder` 是二叉树的先序遍历， `inorder` 是同一棵树的中序遍历，请构造二叉树并返回其根节点。
 
+**示例 1:**
+
+![1](https://assets.leetcode.com/uploads/2021/02/19/tree.jpg)
+
+> 输入: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]  
+> 输出: [3,9,20,null,null,15,7]  
+
+**示例 2:**
+
+> 输入: preorder = [-1], inorder = [-1]  
+> 输出: [-1]  
+
+**提示:**
+
+- 1 <= preorder.length <= 3000
+- inorder.length == preorder.length
+- -3000 <= preorder[i], inorder[i] <= 3000
+- preorder 和 inorder 均 无重复 元素
+- inorder 均出现在 preorder
+- preorder 保证 为二叉树的前序遍历序列
+- inorder 保证 为二叉树的中序遍历序列
+
 **解法一** 递归
 
-前序数组的第一个元素是根节点，找到根节点在中序数组的下标，对数组进行拆分。
+前序数组的第一个元素是根节点，找到根节点在中序数组的下标，将中数组进行拆分左右两部分，可以得到左右子树的节点数量（实际只用左子树的节点数就能算出右子树的下标），再根据左右节点的数量回到前序数组计算左右子树在前序数组的下标，进一步递归。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
+*技巧：*
+
+- 中序数组只用来找下标，可以使用哈希表把值和下标存起来，减少查找的复杂度
+- 减少递归的参数，递归调用栈能减少一部分临时变量，也能节省空间
 
 <details>
-  <summary>递归</summary>
+<summary>递归 + 哈希表</summary>
 
-  ```java
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
-        return buildTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
-    }
+```java
+class Solution {
 
-    private TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
-        if (preStart > preEnd) {
-            return null;
-        }
-        TreeNode root = new TreeNode(preorder[preStart]);
-        int mid = inStart;
-        while (inorder[mid] != root.val) {
-            mid++;
-        }
-        int leftLength = mid - inStart;
-        int rightSize = inEnd - mid;
-        //[ [...] mid [...]]
-        root.left = buildTree(preorder, preStart + 1, preStart + leftLength, inorder, inStart, mid - 1);
-        root.right = buildTree(preorder, preStart + 1 + leftLength, preEnd, inorder, mid + 1, inEnd);
-        return root;
-    }
-  ```
-
-</details>
-
-也可以使用哈希表保存下标，避免每次循环找根节点的index
-
-<details>
-  <summary>递归 + 哈希表</summary>
-
-  ```java
-    private Map<Integer, Integer> map; // 使用哈希表保存下标
+    private Map<Integer, Integer> map;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         map = new HashMap<>(inorder.length);
         for (int i = 0; i < inorder.length; i++) {
             map.put(inorder[i], i);
         }
-        return buildTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+        return build(preorder, 0, 0, inorder.length - 1);
     }
 
-    private TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
-        if (preStart > preEnd) {
+    private TreeNode build(int[] preorder, int preLeft, int inLeft, int inRight) {
+        if (inLeft > inRight) {
             return null;
         }
-        TreeNode root = new TreeNode(preorder[preStart]);
-        int mid = map.get(root.val);
-        int leftLength = mid - inStart;
-        int rightSize = inEnd - mid;
-        //[ [...] mid [...]]
-        root.left = buildTree(preorder, preStart + 1, preStart + leftLength, inorder, inStart, mid - 1);
-        root.right = buildTree(preorder, preStart + 1 + leftLength, preEnd, inorder, mid + 1, inEnd);
+        TreeNode root = new TreeNode(preorder[preLeft]);
+        int midIndex = map.get(root.val);
+        
+        int leftTreeSize = midIndex - inLeft;
+
+        // [mid, [ left ], [ right ]]
+        // [[ left ], mid, [ right ]]
+        root.left = build(preorder, preLeft + 1, inLeft, midIndex - 1);
+        root.right = build(preorder, preLeft + leftTreeSize + 1, midIndex + 1, inRight);
         return root;
     }
-  ```
+}    
+```
 
 </details>
 
 ---
 
-## [108. 有序数组转二叉搜索树](https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree)
+## [106. 从中序与后序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal)
+
+难度：⭐️⭐️⭐️
+
+给定两个整数数组 inorder 和 postorder ，其中 inorder 是二叉树的中序遍历， postorder 是同一棵树的后序遍历，请你构造并返回这颗 二叉树 。
+
+**示例 1:**
+
+![1](https://assets.leetcode.com/uploads/2021/02/19/tree.jpg)
+
+> 输入：inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]  
+> 输出：[3,9,20,null,null,15,7]  
+
+**示例 2:**
+
+> 输入：inorder = [-1], postorder = [-1]  
+> 输出：[-1]  
+
+**提示:**
+
+- 1 <= inorder.length <= 3000
+- postorder.length == inorder.length
+- -3000 <= inorder[i], postorder[i] <= 3000
+- inorder 和 postorder 都由 不同 的值组成
+- postorder 中每一个值都在 inorder 中
+- inorder 保证是树的中序遍历
+- postorder 保证是树的后序遍历
+
+**解法一** 递归
+
+和先序+中序构建树一样，只是后续是倒着的，先从后续数组的最后元素确定根节点，在中序数组中找到中间位置计算左右子树的节点数，回到后续数组找到左右子树的下标，然后递归。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
+<details>
+<summary>递归 + 哈希表</summary>
+
+```java
+class Solution {
+
+    private Map<Integer, Integer> mapIndex;
+
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        mapIndex = new HashMap<>(inorder.length);
+        for (int i = 0; i < inorder.length; i++) {
+            mapIndex.put(inorder[i], i);
+        }
+        return build(postorder, postorder.length - 1, 0, inorder.length - 1);
+    }
+
+    private TreeNode build(int[] postorder, int postRight, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        TreeNode root = new TreeNode(postorder[postRight]);
+        int mid = mapIndex.get(root.val);
+        
+        int rightTreeSize = right - mid;
+
+        root.right = build(postorder, postRight - 1, mid + 1, right);
+        root.left = build(postorder, postRight - 1 - rightTreeSize, left, mid - 1);
+        return root;
+    }
+}
+```
+
+</details>
+
+---
+
+## [108.有序数组转二叉搜索树](https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree)
 
 难度：⭐️
 
