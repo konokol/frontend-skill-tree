@@ -455,7 +455,9 @@ CoroutineDispatcher 实现了标准库的 ContinuationInterceptor 接口，核�
 
 **withContext切换线程的原理**  
 
-withContext 是一个挂起函数，它用当前的协程的 context 结合参数中的 context，取出二者的拦截器对比。如果调度器一致，直接在当前线程执行。如果不一致，创建一个 DispatchedCoroutine，利用新调度器的 dispatch() 方法把代码块放到目标线程池执行，同时向当前线程返回 COROUTINE_SUSPENDED 释放原线程。当代码块执行完毕后，恢复外层 Continuation.interrecpted() 方法时，外层的 Continuation 包着原调度器的拦截器，调用 resumeWith 的时候会触发原调度器的 dispatch() 方法，切回到原线程。
+`withContext()` 是一个挂起函数，它用当前的协程的 `context` 结合参数中的 `context`，取出二者的拦截器对比，如果调度器一致，直接在当前线程执行。如果不一致，创建一个 `DispatchedCoroutine`，利用新调度器的 `dispatch()` 方法把代码块放到目标线程池执行，同时向当前线程返回 `COROUTINE_SUSPENDED` 释放原线程。
+
+当代码块执行完毕后，恢复外层 `Continuation.interrecpted()` 方法时，外层的 `Continuation` 包着原调度器的拦截器，调用 `resumeWith()` 的时候会触发原调度器的 `dispatch()` 方法，切回到原线程。
 
 ---
 
