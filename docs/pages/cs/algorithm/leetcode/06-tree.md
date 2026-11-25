@@ -1300,7 +1300,114 @@ Morris 遍历的思路：
 
 ---
 
-## [450. 删除二叉搜索树中的节点](https://leetcode.cn/problems/delete-node-in-a-bst)
+## [437.路径总和](https://leetcode.cn/problems/path-sum-iii)
+
+难度：⭐️⭐️⭐️
+
+给定一个二叉树的根节点 `root` ，和一个整数 `targetSum` ，求该二叉树里节点值之和等于 `targetSum` 的 **路径** 的数目。
+
+**路径** 不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
+
+**示例 1：**
+
+![1](https://assets.leetcode.com/uploads/2021/04/09/pathsum3-1-tree.jpg)
+
+> 输入：root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8  
+> 输出：3  
+> 解释：和等于 8 的路径有 3 条，如图所示。  
+
+**示例 2：**
+
+> 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22  
+> 输出：3
+
+**提示:**
+
+- 二叉树的节点个数的范围是 [0,1000]
+- -10<sup>9</sup> <= Node.val <= 10<sup>9</sup>
+- -1000 <= targetSum <= 1000
+
+**解法一** 深度优先搜索
+
+深度遍历记录当前路径的和，遍历到某节点后，如果 路径和 与 tagetSum 的值相等，计数加一，继续向下遍历（因为节点有负数）。
+
+*注意*：
+
+1. 递归开始的条件应该是根节点、根左节点、根右节点，否则会漏路径
+2. 节点的数值很大，用 long 类型防止溢出
+
+时间复杂度：O(n<sup>2</sup>)  
+空间复杂度：O(n)  
+
+<details>
+<summary>深度优先搜索</summary>
+
+```java
+class Solution {
+    public int pathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return 0;
+        }
+        return dfs(root, targetSum) + 
+            pathSum(root.left, targetSum) + 
+            pathSum(root.right, targetSum);
+    }
+
+    private int dfs(TreeNode node, long targetSum) {
+        if (node == null) {
+            return 0;
+        }
+        if (node.val == targetSum) {
+            return 1 + dfs(node.left, targetSum - node.val) + dfs(node.right, targetSum - node.val);
+        } else {
+            return dfs(node.left, targetSum - node.val) + dfs(node.right, targetSum - node.val);
+        }
+    }
+}
+```
+
+</details>
+
+**解法二** 前缀和
+
+深度遍历的递归过程中，计算前缀和会有很多重复的计算，可以把这些路径的结果缓存起来。不用存真实的路径，只需要存每个前缀和的路径有多少条。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
+<details>
+<summary>前缀和</summary>
+
+```java
+class Solution {
+    public int pathSum(TreeNode root, int targetSum) {
+        Map<Long, Integer> prefix = new HashMap<>();
+        prefix.put(0L, 1);
+        return dfs(root, prefix, 0, targetSum);
+    }
+
+    private int dfs(TreeNode node, Map<Long, Integer> prefix, long sum, long targetSum) {
+        if (node == null) {
+            return 0;
+        }
+
+        // sum + node.val == targetSum
+        sum += node.val;
+        int cnt = prefix.getOrDefault(sum - targetSum, 0);
+        prefix.put(sum, prefix.getOrDefault(sum, 0) + 1);
+        cnt += dfs(node.left, prefix, sum, targetSum);
+        cnt += dfs(node.right, prefix, sum, targetSum);
+        prefix.put(sum, prefix.getOrDefault(sum, 0) - 1);
+        return cnt;
+    }
+}
+```
+
+</details>
+
+---
+
+## [450.删除二叉搜索树中的节点](https://leetcode.cn/problems/delete-node-in-a-bst)
 
 难度：⭐️⭐️⭐️⭐️
 
@@ -1427,7 +1534,7 @@ Morris 遍历的思路：
 
 ---
 
-## [530. 二叉搜索树的最小绝对差](https://leetcode.cn/problems/minimum-absolute-difference-in-bst)
+## [530.二叉搜索树的最小绝对差](https://leetcode.cn/problems/minimum-absolute-difference-in-bst)
 
 难度：⭐⭐
 
