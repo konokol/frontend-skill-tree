@@ -2,7 +2,7 @@
 
 ---
 
-## [94. 二叉树的中序遍历](https://leetcode.cn/problems/binary-tree-inorder-traversal)
+## [94.二叉树的中序遍历](https://leetcode.cn/problems/binary-tree-inorder-traversal)
 
 难度：⭐️
 
@@ -119,80 +119,186 @@ class Solution {
 
 </details>
 
-## [98. 验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree)
+## [98.验证二叉搜索树](https://leetcode.cn/problems/validate-binary-search-tree)
 
 难度：⭐️⭐️
 
 给你一个二叉树的根节点 `root` ，判断其是否是一个有效的二叉搜索树。
 
-有效 二叉搜索树定义如下：
+**有效** 二叉搜索树定义如下：
 
-- 节点的左子树只包含 小于 当前节点的数。
-- 节点的右子树只包含 大于 当前节点的数。
+- 节点的左子树只包含 **小于** 当前节点的数。
+- 节点的右子树只包含 **大于** 当前节点的数。
 - 所有左子树和右子树自身必须也是二叉搜索树。
+
+**示例 1：**
+
+![1](https://assets.leetcode.com/uploads/2020/12/01/tree1.jpg)
+
+> 输入：root = [2,1,3]  
+> 输出：true  
+
+**示例 2：**
+
+![2](https://assets.leetcode.com/uploads/2020/12/01/tree2.jpg)
+
+> 输入：root = [5,1,4,null,null,3,6]  
+> 输出：false  
+> 解释：根节点的值是 5 ，但是右子节点的值是 4 。
+
+**提示：**
+
+- 树中节点数目范围在[1, 104] 内
+- -2<sup>31</sup> <= Node.val <= 2<sup>31</sup> - 1
 
 **解法一** 递归
 
-按照条件直接递归。
+按照条件直接递归，递归过程中传递最大值和最小值，左子树的上界是当前节点的值，右子树的下界是当前节点的值。
+
+**注意**：测试用例里有边界情况，最大值和最小值要用long
+
+时间复杂度：O(n)  
+空间复杂度：O(n)，在于栈递归的深度  
 
 <details>
   <summary>直接递归</summary>
   
-  ```java
-  public boolean isValidBST(TreeNode root) {
+```java
+class Solution {
+    public boolean isValidBST(TreeNode root) {
         if (root == null) {
             return true;
         }
-        boolean isLeftBst = true;
-        if (root.left != null) {
-            int maxLeft = max(root.left);
-            if (maxLeft >= root.val) {
-                return false;
-            }
-        }
-        if (root.right != null) {
-            int minRight = min(root.right);
-            if (minRight <= root.val) {
-                return false;
-            }
-        }
-        return isValidBST(root.left) && isValidBST(root.right);
+        return check(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
-    private int min(TreeNode root) {
-        if (root == null) {
-            return Integer.MAX_VALUE;
-        }
-        int value = root.val;
-        int min = Math.min(min(root.left), min(root.right));
-        return Math.min(min, value);
+    private boolean check(TreeNode root, long min, long max) {
+        if (root == null) return true;
+        if (root.val <= min || root.val >= max) return false;
+        if (root.left != null && root.val <= root.left.val) return false;
+        if (root.right != null && root.val >= root.right.val) return false;
+        return check(root.left, min, root.val) && check(root.right, root.val, max);
     }
-
-    private int max(TreeNode root) {
-        if (root == null) {
-            return Integer.MIN_VALUE;
-        }
-        int value = root.val;
-        int max = Math.max(max(root.left), max(root.right));
-        return Math.max(max, value);
-    }
-  ```
+}
+```
 
 </details>
+
+**解法二** 中序遍历(递归)
+
+对于二叉搜索树，中序遍历的顺序就是升序的，只需要记录前驱节点即可。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
 
 <details>
-  <summary>优化版本的递归</summary>
+  <summary>中序遍历 + 递归</summary>
+  
+```java
+class Solution {
+    private Integer prev = null;  // 用 null 表示"还没有前驱"
 
-  ```java
-  ```
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) return true;
+
+        if (!isValidBST(root.left)) return false;
+
+        if (prev != null && root.val <= prev) return false;
+        prev = root.val;
+
+        return isValidBST(root.right);
+    }
+}
+```
 
 </details>
 
-**解法二** 中序遍历
+**解法三** 中序遍历(非递归)
+
+对于二叉搜索树，中序遍历的顺序就是升序的，只需要记录前驱节点即可。
+
+时间复杂度：O(n)  
+空间复杂度：O(n)  
+
+<details>
+  <summary>中序遍历 + 栈</summary>
+  
+```java
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        TreeNode pre = null;
+
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode p = root;
+        while (p != null || !stack.isEmpty()) {
+            while (p != null) {
+                stack.push(p);
+                p = p.left;
+            }
+            p = stack.pop();
+            if (pre != null && p.val <= pre.val) {
+                return false;
+            }
+            pre = p;
+            p = p.right;
+        }
+        return true;
+    }
+}
+```
+
+</details>
+
+**解法四** Morris 遍历
+
+既然是遍历，可以直接用 Morris 遍历，空间复杂度最低。
+
+时间复杂度：O(n)  
+空间复杂度：O(1)  
+
+<details>
+  <summary>Morris 遍历</summary>
+
+```java
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        TreeNode p = null;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.left == null) {
+                if (p != null && cur.val <= p.val) {
+                    return false;
+                }
+                p = cur;
+                cur = cur.right;
+            } else {
+                TreeNode pre = cur.left;
+                while (pre.right != null && pre.right != cur) {
+                    pre = pre.right;
+                }
+                if (pre.right == null) {
+                    pre.right = cur;
+                    cur = cur.left;
+                } else {
+                    if (p != null && cur.val <= p.val) {
+                        return false;
+                    }
+                    p = cur;
+                    pre.right = null;
+                    cur = cur.right;
+                }
+            }
+        }
+        return true;
+    }
+}
+```
+
+</details>
 
 ---
 
-## [101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/description)
+## [101.对称二叉树](https://leetcode.cn/problems/symmetric-tree/description)
 
 给你一个二叉树的根节点 `root` ， 检查它是否轴对称。
 
@@ -268,7 +374,7 @@ class Solution {
 
 ---
 
-## [102. 二叉树的层次遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal)
+## [102.二叉树的层次遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal)
 
 难度：⭐️⭐️
 
@@ -379,7 +485,7 @@ class Solution {
 
 ---
 
-## [104. 二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree)
+## [104.二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree)
 
 难度：⭐️
 
@@ -436,7 +542,7 @@ class Solution {
 
 ---
 
-## [105. 从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal)
+## [105.从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal)
 
 难度：⭐️⭐️⭐️
 
@@ -514,7 +620,7 @@ class Solution {
 
 ---
 
-## [106. 从中序与后序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal)
+## [106.从中序与后序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal)
 
 难度：⭐️⭐️⭐️
 
@@ -619,7 +725,7 @@ class Solution {
 
 ---
 
-## [114. 二叉树展开为链表](https://leetcode.cn/problems/flatten-binary-tree-to-linked-list)
+## [114.二叉树展开为链表](https://leetcode.cn/problems/flatten-binary-tree-to-linked-list)
 
 难度：⭐️⭐️
 
@@ -756,7 +862,7 @@ class Solution {
 
 ---
 
-## [124. 二叉树中的最大路径和](https://leetcode.cn/problems/binary-tree-maximum-path-sum)
+## [124.二叉树中的最大路径和](https://leetcode.cn/problems/binary-tree-maximum-path-sum)
 
 难度：⭐️⭐️⭐️⭐️
 
@@ -805,7 +911,7 @@ class Solution {
 
 ---
 
-## [199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view)
+## [199.二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view)
 
 难度：⭐️⭐️
 
@@ -951,7 +1057,7 @@ class Solution {
 
 ---
 
-## [226. 翻转二叉树](https://leetcode.cn/problems/invert-binary-tree)
+## [226.翻转二叉树](https://leetcode.cn/problems/invert-binary-tree)
 
 难度：⭐️
 
@@ -1048,7 +1154,7 @@ class Solution {
 
 ---
 
-## [230. 二叉搜索树中第 K 小的元素](https://leetcode.cn/problems/kth-smallest-element-in-a-bst)
+## [230.二叉搜索树中第 K 小的元素](https://leetcode.cn/problems/kth-smallest-element-in-a-bst)
 
 难度：⭐️⭐️
 
@@ -1143,7 +1249,7 @@ class Solution {
 
 </details>
 
-**解法三**：Morris 遍历
+**解法三** Morris 遍历
 
 Morris 遍历的思路：
 
@@ -1193,7 +1299,7 @@ Morris 遍历的思路：
 
 </details>
 
-**解法四：** 计算子树的大小
+**解法四** 计算子树的大小
 
 递归计算子树大小，判断第 K 个元素落在左子树、当前节点、右子树上。如果需要频繁查询，可以给子树大小加一个缓存，避免递归重复计算。
 
@@ -1223,7 +1329,7 @@ Morris 遍历的思路：
 
 ---
 
-## [236. 二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree)
+## [236.二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree)
 
 难度：⭐️⭐️
 
@@ -1675,7 +1781,7 @@ class Solution {
 
 ---
 
-## [543. 二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
+## [543.二叉树的直径](https://leetcode.cn/problems/diameter-of-binary-tree)
 
 难度：⭐️⭐️
 
@@ -1709,8 +1815,11 @@ class Solution {
 <details>
   <summary>深度遍历</summary>
 
-  ```java
+```java
+class Solution {
+
     private int d;
+
     public int diameterOfBinaryTree(TreeNode root) {
         d = 1;
         depth(root);
@@ -1726,6 +1835,7 @@ class Solution {
         d = Math.max(d, left + right);
         return 1 + Math.max(left, right);
     }
+}
   ```
 
 </details>
