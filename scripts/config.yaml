@@ -1,29 +1,59 @@
 # 文档导航配置
 names:
-  '1-Basic': '基础'
-  '2-Perf': '性能'
-  '3-Arch': '架构'
-  '4-Thirdpart': '三方框架'
-  '5-Framework': 'Framework'
-  'Internet': '网络'
-  'OS': '操作系统'
-  'CS-basic': '计算机基础'
-  'Algorithm': '算法'
-  'CS': 'CS理论基础'
-  'Java': 'Java基础'
-  'Kotlin': 'Kotlin基础'
-  'Cross-platform': '跨平台技术'
-  'tools': '工具与工程化'
-  'ref': '学习资料'
+  # 一级目录
   'home': '首页'
+  'java': 'Java基础'
+  'kotlin': 'Kotlin基础'
+  'android': 'Android'
+  'cross-platform': '跨平台技术'
+  'frontend': '大前端'
+  'cs': 'CS理论基础'
+  'interview': '面试'
+
+  # 通用与 Java 目录
+  '1-basic': '基础'
+  '2-concurrent': '并发'
+  '3-collections': '集合'
+  '4-io': 'I/O'
+  '5-jvm': 'JVM'
+  '6-design-pattern': '设计模式'
+  '99-new-features': 'Java各版本新特性'
+
+  # Kotlin 目录
+  '2-coroutines': '协程'
+  '3-flow': 'Flow'
+  '4-parcelize': '序列化'
+  '5-compile-engineering.md': '编译与工程化'
+  '6-kmp': 'Kotlin Multiplatform'
+  '7-kotlin-native': 'Kotlin/Native'
+  '99-practice': '实践'
+
+  # Android 目录
+  '2-performance': '性能'
+  '3-arch': '架构'
+  '4-thirdpart': '三方框架'
+  '5-framework': 'Framework'
+  '6-tools': '工具与工程'
+  '99-new-feature': '新特性'
+
+  # 跨平台、前端与 CS 目录
+  'flutter': 'Flutter'
+  'react-native': 'ReactNative'
+  'miniprogram': '微信小程序'
+  'basic': '基础'
+  'cs-basic': '计算机基础'
+  'internet': '网络'
+  'os': '操作系统'
+  'algorithm': '算法'
+  'data-structure': '数据结构'
+  'leetcode': 'Leetcode常见题'
 
 # 导航菜单顺序
 orders:
   - '首页'
-  - 'Android'
   - 'Java基础'
   - 'Kotlin基础'
+  - 'Android'
   - '跨平台技术'
+  - '大前端'
   - 'CS理论基础'
-  - '关于'
-  - '学习资料'

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+
 import functools
 from collections import OrderedDict
-from operator import index
 import os
 import math
 import yaml
@@ -10,6 +10,7 @@ import yaml
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(script_dir)
 docs_dir = os.path.join(project_root, 'docs')
+content_dir = os.path.join(docs_dir, 'pages')
 
 # 加载配置文件
 with open(os.path.join(script_dir, 'config.yaml'), 'r', encoding='utf-8') as f:
@@ -41,12 +42,11 @@ def read_docs(source, object_pairs_hook=OrderedDict):
 def mk_docs(content = ''):
 
     nav = list()
-    docs_dir = os.path.join(project_root, 'docs')
-    folders = os.listdir(docs_dir)
+    folders = os.listdir(content_dir)
     folders.sort()
     for file in folders:
         if file not in ignore:
-            doc = single_doc(os.path.join(docs_dir, file))
+            doc = single_doc(os.path.join(content_dir, file))
             if doc is not None:
                 nav.append(doc)
 

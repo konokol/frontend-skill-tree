@@ -1,6 +1,6 @@
-# usr/bin/env python3
-# -*- codind:utf-8 -*-
-from email.mime import image
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import os
 import re
 import shutil

@@ -1,6 +1,8 @@
 # 大前端知识图谱
 
-[![pages-build-deployment](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment)  ![Website](https://img.shields.io/website?url=https%3A%2F%2Fkonokol.github.io%2Ffrontend-skill-tree)  ![GitHub repo size](https://img.shields.io/github/repo-size/konokol/frontend-skill-tree)
+[![pages-build-deployment](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/konokol/frontend-skill-tree/actions/workflows/pages/pages-build-deployment)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fkonokol.github.io%2Ffrontend-skill-tree)
+![GitHub repo size](https://img.shields.io/github/repo-size/konokol/frontend-skill-tree)
 
 从客户端角度看大前端发展的路线，逐渐点亮自己的技能树。更好的阅读体验，请移步[客户端工程师技能树](https://konokol.github.io/frontend-skill-tree/)
 
@@ -18,7 +20,7 @@
   - [其他](#其他)
   - [学习资料](#学习资料)
 
-## <img src="./assets/ic-java.png" width="20px"/>Java基础
+## <img src="./assets/ic-java.png" alt="Java" width="20px"/>Java基础
 
 - [基础](docs/pages/java/1-basic/)
 - [并发](docs/pages/java/2-concurrent/)
@@ -28,7 +30,7 @@
 - [设计模式](docs/pages/java/6-design-pattern/)
 - [新特性](docs/pages/java/99-new-features/)
 
-## <img src="./assets/ic-android.png" width="20px"/>Android基础
+## <img src="./assets/ic-android.png" alt="Android" width="20px"/>Android基础
 
 - [版本新特性](docs/pages/android/99-new-feature/l~p.md)
 - [基础](docs/pages/android/1-basic/)
@@ -38,7 +40,7 @@
 - [Framework](docs/pages/android/5-framework/)
 - [工程与工具](docs/pages/android/6-tools/)
 
-## <img src="./assets/kotlin-logo.png" width="20px" styles="margin-top:20px"/>Kotlin基础
+## <img src="./assets/kotlin-logo.png" alt="Kotlin" width="20px" style="margin-top:20px"/>Kotlin基础
 
 - [基础](docs/pages/kotlin/1-basic/00-basic.md)
 - [协程 (Coroutines)](docs/pages/kotlin/2-coroutines/0-coroutines.md)
