@@ -24,10 +24,3 @@ overrides:
     config:
       MD007:
         indent: 4
-  - filter:
-      - "README.md"
-    combine: merge
-    config:
-      MD033:
-        allowed_elements:
-          - img
