@@ -979,27 +979,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../java/2-concurrent/07-java-memory-model.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内存模型
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../java/2-concurrent/08-thread-local/" class="md-nav__link">
         
   
@@ -1352,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../java/2-concurrent/07-java-memory-model.md" class="md-nav__link">
+      <a href="../../../java/5-jvm/00-java-memory-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1948,6 +1927,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    取消与超时
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1957,6 +1947,76 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      协作式取消
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="协作式取消">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本的取消操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      资源清理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancellationexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      CancellationException 的特殊规则与避坑
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      超时控制
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -4967,6 +5027,65 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      协作式取消
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="协作式取消">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本的取消操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      资源清理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancellationexception" class="md-nav__link">
+    <span class="md-ellipsis">
+      CancellationException 的特殊规则与避坑
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      超时控制
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -4981,7 +5100,125 @@
 
 
 <h1 id="_1">取消与超时</h1>
-<p>协作式取消原理（isActive / ensureActive）、NonCancellable 上下文（用于 finally 中执行挂起清理）、withTimeout 与 withTimeoutOrNull。</p>
+<h2 id="_2">协作式取消</h2>
+<h3 id="_3">基本的取消操作</h3>
+<p><strong>基本的操作</strong>  </p>
+<ul>
+<li><code>job.cancel()</code>：向协程发送取消信号（状态变为 <code>Cancelling</code>），但不会等待协程彻底清理结束。</li>
+<li><code>job.cancelAndJoin()</code>：先发送取消信号，再挂起等待其执行完 <code>finally</code> 清理并彻底退出（<code>Cancelled</code>），防止新旧任务状态交错（竞态条件）。</li>
+</ul>
+<p><strong>取消原理</strong>  </p>
+<p>Kotlin 协程的取消是协作式（Cooperative）的——框架不会像 <code>Thread.stop()</code> 那样粗暴杀掉线程，而是只把 <code>Job</code> 的标志位 <code>isActive</code> 置为 <code>false</code>，需要协程内部代码主动配合退出：</p>
+<ul>
+<li>自动响应：所有 <code>kotlinx.coroutines</code> 提供的挂起函数（如 <code>delay()</code>、<code>withContext()</code>）内部都会检查 <code>isActive</code>，一旦被取消就立刻抛出 <code>CancellationException</code>。</li>
+<li>手动响应（纯 CPU 密集型计算循环）：如果循环里没有调用任何挂起函数，必须手动检测取消状态：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">launch</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">Default</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="c1">// 方式 1：检查 isActive 属性（最常用，适合循环条件判断）</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">isActive</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">1</span><span class="n">_000_000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="c1">// 方式 2：ensureActive() —— 若已取消则立刻抛出 CancellationException</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="n">ensureActive</span><span class="p">()</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="c1">// 方式 3：yield() —— 既检查取消，又主动让出线程时间片防止掉帧</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="n">yield</span><span class="p">()</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">        </span><span class="n">count</span><span class="o">++</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a><span class="p">}</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a><span class="n">delay</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a><span class="n">job</span><span class="p">.</span><span class="na">cancelAndJoin</span><span class="p">()</span><span class="w"> </span><span class="c1">// 协程立刻协作退出</span>
+</code></pre></div>
+<h3 id="_4">资源清理</h3>
+<p><strong>同步资源清理：try-finally</strong>  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="n">launch</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">inputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">"data.txt"</span><span class="p">).</span><span class="na">inputStream</span><span class="p">()</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="c1">// 模拟耗时读取，期间如果外部调用 job.cancel()，会在挂起点抛出 CancellationException</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">2000</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="n">inputStream</span><span class="p">.</span><span class="na">readBytes</span><span class="p">()</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="c1">// 【Cleanup 动作】：无论协程正常结束还是中途被取消，finally 块必定会执行！</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="n">inputStream</span><span class="p">.</span><span class="na">close</span><span class="p">()</span><span class="w"> </span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos" data-linenos="11 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>当协程在挂起点抛出 <code>CancellationException</code> 退出时，会正常走完 <code>finally</code> 块，适合关闭文件流、<code>Cursor</code> 等同步资源。</p>
+<p><strong>异步挂起清理：try-finally + withContext(NonCancellable)</strong>  </p>
+<p>一旦协程进入 <code>Cancelling</code> 状态，它的 <code>isActive</code> 已经是 <code>false</code>。此时如果在 <code>finally</code> 块中直接调用任何挂起函数（如把日志写入 Room 数据库、调用登出接口），会立刻再次抛出 <code>CancellationException</code> 导致收尾代码执行失败！</p>
+<p>解法：在 <code>finally</code> 中使用 <code>withContext(NonCancellable)</code> 临时切入一个永不取消的上下文，确保异步收尾动作完整执行完毕：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">launch</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">5000</span><span class="p">)</span><span class="w"> </span><span class="c1">// 模拟耗时上传</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="c1">// ❌ 错误：直接写 delay(100) 或 db.insertLog() 会立刻被取消中断！</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="c1">// ✅ 正确：包裹在 NonCancellable 中，保证异步清理动作必定执行完</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="n">withContext</span><span class="p">(</span><span class="n">NonCancellable</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><a href="#__codelineno-2-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">            </span><span class="n">delay</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><a href="#__codelineno-2-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"清理完成：已将中断状态安全写入本地数据库"</span><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><a href="#__codelineno-2-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><a href="#__codelineno-2-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><a href="#__codelineno-2-13"><span class="linenos" data-linenos="13 "></span></a><span class="p">}</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><a href="#__codelineno-2-14"><span class="linenos" data-linenos="14 "></span></a><span class="n">delay</span><span class="p">(</span><span class="m">500</span><span class="p">)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><a href="#__codelineno-2-15"><span class="linenos" data-linenos="15 "></span></a><span class="n">job</span><span class="p">.</span><span class="na">cancelAndJoin</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>底层回调句柄清理：invokeOnCancellation（与 Job.invokeOnCompletion）</strong>  </p>
+<p>适用于通过 suspendCancellableCoroutine 封装三方异步 API 时的清理动作（例如取消 OkHttp 请求、注销 GPS 定位监听、关闭确认弹窗）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchLocation</span><span class="p">():</span><span class="w"> </span><span class="n">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">suspendCancellableCoroutine</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cont</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">listener</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocationListener</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">location</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">cont</span><span class="p">.</span><span class="na">resume</span><span class="p">(</span><span class="n">location</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="n">locationManager</span><span class="p">.</span><span class="na">requestLocationUpdates</span><span class="p">(</span><span class="n">listener</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos="4 "></span></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="c1">// 【Cleanup 动作】：一旦协程取消，立刻注销系统定位监听器，防止内存泄漏与耗电</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">    </span><span class="n">cont</span><span class="p">.</span><span class="na">invokeOnCancellation</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos="7 "></span></a><span class="w">        </span><span class="n">locationManager</span><span class="p">.</span><span class="na">removeUpdates</span><span class="p">(</span><span class="n">listener</span><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos" data-linenos="8 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos" data-linenos="9 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="cancellationexception">CancellationException 的特殊规则与避坑</h3>
+<p><strong>特殊传播规则，<code>CancellationException</code> 不终止父协程</strong>  </p>
+<p>在结构化并发中，子协程抛出普通异常（如 IOException）会向上传播并取消父协程和兄弟协程；但 <code>CancellationException</code> 被协程框架视为“正常终止信号”，当子协程抛出 <code>CancellationException</code> 时，它只会结束自己，不会向上取消父协程。</p>
+<p><strong>致命大坑：try-catch 或 runCatching 吞掉取消异常</strong>  </p>
+<p>代码中捕获异常时经常直接捕获 <code>Exception</code>，会有一个致命的问题，导致 <code>CancellationException</code> 像普通异常一样被捕获了。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="n">launch</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">2000</span><span class="p">)</span><span class="w"> </span><span class="c1">// 外部调用 job.cancel() 时，此处会抛出 CancellationException</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><a href="#__codelineno-4-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="c1">// ❌ 致命错误：宽泛捕获了 Exception，把 CancellationException 当成普通网络错误吞掉了！</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><a href="#__codelineno-4-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"请求失败，准备重试..."</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><a href="#__codelineno-4-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><a href="#__codelineno-4-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="c1">// ❌ 后果：协程不知道自己已被取消，继续往下执行更新 UI，极易引发页面销毁后的空指针崩溃！</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><a href="#__codelineno-4-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="n">updateUI</span><span class="p">()</span><span class="w"> </span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><a href="#__codelineno-4-10"><span class="linenos" data-linenos="10 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>正确解法：捕获通用异常时，遇到 CancellationException 必须立刻重新 throw（或使用专门封装的 suspendRunCatching 放行取消异常）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="p">...</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos="3 "></span></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">CancellationException</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="c1">// 放行取消信号！</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="n">handleError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>结构化级联取消与 cancelChildren()</strong>  </p>
+<ul>
+<li><strong>级联取消</strong>：父作用域取消（scope.cancel()）会自动递归取消名下所有子协程和孙协程。</li>
+<li><strong>保留父作用域</strong>：如果只想清空当前正在跑的所有子任务，但希望父作用域保持活跃以便后续继续 launch 新任务（例如页面下拉刷新时取消旧的加载任务），必须调用 scope.coroutineContext.cancelChildren()（若直接调 scope.cancel()，该作用域会永久失效，后续无法再启动任何协程）。</li>
+</ul>
+<h2 id="_5">超时控制</h2>
+<p>协程库提供了两个超时控制挂起函数，它们底层会在内部开启定时任务，超时瞬间自动向内部代码块发送取消信号：</p>
+<p><strong>withTimeout(timeMillis)</strong>  </p>
+<p>行为：如果代码块在指定毫秒内未完成，立即取消内部挂起操作，并向外抛出 <code>TimeoutCancellationException</code>（CancellationException 的子类）。</p>
+<p><em>注意</em>：如果在顶层协程直接裸用 withTimeout 而不捕获异常，虽然不会导致 App 崩溃（因为它是 <code>CancellationException</code>），但超时后的代码会被直接跳过。</p>
+<p><strong>withTimeoutOrNull(timeMillis)（生产首选）</strong>  </p>
+<p>行为：如果超时，不抛出任何异常，而是取消内部任务并优雅地返回 null，极其适合客户端弱网降级场景：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1">// 生产环境推荐写法：最多等待 2 秒，超时返回 null 并自动降级读本地缓存</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">withTimeoutOrNull</span><span class="p">(</span><span class="m">2000L</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="n">remoteApi</span><span class="p">.</span><span class="na">fetchUserProfile</span><span class="p">()</span><span class="w"> </span><span class="c1">// 超时自动取消网络请求</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos="4 "></span></a><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">localCache</span><span class="p">.</span><span class="na">getUserProfile</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<p><em>参考</em>  </p>
+<p>[1] Open AIDoc. <a href="https://openaidoc.org/kotlin/coroutines-cancellation#cancel-coroutines">取消</a>. Accessed 2026-11-25.  </p>
 
 
 

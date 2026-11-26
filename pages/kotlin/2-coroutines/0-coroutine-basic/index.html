@@ -979,27 +979,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../java/2-concurrent/07-java-memory-model.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内存模型
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../java/2-concurrent/08-thread-local/" class="md-nav__link">
         
   
@@ -1352,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../java/2-concurrent/07-java-memory-model.md" class="md-nav__link">
+      <a href="../../../java/5-jvm/00-java-memory-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1928,43 +1907,37 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="基础">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       协程和线程的差异
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       协程解决的问题
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#structured-concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构化并发（Structured Concurrency）
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       协程的使用
     </span>
@@ -1983,7 +1956,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       在挂起函数内部启动协程
     </span>
@@ -2002,15 +1975,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#structured-concurrency" class="md-nav__link">
-    <span class="md-ellipsis">
-      结构化并发（Structured Concurrency）
-    </span>
-  </a>
   
 </li>
       
@@ -5103,43 +5067,37 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="基础">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      概念
-    </span>
-  </a>
-  
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       协程和线程的差异
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       协程解决的问题
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#structured-concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构化并发（Structured Concurrency）
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       协程的使用
     </span>
@@ -5158,7 +5116,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       在挂起函数内部启动协程
     </span>
@@ -5180,15 +5138,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#structured-concurrency" class="md-nav__link">
-    <span class="md-ellipsis">
-      结构化并发（Structured Concurrency）
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -5206,10 +5155,9 @@
 
 <h1 id="coroutine">协程 (Coroutine)</h1>
 <h2 id="_1">基础</h2>
-<h3 id="_2">概念</h3>
 <p>协程（Coroutine）是一个轻量级的并发编程解决方案，一般用来处理异步任务，它本质上是运行在用户态的轻量级任务执行单元。协程不是 Kotlin 特有的概念，如果抛开语言来讲，协程就是一个可以被暂停和恢复的函数。</p>
 <p>协程处理异步通过挂起/恢复来实现，任务一直运行在用户态，和线程的阻塞不同，线程的切换会涉及用户态和内核态的切换，因此协程更轻量。而挂起/恢复的机制可以让我们以同步的代码结构来执行异步的任务，避免异步编码的层层回调，这也是协程的核心价值。</p>
-<h3 id="_3">协程和线程的差异</h3>
+<h2 id="_2">协程和线程的差异</h2>
 <p>协程和线程并不是互相替代的关系，而是承载与协作的关系，协程的运行必须依赖线程，不能独立于线程实现。线程是操作系统内核调度的最小单元，协程只是在线程的基础上由语言封装出来的并发框架。</p>
 <p><img alt="协程和线程" src="https://openaidoc.org/kotlin/coroutines-and-threads.svg" /></p>
 <p>从底层实现和工厂控制的角度来看，协程和线程的核心差异有四个：</p>
@@ -5220,12 +5168,21 @@
 <li><strong>生命周期和异常管控</strong> 线程的生命周期完全由操作系统控制，开启线程后具体执行的时机是不可控的，处理不好往往容易造成内存泄漏。协程引入了结构性并发的概念，通过 viewModelScope 和 lifecycleScope 把任务和组件的生命周期绑定，页面结束时，父作用域会自动取消子作用域的协程，异常也能向上汇聚，从而从架构上解决异步问题。</li>
 </ul>
 <p>从使用场景上看，如果是 CPU 密集型的任务，还是需要使用线程，能充分发挥多核的优势。如果是 IO 密集型任务，使用协程能够减少线程占据 CPU 空等的时间。</p>
-<h3 id="_4">协程解决的问题</h3>
+<h2 id="_3">协程解决的问题</h2>
 <p>协程解决了传统线程并发编程中三个核心的问题：</p>
 <p><strong>异步代码过于复杂（回调地狱）</strong>：Android 中通过传统线程写异步代码，为了不阻塞主线程，通常都需要用异步回调的方式获取结果，调用链路过深时层层嵌套的回调导致代码非常难维护。协程通过挂起/恢复的方式来写异步代码，能让异步代码像写同步代码一样简单，异常处理也更方便。</p>
 <p><strong>高并发下的资源与性能瓶颈（线程过重）</strong>：Java 中的线程直接映射到操作系统的线程，线程创建和切换开销都比较大，同时线程是阻塞式调度，使用不合理很容易造成内存以及死锁等问题。协程只运行在用户态中，占用的资源很少，又是通过协作式调度，在并发度、内存占用方面协程都占优势。</p>
 <p><strong>异步任务失控与泄漏（难管理）</strong>：线程启动之后就不好控制，Android 开发中页面销毁时忘记取消异步任务，容易出现内存泄漏、状态异常等各种问题。协程引入结构化并发，能在页面销毁时取消子作用域内的协程，任意子协程出现异常，也能向上传递到父作用域，从架构层面避免了这类异常。</p>
-<h2 id="_5">协程的使用</h2>
+<h2 id="structured-concurrency">结构化并发（Structured Concurrency）</h2>
+<p>Kotlin 的协程是通过结构化并发来解决传统异步编程中出现的各种问题的。结构化并发是一种现代化的并发编程范式，它要求并发代码也要像结构化代码块一样，必须有明确的入口和出口。</p>
+<p>结构化并发是协程的核心设计思想之一，它要求协程必须在作用域（CoroutineScope）中启动，作用域负责管理其中所有子协程的生命周期。Kotlin 协程的结构化并发中中有四大核心原则：</p>
+<ul>
+<li>作用域边界约束，协程不能凭空创建，必须在作用域中启动。</li>
+<li>父等子原则，父协程执行完自己的代码之后会挂起，必须等待所有的子协程结束才真正结束。</li>
+<li>取消向下传递，父协程取消时子协程也会自动取消，防止子协程在父协程生命周期结束后还在执行。</li>
+<li>异常向上传递，默认机制下，子协程有异常时会向上传播到父协程，父协程收到异常后会先取消它自己的子协程（即异常协程的兄弟协程），随即将异常继续向上传递。</li>
+</ul>
+<h2 id="_4">协程的使用</h2>
 <p>启动一个简单的协程：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.*</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a>
@@ -5240,7 +5197,7 @@
 </code></pre></div>
 <p>例子中启动一个简单协程，例子会输出 <code>Hello, World</code>。</p>
 <h3 id="-">启动协程--三个核心的构建器</h3>
-<p>启动协程通过协程构建器（Coroutine Builders），kotlinx.coroutines 包中有三个核心构建器 <code>launch</code>、<code>async</code>、<code>runBlocking</code>。此外在 Channel 通信模型中还有一个 <code>produce</code> 构建器。</p>
+<p>协程构建器（Coroutine Builders）用来启动协程，kotlinx.coroutines 包中有三个核心构建器 <code>launch</code>、<code>async</code>、<code>runBlocking</code>。此外在 Channel 通信模型中还有一个 <code>produce</code> 构建器。</p>
 <p><strong>1. CoroutineScope.launch</strong>  </p>
 <p>启动一个独立的子协程，不阻塞当前作用域的其他部分。CoroutineScope.launch 返回一个 Job 对象。可以通过 <code>job.cancel()</code> 取消协程，<code>job.join()</code>等待结束。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModelScope</span><span class="p">.</span><span class="na">launch</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -5262,7 +5219,6 @@
 <a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos" data-linenos="8 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">banners</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deferredB</span><span class="p">.</span><span class="na">await</span><span class="p">()</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9"></a><a href="#__codelineno-2-9"><span class="linenos" data-linenos="9 "></span></a><span class="p">}</span>
 </code></pre></div>
-<p>async 函数有一个 start 参数 <code>async(start = CoroutineStart.LAZY) { ... }）</code>，可以实现 “懒启动”，协程不会立即启动，直到调用 <code>await()</code> 或者 <code>start()</code> 时才会真实启动。</p>
 <p><strong>3. runBlocking</strong>  </p>
 <p>runBlocking 启动一个新协程并阻塞当前的物理线程，直到内部的子协程都执行完。runBlocking 返回代码块的最后一行。</p>
 <p>Android 中在主线程直接调用或在 viewModelScope 中调用 runBlocking 都会阻塞主线程，有可能导致 ANR。所以 runBlocking一般只用在测试代码中。</p>
@@ -5273,15 +5229,7 @@
 <a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Alice"</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">name</span><span class="p">)</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>协程的启动模式</strong>  </p>
-<p>使用 <code>launch</code> 和 <code>async</code> 启动协程时，都可以用 start 参数来控制协程的调度方式。CoroutineStart 有四种启动模式：</p>
-<ul>
-<li><strong>CoroutineStart.DEFAULT（默认）</strong> 立即根据调度器安排执行，如果在开启执行前已经调用了 <code>cancel()</code>，则直接进入取消状态。</li>
-<li><strong>CoroutineStart.LAZY（懒加载）</strong> 创建后处理新建状态，直到调用 <code>job.start()</code>、<code>job.join()</code>、<code>deferred.async()</code>才会开始执行。</li>
-<li><strong>CoroutineStart.ATOMIC（原子启动）</strong> 立即执行，和默认模式不同的是，在执行到第一个挂起点之前不能被取消，保证初始化代码块一定能执行。</li>
-<li><strong>CoroutineStart.UNDISPATCHED（无调度启动）</strong> 立即在当前线程上执行协程块中的代码，遇到第一个挂起点之后才切换到指定的 Diaptcher（Dispatch.Main.immediate思想类似，可以减少一次handle.post()调度）。</li>
-</ul>
-<h3 id="_6">在挂起函数内部启动协程</h3>
+<h3 id="_5">在挂起函数内部启动协程</h3>
 <p>如果已经在挂起函数内部，并且不希望使用外部的作用域来启动协程，还可以用 <code>coroutineScope { ... }</code> 和 <code>supervisorScope { ... }</code>。他们会挂起当前的协程，创建一个新的作用域，直到内部所有的子任务全部完成后才返回。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">loadAllData</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coroutineScope</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="c1">// 在挂起函数内部安全地开启并发</span>
@@ -5298,70 +5246,6 @@
 <h3 id="withcontext">withContext</h3>
 <p><code>withContext</code> 不是协程的调度器，它是一个挂起函数，调用它也不会启动一个新的协程。它的作用是在当前协程的作用域内临时切换上下文(常见的是调用线程调度器)，代码块执行完毕后，会自动切换到原来的上下文。</p>
 <p>当执行到 <code>withContext</code> 时，当前协程会挂起并释放原线程的控制权，等 <code>withContext</code> 中的代码块执行完之后，最后一行是它的返回值，会自动恢复原线程继续往下走。</p>
-<p>用一个表格来总结：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">构建器</th>
-<th style="text-align: left;">所属包层级</th>
-<th style="text-align: left;">返回值类型</th>
-<th style="text-align: left;">是否阻塞当前线程</th>
-<th style="text-align: left;">异常处理机制</th>
-<th style="text-align: left;">核心适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong><code>launch</code></strong></td>
-<td style="text-align: left;"><code>kotlinx.coroutines</code></td>
-<td style="text-align: left;"><code>Job</code></td>
-<td style="text-align: left;">否（异步非阻塞）</td>
-<td style="text-align: left;">立即向父协程传播（未捕获会直接导致崩溃）</td>
-<td style="text-align: left;">不需要返回结果的“发射后不管”任务（如更新 UI、写日志）。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>async</code></strong></td>
-<td style="text-align: left;"><code>kotlinx.coroutines</code></td>
-<td style="text-align: left;"><code>Deferred&lt;T&gt;</code></td>
-<td style="text-align: left;">否（异步非阻塞）</td>
-<td style="text-align: left;">暂存在 <code>Deferred</code> 中，调用 <code>await()</code> 时抛出（同时也会向上传播）</td>
-<td style="text-align: left;">需要获取异步结果，或多个独立接口并发聚合。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>runBlocking</code></strong></td>
-<td style="text-align: left;"><code>kotlinx.coroutines</code></td>
-<td style="text-align: left;"><code>T</code>（闭包最后一行结果）</td>
-<td style="text-align: left;"><strong>是（阻塞当前物理线程）</strong></td>
-<td style="text-align: left;">直接向外部调用线程抛出</td>
-<td style="text-align: left;"><strong>仅限单元测试</strong>或 <code>main</code> 函数入口，<strong>严禁在 Android 主线程使用</strong>。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>produce</code></strong></td>
-<td style="text-align: left;"><code>kotlinx.coroutines.channels</code></td>
-<td style="text-align: left;"><code>ReceiveChannel&lt;E&gt;</code></td>
-<td style="text-align: left;">否（异步非阻塞）</td>
-<td style="text-align: left;">异常会关闭通道，消费者读取时抛出</td>
-<td style="text-align: left;">生产者-消费者通信模型（现代开发中大多已被 <code>Flow</code> 替代）。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong><code>withContext</code></strong></td>
-<td style="text-align: left;"><strong>挂起函数</strong> (<code>kotlinx.coroutines</code>)</td>
-<td style="text-align: left;"><code>T</code>（直接返回最后一行结果）</td>
-<td style="text-align: left;">否（<strong>串行</strong>非阻塞挂起）</td>
-<td style="text-align: left;">直接在当前调用栈向上抛出（可用常规 <code>try-catch</code> 捕获）</td>
-<td style="text-align: left;"><strong>单任务的线程切换</strong>（如在主线程中切到 <code>Dispatchers.IO</code> 执行耗时操作后切回）。</td>
-</tr>
-</tbody>
-</table>
-<h2 id="structured-concurrency">结构化并发（Structured Concurrency）</h2>
-<p>结构化并发是一种现代化的并发编程范式，它要求并发代码也要像结构化代码块一样，必须有明确的入口和出口。</p>
-<p>结构化并发是协程的核心设计思想之一，它要求协程必须在作用域（CoroutineScope）中启动，作用域负责管理其中所有字写成的生命周期。Kotlin 协程的结构化并发中中有四大核心原则：</p>
-<ul>
-<li>作用域边界约束，协程不能凭空创建，必须在作用域中启动。</li>
-<li>父等子原则，父协程执行完自己的代码之后会挂起，必须等待所有的子协程结束才真正结束。</li>
-<li>取消向下传递，父协程取消时子协程也会自动取消。</li>
-<li>异常向上传递，默认机制下，子协程有异常时会向上传播到父协程，父协程收到异常后会先取消它自己的子协程（即异常协程的兄弟协程），随即将异常继续向上传递。</li>
-</ul>
 <hr />
 <p><em>参考</em>  </p>
 <p>[1] Android Developers. <a href="https://developer.android.google.cn/kotlin/coroutines?hl=zh-cn">Android 上的协程</a>. Accessed 2026-11-17.<br />

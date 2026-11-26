@@ -979,27 +979,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../java/2-concurrent/07-java-memory-model.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内存模型
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../java/2-concurrent/08-thread-local/" class="md-nav__link">
         
   
@@ -1352,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../java/2-concurrent/07-java-memory-model.md" class="md-nav__link">
+      <a href="../../../java/5-jvm/00-java-memory-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1943,9 +1922,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#suspendresume" class="md-nav__link">
+  <a href="#suspend" class="md-nav__link">
     <span class="md-ellipsis">
-      挂起（suspend）与恢复（resume）
+      挂起函数（suspend）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coroutine-builders" class="md-nav__link">
+    <span class="md-ellipsis">
+      协程构建器（Coroutine Builders）
     </span>
   </a>
   
@@ -1958,6 +1946,48 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="协程作用域（CoroutineScope）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心原则（结构化并发的体现）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      作用域的构成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      作用域与父子协程的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见的协程作用域
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1966,6 +1996,48 @@
       协程上下文（CoroutineContext）
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="协程上下文（CoroutineContext）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见的上下文元素
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      底层实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义上下文
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theadlocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      进阶用法（跨线程绑定 TheadLocal）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1976,14 +2048,80 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Job">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Job的核心操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#job_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Job 的状态机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#job_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      几种不同的 Job
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#job_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Job 的底层实现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#dispatcher" class="md-nav__link">
     <span class="md-ellipsis">
-      协程调度（Dispatcher）
+      协程调度器（Dispatcher）
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="协程调度器（Dispatcher）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      四大标准调度器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      工作机制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5049,9 +5187,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#suspendresume" class="md-nav__link">
+  <a href="#suspend" class="md-nav__link">
     <span class="md-ellipsis">
-      挂起（suspend）与恢复（resume）
+      挂起函数（suspend）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coroutine-builders" class="md-nav__link">
+    <span class="md-ellipsis">
+      协程构建器（Coroutine Builders）
     </span>
   </a>
   
@@ -5064,6 +5211,48 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="协程作用域（CoroutineScope）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心原则（结构化并发的体现）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      作用域的构成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      作用域与父子协程的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见的协程作用域
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -5072,6 +5261,48 @@
       协程上下文（CoroutineContext）
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="协程上下文（CoroutineContext）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见的上下文元素
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      底层实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义上下文
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theadlocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      进阶用法（跨线程绑定 TheadLocal）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5082,14 +5313,80 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Job">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Job的核心操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#job_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Job 的状态机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#job_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      几种不同的 Job
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#job_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Job 的底层实现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#dispatcher" class="md-nav__link">
     <span class="md-ellipsis">
-      协程调度（Dispatcher）
+      协程调度器（Dispatcher）
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="协程调度器（Dispatcher）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      四大标准调度器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      工作机制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5109,11 +5406,450 @@
 
 
 <h1 id="_1">核心概念</h1>
-<h2 id="suspendresume">挂起（suspend）与恢复（resume）</h2>
+<p>Kotlin 中的协程的本质是一套依靠编译器（CPS 与状态机）和上层官方的协程库（kotlinx.coroutines）实现的轻量级并发框架。解决了传统异步编程中的三个痛点问题：</p>
+<ul>
+<li><strong>可读性</strong> 通过挂起/恢复机制消除了回调地狱，用写同步代码的方式写异步代码；</li>
+<li><strong>安全性</strong> 通过结构化并发将异步任务绑定到特定的生命周期作用域内，父子任务联动，从机制上消除了异步失控导致的内存泄漏和状态错乱问题；</li>
+<li><strong>高性能</strong> 协程挂起时并不会阻塞底层操作系统的线程，通过少量的线程池就能完成大量的并发任务，从而减少了线程创建、销毁、上下文切换带来的性能开销。</li>
+</ul>
+<p>基于这些价值，Kotlin 协程在日常使用和底层实现中主要包含六大核心概念：挂起函数、协程构建器、协程作用域、协程上下文、Job、协程调度器。</p>
+<h2 id="suspend">挂起函数（suspend）</h2>
+<p>挂起函数是用 <code>suspend</code> 关键字修饰的函数，它是 Kotlin 协程中的核心语言特性。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="c1">// ...</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>非阻塞式暂停</strong>  </p>
+<p>挂起函数的特点是能在挂起点（比如 withContext 调用的网络请求、delay等）处暂停并且释放当前线程的控制权，不阻塞当前线程，当异步结果就绪之后，从挂起点处恢复。</p>
+<p><strong>调用限制</strong>  </p>
+<p>只能在协程代码块内部或者其他的挂起函数中调用。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchDocs</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">get</span><span class="p">(</span><span class="s">"https://developer.android.com"</span><span class="p">)</span><span class="w"> </span><span class="c1">// ✅ 调用正常</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">show</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="p">}</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos=" 5 "></span></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="kd">fun</span><span class="w"> </span><span class="nf">checkConnect</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="c1">// ❌ 编译错误 suspend function 'fun checkConnect()' can only be called from a coroutine or another suspend function.</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">get</span><span class="p">(</span><span class="s">"https://developer.android.com"</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="p">}</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos" data-linenos="11 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">withContext</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><a href="#__codelineno-1-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="cm">/* ... */</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><a href="#__codelineno-1-13"><span class="linenos" data-linenos="13 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>挂起/恢复的工作流程</strong>  </p>
+<p><strong>挂起（Suspend）</strong>：当遇到耗时操作时，当前协程的局部状态（局部变量、执行进度）会被保存下来，函数提前返回（返回一个特殊标记 COROUTINE_SUSPENDED），释放底层资源。</p>
+<p><strong>恢复（Resume）</strong>：当后台耗时操作（如 I/O 线程的网络请求）完成后，系统会通过回调触发恢复逻辑，将协程重新调度回指定线程，带着返回结果从上次暂停的下一行代码继续往下执行。</p>
+<h2 id="coroutine-builders">协程构建器（Coroutine Builders）</h2>
+<p>协程构建器是用来创建和启动协程的函数，通常协程构建器是 <code>CoroutineScope</code> 的扩展函数，常见的协程构建器有 <code>CoroutineScope.launch</code>、<code>CoroutineScope.async</code>、<code>runBlocking</code>。</p>
+<p>还有一个 <code>withContext</code>，尽管它不是协程构建器，也经常放在一起讲，它是一个挂起函数，不会启动新的协程，仅用来切换线程。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">构建器</th>
+<th style="text-align: left;">所属包层级</th>
+<th style="text-align: left;">返回值类型</th>
+<th style="text-align: left;">是否阻塞当前线程</th>
+<th style="text-align: left;">异常处理机制</th>
+<th style="text-align: left;">核心适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>CoroutineScope.launch</code></strong></td>
+<td style="text-align: left;"><code>kotlinx.coroutines</code></td>
+<td style="text-align: left;"><code>Job</code></td>
+<td style="text-align: left;">否（异步非阻塞）</td>
+<td style="text-align: left;">立即向父协程传播（未捕获会直接导致崩溃）</td>
+<td style="text-align: left;">不需要返回结果的“发射后不管”任务（如更新 UI、写日志）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>CoroutineScope.async</code></strong></td>
+<td style="text-align: left;"><code>kotlinx.coroutines</code></td>
+<td style="text-align: left;"><code>Deferred&lt;T&gt;</code></td>
+<td style="text-align: left;">否（异步非阻塞）</td>
+<td style="text-align: left;">暂存在 <code>Deferred</code> 中，调用 <code>await()</code> 时抛出（同时也会向上传播）</td>
+<td style="text-align: left;">需要获取异步结果，或多个独立接口并发聚合。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>runBlocking</code></strong></td>
+<td style="text-align: left;"><code>kotlinx.coroutines</code></td>
+<td style="text-align: left;"><code>T</code>（闭包最后一行结果）</td>
+<td style="text-align: left;"><strong>是（阻塞当前物理线程）</strong></td>
+<td style="text-align: left;">直接向外部调用线程抛出</td>
+<td style="text-align: left;"><strong>仅限单元测试</strong>或 <code>main</code> 函数入口，<strong>严禁在 Android 主线程使用</strong>。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>withContext</code></strong></td>
+<td style="text-align: left;"><strong>挂起函数</strong> (<code>kotlinx.coroutines</code>)</td>
+<td style="text-align: left;"><code>T</code>（直接返回最后一行结果）</td>
+<td style="text-align: left;">否（<strong>串行</strong>非阻塞挂起）</td>
+<td style="text-align: left;">直接在当前调用栈向上抛出（可用常规 <code>try-catch</code> 捕获）</td>
+<td style="text-align: left;"><strong>单任务的线程切换</strong>（如在主线程中切到 <code>Dispatchers.IO</code> 执行耗时操作后切回）。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>协程的启动模式</strong>  </p>
+<p><code>CoroutineScope.launch</code> 的实现：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">.</span><span class="nf">launch</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EmptyCoroutineContext</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">start</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineStart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CoroutineStart</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">block</span><span class="p">:</span><span class="w"> </span><span class="n">suspend</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">.()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="p">):</span><span class="w"> </span><span class="n">Job</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">newContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newCoroutineContext</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">coroutine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">start</span><span class="p">.</span><span class="na">isLazy</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="n">LazyStandaloneCoroutine</span><span class="p">(</span><span class="n">newContext</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="p">)</span><span class="w"> </span><span class="k">else</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><a href="#__codelineno-2-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="n">StandaloneCoroutine</span><span class="p">(</span><span class="n">newContext</span><span class="p">,</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><a href="#__codelineno-2-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="n">coroutine</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">coroutine</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><a href="#__codelineno-2-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">coroutine</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><a href="#__codelineno-2-12"><span class="linenos" data-linenos="12 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><code>CoroutineScope.async</code> 的实现：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">.</span><span class="nf">async</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EmptyCoroutineContext</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">start</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineStart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CoroutineStart</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">block</span><span class="p">:</span><span class="w"> </span><span class="n">suspend</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">.()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">T</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="p">):</span><span class="w"> </span><span class="n">Deferred</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">newContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newCoroutineContext</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">coroutine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">start</span><span class="p">.</span><span class="na">isLazy</span><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="n">LazyDeferredCoroutine</span><span class="p">(</span><span class="n">newContext</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="p">)</span><span class="w"> </span><span class="k">else</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="n">DeferredCoroutine</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">newContext</span><span class="p">,</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><a href="#__codelineno-3-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="n">coroutine</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">coroutine</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="p">)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><a href="#__codelineno-3-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">coroutine</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><a href="#__codelineno-3-12"><span class="linenos" data-linenos="12 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><code>CoroutineScope.launch()</code> 和 <code>CoroutineScope.async()</code> 函数有一个 start 参数，使用 <code>launch</code> 和 <code>async</code> 启动协程时，都可以用 start 参数来控制协程的调度方式。CoroutineStart 有四种启动模式：</p>
+<ul>
+<li><strong>CoroutineStart.DEFAULT（默认）</strong> 立即根据调度器安排执行，如果在开启执行前已经调用了 <code>cancel()</code>，则直接进入取消状态。</li>
+<li><strong>CoroutineStart.LAZY（懒加载）</strong> 创建后处于新建状态，直到调用 <code>job.start()</code>、<code>job.join()</code>、<code>deferred.async()</code>才会开始执行。如果连续调用两个懒加载 <code>async()</code> 再分别 <code>await()</code>，就会退化成串行执行。</li>
+<li><strong>CoroutineStart.ATOMIC（原子启动）</strong> 立即执行，和默认模式不同的是，在执行到第一个挂起点之前不能被取消，保证初始化代码块一定能执行。</li>
+<li><strong>CoroutineStart.UNDISPATCHED（无调度启动）</strong> 立即在当前线程上执行协程块中的代码，遇到第一个挂起点之后才切换到指定的 Diaptcher（Dispatcher.Main.immediate 思想类似，可以减少一次 <code>handle.post()</code> 调度。</li>
+</ul>
 <h2 id="coroutinescope">协程作用域（CoroutineScope）</h2>
+<p>协程作用域是追踪和管理协程生命周期的容器，是结构化并发在代码层面的体现。Kotlin 中的协程必须在某个作用域（CoroutineScope）内启动，从而保证了每个协程都有明确的生命周期归属。</p>
+<h3 id="_2">核心原则（结构化并发的体现）</h3>
+<p>在作用域内或者协程内部启动子协程时，他们会形成树形结构，遵循核心原则：</p>
+<ul>
+<li><strong>上下文继承</strong> 子协程会继承父协程的所有上下文，同时创建新的 Job 挂载到父协程上；</li>
+<li><strong>父等子</strong> 父作用域内的代码执行完之后，会等待子协程全部执行完再结束父协程；</li>
+<li><strong>取消向下传递</strong> 调用 <code>scope.cancel()</code> 取消父作用域之后，该作用域下的所有子协程都会被取消；</li>
+<li><strong>异常向上传递</strong> 默认行为中，子协程出现异常没有处理，会传递给父作用域，父作用域取消自身，从而取消父作用域内的所有子协程。</li>
+</ul>
+<h3 id="_3">作用域的构成</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">CoroutineScope</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">coroutineContext</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos="3 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>CoroutineScope 是一个接口，持有一个上下文对象。协程作用域本身不执行代码，但是它持有生命周期管理器（Job）、调度器（Dispatchers）、协程名称（CoroutineName）、异常处理器（CoroutineExceptionHandler），这些都是协程上下文。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a><span class="n">CoroutineScope</span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="n">SupervisorJob</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="c1">// 生命周期管理器</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="c1">// 调度器</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="n">CoroutineName</span><span class="p">(</span><span class="s">"user"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1">// 协程名称</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="n">CoroutineExceptionHandler</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// 异常处理器</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">    </span><span class="p">)</span>
+</code></pre></div>
+<h3 id="_4">作用域与父子协程的关系</h3>
+<p><strong>父子作用域的树形结构是如何构成的？</strong></p>
+<p>在启动子协程（比如调用 launch）时，从当前的上下文中取出 Job 作为子协程的 parent，新协程的 Job 会添加到父协程的 children 列表中，从而形成 Job 树。</p>
+<p>取消的时候，也跟根据这个父子 Job 树来管理协程。</p>
+<h3 id="_5">常见的协程作用域</h3>
+<p><strong>全局作用域 GlobalScope</strong>  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a><span class="n">GlobalScope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="c1">// 生命周期与进程一致</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>全局单例的作用域，生命周期和进程一致，没有父 Job。很容易内存泄漏，除了需要用到全局状态的情况（比如全局进程状态的上报），一般不使用。</p>
+<p><strong>Android 生命周期作用域</strong>  </p>
+<ul>
+<li>viewModelScope 绑定 ViewModel 的生命周期，<code>onClear()</code>时取消；</li>
+<li>lifecycleScope 绑定 Fragment/Activity 的生命周期，<code>onDestroy()</code>时取消；</li>
+<li>repeatOnLifecycle 绑定 Lifecycle 的状态，低于指定状态时取消收集。</li>
+</ul>
+<p><strong>挂起函数作用域 coroutineScope/supervisorScope</strong>  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">load</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coroutineScope</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="n">launch</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">fetchA</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="n">launch</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">fetchB</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="c1">// 等待所有子协程完成</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos="5 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>用于在挂起函数中启动子协程，非阻塞式，等待子协程完成之后，当前函数才会返回。二者的差异点是 <code>coroutineScope</code> 出现未处理异常时会取消所有协程，<code>supervisorScope</code> 出现异常时不会影响到兄弟协程。</p>
+<p><code>supervisorScope</code> 适用于页面多个独立模块并发加载，其中一个模块失败不影响别的模块。</p>
+<p><strong>自定义作用域</strong>  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">(</span><span class="n">SupervisorJob</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos="2 "></span></a><span class="n">scope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos="3 "></span></a><span class="n">scope</span><span class="p">.</span><span class="na">cancel</span><span class="p">()</span><span class="w"> </span><span class="c1">// 手动取消</span>
+</code></pre></div>
+<p>需要手动管理生命周期，适用于封装独立的业务管理类，常配合 <code>SupervisorJob</code> 隔离异常。</p>
 <h2 id="coroutinecontext">协程上下文（CoroutineContext）</h2>
+<p>协程上下文是协程运行的环境信息的集合，它包含了 Job、Dispatcher、CoroutineName、CoroutineExceptionHandler。CoroutineContext 的数据结构是一个索引不可变的集合，重载了 <code>+</code>，可以和其他上下文一起组合成新的上下文。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">CoroutineContext</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">E</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Element</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="n">Key</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span><span class="p">):</span><span class="w"> </span><span class="n">E?</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">fold</span><span class="p">(</span><span class="n">initial</span><span class="p">:</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">operation</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">Element</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">R</span><span class="p">):</span><span class="w"> </span><span class="n">R</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">plus</span><span class="p">(</span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span><span class="p">):</span><span class="w"> </span><span class="n">CoroutineContext</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">minusKey</span><span class="p">(</span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="n">Key</span><span class="o">&lt;*&gt;</span><span class="p">):</span><span class="w"> </span><span class="n">CoroutineContext</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">Element</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">key</span><span class="p">:</span><span class="w"> </span><span class="n">Key</span><span class="o">&lt;*&gt;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><a href="#__codelineno-9-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><a href="#__codelineno-9-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><a href="#__codelineno-9-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">Key</span><span class="o">&lt;</span><span class="n">E</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Element</span><span class="o">&gt;</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><a href="#__codelineno-9-12"><span class="linenos" data-linenos="12 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="_6">常见的上下文元素</h3>
+<ul>
+<li><strong>Job</strong> 管理协程，控制协程的启动、等待、取消，并维系结构化并发的父子层级树。</li>
+<li><strong>Dispatcher</strong> 调度器，决定协程在哪个线程上运行。</li>
+<li><strong>CoroutineName</strong> 协程名，常用来打日志或者调试。</li>
+<li><strong>CoroutineExceptionHandle</strong> 异常处理器，用来处理根协程未捕获异常。</li>
+</ul>
+<h3 id="_7">底层实现</h3>
+<p>CoroutineContext 提供了四个核心的操作：</p>
+<ul>
+<li>get（即[]），按 Key 访问，例如 <code>val job = context[Job]</code>；</li>
+<li>plus（+运算符），合并两个上下文并返回新上下文，如果有相同的 Key，右值会覆盖左侧元素。合并时，有一个优化，ContinuationInterceptor（即调度器的 Dispatcher）会被调整到链表的末端，每次挂起恢复的时候都需要访问，这样可以快速命中；</li>
+<li>minusKey，移除指定 Key 对应的元素，都移除完了会返回一个 EmptyCoroutineContext；</li>
+<li>fold，按顺序遍历集合中的所有元素；</li>
+</ul>
+<p><code>CoroutineContext</code> 的底层实现是一个链表，拼接元素时，底层会构建一个名为 <code>CombinedContext</code> 的链表，上面的这些操作就是沿着链表来操作的。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">internal</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">CombinedContext</span><span class="p">(</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">left</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">element</span><span class="p">:</span><span class="w"> </span><span class="n">Element</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><a href="#__codelineno-10-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span><span class="p">,</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><a href="#__codelineno-10-5"><span class="linenos" data-linenos=" 5 "></span></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><a href="#__codelineno-10-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">E</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Element</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="n">Key</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span><span class="p">):</span><span class="w"> </span><span class="n">E?</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><a href="#__codelineno-10-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><a href="#__codelineno-10-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><a href="#__codelineno-10-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">            </span><span class="n">cur</span><span class="p">.</span><span class="na">element</span><span class="o">[</span><span class="n">key</span><span class="o">]?.</span><span class="na">let</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a><a href="#__codelineno-10-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cur</span><span class="p">.</span><span class="na">left</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a><a href="#__codelineno-10-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">next</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">CombinedContext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a><a href="#__codelineno-10-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">                </span><span class="n">cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a><a href="#__codelineno-10-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a><a href="#__codelineno-10-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">next</span><span class="o">[</span><span class="n">key</span><span class="o">]</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15"></a><a href="#__codelineno-10-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16"></a><a href="#__codelineno-10-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17"></a><a href="#__codelineno-10-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18"></a><a href="#__codelineno-10-18"><span class="linenos" data-linenos="18 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="_8">自定义上下文</h3>
+<p>自定义上下文只需要继承 AbstractCoroutineContextElement，并且在内部定义一个伴生对象作为唯一的 Key 即可。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="k">import</span><span class="w"> </span><span class="nn">kotlin.coroutines.AbstractCoroutineContextElement</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="k">import</span><span class="w"> </span><span class="nn">kotlin.coroutines.CoroutineContext</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="k">import</span><span class="w"> </span><span class="nn">kotlin.coroutines.coroutineContext</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><a href="#__codelineno-11-4"><span class="linenos" data-linenos=" 4 "></span></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><a href="#__codelineno-11-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="c1">// 1. 继承 AbstractCoroutineContextElement，传入自定义的 Key</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><a href="#__codelineno-11-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="kd">class</span><span class="w"> </span><span class="nc">TraceContext</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">traceId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AbstractCoroutineContextElement</span><span class="p">(</span><span class="n">TraceContext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><a href="#__codelineno-11-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="c1">// 2. 定义伴生对象实现 CoroutineContext.Key，充当唯一索引</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><a href="#__codelineno-11-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="kd">companion</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">Key</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span><span class="p">.</span><span class="na">Key</span><span class="o">&lt;</span><span class="n">TraceContext</span><span class="o">&gt;</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a><a href="#__codelineno-11-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="p">}</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><a href="#__codelineno-11-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a><a href="#__codelineno-11-11"><span class="linenos" data-linenos="11 "></span></a><span class="c1">// 3. 在挂起函数中随时提取（无需层层传参）</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a><a href="#__codelineno-11-12"><span class="linenos" data-linenos="12 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchUserProfile</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a><a href="#__codelineno-11-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">traceId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coroutineContext</span><span class="o">[</span><span class="n">TraceContext</span><span class="o">]?.</span><span class="na">traceId</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="s">"unknown"</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14"></a><a href="#__codelineno-11-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">"当前请求链路 ID: </span><span class="si">$</span><span class="n">traceId</span><span class="s">"</span><span class="p">)</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15"></a><a href="#__codelineno-11-15"><span class="linenos" data-linenos="15 "></span></a><span class="p">}</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16"></a><a href="#__codelineno-11-16"><span class="linenos" data-linenos="16 "></span></a>
+<a id="__codelineno-11-17" name="__codelineno-11-17"></a><a href="#__codelineno-11-17"><span class="linenos" data-linenos="17 "></span></a><span class="c1">// 4. 启动协程时像普通元素一样通过 '+' 号注入</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18"></a><a href="#__codelineno-11-18"><span class="linenos" data-linenos="18 "></span></a><span class="kd">fun</span><span class="w"> </span><span class="nf">startRequest</span><span class="p">(</span><span class="n">scope</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19"></a><a href="#__codelineno-11-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="n">scope</span><span class="p">.</span><span class="na">launch</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TraceContext</span><span class="p">(</span><span class="s">"REQ-20261123-8899"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20"></a><a href="#__codelineno-11-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">        </span><span class="n">fetchUserProfile</span><span class="p">()</span><span class="w"> </span><span class="c1">// 自动继承父协程的 TraceContext</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21"></a><a href="#__codelineno-11-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22"></a><a href="#__codelineno-11-22"><span class="linenos" data-linenos="22 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>自定义上下文的一些使用场景：</p>
+<ol>
+<li>全局 Loading/弹窗 的状态控制，比如同一个请求，第一次进页面需要展示loading，下拉刷新的时候展示刷新，如果用参数控制，需要把参数一层层传递。通过自定义上下文就能让简化函数调用，<code>LoadingConfigContext(val showLoading: Boolean, val cancelable: Boolean)</code>。</li>
+<li>端到端链路监控，比如某一个业务流程很长，可以在入口地方自定义一个上下文记录上来源等信息，<code>UserActionContext(actionId = UUID, sourcePage = "HomeBanner")</code>，可以很方便把整条链路串联起来。</li>
+<li>统一的错误信息提示与降级策略，比如在网络请求失败时，有的场景下弹Toast、有的不需要提示，可以结合自定义的 CoroutineExceptionHandler，自定义的上下文 <code>ErrorPolicyContext(val silent: Boolean, val customErrorHandler: ((Throwable) -&gt; Unit)?)</code>，在请求中捕获异常时直接从上下文中获取错误处理策略。</li>
+</ol>
+<h3 id="theadlocal">进阶用法（跨线程绑定 TheadLocal）</h3>
+<p>ThreadLocal 的设计本身是为了做线程隔离，但是在协程中，由于协程可能在不同线程中执行，会出现状态丢失或状态错乱的问题。</p>
+<ul>
+<li><strong>状态丢失</strong> 线程 A 调用 <code>threadLocal.set("AAA")</code> 设置值，在协程中通过 <code>withContext(Dispatcher.IO)</code> 切到了线程 B，则在线程 B 中获取 <code>threadLocal.get()</code> 值为 null。</li>
+<li><strong>状态错乱</strong> 线程 A 调用 <code>threadLocal.set("AAA")</code> 设置值，挂起后线程被复用去执行别的任务，在其他任务中可能获取到残留的状态。</li>
+</ul>
+<p>为了解决这个问题，可以用扩展函数 <code>ThreadLocal&lt;T&gt;.asContextElement</code>，返回一个 ThreadLocalElement 对象，里面有 <code>updateThreadContext(context: CoroutineContext)</code> 和 <code>restoreThreadContext(context: CoroutineContext, oldState: T)</code>。当协程在当前线程执行完一段代码、即将挂起或切换走时，框架自动调用这两个方法，用来更新和恢复值。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">ThreadLocal</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">.</span><span class="na">asContextElement</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">get</span><span class="p">()):</span><span class="w"> </span><span class="n">ThreadContextElement</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="n">ThreadLocalElement</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>使用限制</strong>  </p>
+<p><code>asContextElement</code> 只追踪 CoroutineContext 传入的值，如果在协程内部调用 threadLocal.set("B") 方法，值并不会被同步回来，正确做法是用 <code>withContext(userThreadLocal.asContextElement("B"))</code> 来更新上下文元素。</p>
 <h2 id="job">Job</h2>
-<h2 id="dispatcher">协程调度（Dispatcher）</h2>
+<p>Job 是用来管理协程生命周期的，也是结构化并发树形结构中的核心节点。使用 launch 和 async 启动协程都会返回一个 Job 对象（async 返回的 <code>Deferred&lt;T&gt;</code> 也是Job的子类）。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><a href="#__codelineno-13-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">Job</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span><span class="p">.</span><span class="na">Element</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><a href="#__codelineno-13-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">children</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="o">&lt;</span><span class="n">Job</span><span class="o">&gt;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><a href="#__codelineno-13-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">parent</span><span class="p">:</span><span class="w"> </span><span class="n">Job?</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><a href="#__codelineno-13-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">isActive</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><a href="#__codelineno-13-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">isCompleted</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a><a href="#__codelineno-13-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">isCancelled</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a><a href="#__codelineno-13-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">start</span><span class="p">():</span><span class="w"> </span><span class="kt">Boolean</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8"></a><a href="#__codelineno-13-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="n">cause</span><span class="p">:</span><span class="w"> </span><span class="n">CancellationException?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9"></a><a href="#__codelineno-13-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">join</span><span class="p">()</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10"></a><a href="#__codelineno-13-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invokeOnCompletion</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span><span class="w"> </span><span class="n">CompletionHandler</span><span class="p">):</span><span class="w"> </span><span class="n">DisposableHandle</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11"></a><a href="#__codelineno-13-11"><span class="linenos" data-linenos="11 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="job_1">Job的核心操作</h3>
+<p><strong>启动协程<code>start()</code></strong></p>
+<p>启动协程，懒加载的协程不会立即开始调度，调用 <strong>job.start()</strong> 之后会开始调度。</p>
+<p><strong>取消协程 <code>cancel()/cancelAndJoin()</code></strong></p>
+<p><code>cancel()</code> 是取消协程，并抛出 CancellationException 异常。</p>
+<p><code>cancelAndJoin()</code> 取消并等待完成，等价于 <code>cancel()</code> + <code>join()</code>。</p>
+<p><strong>等待 <code>join()/joinAll()/await()</code></strong></p>
+<p><code>join()</code> 挂起等待 Job 完成，不返回结果。如果 Job 已经取消，直接返回，不抛异常。</p>
+<p><code>joinAll(vararg jobs: Job)</code> 等待多个 Job 完成，等价于逐个 <code>join()</code></p>
+<p><code>await()</code> Deferred 的方法，会返回结果，如果有异常会抛异常。</p>
+<p><strong>完成回调 <code>invokeOnCompletion { cause -&gt; ... }: DisposableHandle</code></strong></p>
+<p>Job 完成时会调用，回调参数中 cause 为 null 表示正常结束，CancellationException 表示被取消，其他的是异常。返回 DisposableHandle，'handle.dispose()'可以取消回调。</p>
+<p>invokeOnCompletion 经常用来做资源清理、日志记录，或者监听协程的状态。</p>
+<h3 id="job_2">Job 的状态机</h3>
+<p>一个 Job 在生命周期中会经过六个状态，通过 <code>isActive</code>、<code>isCompleted</code>、<code>isCancelled</code> 三个状态标记。</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>触发条件</th>
+<th><code>isActive</code></th>
+<th><code>isCompleted</code></th>
+<th><code>isCancelled</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>New</code>（新建）</td>
+<td>使用 <code>CoroutineStart.LAZY</code> 创建，尚未调用 <code>start()</code> 或 <code>join()</code></td>
+<td><code>false</code></td>
+<td><code>false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>Active</code>（活跃）</td>
+<td>默认创建后立即进入，或 <code>New</code> 状态调用 <code>start()</code> 后</td>
+<td><code>true</code></td>
+<td><code>false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>Completing</code>（完成中）</td>
+<td>自身代码已执行完毕，但正在等待名下子协程全部完成</td>
+<td><code>true</code></td>
+<td><code>false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>Cancelling</code>（取消中）</td>
+<td>调用了 <code>cancel()</code> 或抛出未捕获异常，正在执行 <code>finally</code> 清理和取消子协程</td>
+<td><code>false</code></td>
+<td><code>false</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>Cancelled</code>（已取消）</td>
+<td>取消清理工作及所有子协程均已结束（最终态）</td>
+<td><code>false</code></td>
+<td><code>true</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>Complete</code>（已完成）</td>
+<td>自身代码与所有子协程均正常执行结束（最终态）</td>
+<td><code>false</code></td>
+<td><code>true</code></td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p>在 Completing（等子协程）期间，isActive 依然为 true；一旦触发取消进入 Cancelling，isActive 会立刻变为 false，而 isCancelled 立刻变为 true。</p>
+<h3 id="job_3">几种不同的 Job</h3>
+<p><strong>普通 Job</strong>  </p>
+<p>通过 <code>CoroutineScope.launch</code> 创建，无法返回结果，发生异常时立即向上抛出，父 Job 接受到异常后立即取消自己，同时连带也会取消异常 Job 的兄弟 Job。</p>
+<p><strong><code>Differed&lt;T&gt;</code></strong>  </p>
+<p>继承自 Job，多了await方法。通过 <code>CoroutineScope.async</code> 方法创建，调用 <code>differed.await()</code> 获取结果。发生异常时不会立即抛出，会在调用<code>await()</code> 时才抛出。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><a href="#__codelineno-14-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1">// Job：不关心结果</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><a href="#__codelineno-14-2"><span class="linenos" data-linenos="2 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">doWork</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><a href="#__codelineno-14-3"><span class="linenos" data-linenos="3 "></span></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a><a href="#__codelineno-14-4"><span class="linenos" data-linenos="4 "></span></a><span class="c1">// Deferred：需要结果</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><a href="#__codelineno-14-5"><span class="linenos" data-linenos="5 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">deferred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scope</span><span class="p">.</span><span class="na">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">fetchData</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a><a href="#__codelineno-14-6"><span class="linenos" data-linenos="6 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deferred</span><span class="p">.</span><span class="na">await</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>SupervisorJob</strong>  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><a href="#__codelineno-15-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">SupervisorJob</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span><span class="w"> </span><span class="n">Job?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">):</span><span class="w"> </span><span class="n">CompletableJob</span>
+</code></pre></div>
+<p>和普通 Job 的区别是，发生异常时，不会向上继续传递异常影响到兄弟 Job，仅终止当前 Job。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><a href="#__codelineno-16-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">SupervisorJobImpl</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span><span class="w"> </span><span class="n">Job?</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">JobImpl</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a><a href="#__codelineno-16-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">childFailed</span><span class="p">(</span><span class="n">child</span><span class="p">:</span><span class="w"> </span><span class="n">Job</span><span class="p">,</span><span class="w"> </span><span class="n">cause</span><span class="p">:</span><span class="w"> </span><span class="n">Throwable</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">// 直接返回 false 不取消自己，也告诉子协程当前未处理取消</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a><a href="#__codelineno-16-3"><span class="linenos" data-linenos="3 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="job_4">Job 的底层实现</h3>
+<p>Job 的核心实现是 JobSupport，本质上是一个基于 CAS 的无锁状态机，状态都存在 <code>_state</code> 字段中。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><a href="#__codelineno-17-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">open</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">JobSupport</span><span class="p">(</span><span class="n">active</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Job</span><span class="p">,</span><span class="w"> </span><span class="n">ChildJob</span><span class="p">,</span><span class="w"> </span><span class="n">ParentJob</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a><a href="#__codelineno-17-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="c1">// 状态机：用 _state 字段保存状态</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a><a href="#__codelineno-17-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">Any?</span><span class="o">&gt;</span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">active</span><span class="p">)</span><span class="w"> </span><span class="n">EMPTY_ACTIVE</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">EMPTY_NEW</span><span class="p">)</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a><a href="#__codelineno-17-4"><span class="linenos" data-linenos="4 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>关键实现机制：</p>
+<p><strong>状态转换</strong>  </p>
+<p>协程状态变更时，内部都会开启一个 <code>loopOnState</code> 的自旋循环，读取当前的 <code>_state</code>，计算目标状态，通过 CAS 原子替换 <code>_state</code>。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><a href="#__codelineno-18-1"><span class="linenos" data-linenos="1 "></span></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">inline</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">loopOnState</span><span class="p">(</span><span class="n">block</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">Any?</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">):</span><span class="w"> </span><span class="n">Nothing</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a><a href="#__codelineno-18-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a><a href="#__codelineno-18-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">            </span><span class="n">block</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a><a href="#__codelineno-18-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5"></a><a href="#__codelineno-18-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p><strong>父子关联</strong>  </p>
+<p>建立关联：子协程启动时，会在父 Job 的 <code>NodeList</code> 中插入一个 <code>ChildHandleNode</code>，同时子协程持有 <code>parentHandle</code>。</p>
+<p>向下取消：父 Job 调用 <code>cancel()</code>时，遍历自己的 <code>NodeList</code>，通知所有的 <code>ChildHandleNode</code> 调用 <code>childJob.parentCancelled(parentJob)</code>。</p>
+<p>向上处理异常：子 Job 发生异常时，通过 <code>parentHandler</code> 回调父 Job 的 <code>onChildCanceled(cause)</code></p>
+<h2 id="dispatcher">协程调度器（Dispatcher）</h2>
+<p>协程调度器决定协程最终在哪个线程上运行。所有的协程调度器都继承 <code>CoroutineDispatcher</code>，它负责在协程挂起或恢复时拦截 Continuation，并将其分发到指定线程上执行。</p>
+<p><code>CoroutineDispatcher</code> 实现了标准库的 <code>ContinuationInterceptor</code> 接口，在上下文中取调度器可以用 <code>context[ContinuationInterceptor]</code>。</p>
+<h3 id="_9">四大标准调度器</h3>
+<table>
+<thead>
+<tr>
+<th>调度器</th>
+<th>底层线程/线程池机制</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Dispatchers.Main</code></td>
+<td>绑定平台 UI 主线程（Android 中通过主线程 <code>Handler</code> 投递消息；JVM 桌面端需引入对应 UI 库）</td>
+<td>刷新 UI、处理用户交互事件、调用必须在主线程运行的轻量操作</td>
+</tr>
+<tr>
+<td><code>Dispatchers.IO</code></td>
+<td>弹性伸缩线程池（默认上限为 64 个线程或 CPU 核心数中的较大值，支持 <code>limitedParallelism</code> 隔离）</td>
+<td>I/O 密集型任务：网络请求、数据库读写、本地文件 I/O 等长时间等待外部响应的操作</td>
+</tr>
+<tr>
+<td><code>Dispatchers.Default</code></td>
+<td>固定大小的共享后台线程池（线程数等于 CPU 核心数，至少为 2）</td>
+<td>CPU 密集型计算：大型 JSON 解析、图片像素处理、复杂列表排序或加解密算法</td>
+</tr>
+<tr>
+<td><code>Dispatchers.Unconfined</code></td>
+<td>不限制线程：直接在调用者当前线程启动，但挂起恢复后会在触发恢复的线程继续执行</td>
+<td>仅用于极少数无需固定线程的轻量级测试或特殊框架底层，日常业务开发严禁使用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">工作机制</h3>
+<p><strong>线程切换</strong>  </p>
+<p>CoroutineDispatcher 实现了标准库的 ContinuationInterceptor 接口，核心方法是 interceptContinuation(continuation)。</p>
+<p>每次协程从挂起点准备恢复执行时，调度器都会把原始的 Continuation 包装成一个代理对象 DispatchedContinuation。</p>
+<p>当异步结果回来调用 resumeWith() 时，DispatchedContinuation 不会直接在当前回调线程执行后续状态机代码，而是调用调度器的 dispatch(context, block) 方法，把这段恢复任务（Runnable）投递（post / execute）到目标线程或线程池的队列中，从而悄无声息地完成了线程切换。</p>
+<p><strong>共享线程池</strong>  </p>
+<p>在 kotlinx.coroutine 1.6+ 之后，<code>Dispatcher.IO</code> 和 <code>Dispatcher.Default</code> 底层共享一个弹性调度线程池 <code>DefaultScheduler</code>。二者的区别仅在于并发度的限制，Default 最多只有 CPU 核数个线程来跑，IO 最多可以有 64 个线程。</p>
+<p>共享之后，当协程在 Default 和 IO 之间切换，实际只在逻辑上进行 “CPU限制” 到 “IO 限制”的切换，实际代码的执行还是在同一个线程上，能减少线程切换的开销。</p>
+<p><strong>withContext切换线程的原理</strong>  </p>
+<p><code>withContext()</code> 是一个挂起函数，它用当前的协程的 <code>context</code> 结合参数中的 <code>context</code>，取出二者的拦截器对比，如果调度器一致，直接在当前线程执行。如果不一致，创建一个 <code>DispatchedCoroutine</code>，利用新调度器的 <code>dispatch()</code> 方法把代码块放到目标线程池执行，同时向当前线程返回 <code>COROUTINE_SUSPENDED</code> 释放原线程。</p>
+<p>当代码块执行完毕后，恢复外层 <code>Continuation.interrecpted()</code> 方法时，外层的 <code>Continuation</code> 包着原调度器的拦截器，调用 <code>resumeWith()</code> 的时候会触发原调度器的 <code>dispatch()</code> 方法，切回到原线程。</p>
+<hr />
+<p><em>参考</em>  </p>
+<p>[1] Android Developers. <a href="https://developer.android.google.cn/kotlin/coroutines?hl=zh-cn">Android 上的协程</a>. Accessed 2026-11-17.<br />
+[2] Kotlin 中文文档. <a href="https://book.kotlincn.net/text/coroutines-guide.html">协程指南</a>. Accessed 2026-11-17.<br />
+[3] Open AIDoc. <a href="https://openaidoc.org/kotlin/coroutines-guide">协程指南</a>. Accessed 2026-11-17.<br />
+[4] Open AIDoc. <a href="https://openaidoc.org/kotlin/coroutine-context-and-dispatchers#dispatchers-and-threads">协程上下文与调度器</a>.  Accessed 2026-11-23.  </p>
 
 
 

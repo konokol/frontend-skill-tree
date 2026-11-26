@@ -979,27 +979,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../java/2-concurrent/07-java-memory-model.md" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    内存模型
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../java/2-concurrent/08-thread-local/" class="md-nav__link">
         
   
@@ -1352,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../java/2-concurrent/07-java-memory-model.md" class="md-nav__link">
+      <a href="../../../java/5-jvm/00-java-memory-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1964,9 +1943,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#suspend-vs-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      挂起（suspend） vs 阻塞（block）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#suspend" class="md-nav__link">
     <span class="md-ellipsis">
-      suspend 关键字本质
+      suspend 关键字的本质作用
     </span>
   </a>
   
@@ -1979,12 +1967,54 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cps" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPS 转换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      挂起与恢复的流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#suspendcancellablecoroutine" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      suspendCancellableCoroutine 桥接回调
+      高级用法
     </span>
   </a>
   
@@ -5031,9 +5061,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#suspend-vs-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      挂起（suspend） vs 阻塞（block）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#suspend" class="md-nav__link">
     <span class="md-ellipsis">
-      suspend 关键字本质
+      suspend 关键字的本质作用
     </span>
   </a>
   
@@ -5046,12 +5085,54 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cps" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPS 转换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      挂起与恢复的流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#suspendcancellablecoroutine" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      suspendCancellableCoroutine 桥接回调
+      高级用法
     </span>
   </a>
   
@@ -5073,10 +5154,296 @@
 
 
 <h1 id="_1">挂起函数</h1>
-<h2 id="suspend">suspend 关键字本质</h2>
+<p>挂起函数指的是用 <code>suspend</code> 关键字修饰的函数，它赋予了函数“在不阻塞当前底层线程的前提下暂停执行，并在异步结果就绪后从断点恢复执行”的能力。</p>
+<p>挂起函数只能在协程内部或者其他挂起函数中调用。</p>
+<h2 id="suspend-vs-block">挂起（suspend） vs 阻塞（block）</h2>
+<ul>
+<li><strong>阻塞</strong>（如 Thread.sleep()、传统同步 I/O）：当前操作系统线程被死死占用并进入休眠，无法执行任何其他任务，造成线程资源浪费。</li>
+<li><strong>挂起</strong>（如 delay()、withContext()）：协程主动保存当前执行进度与局部变量后直接退出当前函数调用栈，释放底层线程去执行其他任务；等外部耗时任务完成后，再由调度器将后续代码重新派发到线程上继续执行。</li>
+</ul>
+<h2 id="suspend">suspend 关键字的本质作用</h2>
+<p>挂起函数本身并没有线程切换的能力，仅在普通函数前面加上 <code>supspend</code> 关键字并不会让函数体中的代码变成异步执行。<code>suspend</code> 关键字本质上只是一个标记，说明函数内的代码可能会异步支持，它约束了异步代码的边界，由于挂起函数只能在协程内部和其他挂起函数中调用，保证了异步代码的最上层一定在一个作用域内。</p>
+<p>直接给普通函数加 <code>suspend</code> 关键字，这个函数不会变成异步，它只是一个伪挂起函数。如果在 IDE 中写代码，IDE 还会提示 <code>suspend</code> 关键字是多余的。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1">// ⚠️ Redundant 'suspend' modifier</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">List</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">}.</span><span class="na">sum</span><span class="p">()</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos="4 "></span></a><span class="p">}</span>
+</code></pre></div>
 <h2 id="_2">原理</h2>
-<p>CPS（续体传递风格）与状态机（State Machine）反编译源码解析、</p>
-<h2 id="suspendcancellablecoroutine">suspendCancellableCoroutine 桥接回调</h2>
+<p>对于挂起函数，编译器会特殊处理，编译生成的字节码中，会对挂起函数做两件事情：</p>
+<ul>
+<li><strong>改写函数签名</strong> 给函数追加一个 <code>Continuation&lt;T&gt;</code> 参数，同时将返回值修改成 Any?。</li>
+<li><strong>生成状态机</strong> 给挂起函数生成一个状态机</li>
+</ul>
+<h3 id="cps">CPS 转换</h3>
+<p>CPS（Continuation-Passing Style，续体传递风格）转换是一种在编译期的转换，它将传统的函数中“函数直接返回结果”改写成“函数接收一个回调，通过回调传递结果”。</p>
+<p>挂起函数编译的字节码中，通过给函数追加 <code>Continuation&lt;T&gt;</code> 参数，并将返回值修改成 <code>Any?</code> 来实现。返回值是 <code>Any?</code> 而不是 <code>Unit</code> 是因为函数如果同步很快能得到结果，就直接返回结果，如果需要挂起，会返回 <code>COROUTINE_SUSPENDED</code>。</p>
+<p>举一个例子：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1">// 开发者编写的 Kotlin 代码（看似同步）</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchOrder</span><span class="p">():</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">api</span><span class="p">.</span><span class="na">getUser</span><span class="p">()</span><span class="w">   </span><span class="c1">// 挂起点 1</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">api</span><span class="p">.</span><span class="na">getOrders</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">id</span><span class="p">)</span><span class="w"> </span><span class="c1">// 挂起点 2</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">orders</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="6 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>编译之后的函数签名就变成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1">// 编译器对 fetchOrder() 进行 CPS 变换后的字节码等价签名：</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">fetchOrder</span><span class="p">(</span><span class="n">Continuation</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">completion</span><span class="p">)</span><span class="w"> </span><span class="p">{...}</span>
+</code></pre></div>
+<h3 id="continuation">Continuation</h3>
+<p>在 <code>kotlinx.coroutines</code> 中，Continuation 定义很简单：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">Continuation</span><span class="o">&lt;</span><span class="k">in</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span><span class="c1">// 1. 当前协程的运行环境配置（调度器、Job、异常处理器等）</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">context</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineContext</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos="4 "></span></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span><span class="c1">// 2. 唤醒并恢复协程执行的唯一入口</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">resumeWith</span><span class="p">(</span><span class="n">result</span><span class="p">:</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos="7 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>Continuation 代表的是挂起后恢复执行的入口，挂起时保存 Continuation，恢复时调用 <code>resumeWith()</code>，每一个挂起点对应一个 <code>Continuation</code>。比如上面的例子上，两个挂起点分别生成了一个Continuation对象。</p>
+<h3 id="_3">状态机</h3>
+<p>编译器会给每个挂起函数生成一个继承自 <code>ContinuationImpl</code> 的状态机类：</p>
+<ul>
+<li>lable 用来表示执行到哪个挂起点中</li>
+<li>result 存放每个挂起点返回的结果</li>
+<li>临时变量 挂起点活跃的临时变量会被提升成成员变量</li>
+</ul>
+<p>在函数体中，根据挂起点将函数分成多段，每一段对应 lable 中的一个case。如果挂起点挂起了，就会返回 COROUTINE_SUSPENDED，立即释放当前的线程，当挂起点恢复时，通过 <code>resumeWith()</code> 最终再次调入 <code>invokeSuspend()</code>，进入下一个label中执行，从而实现了挂起和恢复。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1">// 编译器为 fetchOrder() 生成的等价 Java 状态机代码：</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">fetchOrder</span><span class="p">(</span><span class="n">Continuation</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">completion</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FetchOrderSM</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">ContinuationImpl</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">label</span><span class="p">;</span><span class="w">      </span><span class="c1">// 状态标签：0=初始，1=getUser恢复，2=getOrders恢复</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><a href="#__codelineno-4-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w">  </span><span class="c1">// 暂存子挂起函数传回的结果</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><a href="#__codelineno-4-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><a href="#__codelineno-4-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="n">FetchOrderSM</span><span class="p">(</span><span class="n">Continuation</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kd">super</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><a href="#__codelineno-4-8"><span class="linenos" data-linenos=" 8 "></span></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><a href="#__codelineno-4-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">        </span><span class="nd">@Override</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><a href="#__codelineno-4-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">invokeSuspend</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">res</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><a href="#__codelineno-4-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="na">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><a href="#__codelineno-4-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="na">label</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">Integer</span><span class="p">.</span><span class="na">MIN_VALUE</span><span class="p">;</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><a href="#__codelineno-4-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">fetchOrder</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w"> </span><span class="c1">// 异步完成时，带着保存了状态的状态机重入原函数！</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><a href="#__codelineno-4-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><a href="#__codelineno-4-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><a href="#__codelineno-4-16"><span class="linenos" data-linenos="16 "></span></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><a href="#__codelineno-4-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">    </span><span class="n">FetchOrderSM</span><span class="w"> </span><span class="n">sm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">completion</span><span class="w"> </span><span class="k">instanceof</span><span class="w"> </span><span class="n">FetchOrderSM</span><span class="p">)</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><a href="#__codelineno-4-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">        </span><span class="o">?</span><span class="w"> </span><span class="p">(</span><span class="n">FetchOrderSM</span><span class="p">)</span><span class="w"> </span><span class="n">completion</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FetchOrderSM</span><span class="p">(</span><span class="n">completion</span><span class="p">);</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><a href="#__codelineno-4-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="n">Object</span><span class="w"> </span><span class="n">suspended</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IntrinsicsKt</span><span class="p">.</span><span class="na">getCOROUTINE_SUSPENDED</span><span class="p">();</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><a href="#__codelineno-4-20"><span class="linenos" data-linenos="20 "></span></a>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><a href="#__codelineno-4-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="na">label</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a><a href="#__codelineno-4-22"><span class="linenos" data-linenos="22 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"> </span><span class="c1">// === 阶段 0：初始执行，准备调用挂起点 1 ===</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a><a href="#__codelineno-4-23"><span class="linenos" data-linenos="23 "></span></a><span class="w">            </span><span class="n">ResultKt</span><span class="p">.</span><span class="na">throwOnFailure</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="na">result</span><span class="p">);</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a><a href="#__codelineno-4-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">            </span><span class="n">sm</span><span class="p">.</span><span class="na">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 关键：在发起挂起前，先把进度标记推进到 1</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a><a href="#__codelineno-4-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">            </span><span class="n">Object</span><span class="w"> </span><span class="n">res1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">api</span><span class="p">.</span><span class="na">getUser</span><span class="p">(</span><span class="n">sm</span><span class="p">);</span><span class="w"> </span><span class="c1">// 把状态机自己（sm）作为续体传入</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a><a href="#__codelineno-4-26"><span class="linenos" data-linenos="26 "></span></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">suspended</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a><a href="#__codelineno-4-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">suspended</span><span class="p">;</span><span class="w"> </span><span class="c1">// 发生挂起，直接退出调用栈释放当前线程！</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a><a href="#__codelineno-4-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a><a href="#__codelineno-4-29"><span class="linenos" data-linenos="29 "></span></a><span class="w">            </span><span class="n">sm</span><span class="p">.</span><span class="na">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 若命中缓存未挂起，直接穿透进入 case 1</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a><a href="#__codelineno-4-30"><span class="linenos" data-linenos="30 "></span></a>
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a><a href="#__codelineno-4-31"><span class="linenos" data-linenos="31 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="c1">// === 阶段 1：从 getUser() 恢复，准备调用挂起点 2 ===</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32"></a><a href="#__codelineno-4-32"><span class="linenos" data-linenos="32 "></span></a><span class="w">            </span><span class="n">ResultKt</span><span class="p">.</span><span class="na">throwOnFailure</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="na">result</span><span class="p">);</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33"></a><a href="#__codelineno-4-33"><span class="linenos" data-linenos="33 "></span></a><span class="w">            </span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="w"> </span><span class="n">sm</span><span class="p">.</span><span class="na">result</span><span class="p">;</span><span class="w"> </span><span class="c1">// 取出 getUser() 返回的 User 对象</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34"></a><a href="#__codelineno-4-34"><span class="linenos" data-linenos="34 "></span></a>
+<a id="__codelineno-4-35" name="__codelineno-4-35"></a><a href="#__codelineno-4-35"><span class="linenos" data-linenos="35 "></span></a><span class="w">            </span><span class="n">sm</span><span class="p">.</span><span class="na">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 推进进度标记到 2</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36"></a><a href="#__codelineno-4-36"><span class="linenos" data-linenos="36 "></span></a><span class="w">            </span><span class="n">Object</span><span class="w"> </span><span class="n">res2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">api</span><span class="p">.</span><span class="na">getOrders</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">getId</span><span class="p">(),</span><span class="w"> </span><span class="n">sm</span><span class="p">);</span><span class="w"> </span><span class="c1">// 继续把 sm 传入挂起点 2</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37"></a><a href="#__codelineno-4-37"><span class="linenos" data-linenos="37 "></span></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">suspended</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38"></a><a href="#__codelineno-4-38"><span class="linenos" data-linenos="38 "></span></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">suspended</span><span class="p">;</span><span class="w"> </span><span class="c1">// 再次挂起，释放线程！</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39"></a><a href="#__codelineno-4-39"><span class="linenos" data-linenos="39 "></span></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-4-40" name="__codelineno-4-40"></a><a href="#__codelineno-4-40"><span class="linenos" data-linenos="40 "></span></a><span class="w">            </span><span class="n">sm</span><span class="p">.</span><span class="na">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res2</span><span class="p">;</span>
+<a id="__codelineno-4-41" name="__codelineno-4-41"></a><a href="#__codelineno-4-41"><span class="linenos" data-linenos="41 "></span></a>
+<a id="__codelineno-4-42" name="__codelineno-4-42"></a><a href="#__codelineno-4-42"><span class="linenos" data-linenos="42 "></span></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="c1">// === 阶段 2：从 getOrders() 恢复，返回最终结果 ===</span>
+<a id="__codelineno-4-43" name="__codelineno-4-43"></a><a href="#__codelineno-4-43"><span class="linenos" data-linenos="43 "></span></a><span class="w">            </span><span class="n">ResultKt</span><span class="p">.</span><span class="na">throwOnFailure</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="na">result</span><span class="p">);</span>
+<a id="__codelineno-4-44" name="__codelineno-4-44"></a><a href="#__codelineno-4-44"><span class="linenos" data-linenos="44 "></span></a><span class="w">            </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="n">sm</span><span class="p">.</span><span class="na">result</span><span class="p">;</span><span class="w"> </span><span class="c1">// 取出 getOrders() 返回的订单列表</span>
+<a id="__codelineno-4-45" name="__codelineno-4-45"></a><a href="#__codelineno-4-45"><span class="linenos" data-linenos="45 "></span></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span><span class="w">                                </span><span class="c1">// 全部执行完毕，返回最终结果！</span>
+<a id="__codelineno-4-46" name="__codelineno-4-46"></a><a href="#__codelineno-4-46"><span class="linenos" data-linenos="46 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-47" name="__codelineno-4-47"></a><a href="#__codelineno-4-47"><span class="linenos" data-linenos="47 "></span></a><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">();</span>
+<a id="__codelineno-4-48" name="__codelineno-4-48"></a><a href="#__codelineno-4-48"><span class="linenos" data-linenos="48 "></span></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="_4">挂起与恢复的流程</h3>
+<p>以上面的例子分析，在主线程调用 fetchOrder()</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1">// 场景设定：在 Main 线程启动协程调用 fetchOrder()</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="n">viewModelScope</span><span class="p">.</span><span class="na">launch</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">Main</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchOrder</span><span class="p">()</span><span class="w"> </span><span class="c1">// &lt;--- 入口</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">updateUI</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="p">}</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><a href="#__codelineno-5-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">fetchOrder</span><span class="p">():</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><a href="#__codelineno-5-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">api</span><span class="p">.</span><span class="na">getUser</span><span class="p">()</span><span class="w">            </span><span class="c1">// 挂起点 1</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><a href="#__codelineno-5-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">orders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">api</span><span class="p">.</span><span class="na">getOrders</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">id</span><span class="p">)</span><span class="w"> </span><span class="c1">// 挂起点 2</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><a href="#__codelineno-5-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">orders</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><a href="#__codelineno-5-11"><span class="linenos" data-linenos="11 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p>整个挂起恢复的流程如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos=" 1 "></span></a>[Main 线程] 调用 fetchOrder(outerCont)
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos=" 2 "></span></a>   │
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos=" 3 "></span></a>   ├─► 创建状态机 sm (label = 0)
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos=" 4 "></span></a>   ├─► 执行 case 0：设置 sm.label = 1 ──► 调用 api.getUser(sm)
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos=" 5 "></span></a>   └─► 收到 COROUTINE_SUSPENDED ──► 直接 return 出栈！（Main 线程立刻自由去画 UI）
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos" data-linenos=" 6 "></span></a>                                           │
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><a href="#__codelineno-6-7"><span class="linenos" data-linenos=" 7 "></span></a>                                           ▼ （后台网络耗时 300ms）
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><a href="#__codelineno-6-8"><span class="linenos" data-linenos=" 8 "></span></a>                                    [IO 线程] getUser 拿到 User
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><a href="#__codelineno-6-9"><span class="linenos" data-linenos=" 9 "></span></a>                                           │
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><a href="#__codelineno-6-10"><span class="linenos" data-linenos="10 "></span></a>                                           ▼ 调用 sm.resumeWith(user)
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><a href="#__codelineno-6-11"><span class="linenos" data-linenos="11 "></span></a>[Main 线程] ◄── Handler.post 切回主线程 ───┘
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a><a href="#__codelineno-6-12"><span class="linenos" data-linenos="12 "></span></a>   │
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a><a href="#__codelineno-6-13"><span class="linenos" data-linenos="13 "></span></a>   ├─► 触发 sm.invokeSuspend(user) ──► 重入 fetchOrder(sm)
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a><a href="#__codelineno-6-14"><span class="linenos" data-linenos="14 "></span></a>   ├─► 命中 case 1 (因 label == 1)：拿到 user，设置 sm.label = 2 ──► 调用 api.getOrders(user.id, sm)
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a><a href="#__codelineno-6-15"><span class="linenos" data-linenos="15 "></span></a>   └─► 收到 COROUTINE_SUSPENDED ──► 再次 return 出栈！（Main 线程再次自由）
+<a id="__codelineno-6-16" name="__codelineno-6-16"></a><a href="#__codelineno-6-16"><span class="linenos" data-linenos="16 "></span></a>                                           │
+<a id="__codelineno-6-17" name="__codelineno-6-17"></a><a href="#__codelineno-6-17"><span class="linenos" data-linenos="17 "></span></a>                                           ▼ （后台网络耗时 200ms）
+<a id="__codelineno-6-18" name="__codelineno-6-18"></a><a href="#__codelineno-6-18"><span class="linenos" data-linenos="18 "></span></a>                                    [IO 线程] getOrders 拿到 List&lt;Order&gt;
+<a id="__codelineno-6-19" name="__codelineno-6-19"></a><a href="#__codelineno-6-19"><span class="linenos" data-linenos="19 "></span></a>                                           │
+<a id="__codelineno-6-20" name="__codelineno-6-20"></a><a href="#__codelineno-6-20"><span class="linenos" data-linenos="20 "></span></a>                                           ▼ 调用 sm.resumeWith(orders)
+<a id="__codelineno-6-21" name="__codelineno-6-21"></a><a href="#__codelineno-6-21"><span class="linenos" data-linenos="21 "></span></a>[Main 线程] ◄── Handler.post 切回主线程 ───┘
+<a id="__codelineno-6-22" name="__codelineno-6-22"></a><a href="#__codelineno-6-22"><span class="linenos" data-linenos="22 "></span></a>   │
+<a id="__codelineno-6-23" name="__codelineno-6-23"></a><a href="#__codelineno-6-23"><span class="linenos" data-linenos="23 "></span></a>   ├─► 触发 sm.invokeSuspend(orders) ──► 重入 fetchOrder(sm)
+<a id="__codelineno-6-24" name="__codelineno-6-24"></a><a href="#__codelineno-6-24"><span class="linenos" data-linenos="24 "></span></a>   ├─► 命中 case 2 (因 label == 2)：拿到 orders，执行 return orders
+<a id="__codelineno-6-25" name="__codelineno-6-25"></a><a href="#__codelineno-6-25"><span class="linenos" data-linenos="25 "></span></a>   └─► 调用 outerCont.resumeWith(orders) ──► 唤醒外层协程执行 updateUI(orders)！
+</code></pre></div>
+<h2 id="_5">高级用法</h2>
+<p><strong>1.桥接回调封装回调式交互</strong>  </p>
+<p>客户端业务逻辑中经常有链式回调的写法，比如权限请求、交互式的确认弹窗、三方 SDK 的回调等，直接写就会层层嵌套。利用  suspendCancellableCoroutine/suspendCoroutine 可以将异步的调用代码变成同步的形式。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1">// 1. 封装一个“挂起式确认弹窗”：挂起当前协程等待用户点击，若界面销毁则自动 dismiss 防 WindowLeaked</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="n">FragmentActivity</span><span class="p">.</span><span class="nf">awaitUserConfirmation</span><span class="p">(</span><span class="n">title</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">suspendCancellableCoroutine</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cont</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">dialog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AlertDialog</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">            </span><span class="p">.</span><span class="na">setTitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">            </span><span class="p">.</span><span class="na">setMessage</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><a href="#__codelineno-7-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">            </span><span class="p">.</span><span class="na">setPositiveButton</span><span class="p">(</span><span class="s">"确认"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><a href="#__codelineno-7-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cont</span><span class="p">.</span><span class="na">isActive</span><span class="p">)</span><span class="w"> </span><span class="n">cont</span><span class="p">.</span><span class="na">resume</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><a href="#__codelineno-7-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><a href="#__codelineno-7-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">            </span><span class="p">.</span><span class="na">setNegativeButton</span><span class="p">(</span><span class="s">"取消"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><a href="#__codelineno-7-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cont</span><span class="p">.</span><span class="na">isActive</span><span class="p">)</span><span class="w"> </span><span class="n">cont</span><span class="p">.</span><span class="na">resume</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a><a href="#__codelineno-7-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><a href="#__codelineno-7-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">            </span><span class="p">.</span><span class="na">setOnCancelListener</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><a href="#__codelineno-7-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cont</span><span class="p">.</span><span class="na">isActive</span><span class="p">)</span><span class="w"> </span><span class="n">cont</span><span class="p">.</span><span class="na">resume</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a><a href="#__codelineno-7-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a><a href="#__codelineno-7-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">            </span><span class="p">.</span><span class="na">create</span><span class="p">()</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a><a href="#__codelineno-7-17"><span class="linenos" data-linenos="17 "></span></a>
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a><a href="#__codelineno-7-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">        </span><span class="c1">// 页面销毁（lifecycleScope 取消）时，自动关闭弹窗，杜绝内存泄漏</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19"></a><a href="#__codelineno-7-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">        </span><span class="n">cont</span><span class="p">.</span><span class="na">invokeOnCancellation</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">dialog</span><span class="p">.</span><span class="na">dismiss</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20"></a><a href="#__codelineno-7-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">        </span><span class="n">dialog</span><span class="p">.</span><span class="na">show</span><span class="p">()</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21"></a><a href="#__codelineno-7-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22"></a><a href="#__codelineno-7-22"><span class="linenos" data-linenos="22 "></span></a>
+<a id="__codelineno-7-23" name="__codelineno-7-23"></a><a href="#__codelineno-7-23"><span class="linenos" data-linenos="23 "></span></a><span class="c1">// 2. 业务层调用：</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24"></a><a href="#__codelineno-7-24"><span class="linenos" data-linenos="24 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">startCheckoutFlow</span><span class="p">(</span><span class="n">activity</span><span class="p">:</span><span class="w"> </span><span class="n">FragmentActivity</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25"></a><a href="#__codelineno-7-25"><span class="linenos" data-linenos="25 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">agreed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity</span><span class="p">.</span><span class="na">awaitUserConfirmation</span><span class="p">(</span><span class="s">"海外购提示"</span><span class="p">,</span><span class="w"> </span><span class="s">"跨境商品不支持无理由退货，是否继续？"</span><span class="p">)</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26"></a><a href="#__codelineno-7-26"><span class="linenos" data-linenos="26 "></span></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">agreed</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="c1">// 用户点取消，直接优雅退出，无需多层嵌套</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27"></a><a href="#__codelineno-7-27"><span class="linenos" data-linenos="27 "></span></a>
+<a id="__codelineno-7-28" name="__codelineno-7-28"></a><a href="#__codelineno-7-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">orderResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderRepository</span><span class="p">.</span><span class="na">submitOrder</span><span class="p">()</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29"></a><a href="#__codelineno-7-29"><span class="linenos" data-linenos="29 "></span></a><span class="w">    </span><span class="n">navigateToPayment</span><span class="p">(</span><span class="n">orderResult</span><span class="p">)</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30"></a><a href="#__codelineno-7-30"><span class="linenos" data-linenos="30 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><code>suspendCancellableCoroutine</code> 获取一个可取消的续体 <code>CancellableContinuation&lt;T&gt;</code>，挂起当前协程释放线程；当外部回调触发时，调用 <code>resume()</code> 或 <code>resumeWithException()</code> 唤醒协程，并通过 <code>invokeOnCancellation</code> 绑定生命周期取消动作。</p>
+<p><code>suspendCancellableCoroutine</code> 是一次性桥接，使用时需要注意：</p>
+<ol>
+<li><strong>必须注册 <code>invokeOnCancellation</code></strong>：只要底层 SDK 提供了 <code>cancel()</code>、<code>removeListener()</code> 或 <code>dismiss()</code> 方法，就必须写进 <code>invokeOnCancellation</code> 中，实现结构化并发联动。</li>
+<li><strong>严禁重复调用 <code>resume</code></strong><code>：CancellableContinuation</code> 只能被唤醒一次，第二次调用会直接抛出 <code>IllegalStateException: Already resumed</code>。面对不可控的三方回调，务必加上 <code>if (continuation.isActive)</code> 保护。</li>
+<li><strong>优先用 <code>suspendCancellableCoroutine</code> 而非 <code>suspendCoroutine</code></strong>：前者支持协程取消与资源清理，后者会死等回调导致内存泄漏。</li>
+</ol>
+<p><strong>2.请求合并与并发去重（Single-Flight 模式，防缓存击穿与重复请求）</strong>  </p>
+<p>业务场景：进入复杂首页时，顶部 Banner 组件、个人中心卡片、底部弹窗组件几乎在同一毫秒调用了同一个挂起函数 <code>suspend fun getUserProfile()</code>。如果不做防重入处理，底层会同时发出 3 个一模一样的 HTTP 请求，浪费用户流量且容易引发状态竞态。</p>
+<p>高级解法：Mutex + 飞行中任务引用（Deferred） 实现客户端 Single-Flight 模式——第一个调用者发起请求，后续同时进来的调用者直接挂起复用同一个 <code>Deferred</code> 结果，请求结束后自动清理。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">class</span><span class="w"> </span><span class="nc">UserRepository</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">api</span><span class="p">:</span><span class="w"> </span><span class="n">UserApi</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">mutex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mutex</span><span class="p">()</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">inFlightRequest</span><span class="p">:</span><span class="w"> </span><span class="n">Deferred</span><span class="o">&lt;</span><span class="n">UserProfile</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos=" 4 "></span></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getUserProfileDedup</span><span class="p">():</span><span class="w"> </span><span class="n">UserProfile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coroutineScope</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><a href="#__codelineno-8-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">deferred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutex</span><span class="p">.</span><span class="na">withLock</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><a href="#__codelineno-8-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">            </span><span class="c1">// 如果当前已经有正在进行的请求，直接复用它（注意：只复用活跃未取消的）</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><a href="#__codelineno-8-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">            </span><span class="n">inFlightRequest</span><span class="o">?.</span><span class="na">takeIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isActive</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">async</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><a href="#__codelineno-8-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">                </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><a href="#__codelineno-8-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">                    </span><span class="n">api</span><span class="p">.</span><span class="na">fetchUserProfile</span><span class="p">()</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><a href="#__codelineno-8-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a><a href="#__codelineno-8-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">                    </span><span class="c1">// 请求无论成功或失败，结束后清空引用</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><a href="#__codelineno-8-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">                    </span><span class="n">mutex</span><span class="p">.</span><span class="na">withLock</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">inFlightRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a><a href="#__codelineno-8-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><a href="#__codelineno-8-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">            </span><span class="p">}.</span><span class="na">also</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">inFlightRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a><a href="#__codelineno-8-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a><a href="#__codelineno-8-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">        </span><span class="c1">// 所有并发调用者都在这里挂起等待同一个结果</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a><a href="#__codelineno-8-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">        </span><span class="n">deferred</span><span class="p">.</span><span class="na">await</span><span class="p">()</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a><a href="#__codelineno-8-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a><a href="#__codelineno-8-20"><span class="linenos" data-linenos="20 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>3.高阶挂起函数：弱网环境下的“指数退避重试”（Exponential Backoff）</strong>  </p>
+<p>客户端痛点：弱网情况下，会有网络抖动。直接在挂起函数里写 <code>while</code> 死循环重试会瞬间打爆客户端电量与服务端网关；若用 <code>runCatching</code> 捕获异常，还极易误吞 <code>CancellationException</code> 导致页面退出后仍在后台死循环重试。</p>
+<p>高级解法：编写带泛型、退避延迟、取消安全校验的通用高阶挂起重试器：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">inline</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">retryWithBackoff</span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="n">times</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">initialDelayMs</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500L</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="n">maxDelayMs</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5000L</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="n">factor</span><span class="p">:</span><span class="w"> </span><span class="kt">Double</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2.0</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">    </span><span class="n">block</span><span class="p">:</span><span class="w"> </span><span class="n">suspend</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">T</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="p">):</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">currentDelay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">initialDelayMs</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><a href="#__codelineno-9-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="n">repeat</span><span class="p">(</span><span class="n">times</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">attempt</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><a href="#__codelineno-9-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><a href="#__codelineno-9-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">block</span><span class="p">()</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><a href="#__codelineno-9-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Throwable</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><a href="#__codelineno-9-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">            </span><span class="c1">// 【核心铁律】：如果是协程被取消，必须立刻向上抛出，绝不能当作网络失败去重试！</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a><a href="#__codelineno-9-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">CancellationException</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">e</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a><a href="#__codelineno-9-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">            </span><span class="c1">// 如果是客户端 4xx 业务参数错误，重试无意义，直接抛出</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a><a href="#__codelineno-9-16"><span class="linenos" data-linenos="16 "></span></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">HttpException</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">code</span><span class="p">()</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">400.</span><span class="p">.</span><span class="m">499</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">e</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a><a href="#__codelineno-9-17"><span class="linenos" data-linenos="17 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18"></a><a href="#__codelineno-9-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="n">currentDelay</span><span class="p">)</span><span class="w"> </span><span class="c1">// 非阻塞挂起等待</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19"></a><a href="#__codelineno-9-19"><span class="linenos" data-linenos="19 "></span></a><span class="w">        </span><span class="n">currentDelay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">currentDelay</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factor</span><span class="p">).</span><span class="na">toLong</span><span class="p">().</span><span class="na">coerceAtMost</span><span class="p">(</span><span class="n">maxDelayMs</span><span class="p">)</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20"></a><a href="#__codelineno-9-20"><span class="linenos" data-linenos="20 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21"></a><a href="#__codelineno-9-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">block</span><span class="p">()</span><span class="w"> </span><span class="c1">// 最后一次尝试，若仍失败则直接抛出异常</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22"></a><a href="#__codelineno-9-22"><span class="linenos" data-linenos="22 "></span></a><span class="p">}</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23"></a><a href="#__codelineno-9-23"><span class="linenos" data-linenos="23 "></span></a>
+<a id="__codelineno-9-24" name="__codelineno-9-24"></a><a href="#__codelineno-9-24"><span class="linenos" data-linenos="24 "></span></a><span class="c1">// 业务层调用：一行代码赋予任何挂起函数弱网自愈能力</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25"></a><a href="#__codelineno-9-25"><span class="linenos" data-linenos="25 "></span></a><span class="kd">val</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">retryWithBackoff</span><span class="p">(</span><span class="n">times</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">remoteConfigApi</span><span class="p">.</span><span class="na">fetchConfig</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><strong>4.客户端异常安全封装：suspendRunCatching（规避 runCatching 吞掉取消异常大坑）</strong>  </p>
+<p>客户端痛点：Kotlin 标准库的 <code>runCatching { ... }</code> 内部捕获的是顶级 <code>Throwable</code>。在挂起函数中使用 <code>runCatching</code> 时，如果用户退出页面触发了 <code>CancellationException</code>，它会被 <code>runCatching</code> 默默捕获并装进 <code>Result.failure</code> 中，导致协程取消信号失效、后续 UI 更新代码继续执行引发空指针崩溃！</p>
+<p>高级解法：在客户端基础架构层定义专用的挂起安全包装器，遇到 <code>CancellationException</code> 自动重新抛出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">inline</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">suspendRunCatching</span><span class="p">(</span><span class="n">crossinline</span><span class="w"> </span><span class="n">block</span><span class="p">:</span><span class="w"> </span><span class="n">suspend</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">R</span><span class="p">):</span><span class="w"> </span><span class="n">Result</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">        </span><span class="n">Result</span><span class="p">.</span><span class="na">success</span><span class="p">(</span><span class="n">block</span><span class="p">())</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><a href="#__codelineno-10-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="p">:</span><span class="w"> </span><span class="n">CancellationException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><a href="#__codelineno-10-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="c1">// 严格遵守协作式取消契约，放行取消异常</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><a href="#__codelineno-10-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">c</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><a href="#__codelineno-10-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Throwable</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><a href="#__codelineno-10-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="n">Result</span><span class="p">.</span><span class="na">failure</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><a href="#__codelineno-10-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a><a href="#__codelineno-10-10"><span class="linenos" data-linenos="10 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>5.“缓存优先 + 后台静默刷新”或“限时竞速降级”（withTimeoutOrNull）</strong>  </p>
+<p>客户端痛点：App 首页配置接口，为了保证用户秒开体验，不能无限期等待弱网请求（比如最多只允许等 1.5 秒）；如果 1.5 秒内网络没回来，必须立刻使用本地缓存渲染，但同时让后台网络继续把最新数据拉回来更新缓存供下次使用。</p>
+<p>高级解法：结合 <code>withTimeoutOrNull</code> 与独立的作用域策略：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getDisplay</span><span class="p">(</span><span class="n">appScope</span><span class="p">:</span><span class="w"> </span><span class="n">CoroutineScope</span><span class="p">):</span><span class="w"> </span><span class="n">Module</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="c1">// 1. 启动一个绑定全局作用域的后台网络更新任务（即使超时也不会被取消，确保能落盘更新缓存）</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">remoteDeferred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">appScope</span><span class="p">.</span><span class="na">async</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><a href="#__codelineno-11-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="n">api</span><span class="p">.</span><span class="na">fetchDisplayConfig</span><span class="p">().</span><span class="na">also</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">localCache</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><a href="#__codelineno-11-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><a href="#__codelineno-11-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><a href="#__codelineno-11-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="c1">// 2. 当前调用方最多只挂起等待 1500ms：</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><a href="#__codelineno-11-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">    </span><span class="c1">//    - 1.5s 内回来，直接用最新远程配置；</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a><a href="#__codelineno-11-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="c1">//    - 超时返回 null，立刻降级读取本地磁盘缓存秒开页面！</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><a href="#__codelineno-11-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">withTimeoutOrNull</span><span class="p">(</span><span class="m">1500L</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a><a href="#__codelineno-11-11"><span class="linenos" data-linenos="11 "></span></a><span class="w">        </span><span class="n">remoteDeferred</span><span class="p">.</span><span class="na">await</span><span class="p">()</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a><a href="#__codelineno-11-12"><span class="linenos" data-linenos="12 "></span></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">localCache</span><span class="p">.</span><span class="na">read</span><span class="p">()</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a><a href="#__codelineno-11-13"><span class="linenos" data-linenos="13 "></span></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>6. 使用 <code>yield()</code> 让出线程占用</strong>  </p>
+<p>客户端痛点：客户端有时必须在主线程或有限线程池处理大型列表数据转换（如计算 5,000 条本地聊天记录的布局高度）。如果在 suspend 函数里写一个纯粹的 for 循环，即使它加了 suspend 关键字，也会连续霸占 CPU 几十毫秒导致丢帧（Jank）甚至无法响应用户取消。</p>
+<p>高级解法：在循环内部每隔一定步长调用标准库挂起函数 yield()。yield() 一方面会主动检查协程是否已被取消，另一方面会暂时让出当前线程执行权，让排在队列前面的 UI 渲染或高优先级触摸事件先执行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">processLargeMessagesOnMain</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&gt;</span><span class="p">):</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">UiItem</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">UiItem</span><span class="o">&gt;</span><span class="p">(</span><span class="n">messages</span><span class="p">.</span><span class="na">size</span><span class="p">)</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><a href="#__codelineno-12-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="w">    </span><span class="n">messages</span><span class="p">.</span><span class="na">forEachIndexed</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><a href="#__codelineno-12-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">        </span><span class="c1">// 每处理 100 条数据，主动让出一次线程时间片并响应取消状态，防止主线程掉帧</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><a href="#__codelineno-12-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><a href="#__codelineno-12-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="w">            </span><span class="n">yield</span><span class="p">()</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><a href="#__codelineno-12-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a><a href="#__codelineno-12-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="w">        </span><span class="n">result</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">convertToUiItem</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a><a href="#__codelineno-12-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a><a href="#__codelineno-12-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11"></a><a href="#__codelineno-12-11"><span class="linenos" data-linenos="11 "></span></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<p><em>参考</em>  </p>
+<p>[1] Open AIDoc. <a href="https://openaidoc.org/kotlin/composing-suspending-functions#structured-concurrency-with-async">组合挂起函数</a>. Accessed 2026-11-24.<br />
+[2] Time Fine. <a href="https://juejin.cn/post/7200641773428555832">Kotlin-协程(三)理解挂起函数</a>. 掘金, 2023-02-16.<br />
+[3] jzssuanfa. <a href="https://www.cnblogs.com/jzssuanfa/p/19801390">深入解析 Kotlin suspend 挂起函数：从概念到后端实践</a>. 博客园, 2026-03-31.</p>
 
 
 
