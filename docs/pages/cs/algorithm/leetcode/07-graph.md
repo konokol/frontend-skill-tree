@@ -154,58 +154,148 @@ class Solution {
 例如，先修课程对 `[0, 1]` 表示：想要学习课程 `0` ，你需要先完成课程 `1` 。
 请你判断是否可能完成所有课程的学习？如果可以，返回 `true` ；否则，返回 `false` 。
 
-**解法一** 广度优先拓扑排序
+**示例 1：**
 
-经典的拓扑排序算法，先构建每门课程完成后下一门可休课程的数组，即出度，同时记录每门课程先修的数量，即入度。  
-使用队列开始广度遍历，先找到前序课程为0的课，即入度为0，加入队列访问它。 
-然后访问其下一门课，将下一门课的入度减一，当下一门课的入度减为0后，加入队列。
+> 输入：numCourses = 2, prerequisites = [[1,0]]  
+> 输出：true  
+> 解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。
+
+**示例 2：**
+
+> 输入：numCourses = 2, prerequisites = [[1,0],[0,1]]  
+> 输出：false  
+> 解释：总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。  
+
+**提示：**
+
+- 1 <= numCourses <= 2000
+- 0 <= prerequisites.length <= 5000
+- prerequisites[i].length == 2
+- 0 <= ai, bi < numCourses
+- prerequisites[i] 中的所有课程对 互不相同
+
+**解法一** 广度优先
+
+经典的拓扑排序算法，构建有向图，判读是否成环，按照步骤：
+
+1. 先构建每门课程完成后下一门可修课程的数组，即出度，同时记录每门课程先修的数量，即入度
+2. 使用队列开始广度遍历，先找到前序课程为 0 的课（入度为0），加入队列访问它
+3. 然后访问其下一门课，将下一门课的入度减一，当下一门课的入度减为0后，加入队列
+
 重复上述过程，直到访问完所有入度为0的课，记录一共可以访问到多少节点。
 当访问的节点树和课程总数相同时，即所有的课程都可以修完。
 
-<details>
-  <summary>拓扑排序，广度优先</summary>
+时间复杂度：O(m + n)  
+空间复杂度：O(m + n)  
 
-  ```java
+<details>
+  <summary>广度优先</summary>
+
+```java
+class Solution {
+
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int[] prev = new int[numCourses]; // 入度数组
-        List[] nextList = new List[numCourses]; // 出度数组
-        for (int i = 0; i < prerequisites.length;i++) {
-            int course = prerequisites[i][1];
-            int nextCourse = prerequisites[i][0];
-            List<Integer> next = nextList[course];
-            if (next == null) {
-                next = new ArrayList<>();
-            }
-            prev[nextCourse]++; 
-            next.add(nextCourse);
-            nextList[course] = next;
+
+        int prev[] = new int[numCourses]; // 入度
+        List<Integer>[] nexts = new List[numCourses]; // 出度
+        Arrays.setAll(nexts, i -> new ArrayList<>());
+        for (int i = 0; i < prerequisites.length; i++) {
+            int u = prerequisites[i][1];
+            int v = prerequisites[i][0];
+            nexts[u].add(v);
+            prev[v]++;
         }
+
+        // 入度为 0 入队列，代表这门课没有先修课程
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < numCourses; i++) {
             if (prev[i] == 0) {
                 queue.offer(i);
             }
         }
+
         int count = 0;
-        while(!queue.isEmpty()) {
-            int course = queue.poll();
+        while (!queue.isEmpty()) {
+            // 上课
             count++;
-            List<Integer> nextCourses = nextList[course];
-            if (nextCourses != null) {
-                for (Integer next : nextCourses) {
-                    prev[next]--;
-                    if (prev[next] == 0) {
-                        queue.offer(next);
-                    }
+            int u = queue.poll();
+            List<Integer> next = nexts[u];
+            for (int v: next) {
+                // 入度减一，减掉一门已经完成的先修课程
+                prev[v]--;
+                if (prev[v] == 0) { // 入度为 0，即已经没有先修课程了
+                    queue.offer(v);
                 }
             }
         }
         return count == numCourses;
     }
-  ```
+}
+```
+
 </details>
 
 **解法二** 深度优先遍历
+
+深度优先遍历，采用三色标记法。先构建有向图，用数组 `visited` 记录每个节点的访问状态，分别是未访问(0)、访问中(1)、已访问(2)。对于每一个节点，dfs 刚开始标记成 1，结束是 2，如果在一次遍历过程中，遇到了 1 说明有环。
+
+时间复杂度：O(m + n)  
+空间复杂度：O(m + n)  
+
+<details>
+  <summary>广度优先</summary>
+
+```java
+class Solution {
+
+    private int[] visited;
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // 1.建图
+        List<Integer>[] graph = new List[numCourses];
+        for (int i = 0; i < prerequisites.length; i++) {
+            int u = prerequisites[i][1];
+            int v = prerequisites[i][0];
+            if (graph[u] == null) {
+                graph[u] = new ArrayList<>();
+            }
+            graph[u].add(v);
+        }
+
+        // 2.dfs 三色标记 0 未访问 1 访问中 2 已访问
+        visited = new int[numCourses];
+        for (int i = 0; i < visited.length; i++) {
+            if (visited[i] == 0) {
+                if (!dfs(graph, i)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean dfs(List<Integer>[] graph, int u) {
+        visited[u] = 1; // 标记已经开始访问
+        List<Integer> next = graph[u];
+        if (next != null) {
+            for (int v : next) {
+                if (visited[v] == 1) {
+                    return false;
+                }
+                if (visited[v] == 0) {
+                    if (!dfs(graph, v)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        visited[u] = 2; // 标记访问结束
+        return true;
+    }
+}
+```
+
+</details>
 
 ---
 
