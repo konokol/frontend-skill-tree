@@ -143,7 +143,7 @@ class Solution {
 
 </details>
 
-## [207. 课程表](https://leetcode.cn/problems/course-schedule/description)
+## [207. 课程表](https://leetcode.cn/problems/course-schedule)
 
 难度：⭐️⭐️⭐️
 
