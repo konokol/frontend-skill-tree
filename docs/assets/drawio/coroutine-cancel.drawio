@@ -1,0 +1,49 @@
+<mxfile host="65bd71144e">
+    <diagram id="coroutine-exception-propagation" name="异常传播路径">
+        <mxGraphModel dx="753" dy="338" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="500" background="#F7F7F7" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="node-root" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=1.5;fontFamily=Courier New;fontSize=15;fontColor=#222222;arcSize=15;" value="Root Scope / Parent Job" vertex="1">
+                    <mxGeometry height="36" width="280" x="120" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="node-child-b" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=1.5;fontFamily=Courier New;fontSize=15;fontColor=#222222;arcSize=15;" value="Child B" vertex="1">
+                    <mxGeometry height="36" width="100" x="120" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="node-child-a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=1.5;fontFamily=Courier New;fontSize=15;fontColor=#222222;arcSize=15;" value="Child A" vertex="1">
+                    <mxGeometry height="36" width="100" x="290" y="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="node-grandchild-a1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=1.5;fontFamily=Courier New;fontSize=15;fontColor=#222222;arcSize=15;" value="Grandchild A1" vertex="1">
+                    <mxGeometry height="36" width="150" x="265" y="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-1" edge="1" parent="1" source="node-child-a" style="endArrow=classic;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="node-grandchild-a1" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="label-1" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#222222;" value="2. 取消自身及下属所有孙协程" vertex="1">
+                    <mxGeometry height="30" width="210" x="355" y="213" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-2" edge="1" parent="1" source="node-child-a" style="endArrow=classic;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.5;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.785;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="node-root" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="label-2" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#222222;" value="1. 子协程 A 发生未捕获异常，向父汇报" vertex="1">
+                    <mxGeometry height="30" width="270" x="355" y="113" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-3" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.5;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="node-root" value="">
+                    <mxGeometry height="50" relative="1" width="50" as="geometry">
+                        <mxPoint x="460" y="78" as="sourcePoint"/>
+                        <mxPoint x="400" y="78" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="label-3" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#222222;" value="3. 父协程收到子异常，取消自己并继续向上冒泡" vertex="1">
+                    <mxGeometry height="30" width="320" x="465" y="63" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-4" edge="1" parent="1" source="node-root" style="endArrow=classic;html=1;rounded=0;strokeColor=#555555;strokeWidth=1.5;exitX=0.18;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="node-child-b" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="label-4" parent="1" style="text;html=1;align=right;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#222222;" value="4. 级联取消" vertex="1">
+                    <mxGeometry height="30" width="95" x="60" y="113" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

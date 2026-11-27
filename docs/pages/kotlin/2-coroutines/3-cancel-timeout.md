@@ -159,4 +159,5 @@ val profile = withTimeoutOrNull(2000L) {
 
 *参考*  
 
-[1] Open AIDoc. [取消](https://openaidoc.org/kotlin/coroutines-cancellation#cancel-coroutines). Accessed 2026-11-25.  
+[1] Kotlin. [Cancellation and timeouts](https://kotlinlang.org/docs/coroutines-cancellation.html). Accessed 2026-11-25.  
+[2] Open AIDoc. [取消](https://openaidoc.org/kotlin/coroutines-cancellation). Accessed 2026-11-25.  
