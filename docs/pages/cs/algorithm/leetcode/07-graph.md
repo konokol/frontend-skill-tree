@@ -1,6 +1,6 @@
 # 图论
 
-## [200.岛屿的数量](https://leetcode.cn/problems/number-of-islands)
+## [200.岛屿数量](https://leetcode.cn/problems/number-of-islands)
 
 难度：⭐️⭐️
 
@@ -10,14 +10,46 @@
 
 此外，你可以假设该网格的四条边均被水包围。
 
-**解法一** DFS
+**示例 1：**
+
+> 输入：grid = [  
+> ['1','1','1','1','0'],  
+> ['1','1','0','1','0'],  
+> ['1','1','0','0','0'],  
+> ['0','0','0','0','0']  
+>]
+>输出：1
+
+**示例 2：**
+
+> 输入：grid = [
+> ['1','1','0','0','0'],  
+> ['1','1','0','0','0'],  
+> ['0','0','1','0','0'],  
+> ['0','0','0','1','1']  
+>]
+>输出：3
+
+**提示：**
+
+- `m == grid.length`
+- `n == grid[i].length`
+- `1 <= m`, `n <= 300`
+- `grid[i][j]` 的值为 '0' 或 '1'
+
+**解法一** DFS 深度优先
 
 使用递归的解法，访问过的位置做标记，分别向上下左右4个方向递归访问。
+
+时间复杂度：O(mn)  
+空间复杂度：O(mn)  
 
 <details>
   <summary>DFS递归</summary>
 
-  ```java
+```java
+class Solution {
+
   public int numIslands(char[][] grid) {
         int count = 0;
         for (int i = 0; i < grid.length; i++) {
@@ -44,7 +76,71 @@
         dfs(grid, r + 1, c);
         dfs(grid, r, c - 1);
     }
-  ```
+}
+```
+
+</details>
+
+**解法二** BFS 广度优先
+
+和 DFS 类似，遍历到每个节点后，将这个节点的一圈都入队列。虽然时间复杂度和空间复杂度和空间复杂度都和 DFS 一样，因为存位置需要用int[]，实际会更慢一点。
+
+时间复杂度：O(mn)  
+空间复杂度：O(mn)  
+
+<details>
+  <summary>BFS</summary>
+
+```java
+class Solution {
+
+    private int[][] directions = new int[][] {
+        new int[] {-1, 0},
+        new int[] {0, -1},
+        new int[] {1, 0},
+        new int[] {0, 1},
+    };
+
+    public int numIslands(char[][] grid) {
+
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    count++;
+                    bfs(grid, i, j);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void bfs(char[][] grid, int x, int y) {
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[] {x, y});
+        grid[x][y] = '#';
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                int[] p = queue.poll();
+                for (int[] d : directions) {
+                    int r = p[0] - d[0];
+                    int c = p[1] - d[1];
+                    if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length) {
+                        continue;
+                    }
+                    if (grid[r][c] == '1') {
+                        queue.offer(new int[] {r, c});
+                        grid[r][c] = '#';
+                    }
+                }
+            }
+            
+        }
+    }
+}
+```
+
 </details>
 
 ## [207. 课程表](https://leetcode.cn/problems/course-schedule/description)
